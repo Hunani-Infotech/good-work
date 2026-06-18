@@ -1,0 +1,42 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Nav from './Nav';
+import SharePreviewBanner from '../ui/SharePreviewBanner';
+import { useSite } from '../../context/SiteContext';
+import { resetDocumentScrollState } from '../../animations/scrollRuntime.js';
+
+export default function Layout({ children, bodyClass = '' }) {
+  const { pathname } = useLocation();
+  const { site } = useSite();
+  const theme = site.site.theme || {};
+
+  useEffect(() => {
+    document.body.className = `body${bodyClass ? ` ${bodyClass}` : ''}`;
+    resetDocumentScrollState();
+  }, [pathname, bodyClass]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme.purple) root.style.setProperty('--brand-purple', theme.purple);
+    if (theme.orange) root.style.setProperty('--brand-orange', theme.orange);
+    if (theme.bgWarm) root.style.setProperty('--brand-bg-warm', theme.bgWarm);
+    if (theme.grey) root.style.setProperty('--brand-grey', theme.grey);
+    if (site.site.meta?.favicon) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = site.site.meta.favicon;
+    }
+  }, [theme, site.site.meta?.favicon]);
+
+  return (
+    <>
+      <SharePreviewBanner />
+      <Nav />
+      {children}
+    </>
+  );
+}

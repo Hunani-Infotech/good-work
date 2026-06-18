@@ -1,0 +1,339 @@
+/* Work page animation helpers */
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html.lenis-smooth body {
+  scroll-behavior: auto !important;
+}
+html.w-mod-ix3 .img-project,
+html.w-mod-ix3 .video-cont-p2,
+html.w-mod-ix3 .text-headline-work,
+html.w-mod-ix3 .folder-work {
+  visibility: visible;
+}
+
+html:not(.jm-ready) .section.work {
+  visibility: hidden;
+}
+
+html.jm-ready .section.work {
+  visibility: visible;
+}
+
+html.w-mod-js:not(.w-mod-ix3) :is(
+  .email-cta,
+  .section.footer,
+  .heading-cta,
+  .body-copy-cta,
+  .name-footer,
+  .cont-project-imgs > .cont-project-imgs,
+  .video-cont-p2,
+  .img-project,
+  .text-headline-work,
+  .folder-work
+) {
+  visibility: hidden !important;
+}
+
+.gsap_split_line {
+  display: block;
+  position: relative;
+}
+
+.gsap_split_word {
+  display: inline-block;
+  position: relative;
+}
+
+/* Indent headline line 2 past folder icon (desktop) */
+.header-work-copy .text-headline-work .gsap_split_line2 {
+  padding-left: 8.8vw;
+}
+
+.text-headline-work {
+  position: relative;
+  z-index: 2;
+}
+
+.folder-work {
+  z-index: 1;
+}
+
+@media screen and (max-width: 991px) {
+  .header-work-copy .text-headline-work .gsap_split_line2 {
+    padding-left: 0;
+  }
+}
+
+.text-headline-work .text-span-6 {
+  opacity: 1;
+}
+
+.main-project-wrapper {
+  scroll-margin-top: 6vh;
+}
+
+/* ── Mobile / tablet work page ── */
+@media screen and (max-width: 991px) {
+  .work-mobile-nav {
+    display: block;
+    position: sticky;
+    top: calc(3vw + 2.75rem);
+    z-index: 45;
+    width: 100%;
+    margin-bottom: 6vw;
+    padding: 0.35rem 0 0.75rem;
+    background: linear-gradient(
+      to bottom,
+      var(--_color---bg-grey) 0%,
+      var(--_color---bg-grey) 72%,
+      transparent 100%
+    );
+  }
+
+  .work-mobile-nav__list {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.25rem 4vw 0.5rem;
+    margin: 0;
+  }
+
+  .work-mobile-nav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .work-mobile-nav__item {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .work-mobile-nav__link {
+    opacity: 1;
+    height: auto;
+    min-height: 2.25rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--_color---grey);
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(81, 0, 102, 0.08);
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+  .work-mobile-nav__link.is-active,
+  .work-mobile-nav__link.w--current {
+    opacity: 1;
+    color: #fff;
+    background: var(--brand-purple);
+    border-color: var(--brand-purple);
+    margin-left: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    transform: scale(1.02);
+  }
+
+  .body.work .main-wrapper-work {
+    width: 100%;
+    padding: 0 4vw 12vw;
+    align-items: stretch;
+  }
+
+  .body.work .header-work-copy {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin-bottom: 2vw;
+    padding: 14vw 0 0;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .body.work .text-headline-work {
+    text-align: center;
+    font-size: clamp(2rem, 10vw, 3.75rem);
+    letter-spacing: -0.04em;
+  }
+
+  .body.work .folder-work {
+    position: relative;
+    inset: auto;
+    width: clamp(2.75rem, 12vw, 4rem);
+    margin-top: 1.25rem;
+    bottom: auto;
+    left: auto;
+  }
+
+  .body.work .cont-project-content {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    padding-left: 0;
+    gap: 0;
+  }
+
+  .body.work .main-project-wrapper {
+    width: 100%;
+    padding: 5vw 4vw 6vw;
+    margin-bottom: 10vw;
+    scroll-margin-top: calc(3vw + 6.5rem);
+  }
+
+  .body.work .content-project-info {
+    width: 100%;
+    margin-bottom: 5vw;
+  }
+
+  .body.work .content-project-info.first {
+    flex-flow: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .body.work .headline-project {
+    width: 100%;
+    font-size: clamp(1.35rem, 5.5vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .body.work .pill-year {
+    display: inline-flex;
+    position: relative;
+    font-size: 0.8125rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--brand-purple) 8%, white);
+    color: var(--brand-purple);
+  }
+
+  .body.work .dot-project {
+    display: none;
+  }
+
+  .body.work .cont-cta-work {
+    position: relative;
+    inset: auto;
+    align-self: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  .body.work .cont-project-imgs,
+  .body.work .cont-project-imgs.ampli {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    gap: 3vw;
+  }
+
+  .body.work .img-project,
+  .body.work .img-project.small,
+  .body.work .video-cont-p2,
+  .body.work .video-cont-p2.small {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .body.work .pill-service {
+    font-size: clamp(0.75rem, 3vw, 0.9375rem);
+    padding: 0.45rem 0.85rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .work-mobile-nav {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .work-mobile-nav {
+    top: calc(3vw + 2.5rem);
+    margin-bottom: 5vw;
+  }
+
+  .work-mobile-nav__list {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .body.work .section.work {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .body.work .main-wrapper-work {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-bottom: 22vw;
+  }
+
+  .body.work .header-work-copy {
+    padding-top: 16vw;
+    margin-bottom: 4vw;
+  }
+
+  .body.work .main-project-wrapper {
+    padding: 6vw 5vw 7vw;
+    margin-bottom: 12vw;
+    scroll-margin-top: calc(3vw + 7rem);
+  }
+
+  .body.work .cont-project-content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .work-mobile-nav__link {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .body.work .header-work-copy {
+    height: auto;
+    margin-bottom: 2vw;
+    padding-top: 18vw;
+  }
+
+  .body.work .text-headline-work {
+    font-size: clamp(1.75rem, 11vw, 2.75rem);
+  }
+
+  .body.work .main-project-wrapper {
+    padding-top: 8vw;
+    margin-bottom: 14vw;
+  }
+
+  .body.work .headline-project {
+    font-size: clamp(1.25rem, 6.5vw, 1.75rem);
+  }
+
+  .body.work .pill-service {
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+.link-wrapper-project.is-active .nav-dot:not(.off) {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.link-wrapper-project.is-active {
+  opacity: 1;
+}
+
+.img-project,
+.video-cont-p2 {
+  will-change: clip-path, transform, opacity;
+}
