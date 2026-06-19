@@ -364,8 +364,8 @@
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
-  height: 117vw;
-  padding-top: 13vw;
+  height: 85vw;
+  padding-top: 9vw;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -374,7 +374,7 @@
 .wrapper-cont-50 {
   z-index: 10;
   width: 50%;
-  margin-bottom: 10vw;
+  margin-bottom: 3vw;
   position: sticky;
   top: 0%;
 }
@@ -3369,9 +3369,8 @@
   }
 
   .click-scroll-section .click-scroll-height {
-    height: 168vw;
-    min-height: 155vh;
-    padding-top: 14vw;
+    height: 145vw;
+    padding-top: 10vw;
     overflow: visible;
   }
 
@@ -4093,9 +4092,8 @@
   }
 
   .click-scroll-section .click-scroll-height {
-    height: 155vw;
-    min-height: 140vh;
-    padding-top: 12vw;
+    height: 145vw;
+    padding-top: 10vw;
     overflow: visible;
   }
 
@@ -5450,7 +5448,7 @@ html.site-ready main > section {
 
 /* â”€â”€â”€ Narrative Section (Page 2) â”€â”€â”€ */
 .narrative-section {
-  padding: 8vw 0 6vw;
+  padding: 4vw 0 4vw;
 }
 
 .narrative-wrapper {
@@ -5509,7 +5507,7 @@ html.site-ready main > section {
     gap: 3vw;
   }
   .narrative-section {
-    padding: 12vw 0 8vw;
+    padding: 5vw 0 5vw;
   }
   .narrative-wrapper {
     gap: 5vw;
@@ -5525,7 +5523,7 @@ html.site-ready main > section {
     padding: 0.75rem 1.4rem;
   }
   .narrative-section {
-    padding: 14vw 0 10vw;
+    padding: 6vw 0 6vw;
   }
   .narrative-wrapper {
     width: 88vw;
@@ -5665,7 +5663,8 @@ html.site-ready main > section {
 .home-ticker-wrap {
   overflow: hidden;
   width: 100vw;
-  padding: 0.85rem 0;
+  margin-top: -2vw;
+  padding: 0.65rem 0;
   border-top: 1px solid color-mix(in srgb, var(--_color---grey) 10%, transparent);
   border-bottom: 1px solid color-mix(in srgb, var(--_color---grey) 10%, transparent);
   user-select: none;

@@ -1,3 +1,5 @@
+import HowItWorksFlowArt, { HOW_FLOW_PATH } from './HowItWorksFlowArt';
+
 const STEPS = [
   {
     number: '01',
@@ -28,20 +30,11 @@ const NODES = [
   { x: 350, y: 760 },
 ];
 
-const PATH_D = [
-  'M 500,0',
-  'C 500,80 350,140 350,200',
-  'C 350,260 500,320 500,380',
-  'C 500,420 650,440 650,480',
-  'C 650,520 500,560 500,640',
-  'C 500,700 350,700 350,760',
-  'C 350,820 500,880 500,920',
-  'C 500,940 500,960 500,960',
-].join(' ');
-
 export default function HowItWorks() {
   return (
     <section className="agency-how" id="how-it-works">
+      <HowItWorksFlowArt />
+
       <div className="agency-section__inner">
         <div className="agency-section__header">
           <span className="agency-tag">Simple process</span>
@@ -54,27 +47,28 @@ export default function HowItWorks() {
           <svg
             className="agency-how__svg"
             viewBox="0 0 1000 960"
-            preserveAspectRatio="none"
+            preserveAspectRatio="xMidYMid meet"
             aria-hidden="true"
           >
             <path
-              d={PATH_D}
+              d={HOW_FLOW_PATH}
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"
-              strokeOpacity="0.07"
+              strokeOpacity="0.06"
             />
             <path
               className="agency-how__path"
-              d={PATH_D}
+              d={HOW_FLOW_PATH}
               fill="none"
               stroke="var(--brand-orange, #f25828)"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
             {NODES.map((n, i) => (
               <g key={i} className={`agency-how__node agency-how__node--${i}`}>
-                <circle cx={n.x} cy={n.y} r="13" fill="var(--brand-orange, #f25828)" fillOpacity="0.1" />
+                <circle cx={n.x} cy={n.y} r="13" fill="var(--brand-orange, #f25828)" fillOpacity="0.12" />
                 <circle cx={n.x} cy={n.y} r="5" fill="var(--brand-orange, #f25828)" />
               </g>
             ))}

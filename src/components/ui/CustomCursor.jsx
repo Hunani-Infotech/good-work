@@ -43,27 +43,31 @@ export default function CustomCursor() {
       ring.classList.remove('is-hovering');
     }
 
-    const hoverSelectors = 'a, button, [role="button"], label, .folder-wrapper, .nav-link, .hero-cta-btn, .cta-button-wrapper, .template-card, .agency-btn-primary, .agency-btn-ghost';
+    const hoverSelectors = 'a, button, [role="button"], label, .folder-wrapper, .nav-link, .hero-cta-btn, .cta-button-wrapper, .template-card, .agency-btn-primary, .agency-btn-ghost, .template-picker-wrap, .template-picker__cta, .template-picker__dot';
 
-    function attachHovers() {
-      document.querySelectorAll(hoverSelectors).forEach((el) => {
-        el.addEventListener('mouseenter', onHoverIn);
-        el.addEventListener('mouseleave', onHoverOut);
-      });
+    function matchesHover(target) {
+      return target && target.closest(hoverSelectors);
+    }
+
+    function onMouseOver(e) {
+      if (matchesHover(e.target)) onHoverIn();
+    }
+
+    function onMouseOut(e) {
+      if (!matchesHover(e.target)) return;
+      if (!matchesHover(e.relatedTarget)) onHoverOut();
     }
 
     window.addEventListener('pointermove', onMove, { passive: true });
+    document.addEventListener('mouseover', onMouseOver, { passive: true });
+    document.addEventListener('mouseout', onMouseOut, { passive: true });
     raf = requestAnimationFrame(tick);
-    attachHovers();
-
-    /* Re-attach on DOM mutations (SPA navigation renders new elements) */
-    const observer = new MutationObserver(attachHovers);
-    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener('pointermove', onMove);
+      document.removeEventListener('mouseover', onMouseOver);
+      document.removeEventListener('mouseout', onMouseOut);
       cancelAnimationFrame(raf);
-      observer.disconnect();
     };
   }, []);
 

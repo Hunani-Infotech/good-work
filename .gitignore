@@ -33,6 +33,7 @@ Desktop.ini
 
 # Test / coverage
 coverage/
+scripts/mobile-test-output/
 
 # Cache
 .cache/

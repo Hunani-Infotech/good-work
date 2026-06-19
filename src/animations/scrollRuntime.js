@@ -41,18 +41,13 @@ export function initLenis(options = {}) {
   destroyLenis();
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const prefersNativeScroll =
-    options.forceNative ||
-    window.matchMedia('(pointer: coarse)').matches ||
-    window.matchMedia('(max-width: 991px)').matches;
-
-  if (prefersReduced || prefersNativeScroll) {
+  if (prefersReduced || options.forceNative) {
     setNativeScrollerProxy();
     return null;
   }
 
   lenis = new Lenis({
-    lerp: 0.12,
+    lerp: 0.1,
     wheelMultiplier: 1,
     gestureOrientation: 'vertical',
     smoothTouch: false,

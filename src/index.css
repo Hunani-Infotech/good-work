@@ -450,9 +450,8 @@
 /* Mobile: scroll runway + sticky copy for word color-fill (desktop unchanged) */
 @media (max-width: 991px) {
   .click-scroll-section .click-scroll-height {
-    height: 168vw;
-    min-height: 155vh;
-    padding-top: 14vw;
+    height: 145vw;
+    padding-top: 10vw;
     overflow: visible;
   }
 
@@ -471,9 +470,8 @@
 
 @media (max-width: 767px) {
   .click-scroll-section .click-scroll-height {
-    height: 155vw;
-    min-height: 140vh;
-    padding-top: 12vw;
+    height: 145vw;
+    padding-top: 10vw;
   }
 }
 
