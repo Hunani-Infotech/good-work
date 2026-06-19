@@ -46,7 +46,10 @@ export function initLenis(options = {}) {
     window.matchMedia('(pointer: coarse)').matches ||
     window.matchMedia('(max-width: 991px)').matches;
 
-  if (prefersReduced || prefersNativeScroll) return null;
+  if (prefersReduced || prefersNativeScroll) {
+    setNativeScrollerProxy();
+    return null;
+  }
 
   lenis = new Lenis({
     lerp: 0.12,

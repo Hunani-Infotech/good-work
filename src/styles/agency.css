@@ -3,6 +3,18 @@
    Palette: purple #510066 · orange #f25828 · warm #faf8f5 · grey #96908c
    ===================================================================== */
 
+html:not(.site-ready) .agency-nav,
+html:not(.site-ready) .agency-page main > *,
+html:not(.site-ready) .agency-page .agency-footer {
+  visibility: hidden;
+}
+
+html.site-ready .agency-nav,
+html.site-ready .agency-page main > *,
+html.site-ready .agency-page .agency-footer {
+  visibility: visible;
+}
+
 /* ── Agency Nav ── */
 .agency-nav {
   position: fixed;

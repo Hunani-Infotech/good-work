@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import Layout from '../components/layout/Layout';
-import SiteLoader from '../components/ui/SiteLoader';
 import WorkSidebarNav from '../components/work/WorkSidebarNav';
 import WorkMobileNav from '../components/work/WorkMobileNav';
 import WorkHeader from '../components/work/WorkHeader';
@@ -22,7 +21,6 @@ export default function WorkPage() {
   return (
     <Layout bodyClass="work">
       <main className="main">
-        <SiteLoader />
         <div className="blur work" />
         <section data-nav="grey" className="section work">
           <WorkSidebarNav />

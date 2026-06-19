@@ -447,6 +447,36 @@
   background: var(--_color---bg-warm);
 }
 
+/* Mobile: scroll runway + sticky copy for word color-fill (desktop unchanged) */
+@media (max-width: 991px) {
+  .click-scroll-section .click-scroll-height {
+    height: 168vw;
+    min-height: 155vh;
+    padding-top: 14vw;
+    overflow: visible;
+  }
+
+  .click-scroll-section .wrapper-cont-50 {
+    position: sticky;
+    top: 10vw;
+    margin-bottom: 0;
+    z-index: 10;
+  }
+
+  .click-scroll-section .wrapper-icons {
+    height: auto;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .click-scroll-section .click-scroll-height {
+    height: 155vw;
+    min-height: 140vh;
+    padding-top: 12vw;
+  }
+}
+
 .click-scroll-text .gsap_split_word {
   color: var(--theme-orange-200);
   will-change: color;
@@ -588,57 +618,35 @@
   display: block;
 }
 
-/* Work CTA — folder sits in typographic “o” gap between W and rk */
+/* Work CTA — folder locked to typographic “o” slot */
 .work-cta-wrapper {
   width: 100%;
   max-width: 100%;
 }
 
-.work-big-text {
-  justify-content: center !important;
-  gap: 0;
+.work-o-gap > .work-cta-content-wrapper {
+  transform: translateX(-50%) translateY(5vw);
 }
 
+.folder-wrapper--empty {
+  background: transparent;
+  border: 0;
+}
+
+/* Pre-GSAP fallback — matches initWorkCta() initial gsap.set values */
 .work-letter-w {
-  padding-left: 0 !important;
+  transform: translateX(6vw) scale(0.9) rotateX(18deg);
+  opacity: 0.28;
 }
 
 .work-letter-rk {
-  padding-right: 0 !important;
+  transform: translateX(-6vw) scale(0.9) rotateX(18deg);
+  opacity: 0.28;
 }
 
-.work-cta-o-slot {
-  position: relative;
-  flex: 0 0 auto;
-  align-self: flex-end;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  font-family: Goga, Arial, sans-serif;
-  font-size: 43vw;
-  font-weight: 600;
-  letter-spacing: -1vw;
-  line-height: 1;
-  pointer-events: none;
-}
-
-.work-o-spacer {
-  visibility: hidden;
-  display: block;
-  line-height: 1;
-  white-space: pre;
-  pointer-events: none;
-}
-
-.work-cta-o-slot .work-cta-content-wrapper {
-  position: absolute;
-  left: 50%;
-  bottom: var(--work-baseline, 10.5vw);
-  width: max-content;
-  max-width: 28vw;
-  pointer-events: none;
-  transform: none;
+.work-copy-line .work-word {
+  transform: translateY(115%) rotateX(-55deg);
+  opacity: 0;
 }
 
 /* Services — prevent title overlapping section headline */
@@ -750,7 +758,39 @@
   pointer-events: none;
 }
 
-.work-cta-o-slot .work-cta-content-wrapper .folder-wrapper {
+@media (max-width: 991px) {
+  .section.footer {
+    overflow: visible;
+  }
+
+  .section.footer .main-wrapper-footer {
+    overflow: visible;
+    width: 88vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    box-sizing: border-box;
+  }
+
+  .section.footer .wrapper-content-footer._2 {
+    width: 100%;
+    padding: 0 1vw;
+    box-sizing: border-box;
+  }
+
+  .section.footer .name-footer {
+    letter-spacing: -0.2vw;
+    min-width: 0;
+  }
+
+  .section.footer .name-footer:only-child {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    letter-spacing: -0.15vw;
+  }
+}
+
+.work-cta-content-wrapper .folder-wrapper {
   pointer-events: auto;
 }
 

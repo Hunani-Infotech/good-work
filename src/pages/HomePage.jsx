@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import Layout from '../components/layout/Layout';
-import SiteLoader from '../components/ui/SiteLoader';
 import HomeHero from '../components/home/HomeHero';
 import ClickScrollSection from '../components/home/ClickScrollSection';
 import NarrativeSection from '../components/home/NarrativeSection';
@@ -46,7 +45,6 @@ export default function HomePage() {
   return (
     <Layout>
       <main className="main">
-        <SiteLoader />
         <div className="top-glow">
           <div className="blur" />
         </div>

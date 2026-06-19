@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CustomEase } from 'gsap/CustomEase';
 import { initLenis, destroyLenis, resetDocumentScrollState } from './scrollRuntime.js';
+import { destroySiteLoader, initSiteLoader } from './loaderAnimations.js';
 
 let agencyRunId = 0;
 let agencyLiquidTl = null;
@@ -55,10 +56,11 @@ function createLiquidController(headline) {
 export function destroyAgencyAnimations() {
   agencyRunId += 1;
   resetLiquidFilter();
+  destroySiteLoader();
   gsap.killTweensOf('*');
   ScrollTrigger.getAll().forEach(function (t) { t.kill(); });
   destroyLenis();
-  resetDocumentScrollState();
+  resetDocumentScrollState({ keepSiteReady: true });
 }
 
 /* ── Word splitter ── */
@@ -82,8 +84,6 @@ function splitWords(el) {
 export function initAgencyAnimations() {
   destroyAgencyAnimations();
   var id = agencyRunId;
-
-  document.documentElement.classList.add('site-ready');
 
   gsap.registerPlugin(ScrollTrigger, CustomEase);
   CustomEase.create('osmo', '0.625, 0.05, 0, 1');
@@ -694,17 +694,23 @@ export function initAgencyAnimations() {
   }
 
   /* ── Boot ── */
-  initNav();
-  initAgencyHero();
-  initHowItWorks();
-  initTemplates();
-  initFeatures();
-  initAgencyCta();
+  return initSiteLoader({
+    prefersReduced,
+    isStale: function () { return id !== agencyRunId; },
+  }).then(function () {
+    if (id !== agencyRunId) return;
+    initNav();
+    initAgencyHero();
+    initHowItWorks();
+    initTemplates();
+    initFeatures();
+    initAgencyCta();
 
-  ScrollTrigger.refresh();
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () {
-      if (id === agencyRunId) ScrollTrigger.refresh();
-    });
-  }
+    ScrollTrigger.refresh();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        if (id === agencyRunId) ScrollTrigger.refresh();
+      });
+    }
+  });
 }

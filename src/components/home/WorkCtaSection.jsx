@@ -11,8 +11,8 @@ export default function WorkCtaSection() {
       <div className="work-cta-wrapper">
         <div className="work-big-text" aria-label="Work">
           <span className="work-letter work-letter-w">{workCta.bigText.w}</span>
-          <div className="work-cta-o-slot">
-            <span className="work-o-spacer" aria-hidden="true">
+          <span className="work-o-gap">
+            <span className="text-span-2" aria-hidden="true">
               o
             </span>
             <div className="work-cta-content-wrapper">
@@ -23,7 +23,11 @@ export default function WorkCtaSection() {
                   </span>
                 ))}
               </div>
-              <Link to="/work" className="folder-wrapper w-inline-block">
+              <Link
+                to="/work"
+                className={`folder-wrapper w-inline-block${folderFront ? '' : ' folder-wrapper--empty'}`}
+                aria-label="View my work"
+              >
                 {folderFront ? (
                   <>
                     <img src={folderFront} loading="lazy" alt="" className="front-folder" />
@@ -34,9 +38,7 @@ export default function WorkCtaSection() {
                       <img src={folderBack} loading="lazy" alt="" className="back-folder" />
                     ) : null}
                   </>
-                ) : (
-                  <span className="work-folder-label">Work</span>
-                )}
+                ) : null}
               </Link>
               <div className="body-copy work-copy-line work-copy-bottom">
                 {workCta.bottomWords.map((word) => (
@@ -46,7 +48,7 @@ export default function WorkCtaSection() {
                 ))}
               </div>
             </div>
-          </div>
+          </span>
           <span className="work-letter work-letter-rk">{workCta.bigText.rk}</span>
         </div>
       </div>

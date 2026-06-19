@@ -14,10 +14,10 @@ import {
   getScrollOffset,
 } from './scrollRuntime.js';
 import { initNavLinkHovers } from './navAnimations.js';
+import { destroySiteLoader, initSiteLoader } from './loaderAnimations.js';
 
 let resizeHandler = null;
 let runId = 0;
-let loaderTimeline = null;
 let navScrollTimer = null;
 let navCleanup = null;
 
@@ -31,19 +31,7 @@ export function destroyWorkAnimations() {
     navCleanup();
     navCleanup = null;
   }
-  if (loaderTimeline) {
-    loaderTimeline.kill();
-    loaderTimeline = null;
-  }
-  var loader = document.querySelector('.container-loader');
-  if (loader) {
-    gsap.killTweensOf([
-      loader,
-      loader.querySelector('.orange-intro'),
-      loader.querySelector('.grow-line'),
-      loader.querySelector('.loader-intro'),
-    ]);
-  }
+  destroySiteLoader();
   if (resizeHandler) {
     window.removeEventListener('resize', resizeHandler);
     resizeHandler = null;
@@ -243,57 +231,9 @@ export function initWorkAnimations() {
   }
 
   function initLoader() {
-    document.documentElement.classList.remove('site-ready');
-
-    var loader = document.querySelector('.container-loader');
-    if (!loader || prefersReduced) {
-      if (loader) loader.style.display = 'none';
-      document.documentElement.classList.add('site-ready');
-      return Promise.resolve();
-    }
-
-    var overlay = loader.querySelector('.orange-intro');
-    var line = loader.querySelector('.grow-line');
-    var intro = loader.querySelector('.loader-intro');
-
-    if (loaderTimeline) {
-      loaderTimeline.kill();
-      loaderTimeline = null;
-    }
-
-    gsap.killTweensOf([loader, overlay, line, intro]);
-    gsap.set(loader, { display: 'flex', opacity: 1 });
-    if (intro) gsap.set(intro, { opacity: 1, y: 0 });
-    if (overlay) gsap.set(overlay, { opacity: 1 });
-    if (!line) {
-      document.documentElement.classList.add('site-ready');
-      return Promise.resolve();
-    }
-    gsap.set(line, {
-      position: 'absolute', left: '50%', top: '50%',
-      xPercent: -50, yPercent: -50,
-      width: '2%', height: '1%', transformOrigin: '50% 50%'
-    });
-
-    return new Promise(function (resolve) {
-      loaderTimeline = gsap.timeline({
-        defaults: { ease: 'osmo' },
-        onComplete: function () {
-          if (id !== runId) {
-            resolve();
-            return;
-          }
-          loaderTimeline = null;
-          gsap.set(loader, { display: 'none' });
-          document.documentElement.classList.add('site-ready');
-          resolve();
-        }
-      })
-        .to({}, { duration: 0.4 })
-        .to(line, { width: '220vmax', height: '220vmax', duration: 1.1, ease: 'power3.inOut' }, 0.2)
-        .to(intro, { opacity: 0, y: -12, duration: 0.35 }, 0.55)
-        .to(overlay, { opacity: 0, duration: 0.45 }, 0.95)
-        .to(loader, { opacity: 0, duration: 0.3 }, 1.15);
+    return initSiteLoader({
+      prefersReduced,
+      isStale: function () { return id !== runId; },
     });
   }
 
@@ -390,6 +330,10 @@ export function initWorkAnimations() {
     var footer = document.querySelector('.section.footer');
     if (!ctaWrap) return;
 
+    var isMobileFooter = window.matchMedia('(max-width: 991px)').matches;
+    var footerStartY = isMobileFooter ? '-6vw' : '-19.72vw';
+    var nameFooterStartY = isMobileFooter ? 16 : 40;
+
     gsap.set(['.heading-cta', '.body-copy-cta', '.email-cta'], { visibility: 'visible' });
 
     if (prefersReduced) return;
@@ -424,28 +368,31 @@ export function initWorkAnimations() {
     }
 
     if (footer) {
-      gsap.set(footer, { visibility: 'visible' });
+      gsap.set(footer, { visibility: 'visible', y: footerStartY });
+      gsap.set('.name-footer', { visibility: 'visible' });
       gsap.fromTo(footer,
-        { y: '-19.72vw' },
+        { y: footerStartY },
         {
           y: '0vw', ease: 'none',
           scrollTrigger: {
             trigger: ctaWrap,
             start: 'center center',
             end: 'bottom top',
-            scrub: scrubSoft
+            scrub: scrubSoft,
+            invalidateOnRefresh: true
           }
         }
       );
       gsap.fromTo('.name-footer',
-        { y: 40, opacity: 0 },
+        { y: nameFooterStartY, opacity: 0 },
         {
           y: 0, opacity: 1, stagger: 0.08, ease: 'none',
           scrollTrigger: {
             trigger: footer,
-            start: 'top 95%',
-            end: 'top 70%',
-            scrub: scrubSoft
+            start: isMobileFooter ? 'top 92%' : 'top 95%',
+            end: isMobileFooter ? 'top 62%' : 'top 70%',
+            scrub: scrubSoft,
+            invalidateOnRefresh: true
           }
         }
       );

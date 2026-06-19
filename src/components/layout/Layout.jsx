@@ -13,7 +13,7 @@ export default function Layout({ children, bodyClass = '' }) {
 
   useEffect(() => {
     document.body.className = `body${bodyClass ? ` ${bodyClass}` : ''}`;
-    resetDocumentScrollState();
+    resetDocumentScrollState({ keepSiteReady: true });
   }, [pathname, bodyClass]);
 
   useEffect(() => {

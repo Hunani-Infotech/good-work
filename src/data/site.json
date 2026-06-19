@@ -74,9 +74,9 @@
       "arrowGreyOut": "",
       "checkMark": "/images/goodwork/tick-icon.svg",
       "videoPosterHome": "https://picsum.photos/seed/video-poster-home/800/450",
-      "folderFront": "",
-      "folderProjects": "",
-      "folderBack": ""
+      "folderFront": "https://juanmora.co/images/folder-icon-front.png",
+      "folderProjects": "https://juanmora.co/images/projects-folder.png",
+      "folderBack": "https://juanmora.co/images/folder-icon-back.png"
     }
   },
   "home": {
