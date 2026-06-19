@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174/)",
+      "Bash(node *)",
+      "Bash(npx vite *)",
+      "Bash(awk -F: '$2 < 3510 && $2 > 3400')",
+      "Skill(run)",
+      "Bash(grep -r \"step\\\\|Step\\\\|three\\\\|Three\\\\|career\\\\|Career\" src/data/ -l)",
+      "Bash(ls src/components/agency/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5179/)",
+      "Bash(curl -s http://localhost:5179/)",
+      "PowerShell(node -e $script 2>&1)",
+      "Bash(npx playwright *)"
+    ]
+  }
+}

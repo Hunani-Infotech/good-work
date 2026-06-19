@@ -23,7 +23,7 @@ export default function BenefitsSection() {
               <h2 className="h2-headline-step1-2">{step1.line2}</h2>
             </div>
             {step1.silhouette ? (
-              <img src={step1.silhouette} loading="lazy" sizes="100vw" alt="" className="jm-siluete-img" />
+              <img src={step1.silhouette} loading="lazy" sizes="100vw" alt="" className="about-silhouette-img" />
             ) : null}
             <div className="line step1" />
             <h2 className="h2-headline-step1-3">{step1.line3}</h2>
@@ -67,10 +67,10 @@ export default function BenefitsSection() {
             </div>
           </div>
           {step2.darkImage ? (
-            <img src={step2.darkImage} loading="lazy" sizes="100vw" alt="" className="dark-jm-img" />
+            <img src={step2.darkImage} loading="lazy" sizes="100vw" alt="" className="about-dark-img" />
           ) : null}
           {step2.lightImage ? (
-            <img src={step2.lightImage} loading="lazy" sizes="100vw" alt="" className="light-jm-img" />
+            <img src={step2.lightImage} loading="lazy" sizes="100vw" alt="" className="about-light-img" />
           ) : null}
           {(step2.darkImage || step2.lightImage) ? (
             <div className="benefits-bg-overlay" aria-hidden="true" />

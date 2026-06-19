@@ -3,7 +3,7 @@ import lottie from 'lottie-web';
 import gsap from 'gsap';
 
 function resolveLottiePath(src) {
-  if (!src) return '/documents/juan-name-mouse.json';
+  if (!src) return '/documents/goodwork-logo-style-01.json';
   if (src.startsWith('http')) return src;
   return src.startsWith('/') ? src : `/${src}`;
 }

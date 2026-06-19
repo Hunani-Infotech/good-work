@@ -8,7 +8,8 @@ export function useHomeAnimations() {
 
     const frame = window.requestAnimationFrame(() => {
       if (!active) return;
-      resetDocumentScrollState();
+      resetDocumentScrollState({ keepSiteReady: true });
+      document.documentElement.classList.remove('site-ready');
       initHomeAnimations();
     });
 

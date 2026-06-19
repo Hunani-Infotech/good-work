@@ -1,5 +1,5 @@
 /**
- * Juan Mora work.html — GSAP + ScrollTrigger + Lenis
+ * Good Work work page — GSAP + ScrollTrigger + Lenis
  */
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,6 +17,7 @@ import { initNavLinkHovers } from './navAnimations.js';
 
 let resizeHandler = null;
 let runId = 0;
+let loaderTimeline = null;
 let navScrollTimer = null;
 let navCleanup = null;
 
@@ -30,13 +31,26 @@ export function destroyWorkAnimations() {
     navCleanup();
     navCleanup = null;
   }
+  if (loaderTimeline) {
+    loaderTimeline.kill();
+    loaderTimeline = null;
+  }
+  var loader = document.querySelector('.container-loader');
+  if (loader) {
+    gsap.killTweensOf([
+      loader,
+      loader.querySelector('.orange-intro'),
+      loader.querySelector('.grow-line'),
+      loader.querySelector('.loader-intro'),
+    ]);
+  }
   if (resizeHandler) {
     window.removeEventListener('resize', resizeHandler);
     resizeHandler = null;
   }
   ScrollTrigger.getAll().forEach(function (t) { t.kill(); });
   destroyLenis();
-  resetDocumentScrollState();
+  resetDocumentScrollState({ keepSiteReady: true });
   var headline = document.querySelector('.text-headline-work');
   if (headline && headline.dataset.gsapSplit) {
     delete headline.dataset.gsapSplit;
@@ -229,17 +243,32 @@ export function initWorkAnimations() {
   }
 
   function initLoader() {
+    document.documentElement.classList.remove('site-ready');
+
     var loader = document.querySelector('.container-loader');
     if (!loader || prefersReduced) {
       if (loader) loader.style.display = 'none';
-      document.documentElement.classList.add('jm-ready');
+      document.documentElement.classList.add('site-ready');
       return Promise.resolve();
     }
 
     var overlay = loader.querySelector('.orange-intro');
     var line = loader.querySelector('.grow-line');
-    var intro = loader.querySelector('.cont-juan-intro');
+    var intro = loader.querySelector('.loader-intro');
 
+    if (loaderTimeline) {
+      loaderTimeline.kill();
+      loaderTimeline = null;
+    }
+
+    gsap.killTweensOf([loader, overlay, line, intro]);
+    gsap.set(loader, { display: 'flex', opacity: 1 });
+    if (intro) gsap.set(intro, { opacity: 1, y: 0 });
+    if (overlay) gsap.set(overlay, { opacity: 1 });
+    if (!line) {
+      document.documentElement.classList.add('site-ready');
+      return Promise.resolve();
+    }
     gsap.set(line, {
       position: 'absolute', left: '50%', top: '50%',
       xPercent: -50, yPercent: -50,
@@ -247,11 +276,16 @@ export function initWorkAnimations() {
     });
 
     return new Promise(function (resolve) {
-      gsap.timeline({
+      loaderTimeline = gsap.timeline({
         defaults: { ease: 'osmo' },
         onComplete: function () {
+          if (id !== runId) {
+            resolve();
+            return;
+          }
+          loaderTimeline = null;
           gsap.set(loader, { display: 'none' });
-          document.documentElement.classList.add('jm-ready');
+          document.documentElement.classList.add('site-ready');
           resolve();
         }
       })
@@ -453,13 +487,13 @@ export function initWorkAnimations() {
     btn.addEventListener('mouseleave', function () { hoverTl.reverse(); });
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      navigator.clipboard.writeText('juan@morable.co');
+      navigator.clipboard.writeText('hello@goodwork.asia');
     });
   }
 
   function initNavTheme() {
     var sections = document.querySelectorAll('[data-nav]');
-    var navEls = document.querySelectorAll('.nav-name-jm, .nav-link-mobile, .nav-link, .nav-social-link');
+    var navEls = document.querySelectorAll('.nav-brand-name, .nav-link-mobile, .nav-link, .nav-social-link');
     if (!sections.length) return;
 
     var observer = new IntersectionObserver(function (entries) {
@@ -509,11 +543,6 @@ export function initWorkAnimations() {
   }
 
   document.documentElement.classList.add('w-mod-ix3');
-  initNavTheme();
-  initNavLinkHovers();
-  initCtaHovers();
-  initMainCtaHover();
-  initLazyVideos();
 
   resizeHandler = function () {
     refreshScrollTriggers();
@@ -522,6 +551,11 @@ export function initWorkAnimations() {
 
   return initLoader().then(function () {
     if (id !== runId) return;
+    initNavTheme();
+    initNavLinkHovers();
+    initCtaHovers();
+    initMainCtaHover();
+    initLazyVideos();
     initScrollAnimations();
     refreshScrollTriggers();
   });

@@ -4,10 +4,13 @@ import { useSite } from '../../context/SiteContext';
 export default function ClickScrollSection() {
   const { site } = useSite();
   const { clickScroll } = site.home;
-  const suffix = clickScroll.suffix ?? 'my designs';
+  const suffix = clickScroll.suffix ?? 'to explore';
+
+  const shapes = (clickScroll.shapes || []).filter((shape) => shape.src);
+  const hasMedia = clickScroll.lottie || shapes.length;
 
   return (
-    <section data-nav="grey" className="section">
+    <section data-nav="grey" className="section click-scroll-section">
       <div className="click-scroll-height">
         <div className="wrapper-cont-50">
           <h1 className="click-scroll-text">
@@ -22,37 +25,17 @@ export default function ClickScrollSection() {
               </>
             ) : null}
             <span className="click-scroll-row">
-              <span className="click-scroll-inline-slot">
-                <span className="click-scroll-spacer" aria-hidden="true">
-                  {clickScroll.clickWord}
-                </span>
-                <div className="cont-click">
-                  <div className="cont-hover-click" />
-                  <div className="click-hover-huh">
-                    {clickScroll.hoverWord}
-                    <br />
-                  </div>
-                  <div className="click">{clickScroll.clickWord}</div>
-                </div>
-              </span>
-              {'\u00A0'}and{' '}
-              <span className="click-scroll-inline-slot">
-                <span className="click-scroll-spacer text-span" aria-hidden="true">
-                  {clickScroll.highlightWord}
-                </span>
-                <div className="scroll">{clickScroll.scrollWord}</div>
-              </span>
-              {suffix ? <> {'\u00A0'}{suffix}</> : null}
+              {clickScroll.scrollWord}
+              {suffix ? <>{'\u00A0'}{suffix}</> : null}
             </span>
           </h1>
         </div>
-        <div className="wrapper-icons">
-          {clickScroll.lottie ? (
-            <LottieEmbed src={clickScroll.lottie} className="ll-scroll" />
-          ) : null}
-          {clickScroll.shapes
-            .filter((shape) => shape.src)
-            .map((shape) => (
+        {hasMedia ? (
+          <div className="wrapper-icons" aria-hidden="true">
+            {clickScroll.lottie ? (
+              <LottieEmbed src={clickScroll.lottie} className="ll-scroll" />
+            ) : null}
+            {shapes.map((shape) => (
               <img
                 key={shape.className}
                 src={shape.src}
@@ -62,7 +45,8 @@ export default function ClickScrollSection() {
                 className={shape.className}
               />
             ))}
-        </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -8,7 +8,8 @@ export function useWorkAnimations() {
 
     const frame = window.requestAnimationFrame(() => {
       if (!active) return;
-      resetDocumentScrollState();
+      resetDocumentScrollState({ keepSiteReady: true });
+      document.documentElement.classList.remove('site-ready');
       initWorkAnimations();
     });
 

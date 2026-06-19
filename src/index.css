@@ -44,7 +44,14 @@
   width: auto;
 }
 
-.hero-profile-photo {
+.loader-lottie {
+  width: clamp(3.5rem, 10vw, 5.5rem);
+  height: clamp(3.5rem, 10vw, 5.5rem);
+  margin-top: 0;
+}
+
+/* Profile photo — legacy layouts only (hero-goodwork uses site.css) */
+.wrapper-hero:not(.hero-goodwork) .hero-profile-photo {
   width: min(40vw, 12rem);
   margin: 0 auto 1.5rem;
   transform: rotate(-3deg);
@@ -53,7 +60,7 @@
   box-shadow: 0 1rem 2rem rgba(81, 0, 102, 0.12);
 }
 
-.hero-profile-photo img {
+.wrapper-hero:not(.hero-goodwork) .hero-profile-photo img {
   width: 100%;
   height: auto;
   display: block;
@@ -83,12 +90,14 @@
 
 .hero-brand-logo {
   width: min(70vw, 20rem);
+  max-height: min(28vh, 20rem);
   height: auto;
   display: block;
   margin: 0 auto;
+  object-fit: contain;
 }
 
-/* GoodWork hero — warm brand panel, no Juan desk photo */
+/* GoodWork hero — warm brand panel */
 .hero-goodwork .img-hero-wrapper {
   background-image: linear-gradient(
     145deg,
@@ -107,9 +116,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: clamp(1rem, 3vw, 2rem);
-  min-height: 88vh;
-  padding: clamp(5rem, 12vw, 8rem) 1.5rem 3rem;
+  gap: clamp(0.4rem, 1vw, 0.9rem);
+  padding: clamp(1rem, 3vw, 3rem) 1.5rem clamp(0.5rem, 1vw, 1.5rem);
 }
 
 .hero-goodwork .hero-brand-block {
@@ -118,12 +126,17 @@
   align-items: center;
   gap: 0.75rem;
   width: 100%;
+  flex-shrink: 1;
+  min-height: 0;
 }
 
 .hero-goodwork .hero-brand-lottie {
   width: min(72vw, 22rem);
+  max-height: min(28vh, 22rem);
   aspect-ratio: 1;
   margin: 0 auto;
+  flex-shrink: 1;
+  min-height: 0;
 }
 
 .hero-goodwork .hero-role {
@@ -138,21 +151,21 @@
 .hero-goodwork .hero-top,
 .hero-goodwork .hero-heading {
   width: 100%;
-  max-width: 46rem;
+  max-width: 28rem;
   margin: 0 auto;
   text-align: center;
 }
 
 .hero-goodwork .hero-heading {
   color: #fff;
-  font-size: clamp(1.75rem, 4.2vw, 3.25rem);
-  line-height: 1.08;
+  font-size: clamp(1.85rem, 3.8vw, 3rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
 .hero-goodwork .hero-statement {
   color: rgba(255, 255, 255, 0.82);
-  max-width: 38rem;
+  max-width: 36ch;
 }
 
 .hero-goodwork .hero-heading {
@@ -426,7 +439,16 @@
 }
 
 .service-headline .gsap_split_word {
-  color: var(--_color---orange1);
+  color: var(--theme-orange-200);
+  will-change: color;
+}
+
+.click-scroll-section {
+  background: var(--_color---bg-warm);
+}
+
+.click-scroll-text .gsap_split_word {
+  color: var(--theme-orange-200);
   will-change: color;
 }
 
@@ -469,7 +491,7 @@
   margin-right: 0;
 }
 
-/* Hero — legacy Juan lottie (unused when hero-goodwork active) */
+/* Hero — legacy name lottie (unused when hero-goodwork active) */
 .hero-bottom {
   overflow: visible;
   align-items: center !important;

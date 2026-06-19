@@ -15,59 +15,59 @@
       "liveUrl": "https://ampli.net/",
       "liveCtaLabel": "See it live",
       "navLabel": "Top Trader",
-      "navThumb": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
+      "navThumb": "https://picsum.photos/seed/gw-asset-1/900/1200",
       "galleryLayoutClass": "ampli",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-cover.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-2/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-3/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-4/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-5/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-8.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-6/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-7.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-7/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-10.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-8/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/ampli-juan-mora-11.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-9/900/1200",
           "variant": "default"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/logo-ampli-blue-juan-mora.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-ampli3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-10/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-11/900/1200",
           "variant": "default"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/logo-ampli-icon-juan-mora.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-ampli4.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-12/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-13/900/1200",
           "variant": "default"
         }
       ]
@@ -92,57 +92,57 @@
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-14/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-15/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-16/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-5.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-17/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-4.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-18/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-6.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-19/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-7.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-20/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-8.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-21/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-9.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-22/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-10.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-23/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/top-trader-juan-mora-11.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-24/900/1200",
           "variant": "default"
         }
       ]
@@ -162,28 +162,28 @@
       "liveUrl": "https://maps.google.com/localguides/",
       "liveCtaLabel": "See it live",
       "navLabel": "Google Maps",
-      "navThumb": "https://juanmora.co/images/local-guides-google-maps-juan-mora-1.jpg",
+      "navThumb": "https://picsum.photos/seed/gw-asset-25/900/1200",
       "galleryLayoutClass": "maps",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/local-guides-google-maps-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-26/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/local-guides-google-maps-juan-mora-6.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-27/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/local-guides-google-maps-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-28/900/1200",
           "variant": "small"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/local-guides-google-maps-juan-mora-1.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-local2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-29/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-30/900/1200",
           "variant": "default"
         }
       ]
@@ -203,28 +203,28 @@
       "liveUrl": "https://apechain.com/portal#bridge",
       "liveCtaLabel": "See it live",
       "navLabel": "Ape Chain",
-      "navThumb": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
+      "navThumb": "https://picsum.photos/seed/gw-asset-31/900/1200",
       "galleryLayoutClass": "ape",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/apechain-apeportal-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-32/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/apechain-apeportal-juan-mora-2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-33/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/apechain-apeportal-juan-mora-5.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-34/900/1200",
           "variant": "default"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/ape-chain-holo.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-apechain2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-35/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-36/900/1200",
           "variant": "default"
         }
       ]
@@ -244,53 +244,53 @@
       "liveUrl": null,
       "liveCtaLabel": null,
       "navLabel": "Alena App",
-      "navThumb": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
+      "navThumb": "https://picsum.photos/seed/gw-asset-37/900/1200",
       "galleryLayoutClass": "alena",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-1.webp",
+          "src": "https://picsum.photos/seed/gw-asset-38/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-2.webp",
+          "src": "https://picsum.photos/seed/gw-asset-39/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
+          "src": "https://picsum.photos/seed/gw-asset-40/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-4.webp",
+          "src": "https://picsum.photos/seed/gw-asset-41/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-5.webp",
+          "src": "https://picsum.photos/seed/gw-asset-42/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-8.webp",
+          "src": "https://picsum.photos/seed/gw-asset-43/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-10.webp",
+          "src": "https://picsum.photos/seed/gw-asset-44/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/alena-app-design-juan-mora-11.webp",
+          "src": "https://picsum.photos/seed/gw-asset-45/900/1200",
           "variant": "default"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/alena-app-design-juan-mora.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-alena2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-46/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-47/900/1200",
           "variant": "default"
         }
       ]
@@ -310,22 +310,22 @@
       "liveUrl": "https://ai.google/our-ai-journey/?section=intro",
       "liveCtaLabel": "See it live",
       "navLabel": "Google AI",
-      "navThumb": "https://juanmora.co/images/google-ai-timeline-juan-mora-2.jpg",
+      "navThumb": "https://picsum.photos/seed/gw-asset-48/900/1200",
       "galleryLayoutClass": "ai-google",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Google-ai-timeline-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-49/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/google-ai-timeline-juan-mora-2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-50/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/google-ai-timeline-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-51/900/1200",
           "variant": "default"
         }
       ]
@@ -345,33 +345,33 @@
       "liveUrl": null,
       "liveCtaLabel": null,
       "navLabel": "Yuga Labs",
-      "navThumb": "https://juanmora.co/images/yuga-otherside-juan-mora-1.jpg",
+      "navThumb": "https://picsum.photos/seed/gw-asset-52/900/1200",
       "galleryLayoutClass": "mara",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/yuga-otherside-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-53/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/yuga-otherside-juan-mora-4.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-54/900/1200",
           "variant": "hide"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/yuga-otherside-juan-mora-5.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-55/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/yuga-otherside-juan-mora-11.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-56/900/1200",
           "variant": "default"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/loot.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-yuga2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-57/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-58/900/1200",
           "variant": "default"
         }
       ]
@@ -390,37 +390,37 @@
       "liveUrl": null,
       "liveCtaLabel": null,
       "navLabel": "CryptoPunks",
-      "navThumb": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-6.jpg",
+      "navThumb": "https://picsum.photos/seed/gw-asset-59/900/1200",
       "galleryLayoutClass": "cryptopunks",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-60/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-61/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-4.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-62/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-5.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-63/900/1200",
           "variant": "small"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-6.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-64/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-7.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-65/900/1200",
           "variant": "hide"
         }
       ]
@@ -439,27 +439,27 @@
       "liveUrl": null,
       "liveCtaLabel": null,
       "navLabel": "Google Photos",
-      "navThumb": "https://juanmora.co/images/google-photos-design-juan-mora-4.png",
+      "navThumb": "https://picsum.photos/seed/gw-asset-66/900/1200",
       "galleryLayoutClass": "photos",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/google-photos-design-juan-mora-2.png",
+          "src": "https://picsum.photos/seed/gw-asset-67/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/google-photos-design-juan-mora-6.png",
+          "src": "https://picsum.photos/seed/gw-asset-68/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/google-photos-design-juan-mora-7.png",
+          "src": "https://picsum.photos/seed/gw-asset-69/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/google-photos-design-juan-mora-4.png",
+          "src": "https://picsum.photos/seed/gw-asset-70/900/1200",
           "variant": "default"
         }
       ]
@@ -478,32 +478,32 @@
       "liveUrl": null,
       "liveCtaLabel": null,
       "navLabel": "Google Shopping",
-      "navThumb": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora4.jpg",
+      "navThumb": "https://picsum.photos/seed/gw-asset-71/900/1200",
       "galleryLayoutClass": "rappi",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-72/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-73/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Rappi-credit-card-thor-juan-mora.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-74/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-75/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-4.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-76/900/1200",
           "variant": "default"
         }
       ]
@@ -527,17 +527,17 @@
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-77/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-78/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora3-1.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-79/900/1200",
           "variant": "default"
         }
       ]
@@ -558,28 +558,28 @@
       "liveUrl": "https://www.youtube.com/watch?v=tVG9puVcNn4",
       "liveCtaLabel": "See it live",
       "navLabel": "Google AR",
-      "navThumb": "https://juanmora.co/images/Dino-runner-juan-mora-1.png",
+      "navThumb": "https://picsum.photos/seed/gw-asset-80/900/1200",
       "galleryLayoutClass": "dino",
       "media": [
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Dino-runner-juan-mora-1.png",
+          "src": "https://picsum.photos/seed/gw-asset-81/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Dino-runner-juan-mora-2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-82/900/1200",
           "variant": "default"
         },
         {
           "type": "image",
-          "src": "https://juanmora.co/images/Dino-runner-juan-mora-3.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-83/900/1200",
           "variant": "default"
         },
         {
           "type": "video",
-          "src": "https://juanmora.co/videos-work/dino-runner.mp4",
-          "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-dino2.jpg",
+          "src": "https://picsum.photos/seed/gw-asset-84/900/1200",
+          "poster": "https://picsum.photos/seed/gw-asset-85/900/1200",
           "variant": "default"
         }
       ]

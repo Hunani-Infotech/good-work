@@ -49,7 +49,7 @@
         "Lottie",
         "Lenis Scroll"
       ],
-      "tagline": "Senior Mobile App Developer",
+      "tagline": "Project Lead Developer",
       "year": "2026",
       "studio": "GoodWork",
       "studioNote": "",
@@ -70,26 +70,35 @@
       "loaderLottie": "/documents/loading-style-01.json",
       "navLottie": "/documents/loading-style-01.json",
       "heroLottie": "/documents/goodwork-logo-style-01.json",
-      "arrowGrey": "https://juanmora.co/images/arrow-grey.svg",
-      "arrowGreyOut": "https://juanmora.co/images/arrow-grey-out.svg",
+      "arrowGrey": "",
+      "arrowGreyOut": "",
       "checkMark": "/images/goodwork/tick-icon.svg",
-      "videoPosterHome": "https://juanmora.co/videos-work/juan-video-loading.jpg",
-      "folderFront": "https://juanmora.co/images/folder-icon-front.png",
-      "folderProjects": "https://juanmora.co/images/projects-folder.png",
-      "folderBack": "https://juanmora.co/images/folder-icon-back.png"
+      "videoPosterHome": "https://picsum.photos/seed/video-poster-home/800/450",
+      "folderFront": "",
+      "folderProjects": "",
+      "folderBack": ""
     }
   },
   "home": {
     "hero": {
-      "heading": "Seamless native &\ncross-platform mobile solutions",
-      "subtitle": "Senior Mobile App Developer",
-      "profilePhoto": "",
-      "heroStatement": "From Bluetooth hardware integration to offline-first sync, I architect mobile apps that make complex workflows simple for end-users.",
+      "heading": "Seamless native &\ncross-platform mobile apps.",
+      "subtitle": "Senior Mobile Developer",
+      "profilePhoto": "https://randomuser.me/api/portraits/men/47.jpg",
+      "heroStatement": "I build resilient apps that integrate hardware, work offline, and feel intuitive for end-users.",
       "lottie": "/documents/goodwork-logo-style-01.json",
       "videoCv": {
-        "src": "",
-        "poster": ""
+        "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        "poster": "https://picsum.photos/seed/video-cv-sanjay/800/450",
+        "link": "https://goodwork.asia"
       }
+    },
+    "narrative": {
+      "tag": "Professional Background",
+      "paragraphs": [
+        "I believe the best mobile apps do not just look good—they seamlessly connect the physical and digital worlds to solve real human problems. My drive is rooted in building resilient software that works flawlessly, whether you are online, offline, or connected to external hardware.",
+        "Over the past 4.5+ years, my career has evolved from prototyping basic Android features to architecting cross-platform systems using Flutter and Dart. My deep foundation in Kotlin and modern toolkits like Jetpack Compose gives me a unique edge in bridging the gap between native performance and cross-platform agility.",
+        "Today, as a Senior Mobile App Developer, I partner with forward-thinking tech companies to deliver robust Android and iOS applications. I bring technical leadership, advanced API integration capabilities, and an unyielding commitment to shipping products that drive tangible business growth."
+      ]
     },
     "clickScroll": {
       "lines": [
@@ -98,27 +107,123 @@
         "mobile solutions"
       ],
       "highlightWord": "scroll",
-      "hoverWord": "Curious?",
-      "clickWord": "click",
+      "hoverWord": "",
+      "clickWord": "",
       "scrollWord": "scroll",
-      "suffix": "my designs",
+      "suffix": "to explore",
       "lottie": "",
       "shapes": []
     },
     "services": {
-      "tag": "Design Expert",
-      "headline": "I help companies to succeed on projects like:",
+      "tag": "Capabilities & Skills",
+      "headline": "I help companies solve problems like:",
       "items": [
         {
-          "id": "capabilities",
+          "id": "mobile-engineering",
           "title": "Mobile engineering",
           "description": "Led an Android development team to deliver and maintain multiple large-scale software projects, improving development velocity by modularizing legacy codebases into modern architectural standards.",
           "media": [
-            { "type": "image", "src": "https://juanmora.co/images/ampli-juan-mora-cover.jpg" },
-            { "type": "video", "src": "https://juanmora.co/videos-work/home/home-ampli.mp4" },
-            { "type": "image", "src": "https://juanmora.co/images/top-trader-juan-mora-1.jpg" },
-            { "type": "video", "src": "https://juanmora.co/videos-work/home/home-shopping.mp4" },
-            { "type": "image", "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora4.jpg" }
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/android-team1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/android-team2/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/mobile-ui1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/kotlin-dev1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/android-ui2/900/1200"
+            }
+          ]
+        },
+        {
+          "id": "pos-ticketing",
+          "title": "Transport & POS systems",
+          "description": "Deployed a scalable POS Bus Ticketing Solution across 4 major metropolitan areas by integrating custom SDKs and core Java SQLite databases, enabling real-time fare calculations and automated reporting.",
+          "media": [
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/pos-system1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/transit-kl1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/bus-tech1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/sqlite-pos/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/fare-calc1/900/1200"
+            }
+          ]
+        },
+        {
+          "id": "bluetooth-hardware",
+          "title": "Hardware integration",
+          "description": "Engineered a cross-platform dairy management application deployed on Play Store and App Store, eliminating manual entry by integrating Bluetooth sockets with external DPU hardware.",
+          "media": [
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/bluetooth-hw1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/flutter-app1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/dpu-device1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/crossplatform1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/playstore1/900/1200"
+            }
+          ]
+        },
+        {
+          "id": "offline-first",
+          "title": "Offline-first architecture",
+          "description": "Ensured zero data loss during network outages by designing an offline-first data storage system using SQLite, enabling seamless asynchronous cloud synchronization upon network restoration.",
+          "media": [
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/offline-arch1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/cloud-sync1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/sqlite-db1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/network-res1/900/1200"
+            },
+            {
+              "type": "image",
+              "src": "https://picsum.photos/seed/async-sync1/900/1200"
+            }
           ]
         }
       ]
@@ -142,31 +247,87 @@
     },
     "benefits": {
       "step1": {
-        "line1": "Good design",
-        "line2": "takes time",
-        "line3": "and working with me saves it",
-        "silhouette": "https://juanmora.co/images/home-about-jm-2-p-1600.png",
+        "line1": "Mobile apps",
+        "line2": "that work.",
+        "line3": "online, offline, or wired to hardware",
+        "silhouette": "",
         "backgroundImage": "/images/landing/merdeka-118.jpg"
       },
       "step2": {
-        "headline1": "Companies partner with me because of my",
-        "headline2": "perspective +<br>sharp instincts",
+        "headline1": "Partners choose me for my",
+        "headline2": "technical<br>leadership",
         "bullets": [
-          "I bring a premium and unique visual direction that makes your brand stand out.",
-          "I care about the craft, from concept to final product.",
-          "I define scalable design systems that keep your brand consistent.",
-          "I align your goals with my experience to make the right design decisions for your brand."
+          "Led an Android development team to deliver multiple large-scale software projects, improving velocity by modularizing legacy codebases into modern architectural standards.",
+          "Deployed a scalable POS Bus Ticketing Solution across 4 major metropolitan areas with custom SDKs and SQLite, enabling real-time fare calculations and automated reporting.",
+          "Engineered a cross-platform dairy management app on Play Store and App Store, eliminating manual entry by integrating Bluetooth sockets with external DPU hardware.",
+          "Ensured zero data loss during network outages by designing an offline-first SQLite storage system with seamless asynchronous cloud synchronization upon restoration."
         ],
-        "ctaLabel": "Learn more about me",
+        "ctaLabel": "Let's Connect",
         "darkImage": "/images/landing/malaysian-youth.jpg",
         "lightImage": "/images/landing/merdeka-118.jpg"
       }
     },
     "cta": {
-      "headline": "Let's build something people remember",
-      "subheadline": "from global tech companies to growing startups.",
-      "buttonLabel": "Let's talk",
+      "headline": "Ready to build something resilient?",
+      "subheadline": "from Android to cross-platform — let's architect it right.",
+      "buttonLabel": "Let's Connect",
       "tooltip": "Email Sanjay"
+    },
+    "expertise": {
+      "tag": "Tech Stack & Skills",
+      "headline": "Tools I build with",
+      "categories": [
+        {
+          "name": "Mobile",
+          "skills": [
+            "Android Native",
+            "Flutter / Dart",
+            "Kotlin",
+            "Java",
+            "Jetpack Compose"
+          ]
+        },
+        {
+          "name": "Architecture",
+          "skills": [
+            "MVVM",
+            "Clean Architecture",
+            "Modular Design",
+            "Offline-First",
+            "REST APIs"
+          ]
+        },
+        {
+          "name": "Data & Sync",
+          "skills": [
+            "SQLite",
+            "Room DB",
+            "Cloud Sync",
+            "Background Workers",
+            "Async Patterns"
+          ]
+        },
+        {
+          "name": "Hardware & IoT",
+          "skills": [
+            "Bluetooth SDK",
+            "DPU Integration",
+            "POS Systems",
+            "Custom SDKs",
+            "Socket Comms"
+          ]
+        },
+        {
+          "name": "Tooling",
+          "skills": [
+            "Git",
+            "CI/CD",
+            "Firebase",
+            "Play Store / App Store",
+            "Agile / Scrum"
+          ]
+        }
+      ]
     }
   },
   "work": {
@@ -181,585 +342,181 @@
     },
     "projects": [
       {
-        "id": "ampli",
-        "titleLine1": "Ampli",
-        "titleLine2": "Brand & Website",
-        "year": "2026",
-        "challenge": "Launch a blockchain startup with a premium brand and web presence ready for a high-stakes industry debut.",
-        "role": "Led full brand identity and site architecture, defining the visual language and art direction for a successful market entry.",
+        "id": "bus-ticketing",
+        "titleLine1": "POS Bus Ticketing",
+        "titleLine2": "Cross-City Transport Solution",
+        "year": "2024",
+        "challenge": "Deploy a scalable point-of-sale ticketing system across 4 major metropolitan areas requiring real-time fare calculations and offline resilience.",
+        "role": "Led full Android development, integrating custom SDKs and core Java SQLite databases for automated reporting and real-time fare synchronization.",
         "services": [
-          "Visual Branding",
-          "Website Design",
-          "Webflow development"
-        ],
-        "liveUrl": "https://ampli.net/",
-        "liveCtaLabel": "See it live",
-        "navLabel": "Ampli",
-        "navThumb": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
-        "galleryLayoutClass": "ampli",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-cover.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-1.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-2.jpg",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-3.jpg",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-8.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-7.jpg",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-10.jpg",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/ampli-juan-mora-11.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/logo-ampli-blue-juan-mora.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-ampli3.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/logo-ampli-icon-juan-mora.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-ampli4.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "top-trader",
-        "titleLine1": "Top Trader",
-        "titleLine2": "Trading Simulation Game",
-        "year": "2025",
-        "challenge": "Create a high-engagement brand and platform for a daily crypto trading tournament that balances professional tools with a game-like vibe.",
-        "role": "Designed the end-to-end UX/UI and visual system, ensuring the interface was both intuitive for traders and addictive for players.",
-        "services": [
-          "Art direction",
-          "Visual Branding",
-          "Game Design"
+          "Android Development",
+          "SDK Integration",
+          "SQLite Architecture"
         ],
         "liveUrl": null,
         "liveCtaLabel": null,
-        "navLabel": "Top Trader",
-        "navThumb": "",
-        "galleryLayoutClass": "top-trader",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-1.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-2.jpg",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-3.jpg",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-5.jpg",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-4.jpg",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-6.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-7.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-8.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-9.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-10.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/top-trader-juan-mora-11.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "maps",
-        "titleLine1": "Google Maps",
-        "titleLine2": "Landing page Refresh",
-        "year": "2022",
-        "challenge": "Redesign the marketing landing page to drive global user engagement through immersive storytelling and animation.",
-        "role": "Led the strategic narrative and structure, collaborating with motion teams to deliver a high-conversion experience.",
-        "services": [
-          "Art Direction",
-          "Web Design",
-          "Illustration"
-        ],
-        "liveUrl": "https://maps.google.com/localguides/",
-        "liveCtaLabel": "See it live",
-        "navLabel": "Google Maps",
-        "navThumb": "https://juanmora.co/images/local-guides-google-maps-juan-mora-1.jpg",
+        "navLabel": "Bus Ticketing",
+        "navThumb": "https://picsum.photos/seed/bustick-nav/600/400",
         "galleryLayoutClass": "maps",
         "media": [
           {
             "type": "image",
-            "src": "https://juanmora.co/images/local-guides-google-maps-juan-mora-1.jpg",
+            "src": "https://picsum.photos/seed/bustick-cover/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/local-guides-google-maps-juan-mora-6.jpg",
+            "src": "https://picsum.photos/seed/bustick-s1/900/1200",
             "variant": "small"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/local-guides-google-maps-juan-mora-3.jpg",
+            "src": "https://picsum.photos/seed/bustick-s2/900/1200",
             "variant": "small"
           },
           {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/local-guides-google-maps-juan-mora-1.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-local2.jpg",
+            "type": "image",
+            "src": "https://picsum.photos/seed/bustick-d1/1600/900",
+            "variant": "default"
+          },
+          {
+            "type": "image",
+            "src": "https://picsum.photos/seed/bustick-d2/1600/900",
             "variant": "default"
           }
         ]
       },
       {
-        "id": "apechain",
-        "titleLine1": "ApeChain",
-        "titleLine2": "Swap Widget",
-        "year": "2025",
-        "challenge": "Design a distinctive DeFi bridge widget that stands out through unique micro-interactions and a friction-free user experience.",
-        "role": "Led UX/UI and branding, focusing on elevating the visual quality of cross-chain transactions to drive user trust and adoption.",
+        "id": "dairy-app",
+        "titleLine1": "Dairy Management",
+        "titleLine2": "Cross-Platform Mobile App",
+        "year": "2023",
+        "challenge": "Eliminate manual data entry for dairy operations by connecting mobile devices directly to external DPU hardware via Bluetooth sockets.",
+        "role": "Engineered cross-platform Flutter app for Play Store and App Store with full Bluetooth socket integration to external DPU hardware.",
         "services": [
-          "Art Direction",
-          "Product Design",
-          "Motion interactions"
-        ],
-        "liveUrl": "https://apechain.com/portal#bridge",
-        "liveCtaLabel": "See it live",
-        "navLabel": "Ape Chain",
-        "navThumb": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
-        "galleryLayoutClass": "ape",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/apechain-apeportal-juan-mora-1.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/apechain-apeportal-juan-mora-2.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/apechain-apeportal-juan-mora-5.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/ape-chain-holo.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-apechain2.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "alena",
-        "titleLine1": "Alena App &",
-        "titleLine2": "Brand design",
-        "year": "2024",
-        "challenge": "Develop a safe, calming visual identity and app experience for a mental health platform focused on anxiety management.",
-        "role": "Design Director. Defined the brand ecosystem and app UI, using motion and soft aesthetics to create a welcoming \"safe space.\"",
-        "services": [
-          "Art Direction",
-          "Visual Branding",
-          "Product Design"
+          "Flutter / Dart",
+          "Bluetooth Integration",
+          "Play Store & App Store"
         ],
         "liveUrl": null,
         "liveCtaLabel": null,
-        "navLabel": "Alena App",
-        "navThumb": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
-        "galleryLayoutClass": "alena",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-1.webp",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-2.webp",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-3.webp",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-4.webp",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-5.webp",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-8.webp",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-10.webp",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/alena-app-design-juan-mora-11.webp",
-            "variant": "default"
-          },
-          {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/alena-app-design-juan-mora.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-alena2.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "googleai",
-        "titleLine1": "Google AI",
-        "titleLine2": "Interactive Timeline",
-        "year": "2023",
-        "challenge": "Tell Googleâs AI history through an immersive digital experience highlighting decades of industry-leading milestones.",
-        "role": "Design Lead. Orchestrated the concept, structure, and cross-functional design to create a world-class brand narrative.",
-        "services": [
-          "Art Direction",
-          "UX/UI",
-          "Web Design"
-        ],
-        "liveUrl": "https://ai.google/our-ai-journey/?section=intro",
-        "liveCtaLabel": "See it live",
-        "navLabel": "Google AI",
-        "navThumb": "https://juanmora.co/images/google-ai-timeline-juan-mora-2.jpg",
+        "navLabel": "Dairy App",
+        "navThumb": "https://picsum.photos/seed/dairy-nav/600/400",
         "galleryLayoutClass": "ai-google",
         "media": [
           {
             "type": "image",
-            "src": "https://juanmora.co/images/Google-ai-timeline-juan-mora-1.jpg",
+            "src": "https://picsum.photos/seed/dairy-cover/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/google-ai-timeline-juan-mora-2.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/google-ai-timeline-juan-mora-3.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "lotm",
-        "titleLine1": "Yuga Labs",
-        "titleLine2": "Game Landing Pages",
-        "year": "2024",
-        "challenge": "Create a cohesive ecosystem of 7+ landing pages to drive NFT acquisition and engagement within a complex game economy.",
-        "role": "Design Director. Set the visual direction and UX strategy to ensure a seamless, high-converting bridge between gameplay and commerce.",
-        "services": [
-          "Art Direction",
-          "Web Design",
-          "UX/UI"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "Yuga Labs",
-        "navThumb": "https://juanmora.co/images/yuga-otherside-juan-mora-1.jpg",
-        "galleryLayoutClass": "mara",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/yuga-otherside-juan-mora-1.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/yuga-otherside-juan-mora-4.jpg",
-            "variant": "hide"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/yuga-otherside-juan-mora-5.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/yuga-otherside-juan-mora-11.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/loot.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-yuga2.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "cryptopunks",
-        "titleLine1": "CryptoPunks",
-        "titleLine2": "Live Mosh Art experience",
-        "year": "2024",
-        "challenge": "Design an interactive live auction web experience for CryptoPunks, blending real-time participation with generative art.",
-        "role": "Led UI/UX and conceptual strategy, translating complex \"mosh pit\" mechanics into a clear, high-stakes auction interface.",
-        "services": [
-          "UX / UI",
-          "Product Design"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "CryptoPunks",
-        "navThumb": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-6.jpg",
-        "galleryLayoutClass": "cryptopunks",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-1.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-3.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-4.jpg",
+            "src": "https://picsum.photos/seed/dairy-s1/900/1200",
             "variant": "small"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-5.jpg",
+            "src": "https://picsum.photos/seed/dairy-s2/900/1200",
             "variant": "small"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-6.jpg",
+            "src": "https://picsum.photos/seed/dairy-d1/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/cryptopunks-mosh-juan-mora-7.jpg",
-            "variant": "hide"
+            "src": "https://picsum.photos/seed/dairy-d2/1600/900",
+            "variant": "default"
           }
         ]
       },
       {
-        "id": "google-photos",
-        "titleLine1": "Google Photos",
-        "titleLine2": "Landing Page Refresh",
-        "year": "2022",
-        "challenge": "Refresh the marketing presence to educate users on new features and increase product adoption through engaging storytelling.",
-        "role": "Led concept, UX, and content structure, using advanced motion and narrative techniques to simplify complex product updates.",
+        "id": "offline-sync",
+        "titleLine1": "Offline-First",
+        "titleLine2": "Data Sync Platform",
+        "year": "2023",
+        "challenge": "Ensure zero data loss during network outages for enterprise mobile apps operating across low-connectivity field environments.",
+        "role": "Designed an offline-first SQLite storage system that enables seamless asynchronous cloud synchronization upon network restoration.",
         "services": [
-          "Art Direction",
-          "Web Design"
+          "SQLite Architecture",
+          "Cloud Sync",
+          "Android / iOS"
         ],
         "liveUrl": null,
         "liveCtaLabel": null,
-        "navLabel": "Google Photos",
-        "navThumb": "https://juanmora.co/images/google-photos-design-juan-mora-4.png",
-        "galleryLayoutClass": "photos",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/google-photos-design-juan-mora-2.png",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/google-photos-design-juan-mora-6.png",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/google-photos-design-juan-mora-7.png",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/google-photos-design-juan-mora-4.png",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "rappi",
-        "titleLine1": "Rappi",
-        "titleLine2": "Credit Card Designs",
-        "year": "2023",
-        "challenge": "Refresh the visual identity of a credit card collection to drive excitement and adoption in a new digital banking sector.",
-        "role": "Art Director. Designed the visual system and custom illustrations to make financial products feel aspirational and modern.",
-        "services": [
-          "Art Direction",
-          "Illustrations"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "Rappi",
-        "navThumb": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora4.jpg",
-        "galleryLayoutClass": "rappi",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-1.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-3.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/Rappi-credit-card-thor-juan-mora.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-2.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://juanmora.co/images/Rappi-credit-card-juan-mora-4.jpg",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "google-shopping",
-        "titleLine1": "Google Shopping",
-        "titleLine2": "Inmersive Shop Gallery",
-        "year": "2023",
-        "challenge": "Design a massive, immersive web showcase for the internet&#x27;s top 1,000 products to drive tool adoption and user discovery.",
-        "role": "Principal Designer. Led art direction and UX, ensuring a high-performance browsing experience for a high-volume product list.",
-        "services": [
-          "Art Direction",
-          "Web Design"
-        ],
-        "liveUrl": "https://blog.google/products-and-platforms/products/shopping/bestthings/",
-        "liveCtaLabel": "See it live",
-        "navLabel": "Google Shopping",
-        "navThumb": "",
+        "navLabel": "Offline Sync",
+        "navThumb": "https://picsum.photos/seed/offlinesync-nav/600/400",
         "galleryLayoutClass": "_1000",
         "media": [
           {
             "type": "image",
-            "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora1.jpg",
+            "src": "https://picsum.photos/seed/offlinesync-cover/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora2.jpg",
+            "src": "https://picsum.photos/seed/offlinesync-s1/900/1200",
+            "variant": "small"
+          },
+          {
+            "type": "image",
+            "src": "https://picsum.photos/seed/offlinesync-s2/900/1200",
+            "variant": "small"
+          },
+          {
+            "type": "image",
+            "src": "https://picsum.photos/seed/offlinesync-d1/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/best-things-for-everything-google-shopping-juan-mora3-1.jpg",
+            "src": "https://picsum.photos/seed/offlinesync-d2/1600/900",
             "variant": "default"
           }
         ]
       },
       {
-        "id": "dino-runner-ar",
-        "titleLine1": "Google AR",
-        "titleLine2": "Dino Runner AR Game",
-        "year": "2019",
-        "challenge": "Showcase Googleâs AR anchor-point technology through a high-traffic, interactive dinosaur racing game at Google I/O.",
-        "role": "Art Director. Led visual identity, character design, and UI, turning a technical demo into a memorable, fun brand experience.",
+        "id": "enterprise-android",
+        "titleLine1": "Enterprise Android",
+        "titleLine2": "Modular Architecture",
+        "year": "2022",
+        "challenge": "Scale and modernise legacy Android codebases for multiple large-scale enterprise clients without disrupting ongoing production releases.",
+        "role": "Led Android development team to improve velocity by refactoring monolithic codebases into clean, modular architectural standards.",
         "services": [
-          "Art Direction",
-          "Visual Branding",
-          "Game Design",
-          "Character Design"
+          "Android Lead",
+          "Kotlin",
+          "Jetpack Compose"
         ],
-        "liveUrl": "https://www.youtube.com/watch?v=tVG9puVcNn4",
-        "liveCtaLabel": "See it live",
-        "navLabel": "Google AR",
-        "navThumb": "https://juanmora.co/images/Dino-runner-juan-mora-1.png",
-        "galleryLayoutClass": "dino",
+        "liveUrl": null,
+        "liveCtaLabel": null,
+        "navLabel": "Enterprise Android",
+        "navThumb": "https://picsum.photos/seed/enterprise-nav/600/400",
+        "galleryLayoutClass": "rappi",
         "media": [
           {
             "type": "image",
-            "src": "https://juanmora.co/images/Dino-runner-juan-mora-1.png",
+            "src": "https://picsum.photos/seed/enterprise-cover/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/Dino-runner-juan-mora-2.jpg",
+            "src": "https://picsum.photos/seed/enterprise-s1/900/1200",
+            "variant": "small"
+          },
+          {
+            "type": "image",
+            "src": "https://picsum.photos/seed/enterprise-s2/900/1200",
+            "variant": "small"
+          },
+          {
+            "type": "image",
+            "src": "https://picsum.photos/seed/enterprise-d1/1600/900",
             "variant": "default"
           },
           {
             "type": "image",
-            "src": "https://juanmora.co/images/Dino-runner-juan-mora-3.jpg",
-            "variant": "default"
-          },
-          {
-            "type": "video",
-            "src": "https://juanmora.co/videos-work/dino-runner.mp4",
-            "poster": "https://juanmora.co/videos-work/thumbnail/thumbnail-dino2.jpg",
+            "src": "https://picsum.photos/seed/enterprise-d2/1600/900",
             "variant": "default"
           }
         ]

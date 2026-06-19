@@ -1,17 +1,48 @@
-export default function LottieEmbed({ src, className = 'jm-icon', isIx2Target }) {
+import { useEffect, useRef } from 'react';
+import lottie from 'lottie-web';
+
+function resolveLottiePath(src) {
+  if (!src) return '';
+  if (src.startsWith('http')) return src;
+  return src.startsWith('/') ? src : `/${src}`;
+}
+
+export default function LottieEmbed({
+  src,
+  className = 'brand-lottie',
+  isIx2Target,
+  loop = false,
+  autoplay = true,
+}) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const path = resolveLottiePath(src);
+    if (!container || !path) return;
+
+    const anim = lottie.loadAnimation({
+      container,
+      renderer: 'svg',
+      loop,
+      autoplay: isIx2Target ? false : autoplay,
+      path,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid meet',
+      },
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [src, isIx2Target, loop, autoplay]);
+
   return (
     <div
+      ref={containerRef}
       className={className}
       data-animation-type="lottie"
-      data-src={src}
-      data-loop="0"
-      data-direction="1"
-      data-autoplay={isIx2Target ? '0' : '1'}
-      data-is-ix2-target={isIx2Target ? '1' : '0'}
-      data-renderer="svg"
-      data-default-duration="0"
-      data-duration={isIx2Target ? '2' : '2.8'}
-      data-loading="eager"
+      aria-hidden="true"
     />
   );
 }

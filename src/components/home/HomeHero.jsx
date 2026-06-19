@@ -1,40 +1,10 @@
-import { useEffect, useRef } from 'react';
-import lottie from 'lottie-web';
 import { useSite } from '../../context/SiteContext';
-
-function resolveLottiePath(src) {
-  if (!src) return '/documents/goodwork-logo-style-01.json';
-  if (src.startsWith('http')) return src;
-  return src.startsWith('/') ? src : `/${src}`;
-}
 
 export default function HomeHero() {
   const { site } = useSite();
   const { hero } = site.home;
-  const { assets } = site.site;
-  const lottieRef = useRef(null);
-  const animRef = useRef(null);
-  const logoLottie = hero.lottie || assets.heroLottie || '/documents/goodwork-logo-style-01.json';
-  const logoImage = assets.logoFullColour;
-
-  useEffect(() => {
-    if (logoImage || !lottieRef.current) return undefined;
-
-    const anim = lottie.loadAnimation({
-      container: lottieRef.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: resolveLottiePath(logoLottie),
-      rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
-    });
-
-    animRef.current = anim;
-    return () => {
-      anim.destroy();
-      animRef.current = null;
-    };
-  }, [logoImage, logoLottie]);
+  const { contact } = site.site;
+  const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubjectNav || 'Hey!')}`;
 
   return (
     <div data-nav="peach" className="wrapper-hero hero-goodwork">
@@ -48,22 +18,19 @@ export default function HomeHero() {
           <div className="hero-fx-grain" />
         </div>
       </div>
+
       <div className="w-layout-blockcontainer wrapper-hero-home w-container">
         <div className="conter-content-hero hero-content-3d">
+
           {hero.profilePhoto ? (
             <div className="hero-profile-photo">
               <img src={hero.profilePhoto} alt="" loading="eager" />
             </div>
           ) : null}
 
-          <div className="hero-brand-block">
-            {logoImage ? (
-              <img src={logoImage} alt="Good Work" className="hero-brand-logo" />
-            ) : (
-              <div ref={lottieRef} className="hero-brand-lottie" aria-hidden="true" />
-            )}
+          {hero.subtitle ? (
             <p className="hero-role">{hero.subtitle}</p>
-          </div>
+          ) : null}
 
           <div className="hero-top">
             <h1 className="heading hero-heading">
@@ -77,17 +44,16 @@ export default function HomeHero() {
           </div>
 
           {hero.heroStatement ? (
-            <p className="body-copy hero-statement">{hero.heroStatement}</p>
-          ) : null}
-
-          {hero.videoCv?.src ? (
-            <div className="hero-video-cv">
-              <video autoPlay loop muted playsInline poster={hero.videoCv.poster || undefined}>
-                <source src={hero.videoCv.src} type="video/mp4" />
-              </video>
+            <div className="hero-statement-block">
+              <p className="body-copy hero-statement">{hero.heroStatement}</p>
+              <a href={mailto} className="hero-cta-btn">
+                Let's Connect
+              </a>
             </div>
           ) : null}
+
         </div>
+
         <div className="hero-scroll-cue" aria-hidden="true">
           <span className="hero-scroll-cue__line" />
           <span className="hero-scroll-cue__text">Scroll</span>

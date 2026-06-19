@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Nav from './Nav';
 import SharePreviewBanner from '../ui/SharePreviewBanner';
+import CustomCursor from '../ui/CustomCursor';
 import { useSite } from '../../context/SiteContext';
 import { resetDocumentScrollState } from '../../animations/scrollRuntime.js';
 
@@ -34,6 +35,7 @@ export default function Layout({ children, bodyClass = '' }) {
 
   return (
     <>
+      <CustomCursor />
       <SharePreviewBanner />
       <Nav />
       {children}

@@ -6,8 +6,32 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
+gsap.registerPlugin(ScrollTrigger);
+
 let lenis = null;
 let lenisRaf = null;
+let lenisProxyActive = false;
+
+function setNativeScrollerProxy() {
+  try {
+    ScrollTrigger.scrollerProxy(document.documentElement, {
+      scrollTop(value) {
+        if (arguments.length) window.scrollTo(0, value);
+        return window.scrollY;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+    });
+  } catch {
+    /* ScrollTrigger may be unavailable during route teardown */
+  }
+}
 
 export function getLenis() {
   return lenis;
@@ -37,6 +61,29 @@ export function initLenis(options = {}) {
   };
   gsap.ticker.add(lenisRaf);
   gsap.ticker.lagSmoothing(0);
+
+  try {
+    ScrollTrigger.scrollerProxy(document.documentElement, {
+      scrollTop(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value, { immediate: true });
+        }
+        return lenis.scroll;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+    });
+    lenisProxyActive = true;
+  } catch {
+    lenisProxyActive = false;
+  }
+
   document.documentElement.classList.add('lenis-smooth');
 
   return lenis;
@@ -57,16 +104,18 @@ export function destroyLenis() {
     lenis.destroy();
     lenis = null;
   }
+
+  if (lenisProxyActive) {
+    setNativeScrollerProxy();
+    lenisProxyActive = false;
+  }
 }
 
-export function resetDocumentScrollState() {
-  document.documentElement.classList.remove(
-    'lenis-smooth',
-    'lenis',
-    'lenis-stopped',
-    'w-mod-ix3',
-    'jm-ready'
-  );
+export function resetDocumentScrollState(options = {}) {
+  const keepSiteReady = options.keepSiteReady === true;
+  const classes = ['lenis-smooth', 'lenis', 'lenis-stopped', 'w-mod-ix3'];
+  if (!keepSiteReady) classes.push('site-ready');
+  document.documentElement.classList.remove(...classes);
   document.body.style.overflow = '';
   document.body.style.removeProperty('height');
   window.scrollTo(0, 0);

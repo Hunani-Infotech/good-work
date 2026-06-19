@@ -34,11 +34,11 @@ export default function Nav() {
               <img src={assets.logoFullColour || assets.navLogo} alt={brand.firstName} className="nav-logo" />
             ) : (
               <>
-                <div className="nav-name-jm">{brand.firstName}</div>
+                <div className="nav-brand-name">{brand.firstName}</div>
                 {brand.lastName ? (
                   <>
                     <div className="dot-jm" />
-                    <div className="nav-name-jm">{brand.lastName}</div>
+                    <div className="nav-brand-name">{brand.lastName}</div>
                   </>
                 ) : null}
               </>

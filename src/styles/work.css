@@ -13,11 +13,11 @@ html.w-mod-ix3 .folder-work {
   visibility: visible;
 }
 
-html:not(.jm-ready) .section.work {
+html:not(.site-ready) .section.work {
   visibility: hidden;
 }
 
-html.jm-ready .section.work {
+html.site-ready .section.work {
   visibility: visible;
 }
 
