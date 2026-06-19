@@ -2,13 +2,13 @@ import { PORTFOLIO_BG_COLORS, PORTFOLIO_TEMPLATES } from '../data/portfolioTempl
 
 const VISIBLE_RANGE = 2.2;
 const HERO_CLEAR_SPAN = 0.4;
-const HERO_LINE_OPACITY = 0.55;
-const HERO_NEIGHBOR_OPACITY = 0.48;
-const GLIDE_MS = 900;
+const HERO_LINE_OPACITY = 0.7;
+const HERO_NEIGHBOR_OPACITY = 0.62;
+const GLIDE_MS = 1100;
 const WHEEL_THRESHOLD = 48;
 const LERP = 0.09;
 
-const glideEase = (t) => 1 - Math.pow(1 - t, 3);
+const glideEase = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 function spaceT(t) {
   return Math.sign(t) * Math.pow(Math.abs(t), 0.82);
@@ -42,11 +42,11 @@ function clearVisibility(st, rawT) {
   const d = Math.abs(st);
   const rawD = Math.abs(rawT);
   const activeW = Math.max(0, 1 - Math.min(rawD, 1) / HERO_CLEAR_SPAN);
-  const scale = 0.76 + 0.24 * activeW;
+  const scale = 0.84 + 0.16 * activeW;
   let zBoost;
   if (activeW > 0.85) zBoost = 95;
-  else if (st < 0) zBoost = -20 - Math.round(d * 18);
-  else zBoost = -45 - Math.round(d * 18);
+  else if (st < 0) zBoost = -8 - Math.round(d * 10);
+  else zBoost = -22 - Math.round(d * 10);
   return { activeW, scale, zBoost, d, rawD };
 }
 
@@ -56,9 +56,24 @@ function heroImageOpacity(st, rawT) {
   if (activeW > 0.12) {
     return HERO_LINE_OPACITY + (1 - HERO_LINE_OPACITY) * activeW;
   }
-  if (rawD <= 1.15) return HERO_LINE_OPACITY;
-  if (rawD >= 0.85) return HERO_NEIGHBOR_OPACITY;
+  if (rawD <= 1.2) return 1;
   return 0;
+}
+
+const HERO_CARD_SHADOW =
+  'drop-shadow(0 28px 56px rgba(0, 0, 0, 0.2)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.1))';
+
+function heroColorFilter(activeW) {
+  const t = Math.max(0, Math.min(1, activeW));
+  if (t >= 0.98) return HERO_CARD_SHADOW;
+  const gray = 1 - t;
+  return `grayscale(${gray}) brightness(${0.88 + t * 0.12}) contrast(${0.95 + t * 0.05}) ${HERO_CARD_SHADOW}`;
+}
+
+function applyTemplateTypeColors(el, template) {
+  el.style.setProperty('--tpl-title', template.titleColor);
+  el.style.setProperty('--tpl-eyebrow', template.eyebrowColor);
+  el.style.setProperty('--tpl-title-muted', template.titleMutedColor);
 }
 
 export function initPortfolioTemplatePicker({
@@ -86,6 +101,8 @@ export function initPortfolioTemplatePicker({
   let VH;
   let VW;
   let TITLE_H;
+  let INFO_H;
+  let CONTENT_GAP;
   let HERO_W;
   let HERO_H;
   let TITLE_BASE_Y;
@@ -98,6 +115,7 @@ export function initPortfolioTemplatePicker({
   let TITLE_TRAVEL_PX;
   let INFO_TRAVEL_PX;
   let HERO_LINE_STEP_PX;
+  let HERO_GAP_PX;
   let INTERACTION_LEFT = 0;
   let INTERACTION_RIGHT = 0;
   let isMobile = false;
@@ -232,16 +250,26 @@ export function initPortfolioTemplatePicker({
     return visible > height * 0.42;
   }
 
-  function heroInFrame(lineY, scale) {
-    return layerInFrame(HERO_BASE_Y + lineY, HERO_H * scale);
+  function heroInFrame(lineY, scale, rawT) {
+    const top = HERO_BASE_Y + lineY;
+    const height = HERO_H * scale;
+    const bottom = top + height;
+    const visible = Math.min(bottom, VH) - Math.max(top, 0);
+    const minRatio = Math.abs(rawT) <= 1.2 ? 0.08 : 0.42;
+    return visible > height * minRatio;
   }
 
   function heroParallelogramLine(st, rawT) {
     const cv = clearVisibility(st, rawT);
+    const gap = HERO_GAP_PX;
+    const lineY = rawT >= 0
+      ? rawT * (HERO_H + gap)
+      : rawT * (gap + HERO_H * cv.scale);
+
     return {
-      lineY: st * HERO_LINE_STEP_PX,
-      lineX: st * (HERO_W * 0.028),
-      rotZ: st * 1.15,
+      lineY,
+      lineX: rawT * (HERO_W * 0.022),
+      rotZ: rawT * 1.4,
       ...cv,
     };
   }
@@ -258,6 +286,7 @@ export function initPortfolioTemplatePicker({
     const el = document.createElement('div');
     el.className = 'template-picker__title';
     el.dataset.i = i;
+    applyTemplateTypeColors(el, p);
     el.innerHTML = `
       <div class="template-picker__eyebrow">${p.eyebrow}</div>
       <div class="template-picker__title-text">${p.title}</div>
@@ -282,6 +311,21 @@ export function initPortfolioTemplatePicker({
     card.style.webkitClipPath = clip;
     const img = el.querySelector('.template-picker__hero-img');
     img.addEventListener('error', () => { img.src = p.thumbImg; });
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (scrollLocked) return;
+      const offset = shortestOffset(i, sf);
+      if (Math.abs(offset) < 0.4 || Math.abs(offset) > 1.2) return;
+      goToProject(i);
+    });
+    el.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      if (scrollLocked) return;
+      const offset = shortestOffset(i, sf);
+      if (Math.abs(offset) < 0.4 || Math.abs(offset) > 1.2) return;
+      goToProject(i);
+    });
     canvas.appendChild(el);
     return el;
   });
@@ -352,6 +396,13 @@ export function initPortfolioTemplatePicker({
     TITLE_H = sampleTitle.offsetHeight;
     sampleTitle.style.visibility = '';
 
+    const sampleInfo = infoLayers[0];
+    sampleInfo.style.visibility = 'hidden';
+    sampleInfo.style.transform = 'none';
+    sampleInfo.style.opacity = '1';
+    INFO_H = sampleInfo.offsetHeight;
+    sampleInfo.style.visibility = '';
+
     let maxTitleW = 0;
     titleLayers.forEach((el) => {
       const text = el.querySelector('.template-picker__title-text');
@@ -361,11 +412,12 @@ export function initPortfolioTemplatePicker({
     const sampleHero = heroLayers[0].querySelector('.template-picker__hero-card');
     HERO_W = sampleHero.offsetWidth;
     HERO_H = sampleHero.offsetHeight;
+    HERO_GAP_PX = Math.round(Math.min(36, Math.max(20, VH * 0.032)));
 
     if (isMobile) {
       applyHeroClip(false);
 
-      MOBILE_SLIDE_GAP = VW * 0.82;
+      MOBILE_SLIDE_GAP = HERO_W + HERO_GAP_PX;
       MOBILE_HERO_LEFT = (VW - HERO_W) / 2;
       HERO_BASE_Y = VH * 0.11;
       TITLE_BASE_Y = HERO_BASE_Y + HERO_H + VH * 0.035;
@@ -398,9 +450,13 @@ export function initPortfolioTemplatePicker({
 
     applyHeroClip(true);
 
-    TITLE_BASE_Y = VH * 0.26 - TITLE_H * 0.5;
-    HERO_BASE_Y = (VH - HERO_H) * 0.47;
-    INFO_BASE_Y = VH * 0.59;
+    CONTENT_GAP = Math.round(Math.min(26, Math.max(18, VH * 0.026)));
+    HERO_BASE_Y = (VH - HERO_H) * 0.5;
+    const heroCenterY = HERO_BASE_Y + HERO_H / 2;
+    const contentBlockH = TITLE_H + CONTENT_GAP + INFO_H;
+    const contentTop = heroCenterY - contentBlockH / 2;
+    TITLE_BASE_Y = contentTop;
+    INFO_BASE_Y = contentTop + TITLE_H + CONTENT_GAP;
 
     const gap = Math.min(VW * 0.055, 56);
     const contentW = maxTitleW + gap + HERO_W;
@@ -431,9 +487,9 @@ export function initPortfolioTemplatePicker({
     });
 
     BG_TRAVEL_PX = VH * 0.08;
-    TITLE_TRAVEL_PX = VH * 0.62;
-    INFO_TRAVEL_PX = VH * 0.4;
-    HERO_LINE_STEP_PX = HERO_H * 0.62;
+    TITLE_TRAVEL_PX = VH * 0.5;
+    INFO_TRAVEL_PX = TITLE_TRAVEL_PX;
+    HERO_LINE_STEP_PX = HERO_H * 0.84;
   }
 
   function renderMobile(renderSf) {
@@ -464,12 +520,15 @@ export function initPortfolioTemplatePicker({
       const heroImg = heroCard.querySelector('.template-picker__hero-img');
       heroLayers[i].style.transform = `translateX(${slideX}px)`;
       heroCard.style.transform = `rotate(0deg) scale(${scale})`;
+      heroCard.style.filter = heroColorFilter(activeW);
       heroCard.style.setProperty('--hero-shine', String(1 - activeW));
       heroLayers[i].style.opacity = '1';
       heroImg.style.opacity = hOp;
       heroLayers[i].style.zIndex = z + 5 + zBoost;
       heroLayers[i].style.visibility = inRange && hOp > 0.04 ? 'visible' : 'hidden';
-      heroLayers[i].style.pointerEvents = activeW > 0.85 && hOp > 0.9 ? 'auto' : 'none';
+      const isNeighborClickable = inRange && hOp > 0.04 && rawDist > 0.35 && rawDist <= 1.15;
+      heroLayers[i].style.pointerEvents = isNeighborClickable ? 'auto' : 'none';
+      heroLayers[i].classList.toggle('is-neighbor-hero', isNeighborClickable);
 
       const contentStrength = activeW > 0.55 ? 1 : 0.7 + activeW * 0.55;
       const isActiveContent = activeW > 0.8;
@@ -513,9 +572,8 @@ export function initPortfolioTemplatePicker({
       bgLayers[i].style.zIndex = z;
       bgLayers[i].style.visibility = bOp > 0.02 ? 'visible' : 'hidden';
 
-      const titleProximity = Math.max(0, 1 - Math.abs(st) / 0.45);
-      const titleOverlapY = titleProximity * VH * 0.03;
-      const titleY = TITLE_BASE_Y + st * TITLE_TRAVEL_PX + titleOverlapY;
+      const contentTravel = t * TITLE_TRAVEL_PX;
+      const titleY = TITLE_BASE_Y + contentTravel;
       titleLayers[i].style.transform =
         `translate(0px, ${titleY}px) scale(${titleScale(st)})`;
 
@@ -526,13 +584,35 @@ export function initPortfolioTemplatePicker({
       const heroTop = HERO_BASE_Y + para.lineY;
       heroLayers[i].style.transform = `translate(${para.lineX}px, ${heroTop}px)`;
       heroCard.style.transform = `rotate(${para.rotZ}deg) scale(${para.scale})`;
-      heroCard.style.setProperty('--hero-shine', String(1 - para.activeW));
+      heroCard.style.filter = heroColorFilter(para.activeW);
+      heroCard.style.setProperty('--hero-shine', String(para.activeW > 0.55 ? 0 : 0.22));
+      heroLayers[i].classList.toggle('is-active-hero', para.activeW > 0.85);
       heroLayers[i].style.opacity = '1';
       heroImg.style.opacity = hOp;
-      heroLayers[i].style.zIndex = z + 5 + para.zBoost;
-      const heroVisible = inRange && hOp > 0.04 && heroInFrame(para.lineY, para.scale);
+      let heroZ;
+      if (para.activeW > 0.85) {
+        heroZ = z + 5 + para.zBoost;
+      } else if (Math.abs(t) <= 1.15) {
+        heroZ = 560 + Math.round((1 - Math.abs(t)) * 20);
+      } else {
+        heroZ = z + 5 + para.zBoost;
+      }
+      heroLayers[i].style.zIndex = String(heroZ);
+      const heroVisible = inRange && hOp > 0.04 && heroInFrame(para.lineY, para.scale, t);
+      const isNeighborClickable = heroVisible && Math.abs(t) > 0.35 && Math.abs(t) <= 1.15;
       heroLayers[i].style.visibility = heroVisible ? 'visible' : 'hidden';
-      heroLayers[i].style.pointerEvents = para.activeW > 0.85 && hOp > 0.9 ? 'auto' : 'none';
+      heroLayers[i].style.pointerEvents = isNeighborClickable ? 'auto' : 'none';
+      heroLayers[i].classList.toggle('is-neighbor-hero', isNeighborClickable);
+      heroLayers[i].setAttribute('aria-hidden', isNeighborClickable ? 'false' : 'true');
+      if (isNeighborClickable) {
+        heroLayers[i].setAttribute('role', 'button');
+        heroLayers[i].setAttribute('tabindex', '0');
+        heroLayers[i].setAttribute('aria-label', `View ${P[i].title} template`);
+      } else {
+        heroLayers[i].removeAttribute('role');
+        heroLayers[i].removeAttribute('tabindex');
+        heroLayers[i].removeAttribute('aria-label');
+      }
 
       const contentStrength = para.activeW > 0.55 ? 1 : 0.7 + para.activeW * 0.55;
       const isActiveContent = para.activeW > 0.8;
@@ -549,9 +629,9 @@ export function initPortfolioTemplatePicker({
       const iOp = infoOpacity(st) * contentStrength;
       infoLayers[i].style.opacity = iOp;
       infoLayers[i].style.zIndex = para.activeW > 0.85 ? z + 8 : z + 20;
-      const infoY = INFO_BASE_Y + st * INFO_TRAVEL_PX;
+      const infoY = INFO_BASE_Y + contentTravel;
       infoLayers[i].style.transform = `translateY(${infoY}px)`;
-      const infoVisible = inRange && iOp > 0.02 && layerInFrame(infoY, VH * 0.22);
+      const infoVisible = inRange && iOp > 0.02 && layerInFrame(infoY, INFO_H);
       infoLayers[i].style.visibility = infoVisible ? 'visible' : 'hidden';
     });
 
