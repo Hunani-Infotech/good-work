@@ -1,4 +1,8 @@
-import HowItWorksFlowArt, { HOW_FLOW_PATH } from './HowItWorksFlowArt';
+import HowItWorksFlowArt, {
+  HOW_FLOW_PATH,
+  HOW_FLOW_PATH_MOBILE,
+  HOW_FLOW_NODES_DESKTOP,
+} from './HowItWorksFlowArt';
 
 const STEPS = [
   {
@@ -24,15 +28,43 @@ const STEPS = [
   },
 ];
 
-const NODES = [
-  { x: 350, y: 200 },
-  { x: 650, y: 480 },
-  { x: 350, y: 760 },
-];
+function FlowSvg({ className, viewBox, pathD, nodes, nodeHalo = 13, nodeCore = 5 }) {
+  return (
+    <svg
+      className={className}
+      viewBox={viewBox}
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+    >
+      <path
+        d={pathD}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeOpacity="0.06"
+      />
+      <path
+        className="agency-how__path"
+        d={pathD}
+        fill="none"
+        stroke="var(--brand-orange, #f25828)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {nodes.map((n, i) => (
+        <g key={i} className={`agency-how__node agency-how__node--${i}`}>
+          <circle cx={n.x} cy={n.y} r={nodeHalo} fill="var(--brand-orange, #f25828)" fillOpacity="0.12" />
+          <circle cx={n.x} cy={n.y} r={nodeCore} fill="var(--brand-orange, #f25828)" />
+        </g>
+      ))}
+    </svg>
+  );
+}
 
 export default function HowItWorks() {
   return (
-    <section className="agency-how" id="how-it-works">
+    <section className="agency-how" id="how-it-works" data-nav-logo="light">
       <HowItWorksFlowArt />
 
       <div className="agency-section__inner">
@@ -44,41 +76,31 @@ export default function HowItWorks() {
         </div>
 
         <div className="agency-how__body">
-          <svg
-            className="agency-how__svg"
-            viewBox="0 0 1000 960"
-            preserveAspectRatio="xMidYMid meet"
-            aria-hidden="true"
-          >
-            <path
-              d={HOW_FLOW_PATH}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeOpacity="0.06"
+          <div className="agency-how__rail" aria-hidden="true">
+            <FlowSvg
+              className="agency-how__svg agency-how__svg--desktop"
+              viewBox="0 -40 1000 1040"
+              pathD={HOW_FLOW_PATH}
+              nodes={HOW_FLOW_NODES_DESKTOP}
             />
-            <path
-              className="agency-how__path"
-              d={HOW_FLOW_PATH}
-              fill="none"
-              stroke="var(--brand-orange, #f25828)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            <FlowSvg
+              className="agency-how__svg agency-how__svg--mobile"
+              viewBox="0 0 120 900"
+              pathD={HOW_FLOW_PATH_MOBILE}
+              nodes={[]}
             />
-            {NODES.map((n, i) => (
-              <g key={i} className={`agency-how__node agency-how__node--${i}`}>
-                <circle cx={n.x} cy={n.y} r="13" fill="var(--brand-orange, #f25828)" fillOpacity="0.12" />
-                <circle cx={n.x} cy={n.y} r="5" fill="var(--brand-orange, #f25828)" />
-              </g>
-            ))}
-          </svg>
+          </div>
 
           {STEPS.map((step, i) => (
             <div key={step.number} className={`agency-how__step agency-how__step--${step.side}`} data-step={i}>
               <div className="agency-how__card">
-                <span className="agency-how__num">{step.number}</span>
-                <span className="agency-how__icon" aria-hidden="true">{step.icon}</span>
+                <div className="agency-how__card-head">
+                  <div className="agency-how__lead">
+                    <span className="agency-how__step-dot" aria-hidden="true" />
+                    <span className="agency-how__num">{step.number}</span>
+                  </div>
+                  <span className="agency-how__icon" aria-hidden="true">{step.icon}</span>
+                </div>
                 <h3 className="agency-how__title">{step.title}</h3>
                 <p className="agency-how__desc">{step.desc}</p>
               </div>

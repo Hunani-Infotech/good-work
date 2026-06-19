@@ -33,7 +33,7 @@ const FEATURES = [
 
 export default function AgencyFeatures() {
   return (
-    <section className="agency-features" id="features">
+    <section className="agency-features" id="features" data-nav-logo="light">
       <div className="agency-section__inner">
         <div className="agency-section__header">
           <span className="agency-tag">Why Good Work CV?</span>

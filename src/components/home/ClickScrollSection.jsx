@@ -1,4 +1,5 @@
 import LottieEmbed from '../ui/LottieEmbed';
+import HomeTicker from './HomeTicker';
 import { useSite } from '../../context/SiteContext';
 
 export default function ClickScrollSection() {
@@ -26,7 +27,12 @@ export default function ClickScrollSection() {
             ) : null}
             <span className="click-scroll-row">
               {clickScroll.scrollWord}
-              {suffix ? <>{'\u00A0'}{suffix}</> : null}
+              {suffix ? (
+                <>
+                  {'\u00A0'}
+                  <span className="click-scroll-tail">{suffix}</span>
+                </>
+              ) : null}
             </span>
           </h1>
         </div>
@@ -47,6 +53,7 @@ export default function ClickScrollSection() {
             ))}
           </div>
         ) : null}
+        <HomeTicker />
       </div>
     </section>
   );

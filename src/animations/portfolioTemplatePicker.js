@@ -2,6 +2,10 @@ import { PORTFOLIO_BG_COLORS, PORTFOLIO_TEMPLATES } from '../data/portfolioTempl
 
 const VISIBLE_RANGE = 2.2;
 const HERO_CLEAR_SPAN = 0.4;
+const HERO_NEIGHBOR_SCALE = 0.84;
+const HERO_ACTIVE_SCALE = 1.06;
+const HERO_MOBILE_NEIGHBOR_SCALE = 0.76;
+const HERO_MOBILE_ACTIVE_SCALE = 1.04;
 const HERO_LINE_OPACITY = 0.7;
 const HERO_NEIGHBOR_OPACITY = 0.62;
 const GLIDE_MS = 1100;
@@ -42,7 +46,7 @@ function clearVisibility(st, rawT) {
   const d = Math.abs(st);
   const rawD = Math.abs(rawT);
   const activeW = Math.max(0, 1 - Math.min(rawD, 1) / HERO_CLEAR_SPAN);
-  const scale = 0.84 + 0.16 * activeW;
+  const scale = HERO_NEIGHBOR_SCALE + (HERO_ACTIVE_SCALE - HERO_NEIGHBOR_SCALE) * activeW;
   let zBoost;
   if (activeW > 0.85) zBoost = 95;
   else if (st < 0) zBoost = -8 - Math.round(d * 10);
@@ -266,7 +270,7 @@ export function initPortfolioTemplatePicker({
     const s = cv.scale;
     // Edge-aligned step: account for center-origin scale so card tops/bottoms
     // stay an equal gap from the active hero at ±1.
-    const step = gap + h * (1 + s) * 0.5;
+    const step = gap + h * (HERO_ACTIVE_SCALE + s) * 0.5;
     const lineY = rawT * step;
 
     return {
@@ -520,7 +524,7 @@ export function initPortfolioTemplatePicker({
       const z = Math.round(500 - abs * 80);
       const inRange = rawDist <= 2.4;
       const activeW = Math.max(0, 1 - Math.min(rawDist, 1) / HERO_CLEAR_SPAN);
-      const scale = 0.76 + 0.24 * activeW;
+      const scale = HERO_MOBILE_NEIGHBOR_SCALE + (HERO_MOBILE_ACTIVE_SCALE - HERO_MOBILE_NEIGHBOR_SCALE) * activeW;
       const zBoost = activeW > 0.85 ? 95 : -Math.round(abs * 20);
 
       const bOp = bgOpacity(st);

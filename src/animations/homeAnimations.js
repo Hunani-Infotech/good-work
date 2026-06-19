@@ -358,12 +358,23 @@ export function initHomeAnimations() {
 
     var isMobileLayout = window.matchMedia('(max-width: 991px)').matches;
 
+    if (isMobileLayout) {
+      initWordColorFillScroll(text, text, {
+        wordClassPrefix: 'cs_word',
+        start: 'top 92%',
+        end: 'top 28%',
+        scrub: 0.85,
+        overlap: 0.2,
+      });
+      return;
+    }
+
     initWordColorFillScroll(text, sticky, {
       wordClassPrefix: 'cs_word',
       start: 'top 80%',
       end: 'top 40%',
       scrub: 0.8,
-      overlap: isMobileLayout ? 0.18 : 0.22,
+      overlap: 0.22,
     });
   }
 
@@ -1297,23 +1308,23 @@ export function initHomeAnimations() {
 
     if (cards.length) {
       if (isMobileWp) {
-        cards.forEach(function (card) {
-          gsap.fromTo(card,
-            { opacity: 0, y: 36 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 88%',
-                toggleActions: 'play none none none',
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        });
+        var carousel = section.querySelector('.work-preview-carousel');
+        var mobileTarget = carousel || cards[0];
+        gsap.fromTo(mobileTarget,
+          { opacity: 0, y: 36 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: mobileTarget,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+              invalidateOnRefresh: true,
+            },
+          }
+        );
       } else {
         gsap.set(cards, { transformPerspective: 900 });
         cards.forEach(function (card) {

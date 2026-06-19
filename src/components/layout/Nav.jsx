@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSite } from '../../context/SiteContext';
 import ShareButton from '../ui/ShareButton';
 import LottieEmbed from '../ui/LottieEmbed';
+import BrandLogo from '../ui/BrandLogo';
 
 export default function Nav() {
   const { site } = useSite();
@@ -14,7 +15,7 @@ export default function Nav() {
         <li>
           <Link to="/" className="w-inline-block">
             {useLogo ? (
-              <img src={assets.navLogo} alt="" className="nav-logo-mobile" />
+              <BrandLogo type="symbol" className="nav-logo-mobile" alt="" />
             ) : (
               <LottieEmbed src={assets.navLottie} />
             )}
@@ -31,7 +32,7 @@ export default function Nav() {
         <div className="cont-name-logo">
           <Link to="/" className="nav-name w-inline-block">
             {useLogo ? (
-              <img src={assets.logoFullColour || assets.navLogo} alt={brand.firstName} className="nav-logo" />
+              <BrandLogo type="wordmark" className="nav-logo" alt={brand.firstName} />
             ) : (
               <>
                 <div className="nav-brand-name">{brand.firstName}</div>
@@ -50,7 +51,7 @@ export default function Nav() {
           <li>
             <Link to="/" className="w-inline-block">
               {useLogo ? (
-                <img src={assets.navLogo} alt="" className="nav-logo-icon" />
+                <BrandLogo type="symbol" className="nav-logo-icon" alt="" />
               ) : (
                 <LottieEmbed src={assets.navLottie} />
               )}

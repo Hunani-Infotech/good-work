@@ -1,5 +1,6 @@
 import { useSite } from '../../context/SiteContext';
 import LottieEmbed from './LottieEmbed';
+import BrandLogo from './BrandLogo';
 
 export default function SiteLoader() {
   const { site } = useSite();
@@ -19,7 +20,7 @@ export default function SiteLoader() {
               loop={false}
             />
           ) : logo ? (
-            <img src={logo} alt={brand.firstName} className="loader-brand-logo" />
+            <BrandLogo type="wordmark" alt={brand.firstName} className="loader-brand-logo" />
           ) : (
             <>
               <div className="nav-brand-name intro">{brand.firstName}</div>

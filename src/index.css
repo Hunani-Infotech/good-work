@@ -403,8 +403,12 @@
 
 .click-scroll-row {
   position: relative;
-  display: inline;
+  display: block;
   white-space: normal;
+}
+
+.click-scroll-tail {
+  white-space: nowrap;
 }
 
 .click-scroll-inline-slot {
@@ -445,39 +449,157 @@
 
 .click-scroll-section {
   background: var(--_color---bg-warm);
+  overflow: hidden;
+  isolation: isolate;
+  position: relative;
+  z-index: 6;
 }
 
-/* Mobile: scroll runway + sticky copy for word color-fill (desktop unchanged) */
+/* Mobile: natural scroll layout — no sticky pin over hero */
 @media (max-width: 991px) {
+  .click-scroll-section.section {
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
   .click-scroll-section .click-scroll-height {
-    height: 145vw;
-    padding-top: 10vw;
-    overflow: visible;
+    min-height: min(68vh, 32rem);
+    height: auto;
+    width: 100%;
+    padding: clamp(3.5rem, 14vw, 6rem) clamp(1.25rem, 6vw, 2.5rem);
+    padding-bottom: clamp(1.5rem, 6vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
   }
 
   .click-scroll-section .wrapper-cont-50 {
-    position: sticky;
-    top: 10vw;
-    margin-bottom: 0;
-    z-index: 10;
+    position: relative;
+    top: auto;
+    width: 100%;
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+    z-index: 2;
+    flex: 0 0 auto;
   }
 
   .click-scroll-section .wrapper-icons {
     height: auto;
     flex: 0 0 auto;
   }
+
+  .click-scroll-text {
+    text-align: left;
+    font-family: Goga, Arial, sans-serif;
+    font-size: clamp(1.85rem, 8.5vw, 3.15rem);
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -0.035em;
+    color: #2a2826;
+    overflow: visible;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .click-scroll-text .gsap_split_word {
+    font-weight: 600;
+    line-height: inherit;
+    vertical-align: baseline;
+    overflow: visible;
+    margin-right: 0.14em;
+    padding-bottom: 0;
+  }
+
+  .click-scroll-row {
+    margin-top: 0.4em;
+  }
+
+  .click-scroll-section .home-ticker-wrap {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    width: 100%;
+    padding: 0.65rem 0;
+    min-height: 2.5rem;
+  }
+
+  .click-scroll-section .home-ticker-track {
+    width: max-content;
+  }
+
+  .click-scroll-section .home-ticker-item {
+    opacity: 0.72;
+  }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 479px) {
   .click-scroll-section .click-scroll-height {
-    height: 145vw;
-    padding-top: 10vw;
+    min-height: min(72vh, 34rem);
+    padding: clamp(3rem, 15vw, 5.5rem) clamp(1rem, 5vw, 1.5rem);
+    padding-bottom: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .click-scroll-text {
+    font-size: clamp(1.75rem, 9.25vw, 2.85rem);
+    line-height: 1.24;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: #2a2826;
+  }
+
+  .click-scroll-section .home-ticker-wrap {
+    min-height: 2.75rem;
+    padding: 0.6rem 0;
+  }
+
+  .click-scroll-section .home-ticker-item {
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+}
+
+/* Desktop: compact click-scroll + visible ticker below copy */
+@media (min-width: 992px) {
+  .click-scroll-section .click-scroll-height {
+    min-height: 0;
+    height: auto;
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: stretch;
+  }
+
+  .click-scroll-section .wrapper-cont-50 {
+    width: 50%;
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  .click-scroll-section .home-ticker-wrap {
+    flex: none;
+    display: block;
+    margin-top: clamp(1.75rem, 3.5vw, 3rem);
+    width: 100%;
+    min-height: 0;
+  }
+
+  .click-scroll-section .home-ticker-item {
+    opacity: 0.85;
   }
 }
 
 .click-scroll-text .gsap_split_word {
   color: var(--theme-orange-200);
   will-change: color;
+  line-height: inherit;
+  vertical-align: baseline;
+  overflow: visible;
 }
 
 @media (max-width: 767px) {

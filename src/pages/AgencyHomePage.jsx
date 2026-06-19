@@ -9,6 +9,7 @@ import TemplateShowcase from '../components/agency/TemplateShowcase';
 import AgencyFeatures from '../components/agency/AgencyFeatures';
 import AgencyCta from '../components/agency/AgencyCta';
 import CustomCursor from '../components/ui/CustomCursor';
+import AgencyLogo from '../components/agency/AgencyLogo';
 
 export default function AgencyHomePage() {
   useAgencyAnimations();
@@ -32,7 +33,7 @@ export default function AgencyHomePage() {
         <footer className="agency-footer">
           <div className="agency-footer__inner">
             <a href="/" className="agency-footer__logo">
-              <img src="/images/goodwork/logo-full-colour.svg" alt="Good Work" />
+              <AgencyLogo className="agency-footer__logo-img" />
             </a>
             <span className="agency-footer__copy">© 2025 Good Work. All rights reserved.</span>
             <nav className="agency-footer__links">
