@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="ribbon-a" x1="0" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="12%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="88%" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ribbon-b" x1="1600" y1="0" x2="0" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#f7f7f7" stop-opacity="0.75"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fold-shadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b5a99c" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#9e9286" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#b5a99c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fold-highlight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="ribbon-blur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <!-- Back wave -->
+  <path
+    d="M-40 180 C 220 80, 420 300, 680 200 C 940 100, 1180 280, 1460 160 L 1640 320 C 1360 460, 1080 340, 820 430 C 560 520, 280 400, -40 500 Z"
+    fill="url(#ribbon-b)"
+    opacity="0.55"
+  />
+
+  <!-- Main center flow -->
+  <path
+    d="M-60 420 C 180 300, 380 520, 620 410 C 860 300, 1060 500, 1320 390 C 1480 330, 1580 360, 1660 400 L 1660 620 C 1500 560, 1280 640, 1040 560 C 800 480, 520 620, 260 540 C 100 490, -20 520, -60 560 Z"
+    fill="url(#ribbon-a)"
+    opacity="0.88"
+  />
+
+  <!-- Fold shadow -->
+  <path
+    d="M120 430 C 360 360, 520 470, 760 420 C 1000 370, 1180 460, 1420 410"
+    stroke="url(#fold-shadow)"
+    stroke-width="42"
+    stroke-linecap="round"
+    opacity="0.85"
+    filter="url(#ribbon-blur)"
+  />
+
+  <!-- Highlight crest -->
+  <path
+    d="M200 395 C 440 330, 600 445, 840 395 C 1080 345, 1260 430, 1500 385"
+    stroke="url(#fold-highlight)"
+    stroke-width="28"
+    stroke-linecap="round"
+    opacity="0.9"
+    filter="url(#ribbon-blur)"
+  />
+
+  <!-- Lower flowing ribbon -->
+  <path
+    d="M-80 760 C 240 660, 460 860, 720 740 C 980 620, 1220 820, 1520 700 L 1680 880 C 1420 980, 1140 860, 880 940 C 620 1020, 300 900, -80 1000 Z"
+    fill="url(#ribbon-a)"
+    opacity="0.72"
+  />
+
+  <path
+    d="M40 800 C 300 720, 500 830, 760 770 C 1020 710, 1240 850, 1540 760"
+    stroke="url(#fold-shadow)"
+    stroke-width="36"
+    stroke-linecap="round"
+    opacity="0.7"
+    filter="url(#ribbon-blur)"
+  />
+
+  <!-- Soft vertical light stream -->
+  <path
+    d="M780 40 C 720 260, 860 480, 800 700 C 740 920, 820 1140, 780 1180"
+    stroke="#ffffff"
+    stroke-width="140"
+    stroke-linecap="round"
+    opacity="0.35"
+    filter="url(#ribbon-blur)"
+  />
+</svg>

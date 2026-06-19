@@ -353,16 +353,16 @@ export function initHomeAnimations() {
     if (!section) return;
 
     var text = section.querySelector('.click-scroll-text');
-    if (!text) return;
+    var sticky = section.querySelector('.wrapper-cont-50');
+    if (!text || !sticky) return;
 
     var isMobileLayout = window.matchMedia('(max-width: 991px)').matches;
-    var scrollSection = section.closest('.click-scroll-section') || section;
 
-    /* ── Text: word-by-word color fill (scrubbed) ── */
-    initWordColorFillScroll(text, scrollSection, {
+    initWordColorFillScroll(text, sticky, {
       wordClassPrefix: 'cs_word',
-      start: isMobileLayout ? 'top 92%' : 'top 85%',
-      end: isMobileLayout ? 'bottom top' : 'bottom top',
+      start: 'top 80%',
+      end: 'top 40%',
+      scrub: 0.8,
       overlap: isMobileLayout ? 0.18 : 0.22,
     });
   }
@@ -686,6 +686,7 @@ export function initHomeAnimations() {
       trigger: trigger,
       start: options.start || 'top 85%',
       end: options.end || 'bottom top',
+      scrub: options.scrub,
       invalidateOnRefresh: true,
       onUpdate: function (self) {
         applyProgress(self.progress);
