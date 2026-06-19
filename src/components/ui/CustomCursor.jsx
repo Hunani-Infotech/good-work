@@ -43,7 +43,7 @@ export default function CustomCursor() {
       ring.classList.remove('is-hovering');
     }
 
-    const hoverSelectors = 'a, button, [role="button"], label, .folder-wrapper, .nav-link, .hero-cta-btn, .cta-button-wrapper, .template-card, .agency-btn-primary, .agency-btn-ghost, .template-picker-wrap, .template-picker__cta, .template-picker__dot';
+    const hoverSelectors = 'a, button, [role="button"], label, .folder-wrapper, .nav-link, .hero-cta-btn, .cta-button-wrapper, .template-card, .agency-btn-primary, .agency-btn-ghost, .template-picker-wrap, .template-picker__cta, .template-picker__dot, .template-picker__hero.is-neighbor-hero';
 
     function matchesHover(target) {
       return target && target.closest(hoverSelectors);
