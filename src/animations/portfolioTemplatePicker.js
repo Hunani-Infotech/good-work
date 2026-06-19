@@ -262,14 +262,17 @@ export function initPortfolioTemplatePicker({
   function heroParallelogramLine(st, rawT) {
     const cv = clearVisibility(st, rawT);
     const gap = HERO_GAP_PX;
-    const lineY = rawT >= 0
-      ? rawT * (HERO_H + gap)
-      : rawT * (gap + HERO_H * cv.scale);
+    const h = HERO_H;
+    const s = cv.scale;
+    // Edge-aligned step: account for center-origin scale so card tops/bottoms
+    // stay an equal gap from the active hero at ±1.
+    const step = gap + h * (1 + s) * 0.5;
+    const lineY = rawT * step;
 
     return {
       lineY,
-      lineX: rawT * (HERO_W * 0.022),
-      rotZ: rawT * 1.4,
+      lineX: rawT * (HERO_W * 0.02),
+      rotZ: rawT * 1,
       ...cv,
     };
   }
@@ -381,6 +384,15 @@ export function initPortfolioTemplatePicker({
     });
   }
 
+  function positionDots() {
+    if (isMobile) {
+      section.style.removeProperty('--picker-dots-left');
+      return;
+    }
+    const dotGap = Math.min(VW * 0.032, 36);
+    section.style.setProperty('--picker-dots-left', `${HERO_X + HERO_W + dotGap}px`);
+  }
+
   function measure() {
     VH = section.clientHeight;
     VW = section.clientWidth;
@@ -445,6 +457,7 @@ export function initPortfolioTemplatePicker({
       TITLE_TRAVEL_PX = 0;
       INFO_TRAVEL_PX = 0;
       HERO_LINE_STEP_PX = MOBILE_SLIDE_GAP;
+      positionDots();
       return;
     }
 
@@ -485,6 +498,8 @@ export function initPortfolioTemplatePicker({
       el.style.top = '';
       el.style.width = 'auto';
     });
+
+    positionDots();
 
     BG_TRAVEL_PX = VH * 0.08;
     TITLE_TRAVEL_PX = VH * 0.5;

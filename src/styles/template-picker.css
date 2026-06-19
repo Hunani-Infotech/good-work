@@ -268,20 +268,24 @@
   background: rgba(255, 255, 255, 0.28);
 }
 
-/* Pagination dots — desktop: vertical strip on the right */
+/* Pagination dots — desktop: beside hero column */
 .template-picker__dots {
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 50%;
+  left: var(--picker-dots-left, auto);
   right: clamp(18px, 3.2vw, 44px);
-  left: auto;
   z-index: 20;
   transform: translateY(-50%);
   gap: 8px;
   align-items: center;
   justify-content: center;
   pointer-events: auto;
+}
+
+.template-picker:not(.is-mobile) .template-picker__dots {
+  right: auto;
 }
 
 .template-picker__dot {
