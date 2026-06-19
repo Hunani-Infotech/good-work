@@ -53,7 +53,7 @@
       "year": "2026",
       "studio": "GoodWork",
       "studioNote": "",
-      "logoSrc": "/images/goodwork/symbol-full-colour.svg",
+      "logoSrc": "/images/goodwork/symbol-on-dark.svg",
       "backgroundImage": "/images/landing/malaysian-youth.jpg",
       "video": {
         "poster": "",
@@ -62,9 +62,11 @@
     },
     "assets": {
       "logoFullColour": "/images/goodwork/logo-full-colour.svg",
+      "logoOnDark": "/images/goodwork/logo-on-dark.svg",
       "logoWhite": "/images/goodwork/logo-white.svg",
       "logoBlack": "/images/goodwork/logo-black.svg",
       "symbol": "/images/goodwork/symbol-full-colour.svg",
+      "symbolOnDark": "/images/goodwork/symbol-on-dark.svg",
       "tickIcon": "/images/goodwork/tick-icon.svg",
       "navLogo": "/images/goodwork/symbol-full-colour.svg",
       "loaderLottie": "/documents/loading-style-01.json",

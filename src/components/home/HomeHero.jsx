@@ -7,7 +7,7 @@ export default function HomeHero() {
   const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubjectNav || 'Hey!')}`;
 
   return (
-    <div data-nav="peach" className="wrapper-hero hero-goodwork">
+    <div data-nav="peach" data-nav-logo="dark" className="wrapper-hero hero-goodwork">
       <div className="img-hero-wrapper" aria-hidden="true">
         <div className="hero-fx">
           <div className="hero-fx-orb hero-fx-orb--1" />

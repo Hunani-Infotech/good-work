@@ -9,7 +9,7 @@ export default function TemplateShowcase() {
   }, []);
 
   return (
-    <section className="agency-templates" id="templates">
+    <section className="agency-templates" id="templates" data-nav-logo="dark">
       <PortfolioTemplatePicker onSelect={handleSelect} />
     </section>
   );

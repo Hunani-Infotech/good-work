@@ -46,7 +46,14 @@ html.site-ready .agency-page .agency-footer {
   gap: 2rem;
 }
 
-.agency-nav__logo img {
+.agency-nav__logo {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.agency-nav__logo-img {
   height: 32px;
   width: auto;
   display: block;
@@ -478,7 +485,8 @@ html.site-ready .agency-page .agency-footer {
 /* ── How It Works ── */
 .agency-how {
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   background: var(--brand-bg-warm, #faf8f5);
   padding: clamp(4rem, 8vw, 7rem) 0;
 }
@@ -525,21 +533,43 @@ html.site-ready .agency-page .agency-footer {
 }
 
 .agency-how__body {
+  --how-inner-gap: clamp(1.25rem, 3.5vw, 2.5rem);
+  --how-outer-pad: clamp(0.25rem, 1.5vw, 1rem);
   position: relative;
   display: grid;
-  grid-template-rows: repeat(3, 280px);
-  padding: 60px 0;
+  /* 36% | 28% center channel | 36% — extra room around the S-curve */
+  grid-template-columns: minmax(0, 36fr) minmax(0, 28fr) minmax(0, 36fr);
+  grid-template-rows: repeat(3, minmax(220px, 280px));
+  align-items: center;
+  padding: clamp(2rem, 4vw, 3.75rem) 0;
   isolation: isolate;
 }
 
-.agency-how__svg {
+.agency-how__rail {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  /* Match center grid column (36% | 28% | 36%) */
+  clip-path: inset(0 36% 0 36% round 0);
+}
+
+.agency-how__svg {
   pointer-events: none;
   overflow: visible;
+}
+
+.agency-how__svg--desktop {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.agency-how__svg--mobile {
+  display: none;
 }
 
 .agency-how__node {
@@ -552,20 +582,61 @@ html.site-ready .agency-page .agency-footer {
   align-items: center;
   position: relative;
   z-index: 2;
+  min-width: 0;
+  padding: 0;
 }
 
+.agency-how__step[data-step="0"] { grid-row: 1; }
+.agency-how__step[data-step="1"] { grid-row: 2; }
+.agency-how__step[data-step="2"] { grid-row: 3; }
+
 .agency-how__step--left {
+  grid-column: 1;
   justify-content: flex-start;
-  padding-right: 54%;
+  padding-left: var(--how-outer-pad);
+  padding-right: var(--how-inner-gap);
 }
 
 .agency-how__step--right {
+  grid-column: 3;
   justify-content: flex-end;
-  padding-left: 54%;
+  padding-right: var(--how-outer-pad);
+  padding-left: var(--how-inner-gap);
+}
+
+.agency-how__step--right .agency-how__card {
+  text-align: right;
 }
 
 .agency-how__card {
+  position: relative;
+  z-index: 1;
   width: 100%;
+  padding: 0.5rem 0.65rem;
+  background: var(--brand-bg-warm, #faf8f5);
+  box-sizing: border-box;
+}
+
+.agency-how__step--left .agency-how__card {
+  margin-right: auto;
+  max-width: min(100%, 26rem);
+}
+
+.agency-how__step--right .agency-how__card {
+  margin-left: auto;
+  max-width: min(100%, 26rem);
+}
+
+.agency-how__card-head {
+  display: contents;
+}
+
+.agency-how__lead {
+  display: contents;
+}
+
+.agency-how__step-dot {
+  display: none;
 }
 
 .agency-how__num {
@@ -987,15 +1058,19 @@ html.site-ready .agency-page .agency-footer {
   flex-wrap: wrap;
 }
 
-.agency-footer__logo img {
+.agency-footer__logo img,
+.agency-footer__logo-img {
   height: 24px;
   width: auto;
-  opacity: 0.55;
-  transition: opacity 0.2s ease;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.agency-footer__logo:hover img {
-  opacity: 0.85;
+.agency-footer__logo:hover img,
+.agency-footer__logo:hover .agency-footer__logo-img {
+  opacity: 0.92;
+  transform: scale(1.02);
 }
 
 .agency-footer__copy {
@@ -1056,25 +1131,99 @@ html.site-ready .agency-page .agency-footer {
   .mockup-card--3 { height: 255px; right: -10px; }
 
   .agency-how__body {
-    display: flex;
-    flex-direction: column;
-    padding: 8px 0;
+    --how-rail-w: clamp(72px, 22vw, 96px);
+    --how-content-gap: 14px;
+    position: relative;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    min-height: clamp(720px, 210vw, 900px);
+    padding: 28px 0 48px;
   }
 
-  .agency-how__svg {
+  .agency-how__rail {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    overflow: hidden;
+    clip-path: none;
+  }
+
+  .agency-how__svg--desktop {
     display: none;
+  }
+
+  .agency-how__svg--mobile {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--how-rail-w);
+    height: 100%;
+  }
+
+  .agency-how__step {
+    grid-column: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 0;
+    padding: 0 0 0 calc(var(--how-rail-w) + var(--how-content-gap));
+  }
+
+  .agency-how__card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .agency-how__lead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .agency-how__step-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--brand-orange, #f25828);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--brand-orange, #f25828) 14%, transparent);
+    flex-shrink: 0;
+    /* Center dot on the SVG rail (path x = 50% of rail width) */
+    margin-left: calc((var(--how-rail-w) + var(--how-content-gap)) * -1 + (var(--how-rail-w) - 10px) / 2);
+  }
+
+  .agency-how__num {
+    margin-bottom: 0;
+    line-height: 1;
+  }
+
+  .agency-how__icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .agency-how__step--left,
   .agency-how__step--right {
-    padding: 24px 0;
-    padding-left: 0;
+    grid-column: 1;
     padding-right: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    padding-left: calc(var(--how-rail-w) + var(--how-content-gap));
+    justify-content: flex-start;
   }
 
   .agency-how__card {
     width: 100%;
+    max-width: 100%;
+    position: relative;
+    background: var(--brand-bg-warm, #faf8f5);
   }
 
   .agency-templates__grid {
@@ -1108,12 +1257,8 @@ html.site-ready .agency-page .agency-footer {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .agency-how__step--left {
-    padding-right: 50%;
-  }
-
-  .agency-how__step--right {
-    padding-left: 50%;
+@media (min-width: 992px) {
+  .agency-how__body {
+    --how-inner-gap: clamp(2rem, 5vw, 3.5rem);
   }
 }

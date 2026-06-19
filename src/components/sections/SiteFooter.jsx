@@ -1,4 +1,5 @@
 import { useSite } from '../../context/SiteContext';
+import BrandLogo from '../ui/BrandLogo';
 
 export default function SiteFooter({ logoSrc }) {
   const { site } = useSite();
@@ -10,6 +11,7 @@ export default function SiteFooter({ logoSrc }) {
   return (
     <section
       data-nav="peach"
+      data-nav-logo="dark"
       className={`section footer${bgImage || hasVideo ? ' has-footer-bg' : ''}`}
     >
       {bgImage && !hasVideo ? (
@@ -49,7 +51,7 @@ export default function SiteFooter({ logoSrc }) {
         <div className="wrapper-content-footer _2">
           <h2 className="name-footer">{brand.firstName}</h2>
           {imageSrc ? (
-            <img src={imageSrc} loading="lazy" alt="" className="image-4" />
+            <BrandLogo type="symbol" className="image-4 footer-brand-symbol" />
           ) : null}
           {brand.lastName ? (
             <h2 className="name-footer right">{brand.lastName}</h2>

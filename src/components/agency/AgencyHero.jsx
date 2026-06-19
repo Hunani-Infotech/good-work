@@ -20,7 +20,7 @@ function MockupCard({ variant, lines }) {
 
 export default function AgencyHero() {
   return (
-    <section className="agency-hero">
+    <section className="agency-hero" data-nav-logo="dark">
       {/* SVG liquid filter — referenced by agencyAnimations.js */}
       <svg aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
         <defs>

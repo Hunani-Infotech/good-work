@@ -20,7 +20,7 @@ window.RNScrollSections = (function () {
         root.innerHTML =
             '<div class="rn-scroll-spacer" aria-hidden="true"></div>' +
             '<div id="rn-scroll-progress" aria-hidden="true"><div id="rn-scroll-progress-bar"></div></div>' +
-            '<div class="rn-scroll-hint" aria-hidden="true"><span>Scroll to explore</span><div class="rn-scroll-hint-line"></div></div>' +
+            // '<div class="rn-scroll-hint" aria-hidden="true"><span>Scroll to explore</span><div class="rn-scroll-hint-line"></div></div>' +
             '<div class="rn-cinematic-flow" id="rn-cinematic-flow">' +
 
             '<aside id="rn-philosophy" class="rn-animate-block" aria-label="Design philosophy">' +

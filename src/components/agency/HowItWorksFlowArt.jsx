@@ -1,6 +1,19 @@
-/** Shared step connector path (viewBox 0 0 1000 960) */
+/** Desktop connector — x swing 435–565 (43.5–56.5%) inside 28% gutter */
 export const HOW_FLOW_PATH =
-  'M 500,0 C 500,80 350,140 350,200 C 350,260 500,320 500,380 C 500,420 650,440 650,480 C 650,520 500,560 500,640 C 500,700 350,700 350,760 C 350,820 500,880 500,920 C 500,940 500,960 500,960';
+  'M 500,0 C 500,80 435,140 435,200 C 435,260 500,320 500,380 C 500,420 565,440 565,480 C 565,520 500,560 500,640 C 500,700 435,700 435,760 C 435,820 500,880 500,920 C 500,940 500,960 500,960';
+
+/** Mobile step connector (viewBox 0 0 120 900) — nodes at ~17%, 50%, 83% for equal step rows */
+export const HOW_FLOW_PATH_MOBILE =
+  'M 60,8 C 60,48 60,80 60,150' +
+  ' C 60,220 60,280 60,450' +
+  ' C 60,620 60,680 60,750' +
+  ' C 60,820 60,860 60,892';
+
+export const HOW_FLOW_NODES_DESKTOP = [
+  { x: 435, y: 200 },
+  { x: 565, y: 480 },
+  { x: 435, y: 760 },
+];
 
 /* Corner-only wave paths — stay within ~45% of each corner */
 const TL_WAVES = [
@@ -52,13 +65,6 @@ export default function HowItWorksFlowArt() {
       aria-hidden="true"
     >
       <defs>
-        <clipPath id="how-corner-tl">
-          <rect x="0" y="0" width="748" height="576" />
-        </clipPath>
-        <clipPath id="how-corner-br">
-          <rect x="692" y="624" width="748" height="576" />
-        </clipPath>
-
         <radialGradient id="how-glow-tl" cx="0%" cy="0%" r="75%">
           <stop offset="0%" stopColor="#f25828" stopOpacity="0.14" />
           <stop offset="35%" stopColor="#ffbc95" stopOpacity="0.1" />
@@ -88,10 +94,30 @@ export default function HowItWorksFlowArt() {
         <filter id="how-corner-blur" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="18" result="blur" />
         </filter>
+
+        <radialGradient id="how-mask-tl" cx="0%" cy="0%" r="85%">
+          <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+          <stop offset="72%" stopColor="#fff" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+
+        <radialGradient id="how-mask-br" cx="100%" cy="100%" r="85%">
+          <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+          <stop offset="72%" stopColor="#fff" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+
+        <mask id="how-corner-tl-mask">
+          <rect x="0" y="0" width="820" height="640" fill="url(#how-mask-tl)" />
+        </mask>
+
+        <mask id="how-corner-br-mask">
+          <rect x="620" y="560" width="820" height="640" fill="url(#how-mask-br)" />
+        </mask>
       </defs>
 
-      {/* Top-left corner */}
-      <g clipPath="url(#how-corner-tl)">
+      {/* Top-left corner — soft mask (no hard clip) */}
+      <g mask="url(#how-corner-tl-mask)">
         <rect x="0" y="0" width="760" height="580" fill="url(#how-glow-tl)" />
         <g filter="url(#how-corner-blur)" opacity="0.55">
           <ellipse cx="80" cy="60" rx="220" ry="160" fill="#ffffff" opacity="0.65" />
@@ -100,8 +126,8 @@ export default function HowItWorksFlowArt() {
         <CornerWaves paths={TL_WAVES} stroke="url(#how-stroke-tl)" className="agency-how__waves agency-how__waves--tl" />
       </g>
 
-      {/* Bottom-right corner */}
-      <g clipPath="url(#how-corner-br)">
+      {/* Bottom-right corner — soft mask (no hard clip) */}
+      <g mask="url(#how-corner-br-mask)">
         <rect x="692" y="624" width="748" height="576" fill="url(#how-glow-br)" />
         <g filter="url(#how-corner-blur)" opacity="0.5">
           <ellipse cx="1360" cy="1140" rx="240" ry="180" fill="#ffffff" opacity="0.6" />

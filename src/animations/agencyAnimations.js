@@ -99,12 +99,19 @@ export function initAgencyAnimations() {
   function initNav() {
     var nav = document.querySelector('.agency-nav');
     if (!nav) return;
+
+    function updateNavState() {
+      var scrollY = window.scrollY || window.pageYOffset;
+      nav.classList.toggle('is-scrolled', scrollY > 60);
+    }
+
+    updateNavState();
     ScrollTrigger.create({
-      start: 'top -60',
-      onUpdate: function (self) {
-        nav.classList.toggle('is-scrolled', self.scroll() > 60);
-      },
+      start: 'top top',
+      end: 'max',
+      onUpdate: updateNavState,
     });
+    window.addEventListener('resize', updateNavState);
   }
 
   /* ── Liquid text on hero headline ── */
@@ -332,8 +339,9 @@ export function initAgencyAnimations() {
 
     var headline = section.querySelector('.agency-section__headline');
     var tag = section.querySelector('.agency-tag');
-    var path = section.querySelector('.agency-how__path');
+    var paths = section.querySelectorAll('.agency-how__path');
     var nodes = section.querySelectorAll('.agency-how__node');
+    var stepDots = section.querySelectorAll('.agency-how__step-dot');
     var steps = section.querySelectorAll('.agency-how__step');
 
     if (tag) {
@@ -386,28 +394,50 @@ export function initAgencyAnimations() {
       });
     });
 
-    if (!path) return;
-    var length = path.getTotalLength();
-    if (!length || length < 10) return;
+    if (!paths.length) return;
 
-    gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-    gsap.set(nodes, { scale: 0, transformOrigin: '50% 50%' });
+    paths.forEach(function (pathEl) {
+      var length = pathEl.getTotalLength();
+      if (!length || length < 10) return;
 
-    gsap.to(path, {
-      strokeDashoffset: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 1.5,
-      },
+      gsap.set(pathEl, { strokeDasharray: length, strokeDashoffset: length });
+      gsap.to(pathEl, {
+        strokeDashoffset: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          scrub: 1.5,
+        },
+      });
     });
 
-    nodes.forEach(function (node, i) {
+    gsap.set(nodes, { scale: 0, transformOrigin: '50% 50%' });
+    gsap.set(stepDots, { scale: 0, transformOrigin: '50% 50%' });
+
+    section.querySelectorAll('.agency-how__svg').forEach(function (svg) {
+      var svgNodes = svg.querySelectorAll('.agency-how__node');
+      svgNodes.forEach(function (node, i) {
+        var step = steps[i];
+        if (!step) return;
+        gsap.to(node, {
+          scale: 1,
+          duration: 0.45,
+          ease: 'back.out(2.2)',
+          scrollTrigger: {
+            trigger: step,
+            start: 'top 78%',
+            toggleActions: 'play none none none',
+          },
+        });
+      });
+    });
+
+    stepDots.forEach(function (dot, i) {
       var step = steps[i];
       if (!step) return;
-      gsap.to(node, {
+      gsap.to(dot, {
         scale: 1,
         duration: 0.45,
         ease: 'back.out(2.2)',

@@ -1,6 +1,6 @@
 export default function AgencyCta() {
   return (
-    <section className="agency-cta" id="cta">
+    <section className="agency-cta" id="cta" data-nav-logo="dark">
       <div className="agency-cta__orb" aria-hidden="true" />
       <div className="agency-cta__inner">
         <span className="agency-tag" style={{ color: 'rgba(255,255,255,0.5)', alignSelf: 'center' }}>
