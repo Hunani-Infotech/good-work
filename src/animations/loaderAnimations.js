@@ -1,90 +1,316 @@
-import gsap from 'gsap';
+const LOADER_MSGS = ['Loading…', 'Crafting…', 'Polishing…', 'Ready'];
+const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EASE_SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+const EASE_CURTAIN = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
-let loaderTimeline = null;
+let loaderRunId = 0;
+let loaderSessionComplete = false;
+let loaderSessionPromise = null;
+let siteReadyApplied = false;
 
-export function destroySiteLoader() {
-  if (loaderTimeline) {
-    loaderTimeline.kill();
-    loaderTimeline = null;
-  }
-  var loader = document.querySelector('.container-loader');
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function isLoaderSessionComplete() {
+  return loaderSessionComplete;
+}
+
+export function isLoaderSessionPending() {
+  return Boolean(loaderSessionPromise && !loaderSessionComplete);
+}
+
+export function resetLoaderSession() {
+  loaderSessionComplete = false;
+  loaderSessionPromise = null;
+  siteReadyApplied = false;
+  loaderRunId += 1;
+}
+
+function hideLoaderEl() {
+  document.documentElement.classList.remove('is-loader-active');
+
+  const loader = document.querySelector('.container-loader.site-loader');
+  const reveal = document.querySelector('.loader-curtain-reveal');
   if (loader) {
-    gsap.killTweensOf([
-      loader,
-      loader.querySelector('.orange-intro'),
-      loader.querySelector('.grow-line'),
-      loader.querySelector('.loader-intro'),
-    ]);
+    loader.classList.remove('is-active');
+    loader.style.display = 'none';
+    loader.style.opacity = '';
+    loader.setAttribute('aria-busy', 'false');
+  }
+  if (reveal) {
+    reveal.style.opacity = '0';
+    reveal.style.transform = 'translate(-50%, -50%) scale(0)';
   }
 }
 
+function applySiteReady() {
+  if (siteReadyApplied) return;
+  siteReadyApplied = true;
+  document.documentElement.classList.add('site-ready');
+}
+
+export function revealSiteContent() {
+  applySiteReady();
+}
+
+function revealChar(el, delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const anim = el.animate([
+        { opacity: 0, transform: 'translateY(14px) scaleY(0.85)', filter: 'blur(4px)' },
+        { opacity: 1, transform: 'translateY(0) scaleY(1)', filter: 'blur(0px)' },
+      ], { duration: 650, fill: 'forwards', easing: EASE_OUT });
+      anim.onfinish = resolve;
+    }, delay);
+  });
+}
+
+function dotEntrance(circleWrap, dot) {
+  return new Promise((resolve) => {
+    const anim = circleWrap.animate([
+      { opacity: 0, transform: 'scale(0.4)' },
+      { opacity: 1, transform: 'scale(1.08)' },
+      { opacity: 1, transform: 'scale(1)' },
+    ], { duration: 800, fill: 'forwards', easing: EASE_SPRING });
+    dot.animate([
+      { background: '#ffffff' },
+      { background: 'var(--brand-orange, #f25828)' },
+    ], { duration: 900, fill: 'forwards', easing: 'ease-out' });
+    anim.onfinish = resolve;
+  });
+}
+
+function showEyebrow(el) {
+  el.animate([
+    { opacity: 0, transform: 'translateY(6px)' },
+    { opacity: 1, transform: 'translateY(0)' },
+  ], { duration: 700, fill: 'forwards', easing: 'ease-out' });
+}
+
+function expandRule(rule, width, duration) {
+  const t0 = performance.now();
+  return new Promise((resolve) => {
+    function tick(now) {
+      const t = Math.min(1, (now - t0) / duration);
+      rule.style.width = `${width * (1 - Math.pow(1 - t, 2))}px`;
+      if (t < 1) requestAnimationFrame(tick);
+      else resolve();
+    }
+    tick(t0);
+  });
+}
+
+function animateCounter(counterEl, statusEl, target, duration, startVal) {
+  const t0 = performance.now();
+  return new Promise((resolve) => {
+    function tick(now) {
+      const t = Math.min(1, (now - t0) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = Math.round(startVal + (target - startVal) * eased);
+      counterEl.textContent = String(value);
+      statusEl.textContent = LOADER_MSGS[Math.min(Math.floor((value / 101) * LOADER_MSGS.length), LOADER_MSGS.length - 1)];
+      if (t < 1) requestAnimationFrame(tick);
+      else resolve(value);
+    }
+    tick(t0);
+  });
+}
+
+function curtainReveal(dot, reveal, loader) {
+  return new Promise((resolve) => {
+    const rect = dot.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const radius = Math.hypot(window.innerWidth, window.innerHeight);
+    const scaleValue = (radius * 2) / 100;
+    const expandDuration = 1200;
+    const fadeDuration = 650;
+
+    reveal.style.left = `${centerX}px`;
+    reveal.style.top = `${centerY}px`;
+    reveal.style.opacity = '1';
+    reveal.style.transform = 'translate(-50%, -50%) scale(0)';
+
+    loader.animate([
+      { opacity: 1 },
+      { opacity: 0 },
+    ], {
+      duration: 450,
+      delay: 280,
+      easing: EASE_OUT,
+      fill: 'forwards',
+    });
+
+    const expandAnim = reveal.animate([
+      { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+      { transform: `translate(-50%, -50%) scale(${scaleValue})`, opacity: 1 },
+    ], {
+      duration: expandDuration,
+      easing: EASE_CURTAIN,
+      fill: 'forwards',
+    });
+
+    expandAnim.onfinish = () => {
+      const fadeOut = reveal.animate([
+        { opacity: 1 },
+        { opacity: 0 },
+      ], {
+        duration: fadeDuration,
+        easing: 'ease-out',
+        fill: 'forwards',
+      });
+
+      fadeOut.onfinish = () => {
+        hideLoaderEl();
+        resolve();
+      };
+    };
+  });
+}
+
+async function runLuxuryLoader(loader, isStale) {
+  const reveal = document.querySelector('.loader-curtain-reveal');
+  const stage = loader.querySelector('.loader-stage');
+  const eyebrow = loader.querySelector('.loader-eyebrow');
+  const ruleTop = loader.querySelector('.loader-rule--top');
+  const ruleBottom = loader.querySelector('.loader-rule--bottom');
+  const circleWrap = loader.querySelector('.loader-char--circle');
+  const dot = loader.querySelector('[data-loader-dot]');
+  const hud = loader.querySelector('.loader-hud');
+  const counterEl = loader.querySelector('[data-loader-counter]');
+  const statusEl = loader.querySelector('[data-loader-status]');
+  const corners = loader.querySelectorAll('.loader-corner');
+  const chars = loader.querySelectorAll('[data-loader-char]');
+
+  if (!reveal || !stage || !dot || !circleWrap) {
+    hideLoaderEl();
+    return;
+  }
+
+  chars.forEach((el) => { el.style.opacity = '0'; });
+  circleWrap.style.opacity = '0';
+
+  const stageW = stage.offsetWidth || 420;
+
+  await sleep(250);
+  if (isStale()) return;
+
+  showEyebrow(eyebrow);
+  expandRule(ruleTop, stageW, 500);
+
+  await sleep(320);
+  if (isStale()) return;
+
+  dotEntrance(circleWrap, dot);
+  await sleep(150);
+  if (isStale()) return;
+
+  await Promise.all(Array.from(chars).map((el, i) => revealChar(el, i * 65)));
+  await sleep(200);
+  if (isStale()) return;
+
+  hud.style.opacity = '1';
+  hud.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, fill: 'forwards' });
+
+  let countVal = 0;
+  await Promise.all([
+    animateCounter(counterEl, statusEl, 100, 1100, countVal).then((v) => { countVal = v; }),
+    expandRule(ruleBottom, stageW, 900),
+    sleep(600).then(() => {
+      corners.forEach((c) => c.classList.add('is-locked'));
+      dot.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.09)' },
+        { transform: 'scale(1)' },
+      ], { duration: 500, easing: 'ease-in-out' });
+    }),
+  ]);
+
+  await sleep(380);
+  if (isStale()) return;
+
+  await curtainReveal(dot, reveal, loader);
+}
+
+export function bootSiteLoader(options) {
+  return initSiteLoader(options);
+}
+
+export function whenSiteLoaderReady(options) {
+  return initSiteLoader(options);
+}
+
+export function destroySiteLoader() {
+  if (loaderSessionComplete || loaderSessionPromise) {
+    return;
+  }
+
+  loaderRunId += 1;
+  hideLoaderEl();
+}
+
 /**
- * Orange grow-line intro shown on every route.
+ * Luxury GoodWork loader with orange dot curtain reveal.
  * @param {{ prefersReduced?: boolean, isStale?: () => boolean }} options
  */
 export function initSiteLoader(options) {
-  var prefersReduced = options && typeof options.prefersReduced === 'boolean'
+  const prefersReduced = options && typeof options.prefersReduced === 'boolean'
     ? options.prefersReduced
     : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isStale = options && typeof options.isStale === 'function' ? options.isStale : function () { return false; };
+  const isStale = options && typeof options.isStale === 'function'
+    ? options.isStale
+    : () => false;
 
+  if (loaderSessionComplete) {
+    hideLoaderEl();
+    return Promise.resolve();
+  }
+
+  if (loaderSessionPromise) {
+    return loaderSessionPromise;
+  }
+
+  const runId = ++loaderRunId;
   document.documentElement.classList.remove('site-ready');
+  siteReadyApplied = false;
 
-  var loader = document.querySelector('.container-loader');
-  if (!loader || prefersReduced) {
-    if (loader) loader.style.display = 'none';
-    document.documentElement.classList.add('site-ready');
+  const loader = document.querySelector('.container-loader.site-loader');
+  if (!loader) {
+    applySiteReady();
+    loaderSessionComplete = true;
     return Promise.resolve();
   }
 
-  var overlay = loader.querySelector('.orange-intro');
-  var line = loader.querySelector('.grow-line');
-  var intro = loader.querySelector('.loader-intro');
-
-  if (loaderTimeline) {
-    loaderTimeline.kill();
-    loaderTimeline = null;
-  }
-
-  gsap.killTweensOf([loader, overlay, line, intro]);
-  gsap.set(loader, { display: 'flex', opacity: 1 });
-  if (intro) gsap.set(intro, { opacity: 1, y: 0 });
-  if (overlay) gsap.set(overlay, { opacity: 1 });
-  if (!line) {
-    document.documentElement.classList.add('site-ready');
+  if (prefersReduced) {
+    hideLoaderEl();
+    applySiteReady();
+    loaderSessionComplete = true;
     return Promise.resolve();
   }
-  gsap.set(line, {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    xPercent: -50,
-    yPercent: -50,
-    width: '2%',
-    height: '1%',
-    transformOrigin: '50% 50%',
-  });
 
-  return new Promise(function (resolve) {
-    loaderTimeline = gsap.timeline({
-      defaults: { ease: 'osmo' },
-      onComplete: function () {
-        if (isStale()) {
-          resolve();
-          return;
-        }
-        loaderTimeline = null;
-        gsap.set(loader, { display: 'none' });
-        document.documentElement.classList.add('site-ready');
-        resolve();
-      },
+  document.documentElement.classList.add('is-loader-active');
+  loader.classList.add('is-active');
+  loader.style.display = 'flex';
+  loader.style.opacity = '1';
+  loader.setAttribute('aria-busy', 'true');
+
+  const staleCheck = () => runId !== loaderRunId || isStale();
+
+  loaderSessionPromise = document.fonts.ready
+    .then(() => sleep(100))
+    .then(() => {
+      if (staleCheck()) return;
+      return runLuxuryLoader(loader, staleCheck);
+    })
+    .then(() => {
+      if (staleCheck()) return;
+      loaderSessionComplete = true;
+    })
+    .catch(() => {
+      hideLoaderEl();
+      loaderSessionComplete = true;
     });
 
-    loaderTimeline
-      .to({}, { duration: 0.4 })
-      .to(line, { width: '220vmax', height: '220vmax', duration: 1.1, ease: 'power3.inOut' }, 0.2)
-      .to(intro, { opacity: 0, y: -12, duration: 0.35 }, 0.55)
-      .to(overlay, { opacity: 0, duration: 0.45 }, 0.95)
-      .to(loader, { opacity: 0, duration: 0.3 }, 1.15);
-  });
+  return loaderSessionPromise;
 }

@@ -11,7 +11,7 @@ import {
   refreshScrollTriggers,
 } from './scrollRuntime.js';
 import { initNavLinkHovers } from './navAnimations.js';
-import { destroySiteLoader, initSiteLoader } from './loaderAnimations.js';
+import { revealSiteContent, whenSiteLoaderReady } from './loaderAnimations.js';
 
 let resizeHandler = null;
 let runId = 0;
@@ -36,7 +36,6 @@ export function destroyHomeAnimations() {
   runId += 1;
   stopCtaFollow();
   stopHeroFx();
-  destroySiteLoader();
   if (resizeHandler) {
     window.removeEventListener('resize', resizeHandler);
     resizeHandler = null;
@@ -72,11 +71,13 @@ export function initHomeAnimations() {
     initLenis();
   }
 
-  /* ── Loader intro ── */
-  function initLoader() {
-    return initSiteLoader({
+  /* ── Wait for global site loader ── */
+  function waitForSiteLoader() {
+    return whenSiteLoaderReady({
       prefersReduced,
       isStale: function () { return id !== runId; },
+    }).then(function () {
+      revealSiteContent();
     });
   }
 
@@ -1543,7 +1544,7 @@ export function initHomeAnimations() {
   };
   window.addEventListener('resize', resizeHandler);
 
-  return initLoader().then(function () {
+  return waitForSiteLoader().then(function () {
     if (id !== runId) return;
     prepBenefitsWords();
     initNavTheme();

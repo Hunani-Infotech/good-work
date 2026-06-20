@@ -1,22 +1,28 @@
 import { useEffect } from 'react';
 import { initAgencyAnimations, destroyAgencyAnimations } from '../animations/agencyAnimations.js';
-import { resetDocumentScrollState } from '../animations/scrollRuntime.js';
+
+let agencyMountCount = 0;
 
 export function useAgencyAnimations() {
   useEffect(() => {
     let active = true;
+    agencyMountCount += 1;
 
     const frame = window.requestAnimationFrame(() => {
       if (!active) return;
-      resetDocumentScrollState({ keepSiteReady: true });
-      document.documentElement.classList.remove('site-ready');
       initAgencyAnimations();
     });
 
     return () => {
       active = false;
       window.cancelAnimationFrame(frame);
-      destroyAgencyAnimations();
+      agencyMountCount -= 1;
+
+      window.setTimeout(() => {
+        if (agencyMountCount === 0) {
+          destroyAgencyAnimations();
+        }
+      }, 0);
     };
   }, []);
 }
