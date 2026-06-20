@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react'
-import Layout from '../components/layout/Layout'
-import SiteFooter from '../components/sections/SiteFooter'
-import SiteLoader from '../components/ui/SiteLoader'
+import { usePageReveal } from '../hooks/usePageReveal';
 
-function NotFoundPage() {
+export default function NotFoundPage() {
+  usePageReveal();
 
   return (
-    <> 
-      <main className="main">
-        <div className="blur not-found">
-          <div className="blur-content">
-            <h1>404</h1>
-          </div>
+    <main className="main">
+      <div className="blur not-found">
+        <div className="blur-content">
+          <h1>404</h1>
         </div>
-        </main>
-    </>
-);
+      </div>
+    </main>
+  );
 }
-
-export default NotFoundPage;

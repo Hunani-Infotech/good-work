@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import SiteLoader from './components/ui/SiteLoader';
+import { useSiteLoader } from './hooks/useSiteLoader';
 import AgencyHomePage from './pages/AgencyHomePage';
 import HomePage from './pages/HomePage';
 // import WorkPage from './pages/WorkPage';
@@ -7,6 +8,8 @@ import AdminPage from './pages/AdminPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
+  useSiteLoader();
+
   return (
     <>
       <SiteLoader />

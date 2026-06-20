@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { useSite } from '../context/SiteContext';
+import { usePageReveal } from '../hooks/usePageReveal';
 import '../styles/admin.css';
 
 export function Field({ label, value, onChange, multiline, hint }) {
@@ -47,6 +48,8 @@ export function ColorField({ label, value, onChange }) {
 }
 
 export default function AdminPage() {
+  usePageReveal();
+
   const {
     site,
     updateSite,

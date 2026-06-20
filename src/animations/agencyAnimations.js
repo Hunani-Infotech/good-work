@@ -2,11 +2,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CustomEase } from 'gsap/CustomEase';
 import { initLenis, destroyLenis, resetDocumentScrollState } from './scrollRuntime.js';
-import { destroySiteLoader, initSiteLoader } from './loaderAnimations.js';
+import { isLoaderSessionComplete, isLoaderSessionPending, revealSiteContent, whenSiteLoaderReady } from './loaderAnimations.js';
 
 let agencyRunId = 0;
 let agencyLiquidTl = null;
 let agencyLiquidHoverCleanup = null;
+let agencyBootPromise = null;
 
 function resetLiquidFilter() {
   var turbEl = document.getElementById('gw-turb');
@@ -53,14 +54,22 @@ function createLiquidController(headline) {
   return { state: state, applyLiquidState: applyLiquidState, setFilter: setFilter, turbEl: turbEl, dispEl: dispEl };
 }
 
-export function destroyAgencyAnimations() {
+function resetAgencyRuntime() {
   agencyRunId += 1;
   resetLiquidFilter();
-  destroySiteLoader();
   gsap.killTweensOf('*');
   ScrollTrigger.getAll().forEach(function (t) { t.kill(); });
   destroyLenis();
-  resetDocumentScrollState({ keepSiteReady: true });
+  resetDocumentScrollState({ keepSiteReady: isLoaderSessionComplete() });
+}
+
+export function destroyAgencyAnimations() {
+  if (isLoaderSessionPending()) {
+    return;
+  }
+
+  agencyBootPromise = null;
+  resetAgencyRuntime();
 }
 
 /* ── Word splitter ── */
@@ -82,7 +91,11 @@ function splitWords(el) {
 }
 
 export function initAgencyAnimations() {
-  destroyAgencyAnimations();
+  if (agencyBootPromise) {
+    return agencyBootPromise;
+  }
+
+  resetAgencyRuntime();
   var id = agencyRunId;
 
   gsap.registerPlugin(ScrollTrigger, CustomEase);
@@ -234,9 +247,9 @@ export function initAgencyAnimations() {
   }
 
   /* ── Hero entrance ── */
-  function initAgencyHero() {
+  function prepareAgencyHero() {
     var hero = document.querySelector('.agency-hero');
-    if (!hero) return;
+    if (!hero) return null;
 
     var orbs = hero.querySelectorAll('.agency-hero__orb');
     var tag = hero.querySelector('.agency-tag');
@@ -249,7 +262,7 @@ export function initAgencyAnimations() {
     if (prefersReduced) {
       gsap.set([tag, sub, stats, ...ctas, ...orbs, ...cards], { opacity: 1, y: 0, scale: 1 });
       gsap.set(headline, { opacity: 1 });
-      return;
+      return null;
     }
 
     var words = splitWords(headline);
@@ -264,6 +277,20 @@ export function initAgencyAnimations() {
 
     initLiquidText(headline);
     initLiquidHover(headline);
+
+    return { hero, orbs, tag, headline, sub, ctas, stats, cards, words };
+  }
+
+  function playAgencyHeroEntrance(prepared) {
+    if (!prepared) return;
+
+    var orbs = prepared.orbs;
+    var tag = prepared.tag;
+    var words = prepared.words;
+    var sub = prepared.sub;
+    var ctas = prepared.ctas;
+    var stats = prepared.stats;
+    var cards = prepared.cards;
 
     var tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'osmo' } });
 
@@ -316,6 +343,7 @@ export function initAgencyAnimations() {
     });
 
     /* Hero parallax */
+    var hero = prepared.hero;
     var content = hero.querySelector('.agency-hero__content');
     var visual = hero.querySelector('.agency-hero__visual');
     gsap.to(content, {
@@ -567,13 +595,17 @@ export function initAgencyAnimations() {
   }
 
   /* ── Boot ── */
-  return initSiteLoader({
+  agencyBootPromise = whenSiteLoaderReady({
     prefersReduced,
     isStale: function () { return id !== agencyRunId; },
   }).then(function () {
     if (id !== agencyRunId) return;
+
+    var heroPrepared = prepareAgencyHero();
+    revealSiteContent();
+    playAgencyHeroEntrance(heroPrepared);
+
     initNav();
-    initAgencyHero();
     initHowItWorks();
     initTemplates();
     initFeatures();
@@ -586,4 +618,6 @@ export function initAgencyAnimations() {
       });
     }
   });
+
+  return agencyBootPromise;
 }

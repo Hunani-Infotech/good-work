@@ -14,7 +14,7 @@ import {
   getScrollOffset,
 } from './scrollRuntime.js';
 import { initNavLinkHovers } from './navAnimations.js';
-import { destroySiteLoader, initSiteLoader } from './loaderAnimations.js';
+import { revealSiteContent, whenSiteLoaderReady } from './loaderAnimations.js';
 
 let resizeHandler = null;
 let runId = 0;
@@ -31,7 +31,6 @@ export function destroyWorkAnimations() {
     navCleanup();
     navCleanup = null;
   }
-  destroySiteLoader();
   if (resizeHandler) {
     window.removeEventListener('resize', resizeHandler);
     resizeHandler = null;
@@ -230,10 +229,12 @@ export function initWorkAnimations() {
     el.innerHTML = out.join('');
   }
 
-  function initLoader() {
-    return initSiteLoader({
+  function waitForSiteLoader() {
+    return whenSiteLoaderReady({
       prefersReduced,
       isStale: function () { return id !== runId; },
+    }).then(function () {
+      revealSiteContent();
     });
   }
 
@@ -496,7 +497,7 @@ export function initWorkAnimations() {
   };
   window.addEventListener('resize', resizeHandler);
 
-  return initLoader().then(function () {
+  return waitForSiteLoader().then(function () {
     if (id !== runId) return;
     initNavTheme();
     initNavLinkHovers();

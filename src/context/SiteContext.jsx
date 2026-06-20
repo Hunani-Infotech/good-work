@@ -178,14 +178,6 @@ export function SiteProvider({ children }) {
     createConfigPreviewUrl,
   ]);
 
-  if (loading) {
-    return (
-      <div className="site-loading-screen" aria-live="polite">
-        Loading site…
-      </div>
-    );
-  }
-
   return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>;
 }
 
