@@ -605,7 +605,7 @@ html.site-ready .agency-page .agency-footer {
 }
 
 .agency-how__step--right .agency-how__card {
-  text-align: right;
+  text-align: start;
 }
 
 .agency-how__card {

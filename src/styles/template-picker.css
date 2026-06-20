@@ -19,7 +19,7 @@
   background: #3d6b7a;
   container-type: size;
   container-name: template-picker;
-  overscroll-behavior: contain;
+  overscroll-behavior: auto;
   isolation: isolate;
   outline: none;
 }

@@ -731,9 +731,11 @@ export function initPortfolioTemplatePicker({
     if (touchAxis === null) {
       if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
       touchAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    }
-    if (touchAxis === 'x') {
-      e.preventDefault();
+      if (touchAxis === 'y') {
+        touchX0 = null;
+        touchY0 = null;
+        touchAxis = null;
+      }
     }
   }
 
@@ -754,7 +756,7 @@ export function initPortfolioTemplatePicker({
     touchAxis = null;
 
     if (isMobile) {
-      if (axis === 'x' && Math.abs(dx) > 40) {
+      if (axis === 'x' && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
         snapScrollStep(dx > 0 ? 1 : -1);
       }
       return;
@@ -779,7 +781,7 @@ export function initPortfolioTemplatePicker({
   section.addEventListener('wheel', onWheel, { passive: false });
   window.addEventListener('keydown', onKeyDown);
   section.addEventListener('touchstart', onTouchStart, { passive: true });
-  section.addEventListener('touchmove', onTouchMove, { passive: false });
+  section.addEventListener('touchmove', onTouchMove, { passive: true });
   section.addEventListener('touchend', onTouchEnd, { passive: true });
   section.addEventListener('pointerdown', onPointerDown);
   window.addEventListener('resize', onResize);
