@@ -9,16 +9,18 @@ const HERO_COLLAGE = PORTFOLIO_TEMPLATES.slice(0, 4).map((template, index) => ({
 function CollagePanel({ className, image, label }) {
   return (
     <article className={`agency-collage__panel ${className}`}>
-      <div className="agency-collage__frame">
-        <img
-          src={image}
-          alt=""
-          className="agency-collage__img"
-          loading="eager"
-          decoding="async"
-        />
+      <div className="agency-collage__panel-body">
+        <div className="agency-collage__frame">
+          <img
+            src={image}
+            alt=""
+            className="agency-collage__img"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+        {label ? <span className="agency-collage__label">{label}</span> : null}
       </div>
-      {label ? <span className="agency-collage__label">{label}</span> : null}
     </article>
   );
 }
@@ -88,14 +90,16 @@ export default function AgencyHero() {
 
           <div className="agency-hero__collage-wrap">
             <div className="agency-hero__collage" aria-hidden="true">
-              {HERO_COLLAGE.map((item, index) => (
-                <CollagePanel
-                  key={item.id}
-                  className={`agency-collage__panel--${index + 1}`}
-                  image={item.image}
-                  label={item.label}
-                />
-              ))}
+              <div className="agency-collage__stage">
+                {HERO_COLLAGE.map((item, index) => (
+                  <CollagePanel
+                    key={item.id}
+                    className={`agency-collage__panel--${index + 1}`}
+                    image={item.image}
+                    label={item.label}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

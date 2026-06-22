@@ -3,7 +3,7 @@
    Palette: purple #510066 · orange #f25828 · warm #faf8f5 · grey #96908c
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 body.agency-page {
   background: #f4efe6;
@@ -123,7 +123,7 @@ html.site-ready .agency-page .agency-footer {
   --hero-champagne: #ebe6dc;
   --hero-oval: #e8b4a8;
 
-  min-height: 100vh;
+  min-height: auto;
   position: relative;
   overflow: hidden;
   background: var(--hero-cream);
@@ -191,20 +191,20 @@ html.site-ready .agency-page .agency-footer {
 .agency-hero__inner {
   width: min(94vw, 1320px);
   margin: 0 auto;
-  min-height: calc(100vh - 68px - 2.35rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 1fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  align-items: end;
-  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 5vw, 3.5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 1.15fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: stretch;
+  padding: clamp(1.25rem, 2.5vw, 2rem) 0 clamp(2rem, 4vw, 3rem);
 }
 
 .agency-hero__copy {
   display: flex;
   flex-direction: column;
   gap: clamp(1.1rem, 2.2vw, 1.75rem);
-  padding-bottom: clamp(0.5rem, 2vw, 1.5rem);
+  padding-bottom: 0;
   max-width: 36rem;
+  align-self: center;
 }
 
 .agency-hero__headline {
@@ -252,11 +252,23 @@ html.site-ready .agency-page .agency-footer {
 .agency-hero__sub {
   margin: 0;
   max-width: 38ch;
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-family: Goga, Arial, sans-serif;
   font-size: clamp(0.78rem, 1.1vw, 0.92rem);
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.85;
+  letter-spacing: 0.09em;
   color: rgba(26, 23, 20, 0.62);
+}
+
+.agency-hero--editorial .agency-hero__headline,
+.agency-hero--editorial .agency-hero__headline .agency-hero__line,
+.agency-hero--editorial .agency-hero__mark-text {
+  font-family: Goga, Arial, sans-serif;
+}
+
+.agency-hero--editorial .agency-hero__sub {
+  font-family: Goga, Arial, sans-serif;
+  font-weight: 400;
 }
 
 .agency-hero--editorial .agency-hero__ctas {
@@ -292,27 +304,45 @@ html.site-ready .agency-page .agency-footer {
   position: relative;
   min-width: 0;
   width: 100%;
-  max-width: 560px;
-  justify-self: end;
+  align-self: stretch;
+  justify-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(420px, 54vh, 580px);
 }
 
 .agency-hero__collage {
   position: relative;
-  height: clamp(380px, 52vh, 540px);
-  min-width: 0;
   width: 100%;
+  height: 100%;
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agency-collage__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
 }
 
 .agency-collage__panel {
   position: absolute;
-  bottom: clamp(1rem, 2.5vh, 1.75rem);
+  top: 50%;
+  width: 24%;
+  transform-origin: 50% 50%;
+}
+
+.agency-collage__panel-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  width: clamp(96px, 11.5vw, 132px);
+  gap: 0.55rem;
+  width: 100%;
   opacity: 0;
-  transform-origin: 50% 100%;
 }
 
 .agency-collage__frame {
@@ -326,26 +356,40 @@ html.site-ready .agency-page .agency-footer {
 }
 
 .agency-collage__panel--1 {
-  left: 2%;
+  left: 0;
   z-index: 2;
-  transform: rotate(-4deg);
+  transform: translateY(-54%);
 }
 
 .agency-collage__panel--2 {
-  left: 26%;
+  left: 25%;
   z-index: 3;
-  transform: translateY(-4%) rotate(-1deg);
+  width: 26%;
+  transform: translateY(-56%);
 }
 
 .agency-collage__panel--3 {
   left: 50%;
   z-index: 4;
-  transform: translateY(-2%);
+  width: 26%;
+  transform: translateY(-54%);
 }
 
 .agency-collage__panel--4 {
-  left: 74%;
+  left: 76%;
   z-index: 2;
+  transform: translateY(-54%);
+}
+
+.agency-collage__panel--1 .agency-collage__panel-body {
+  transform: rotate(-4deg);
+}
+
+.agency-collage__panel--2 .agency-collage__panel-body {
+  transform: rotate(-1deg);
+}
+
+.agency-collage__panel--4 .agency-collage__panel-body {
   transform: rotate(3deg);
 }
 
@@ -843,7 +887,7 @@ html.site-ready .agency-page .agency-footer {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 0.5rem 0.65rem;
+  padding: 0;
   background: var(--brand-bg-warm, #faf8f5);
   box-sizing: border-box;
 }
@@ -870,12 +914,17 @@ html.site-ready .agency-page .agency-footer {
   display: none;
 }
 
+.agency-how__num,
+.agency-how__title,
+.agency-how__desc {
+  font-family: Goga, Arial, sans-serif;
+}
+
 .agency-how__num {
   display: block;
-  font-family: Goga, Arial, sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: normal;
   color: var(--brand-orange, #f25828);
   margin-bottom: 0.55rem;
 }
@@ -888,18 +937,18 @@ html.site-ready .agency-page .agency-footer {
 }
 
 .agency-how__title {
-  font-family: Goga, Arial, sans-serif;
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
   color: #1a0022;
   margin: 0 0 0.5rem;
   line-height: 1.3;
 }
 
 .agency-how__desc {
-  font-family: Goga, Arial, sans-serif;
   font-size: clamp(0.8rem, 0.92vw, 0.88rem);
+  font-weight: 400;
+  letter-spacing: normal;
   line-height: 1.65;
   color: var(--brand-grey, #96908c);
   margin: 0;
@@ -1313,10 +1362,11 @@ html.site-ready .agency-page .agency-footer {
 .agency-cta__sub {
   margin: 0;
   max-width: 42ch;
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: clamp(0.78rem, 1.1vw, 0.92rem);
+  font-family: Goga, Arial, sans-serif;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.85;
+  letter-spacing: 0.09em;
   color: rgba(26, 23, 20, 0.62);
 }
 
@@ -1505,10 +1555,10 @@ html.site-ready .agency-page .agency-footer {
 @media (max-width: 991px) {
   .agency-hero__inner {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
     align-items: center;
     text-align: left;
-    padding-top: clamp(2rem, 5vw, 3rem);
+    padding-top: clamp(1rem, 3vw, 1.5rem);
   }
 
   .agency-hero__copy {
@@ -1517,23 +1567,24 @@ html.site-ready .agency-page .agency-footer {
   }
 
   .agency-hero__collage-wrap {
-    width: min(100%, 480px);
+    width: 100%;
+    min-height: clamp(360px, 50vh, 480px);
     margin: 0 auto;
-    justify-self: center;
-  }
-
-  .agency-hero__collage {
-    height: clamp(340px, 48vh, 440px);
   }
 
   .agency-collage__panel {
-    width: clamp(84px, 22vw, 112px);
+    width: 23%;
+  }
+
+  .agency-collage__panel--2,
+  .agency-collage__panel--3 {
+    width: 25%;
   }
 
   .agency-collage__panel--1 { left: 0; }
   .agency-collage__panel--2 { left: 24%; }
-  .agency-collage__panel--3 { left: 48%; }
-  .agency-collage__panel--4 { left: 72%; }
+  .agency-collage__panel--3 { left: 49%; }
+  .agency-collage__panel--4 { left: 74%; }
 
   .agency-hero:not(.agency-hero--editorial) .agency-hero__inner {
     grid-template-columns: 1fr;
@@ -1610,41 +1661,22 @@ html.site-ready .agency-page .agency-footer {
     padding: 0 0 0 calc(var(--how-rail-w) + var(--how-content-gap));
   }
 
-  .agency-how__card-head {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-
+  /* Match desktop card layout: 01 → icon → title → description */
+  .agency-how__card-head,
   .agency-how__lead {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 0;
-    flex-shrink: 0;
+    display: contents;
   }
 
   .agency-how__step-dot {
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--brand-orange, #f25828);
-    box-shadow: 0 0 0 7px color-mix(in srgb, var(--brand-orange, #f25828) 14%, transparent);
-    flex-shrink: 0;
-    /* Center dot on the SVG rail (path x = 50% of rail width) */
-    margin-left: calc((var(--how-rail-w) + var(--how-content-gap)) * -1 + (var(--how-rail-w) - 10px) / 2);
+    display: none;
   }
 
   .agency-how__num {
-    margin-bottom: 0;
-    line-height: 1;
+    margin-bottom: 0.55rem;
   }
 
   .agency-how__icon {
-    margin-bottom: 0;
-    flex-shrink: 0;
+    margin-bottom: 0.65rem;
   }
 
   .agency-how__step--left,

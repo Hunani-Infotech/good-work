@@ -5627,6 +5627,7 @@ html.site-ready main > section {
 
 /* â”€â”€â”€ Expertise Section â”€â”€â”€ */
 .expertise-section {
+  --expertise-ink: color-mix(in srgb, var(--brand-grey) 68%, #2a2826);
   padding: 7vw 0 6vw;
 }
 
@@ -5646,7 +5647,8 @@ html.site-ready main > section {
 }
 
 .expertise-tag {
-  opacity: 0.75;
+  opacity: 1;
+  color: var(--expertise-ink);
   visibility: hidden;
 }
 
@@ -5656,7 +5658,7 @@ html.site-ready main > section {
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -0.02em;
-  color: var(--_color---grey);
+  color: var(--expertise-ink);
   margin: 0;
   visibility: hidden;
   overflow: hidden;
@@ -5680,7 +5682,7 @@ html.site-ready main > section {
   font-family: Goga, Arial, sans-serif;
   font-size: clamp(0.8rem, 1vw, 0.95rem);
   font-weight: 600;
-  color: var(--_color---orange1);
+  color: var(--expertise-ink);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0;
@@ -5699,14 +5701,14 @@ html.site-ready main > section {
   display: inline-flex;
   align-items: center;
   padding: 0.45rem 1rem;
-  background: color-mix(in srgb, var(--_color---grey) 8%, transparent);
-  color: var(--_color---grey);
+  background: color-mix(in srgb, var(--expertise-ink) 12%, var(--_color---bg-warm));
+  color: var(--expertise-ink);
   font-family: Goga, Arial, sans-serif;
   font-size: clamp(0.78rem, 0.9vw, 0.88rem);
   font-weight: 500;
   letter-spacing: 0.02em;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--_color---grey) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--expertise-ink) 32%, transparent);
   transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
   cursor: default;
 }

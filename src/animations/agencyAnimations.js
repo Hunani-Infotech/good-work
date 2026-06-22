@@ -165,7 +165,7 @@ export function initAgencyAnimations() {
     var sub = hero.querySelector('.agency-hero__sub');
     var ctas = hero.querySelectorAll('.agency-hero__ctas > *');
     var stats = hero.querySelector('.agency-hero__stats');
-    var panels = hero.querySelectorAll('.agency-collage__panel');
+    var panels = hero.querySelectorAll('.agency-collage__panel-body');
     var headline = hero.querySelector('.agency-hero__headline');
     var ovalPath = hero.querySelector('.agency-hero__oval-path');
 
