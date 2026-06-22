@@ -1,5 +1,3 @@
-import BrandLogo from '../ui/BrandLogo';
-
 function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
@@ -9,7 +7,12 @@ export default function AgencyNav() {
     <nav className="agency-nav">
       <div className="agency-nav__inner">
         <a href="/" className="agency-nav__logo">
-          <BrandLogo type="wordmark" className="agency-nav__logo-img" />
+          <img
+            src="/images/goodwork/logo-black.svg"
+            alt="Good Work"
+            className="agency-nav__logo-img"
+            decoding="async"
+          />
         </a>
 
         <ul className="agency-nav__links" role="list">

@@ -5,58 +5,32 @@ import { initLenis, destroyLenis, resetDocumentScrollState } from './scrollRunti
 import { isLoaderSessionComplete, isLoaderSessionPending, revealSiteContent, whenSiteLoaderReady } from './loaderAnimations.js';
 
 let agencyRunId = 0;
-let agencyLiquidTl = null;
-let agencyLiquidHoverCleanup = null;
+let agencyHeadlineHoverCleanup = null;
 let agencyBootPromise = null;
 
-function resetLiquidFilter() {
-  var turbEl = document.getElementById('gw-turb');
-  var dispEl = document.getElementById('gw-disp');
+function resetHeadlineHover() {
   var headline = document.querySelector('.agency-hero__headline');
 
-  if (agencyLiquidTl) {
-    agencyLiquidTl.kill();
-    agencyLiquidTl = null;
+  if (agencyHeadlineHoverCleanup) {
+    agencyHeadlineHoverCleanup();
+    agencyHeadlineHoverCleanup = null;
   }
 
-  if (agencyLiquidHoverCleanup) {
-    agencyLiquidHoverCleanup();
-    agencyLiquidHoverCleanup = null;
+  gsap.killTweensOf('.agency-hero__headline .ag-w');
+
+  if (headline) {
+    headline.classList.remove('is-hover');
+    var ovalPath = headline.querySelector('.agency-hero__oval-path');
+    if (ovalPath) {
+      gsap.killTweensOf(ovalPath);
+      gsap.set(ovalPath, { strokeDashoffset: ovalPath.getTotalLength() });
+    }
   }
-
-  gsap.killTweensOf('#gw-turb, #gw-disp, .agency-hero__headline');
-
-  if (turbEl) {
-    turbEl.setAttribute('baseFrequency', '0.08 0.04');
-    turbEl.setAttribute('seed', '5');
-  }
-  if (dispEl) dispEl.setAttribute('scale', '24');
-  if (headline) gsap.set(headline, { clearProps: 'filter' });
-}
-
-function createLiquidController(headline) {
-  var turbEl = document.getElementById('gw-turb');
-  var dispEl = document.getElementById('gw-disp');
-  if (!headline || !turbEl || !dispEl) return null;
-
-  var state = { freqX: 0.08, freqY: 0.04, scale: 24 };
-
-  function applyLiquidState() {
-    turbEl.setAttribute('baseFrequency', state.freqX + ' ' + state.freqY);
-    dispEl.setAttribute('scale', String(state.scale));
-  }
-
-  function setFilter(active) {
-    if (active) gsap.set(headline, { filter: 'url(#gw-liquid)' });
-    else gsap.set(headline, { clearProps: 'filter' });
-  }
-
-  return { state: state, applyLiquidState: applyLiquidState, setFilter: setFilter, turbEl: turbEl, dispEl: dispEl };
 }
 
 function resetAgencyRuntime() {
   agencyRunId += 1;
-  resetLiquidFilter();
+  resetHeadlineHover();
   gsap.killTweensOf('*');
   ScrollTrigger.getAll().forEach(function (t) { t.kill(); });
   destroyLenis();
@@ -127,122 +101,58 @@ export function initAgencyAnimations() {
     window.addEventListener('resize', updateNavState);
   }
 
-  /* ── Liquid text on hero headline ── */
-  function initLiquidText(headline) {
+  /* ── Hero headline hover — oval outline on hover only ── */
+  function initHeadlineHover(headline) {
     if (!headline || prefersReduced) return;
-    var liquid = createLiquidController(headline);
-    if (!liquid) return;
 
-    resetLiquidFilter();
-
-    liquid.state.freqX = 0.08;
-    liquid.state.freqY = 0.04;
-    liquid.state.scale = 24;
-    liquid.applyLiquidState();
-    liquid.setFilter(true);
-
-    agencyLiquidTl = gsap.timeline({ delay: 0.28 });
-    agencyLiquidTl.to(liquid.state, {
-      freqX: 0.002,
-      freqY: 0.001,
-      scale: 0,
-      duration: 1.8,
-      ease: 'power3.out',
-      onUpdate: liquid.applyLiquidState,
-      onComplete: function () {
-        if (id !== agencyRunId) return;
-        liquid.applyLiquidState();
-        liquid.setFilter(false);
-      },
-    });
-  }
-
-  function initLiquidHover(headline) {
-    if (!headline || prefersReduced) return;
-    var liquid = createLiquidController(headline);
-    if (!liquid) return;
+    var ovalPath = headline.querySelector('.agency-hero__oval-path');
+    if (!ovalPath) return;
 
     var hoverTl = null;
-    var ambientTl = null;
+    var ovalLen = ovalPath.getTotalLength();
 
-    function killHoverTweens() {
+    gsap.set(ovalPath, { strokeDasharray: ovalLen, strokeDashoffset: ovalLen });
+
+    function killHoverTl() {
       if (hoverTl) {
         hoverTl.kill();
         hoverTl = null;
       }
-      if (ambientTl) {
-        ambientTl.kill();
-        ambientTl = null;
-      }
     }
 
-    function startLiquidHover() {
+    function onEnter() {
       if (id !== agencyRunId) return;
-      killHoverTweens();
-      if (agencyLiquidTl) {
-        agencyLiquidTl.kill();
-        agencyLiquidTl = null;
-      }
+      killHoverTl();
+      headline.classList.add('is-hover');
 
-      liquid.state.freqX = 0.08;
-      liquid.state.freqY = 0.04;
-      liquid.state.scale = 24;
-      liquid.applyLiquidState();
-      liquid.setFilter(true);
-
-      hoverTl = gsap.timeline();
-      hoverTl.to(liquid.state, {
-        freqX: 0.003,
-        freqY: 0.0015,
-        scale: 6,
-        duration: 0.9,
+      hoverTl = gsap.to(ovalPath, {
+        strokeDashoffset: 0,
+        duration: 0.65,
         ease: 'power2.out',
-        onUpdate: liquid.applyLiquidState,
-        onComplete: function () {
-          if (id !== agencyRunId) return;
-          ambientTl = gsap.timeline({ repeat: -1, yoyo: true });
-          ambientTl.to(liquid.state, {
-            scale: 8,
-            duration: 2.4,
-            ease: 'sine.inOut',
-            onUpdate: liquid.applyLiquidState,
-          });
-          ambientTl.to(liquid.state, {
-            freqX: 0.005,
-            freqY: 0.0025,
-            duration: 3.1,
-            ease: 'sine.inOut',
-            onUpdate: liquid.applyLiquidState,
-          }, 0);
-        },
       });
     }
 
-    function stopLiquidHover() {
+    function onLeave() {
       if (id !== agencyRunId) return;
-      killHoverTweens();
+      killHoverTl();
+      headline.classList.remove('is-hover');
 
-      hoverTl = gsap.to(liquid.state, {
-        freqX: 0.002,
-        freqY: 0.001,
-        scale: 0,
-        duration: 0.6,
-        ease: 'power2.inOut',
-        onUpdate: liquid.applyLiquidState,
-        onComplete: function () {
-          if (id !== agencyRunId) return;
-          liquid.setFilter(false);
-        },
+      hoverTl = gsap.to(ovalPath, {
+        strokeDashoffset: ovalLen,
+        duration: 0.45,
+        ease: 'power2.in',
       });
     }
 
-    headline.addEventListener('mouseenter', startLiquidHover);
-    headline.addEventListener('mouseleave', stopLiquidHover);
+    headline.addEventListener('mouseenter', onEnter);
+    headline.addEventListener('mouseleave', onLeave);
 
-    agencyLiquidHoverCleanup = function () {
-      headline.removeEventListener('mouseenter', startLiquidHover);
-      headline.removeEventListener('mouseleave', stopLiquidHover);
-      killHoverTweens();
+    agencyHeadlineHoverCleanup = function () {
+      headline.removeEventListener('mouseenter', onEnter);
+      headline.removeEventListener('mouseleave', onLeave);
+      headline.classList.remove('is-hover');
+      killHoverTl();
+      gsap.set(ovalPath, { strokeDashoffset: ovalLen });
     };
   }
 
@@ -251,109 +161,100 @@ export function initAgencyAnimations() {
     var hero = document.querySelector('.agency-hero');
     if (!hero) return null;
 
-    var orbs = hero.querySelectorAll('.agency-hero__orb');
-    var tag = hero.querySelector('.agency-tag');
-    var headline = hero.querySelector('.agency-hero__headline');
+    var lines = hero.querySelectorAll('.agency-hero__line');
     var sub = hero.querySelector('.agency-hero__sub');
     var ctas = hero.querySelectorAll('.agency-hero__ctas > *');
     var stats = hero.querySelector('.agency-hero__stats');
-    var cards = hero.querySelectorAll('.mockup-card');
+    var panels = hero.querySelectorAll('.agency-collage__panel');
+    var headline = hero.querySelector('.agency-hero__headline');
+    var ovalPath = hero.querySelector('.agency-hero__oval-path');
 
     if (prefersReduced) {
-      gsap.set([tag, sub, stats, ...ctas, ...orbs, ...cards], { opacity: 1, y: 0, scale: 1 });
-      gsap.set(headline, { opacity: 1 });
+      gsap.set([...lines, sub, stats, ...ctas, ...panels], { opacity: 1, y: 0, scale: 1 });
+      if (ovalPath) gsap.set(ovalPath, { strokeDashoffset: ovalPath.getTotalLength() });
       return null;
     }
 
-    var words = splitWords(headline);
-
-    gsap.set(orbs, { opacity: 0, scale: 0.7 });
-    gsap.set(words, { opacity: 0, y: 22, rotateX: -15, transformOrigin: '50% 100%' });
-    gsap.set(tag, { opacity: 0, y: 18 });
-    gsap.set(sub, { opacity: 0, y: 22 });
-    gsap.set(ctas, { opacity: 0, y: 16 });
+    gsap.set(lines, { opacity: 0, y: 32 });
+    gsap.set(sub, { opacity: 0, y: 20 });
+    gsap.set(ctas, { opacity: 0, y: 14 });
     gsap.set(stats, { opacity: 0, y: 10 });
-    gsap.set(cards, { opacity: 0, y: 55, scale: 0.88 });
+    gsap.set(panels, { opacity: 0, y: 48, scale: 0.94 });
 
-    initLiquidText(headline);
-    initLiquidHover(headline);
+    if (ovalPath) {
+      var ovalLen = ovalPath.getTotalLength();
+      gsap.set(ovalPath, { strokeDasharray: ovalLen, strokeDashoffset: ovalLen });
+    }
 
-    return { hero, orbs, tag, headline, sub, ctas, stats, cards, words };
+    initHeadlineHover(headline);
+
+    return { hero, lines, sub, ctas, stats, panels, collageWrap: hero.querySelector('.agency-hero__collage-wrap') };
   }
 
   function playAgencyHeroEntrance(prepared) {
     if (!prepared) return;
 
-    var orbs = prepared.orbs;
-    var tag = prepared.tag;
-    var words = prepared.words;
+    var lines = prepared.lines;
     var sub = prepared.sub;
     var ctas = prepared.ctas;
     var stats = prepared.stats;
-    var cards = prepared.cards;
+    var panels = prepared.panels;
 
-    var tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'osmo' } });
+    var tl = gsap.timeline({ delay: 0.12, defaults: { ease: 'osmo' } });
 
-    orbs.forEach(function (orb, i) {
-      tl.to(orb, { opacity: 1, scale: 1, duration: 1.4, ease: 'power3.out' }, i * 0.18);
-    });
+    tl.to(lines, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.14,
+      ease: 'power3.out',
+    }, 0.1);
 
-    tl.to(tag, { opacity: 1, y: 0, duration: 0.55 }, 0.25);
+    tl.to(sub, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, 0.48);
+    tl.to(ctas, { opacity: 1, y: 0, duration: 0.5, stagger: 0.09, ease: 'power2.out' }, 0.58);
+    tl.to(stats, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.68);
 
-    if (words.length) {
-      tl.to(words, {
-        opacity: 1, y: 0, rotateX: 0, duration: 0.65,
-        stagger: { each: 0.038, from: 'start' },
+    panels.forEach(function (panel, i) {
+      tl.to(panel, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.85,
         ease: 'power3.out',
-      }, 0.38);
-    }
-
-    tl.to(sub, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.55);
-    tl.to(ctas, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, 0.65);
-    tl.to(stats, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.75);
-
-    cards.forEach(function (card, i) {
-      tl.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: 'back.out(1.3)' }, 0.42 + i * 0.12);
+      }, 0.42 + i * 0.1);
     });
 
     tl.eventCallback('onComplete', function () {
       if (id !== agencyRunId) return;
-      cards.forEach(function (card, i) {
-        gsap.to(card, {
-          y: -12 + i * 6,
-          duration: 2.8 + i * 0.4,
-          ease: 'sine.inOut',
-          repeat: -1,
-          yoyo: true,
-          delay: i * 0.35,
-        });
-      });
 
-      orbs.forEach(function (orb, i) {
-        gsap.to(orb, {
-          x: (i % 2 === 0 ? 1 : -1) * (20 + i * 8),
-          y: (i % 2 === 0 ? -1 : 1) * (15 + i * 5),
-          duration: 6 + i * 1.5,
+      ScrollTrigger.refresh();
+
+      panels.forEach(function (panel, i) {
+        gsap.to(panel, {
+          y: -6 + i * 2,
+          duration: 3.2 + i * 0.35,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
-          delay: i * 0.5,
+          delay: i * 0.28,
         });
       });
     });
 
-    /* Hero parallax */
     var hero = prepared.hero;
-    var content = hero.querySelector('.agency-hero__content');
-    var visual = hero.querySelector('.agency-hero__visual');
-    gsap.to(content, {
-      y: '-12vh',
-      ease: 'none',
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true, invalidateOnRefresh: true },
-    });
-    if (visual) {
-      gsap.to(visual, {
+    var copy = hero.querySelector('.agency-hero__copy');
+    var collageWrap = prepared.collageWrap;
+
+    if (copy) {
+      gsap.to(copy, {
         y: '-8vh',
+        ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true, invalidateOnRefresh: true },
+      });
+    }
+    if (collageWrap) {
+      gsap.to(collageWrap, {
+        y: '-4vh',
         ease: 'none',
         scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true, invalidateOnRefresh: true },
       });
@@ -561,35 +462,68 @@ export function initAgencyAnimations() {
     var section = document.querySelector('.agency-cta');
     if (!section) return;
 
-    var headline = section.querySelector('.agency-cta__headline');
+    var eyebrow = section.querySelector('.agency-cta__eyebrow');
+    var headlineLine = section.querySelector('.agency-cta__headline-line');
+    var accent = section.querySelector('.agency-cta__accent');
     var sub = section.querySelector('.agency-cta__sub');
     var btn = section.querySelector('.agency-cta .agency-btn-primary');
+    var note = section.querySelector('.agency-cta__note');
 
-    if (headline) {
-      var words = splitWords(headline);
-      if (words.length) {
-        gsap.fromTo(words,
-          { opacity: 0, y: 28, rotateX: -20, transformOrigin: '50% 100%' },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.65,
-            stagger: { each: 0.045 }, ease: 'power3.out',
-            scrollTrigger: { trigger: headline, start: 'top 85%', toggleActions: 'play none none reverse' } }
-        );
-      }
+    if (headlineLine && accent && section.classList.contains('agency-cta--editorial')) {
+      var headline = section.querySelector('.agency-cta__headline');
+      headline.addEventListener('mouseenter', function () {
+        headline.classList.add('is-hover');
+      });
+      headline.addEventListener('mouseleave', function () {
+        headline.classList.remove('is-hover');
+      });
+    }
+
+    if (eyebrow) {
+      gsap.fromTo(eyebrow,
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+          scrollTrigger: { trigger: eyebrow, start: 'top 88%', toggleActions: 'play none none reverse' } }
+      );
+    }
+
+    if (headlineLine) {
+      gsap.fromTo(headlineLine,
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.62, ease: 'power3.out',
+          scrollTrigger: { trigger: headlineLine, start: 'top 85%', toggleActions: 'play none none reverse' } }
+      );
+    }
+
+    if (accent) {
+      gsap.fromTo(accent,
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.62, delay: 0.08, ease: 'power3.out',
+          scrollTrigger: { trigger: accent, start: 'top 85%', toggleActions: 'play none none reverse' } }
+      );
     }
 
     if (sub) {
       gsap.fromTo(sub,
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out',
           scrollTrigger: { trigger: sub, start: 'top 88%', toggleActions: 'play none none reverse' } }
       );
     }
 
     if (btn) {
       gsap.fromTo(btn,
-        { opacity: 0, scale: 0.88 },
-        { opacity: 1, scale: 1, duration: 0.55, ease: 'back.out(1.4)',
-          scrollTrigger: { trigger: btn, start: 'top 88%', toggleActions: 'play none none reverse' } }
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+          scrollTrigger: { trigger: btn, start: 'top 90%', toggleActions: 'play none none reverse' } }
+      );
+    }
+
+    if (note) {
+      gsap.fromTo(note,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.45, ease: 'power2.out',
+          scrollTrigger: { trigger: note, start: 'top 92%', toggleActions: 'play none none reverse' } }
       );
     }
   }
