@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
   font-family: Goga;
   src: url('../fonts/Goga-Regular.otf') format("opentype");
   font-weight: 400;
@@ -115,7 +115,6 @@
 .img-hero-wrapper {
   z-index: 1;
   opacity: 1;
-  background-image: url('../images/hero-photo-test2.jpg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -5241,12 +5240,31 @@ html.site-ready main > section {
   pointer-events: none;
 }
 
-/* â”€â”€â”€ Custom cursor â”€â”€â”€ */
+/* ─── Custom cursor ─── */
 @media (hover: hover) and (pointer: fine) {
-  body {
+  body:has(.cursor-dot),
+  body:has(.page-wrapper .cursor),
+  body.tidal-copper-template,
+  body.agency-page {
     cursor: none;
   }
-  a, button, [role="button"], label {
+
+  body:has(.cursor-dot) a,
+  body:has(.cursor-dot) button,
+  body:has(.cursor-dot) [role="button"],
+  body:has(.cursor-dot) label,
+  body:has(.page-wrapper .cursor) a,
+  body:has(.page-wrapper .cursor) button,
+  body:has(.page-wrapper .cursor) [role="button"],
+  body:has(.page-wrapper .cursor) label,
+  body.tidal-copper-template a,
+  body.tidal-copper-template button,
+  body.tidal-copper-template [role="button"],
+  body.tidal-copper-template label,
+  body.agency-page a,
+  body.agency-page button,
+  body.agency-page [role="button"],
+  body.agency-page label {
     cursor: none;
   }
 }

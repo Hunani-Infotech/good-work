@@ -1,5 +1,5 @@
 /**
- * GSAP text-split + scroll helpers for CV landing (/cv/sanjay).
+ * GSAP text-split + scroll helpers for Tidal Copper (/cv/tidal-copper).
  */
 import gsap from 'gsap';
 

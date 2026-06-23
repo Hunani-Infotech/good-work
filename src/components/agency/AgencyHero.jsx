@@ -1,6 +1,6 @@
 import { PORTFOLIO_TEMPLATES } from '../../data/portfolioTemplates';
 
-const HERO_COLLAGE = PORTFOLIO_TEMPLATES.slice(0, 4).map((template, index) => ({
+const HERO_COLLAGE = PORTFOLIO_TEMPLATES.filter((template) => template.href).map((template, index) => ({
   id: template.id,
   image: `/images/agency/hero-collage-${index + 1}.svg`,
   label: template.title,
@@ -82,7 +82,7 @@ export default function AgencyHero() {
             <div className="agency-hero__stats">
               <span className="agency-hero__stats-item">2,000+ CVs created</span>
               <span className="agency-hero__stats-dot" aria-hidden="true" />
-              <span className="agency-hero__stats-item">50+ templates</span>
+              <span className="agency-hero__stats-item">3 live templates</span>
               <span className="agency-hero__stats-dot" aria-hidden="true" />
               <span className="agency-hero__stats-item">Free to start</span>
             </div>

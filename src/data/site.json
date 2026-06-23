@@ -1,7 +1,8 @@
 {
   "site": {
     "brand": {
-      "firstName": "Sanjay"
+      "firstName": "Sanjay",
+      "lastName": "LastName"
     },
     "theme": {
       "purple": "#510066",
@@ -24,18 +25,19 @@
   "home": {
     "hero": {
       "subtitle": "Project Lead Developer",
-      "profilePhoto": "https://randomuser.me/api/portraits/men/47.jpg",
+      "profilePhoto": "/images/profiles/sanjay.png",
       "heading": "Bridging Complex Business Workflows with Seamless Native and Cross-Platform Mobile Solutions.",
       "heroStatement": "From integrating external hardware via Bluetooth to securing offline data synchronization, I solve complex technical challenges. I architect mobile apps that make intricate processes simple and intuitive for end-users.",
       "ctaLabel": "Let's Connect",
       "videoCv": {
         "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        "poster": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=450&fit=crop&auto=format&q=80"
+        "poster": "/images/profiles/image1.png"
       }
+
     },
     "narrative": {
       "tag": "Professional Narrative",
-      "backgroundImage": "/images/landing/merdeka-118.jpg",
+      "backgroundImage": "/images/landing/image1.png",
       "paragraphs": [
         "I believe the best mobile apps do not just look good—they seamlessly connect the physical and digital worlds to solve real human problems. My drive is rooted in building resilient software that works flawlessly, whether you are online, offline, or connected to external hardware.",
         "Over the past 4.5+ years, my career has evolved from prototyping basic Android features to architecting cross-platform systems using Flutter and Dart. My deep foundation in Kotlin and modern toolkits like Jetpack Compose gives me a unique edge in bridging the gap between native performance and cross-platform agility.",
@@ -44,7 +46,7 @@
     },
     "capabilities": {
       "tag": "Capabilities & Skills",
-      "backgroundImage": "/images/landing/malaysian-youth.jpg",
+      "backgroundImage": "/images/landing/imag2.png",
       "bullets": [
         "Led an Android development team to deliver and maintain multiple large-scale software projects, improving development velocity by modularizing legacy codebases into modern architectural standards.",
         "Deployed a scalable POS Bus Ticketing Solution across 4 major metropolitan areas by integrating custom SDKs and core Java SQLite databases, enabling real-time fare calculations and automated reporting.",

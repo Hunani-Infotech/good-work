@@ -1,0 +1,7 @@
+/* Isak theme vendor bundle — plain CSS only (no SCSS). Do not edit; overrides live in src/styles/isak.css */
+@import url('./css/bootstrap.min.css');
+@import url('./css/animate.css');
+@import url('./css/styles.css');
+@import url('./fonts/fonts.css');
+@import url('./fonts/inter/inter.css');
+@import url('./icon/icomoon/style.css');

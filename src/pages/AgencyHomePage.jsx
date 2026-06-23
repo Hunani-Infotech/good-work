@@ -9,6 +9,7 @@ import TemplateShowcase from '../components/agency/TemplateShowcase';
 import AgencyFeatures from '../components/agency/AgencyFeatures';
 import AgencyCta from '../components/agency/AgencyCta';
 import CustomCursor from '../components/ui/CustomCursor';
+import GoodWorkWordmark from '../components/ui/GoodWorkWordmark.jsx';
 
 export default function AgencyHomePage() {
   useAgencyAnimations();
@@ -33,12 +34,7 @@ export default function AgencyHomePage() {
           <div className="agency-footer__inner">
             <div className="agency-footer__brand">
               <a href="/" className="agency-footer__logo">
-                <img
-                  src="/images/goodwork/logo-black.svg"
-                  alt="Good Work"
-                  className="agency-footer__logo-img"
-                  decoding="async"
-                />
+                <GoodWorkWordmark surface="light" className="agency-footer__logo-img" />
               </a>
               <p className="agency-footer__tagline">
                 Build your career story in minutes.
@@ -48,7 +44,7 @@ export default function AgencyHomePage() {
             <span className="agency-footer__copy">© 2025 Good Work. All rights reserved.</span>
 
             <nav className="agency-footer__links" aria-label="Footer">
-              <a href="/cv/sanjay">View Template</a>
+              <a href="#templates">Browse templates</a>
               <a href="mailto:hello@goodwork.asia">Contact</a>
             </nav>
           </div>

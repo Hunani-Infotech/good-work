@@ -1,0 +1,350 @@
+/* Isak template — single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
+
+/*
+ * Isolate Isak typography from GoodWork (site.css) and Shooote (style.css).
+ * Both ship global h1–h6 / body rules in the same Vite bundle and bleed into this template.
+ */
+html.isak-template body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--black);
+}
+
+html.isak-template h1,
+html.isak-template h2,
+html.isak-template h3,
+html.isak-template h4,
+html.isak-template h5,
+html.isak-template h6,
+html.isak-template .h1,
+html.isak-template .h2,
+html.isak-template .h3,
+html.isak-template .h4,
+html.isak-template .h5,
+html.isak-template .h6 {
+  font-family: "Apfel Grotezk", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  color: inherit;
+}
+
+html.isak-template body.dark-mode {
+  color: var(--white);
+}
+
+html.isak-template body.dark-mode .intro-title {
+  color: var(--white);
+}
+
+/* Bootstrap (re-imported via Shooote) overrides Isak semantic text utilities */
+html.isak-template .text-black-50 {
+  color: var(--black-50) !important;
+}
+
+html.isak-template .text-black-56 {
+  color: var(--black-56) !important;
+}
+
+html.isak-template .text-black-72 {
+  color: var(--black-72) !important;
+}
+
+html.isak-template .text-white-40 {
+  color: var(--white-40) !important;
+}
+
+html.isak-template .text-white-56 {
+  color: var(--white-56) !important;
+}
+
+html.isak-template .text-white-72 {
+  color: var(--white-72) !important;
+}
+
+/* GoodWork global loader must not stack above Isak preloader */
+html.isak-template .container-loader.site-loader,
+html.isak-template .loader-curtain-reveal {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+html.isak-template.is-loader-active,
+html.isak-template.is-loader-active body {
+  overflow: auto;
+  touch-action: auto;
+  overscroll-behavior: auto;
+}
+
+html.isak-template #wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.preload-container.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+/* GoodWork custom cursor — Isak green accent */
+html.isak-template .cursor-dot {
+  background: #00de51;
+}
+
+html.isak-template .cursor-ring {
+  border-color: color-mix(in srgb, #00de51 55%, transparent);
+}
+
+html.isak-template .cursor-ring.is-hovering {
+  border-color: color-mix(in srgb, #00de51 85%, transparent);
+}
+
+/* Gear trigger lives inside .tf-header-wrap (not fixed viewport) */
+html.isak-template .tf-header-wrap > .tf-left-bar {
+  position: static;
+  top: auto;
+  right: auto;
+  transform: none;
+  z-index: auto;
+  flex-shrink: 0;
+}
+
+/* Color settings offcanvas (no Bootstrap JS) */
+html.isak-template .offcanvas-color.offcanvas-end {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 320px;
+  max-width: 100%;
+  z-index: 3000;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition: transform 0.3s ease, visibility 0.3s ease;
+}
+
+html.isak-template .offcanvas-color.offcanvas-end.show {
+  visibility: visible;
+  transform: translateX(0);
+}
+
+html.isak-template .offcanvas-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2999;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+html.isak-template body.offcanvas-open {
+  overflow: hidden;
+}
+
+/* Swatch picker — compiled theme CSS is missing body-default */
+html.isak-template .body-default:not(.dark-mode) .body-background {
+  background: var(--white);
+}
+
+html.isak-template .choose-item .color.type-body-default {
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+html.isak-template .offcanvas-color .choose-item {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+html.isak-template .offcanvas-color .choose-item .color {
+  flex-shrink: 0;
+}
+
+html.isak-template .choose-item .color.type-dark-v1 {
+  background: linear-gradient(180deg, #2a2d38 0%, #14151a 100%);
+}
+
+html.isak-template .choose-item .color.type-dark-v2 {
+  background: linear-gradient(180deg, #232838 0%, #101218 100%);
+}
+
+html.isak-template .choose-item .color.type-dark-v3 {
+  background: linear-gradient(180deg, #1a2820 0%, #0d1210 100%);
+}
+
+/* 4-screen content blocks (GwSection isak theme) */
+html.isak-template .gw-section--isak .s-desc {
+  margin-bottom: 0;
+}
+
+html.isak-template .gw-section--isak + .gw-section--isak {
+  padding-top: 0;
+}
+
+/* Fix visibility of name and duty subtitle on the navbar/intro section */
+html.isak-template .intro-author .info_name {
+  color: var(--black) !important;
+}
+html.isak-template .intro-author .info_duty {
+  color: var(--black-50) !important;
+}
+
+html.isak-template body.dark-mode .intro-author .info_name {
+  color: var(--white) !important;
+}
+html.isak-template body.dark-mode .intro-author .info_duty {
+  color: var(--white) !important;
+}
+
+/* Sidebar user-image hover effect: restore color, remove grayscale filter & dark overlay gradient */
+html.isak-template .sidebar-user .user-image img {
+  transition: filter 0.3s ease;
+}
+
+html.isak-template .sidebar-user .user-image {
+  transition: background 0.3s ease;
+}
+
+html.isak-template .sidebar-user .user-image::before {
+  transition: opacity 0.3s ease;
+}
+
+html.isak-template .sidebar-user .user-image:hover img {
+  filter: grayscale(0%) !important;
+}
+
+html.isak-template .sidebar-user .user-image:hover {
+  background: transparent !important;
+  background-blend-mode: normal !important;
+}
+
+html.isak-template .sidebar-user .user-image:hover::before {
+  opacity: 0 !important;
+}
+
+/* Logo hover effect: grayscale by default, transition to full color on hover */
+html.isak-template .sidebar-user .user-logo img,
+html.isak-template .logo-site img {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+html.isak-template .sidebar-user .user-logo:hover img,
+html.isak-template .logo-site:hover img {
+  filter: grayscale(0%) !important;
+}
+
+/* Custom Outline Share Button */
+html.isak-template button.tf-btn-action.style-outline-share {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+}
+
+html.isak-template .tf-btn-action.style-outline-share .ic-wrap,
+html.isak-template .tf-btn-action.style-outline-share .text {
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+html.isak-template .tf-btn-action.style-outline-share .icon,
+html.isak-template .tf-btn-action.style-outline-share .text {
+  color: var(--black-72);
+}
+
+html.isak-template .tf-btn-action.style-outline-share:hover .ic-wrap,
+html.isak-template .tf-btn-action.style-outline-share:hover .text {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+html.isak-template .tf-btn-action.style-outline-share:hover .icon,
+html.isak-template .tf-btn-action.style-outline-share:hover .text {
+  color: var(--black) !important;
+}
+
+/* Dark mode overrides for custom outline share button */
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .ic-wrap,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .text {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .icon,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .text {
+  color: var(--white-72) !important;
+}
+
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .ic-wrap,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .icon,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text {
+  color: var(--black) !important;
+}
+
+/* Footer logo pill shape adjustment for horizontal brand logo */
+html.isak-template .tf-footer .f-logo {
+  width: auto;
+  padding: 0 24px;
+  border-radius: 999px;
+}
+
+html.isak-template .tf-footer .f-logo .logo {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.isak-template .tf-footer .f-logo .logo img,
+html.isak-template .tf-footer .f-logo .logo .isak-footer__logo {
+  width: auto;
+  height: 2rem;
+  max-width: 100%;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  html.isak-template .tf-footer .f-logo {
+    width: auto !important;
+    height: 40px !important;
+    padding: 0 16px !important;
+  }
+  html.isak-template .tf-footer .f-logo .logo {
+    width: auto !important;
+    padding-bottom: 0 !important;
+  }
+
+  html.isak-template .tf-footer .f-logo .logo .isak-footer__logo,
+  html.isak-template .tf-footer .f-logo .logo img {
+    height: 1.65rem !important;
+  }
+}
+
+/* Fix mobile navigation menu alignment */
+html.isak-template .nav-mobile-item .item-link {
+  display: flex !important;
+  align-items: center !important;
+}
+
+html.isak-template .nav-mobile-item .item-link .tool-tip {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+
+
+
+
+

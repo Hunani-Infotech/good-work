@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSite } from '../../context/SiteContext';
 
-export default function ShareButton({ className = 'nav-social-link share-button' }) {
+export default function ShareButton({ className = 'nav-social-link share-button', children }) {
   const { createShareUrl, getPublishedUrl, isShareUrlTooLong } = useSite();
   const [copied, setCopied] = useState(false);
 
@@ -37,7 +37,7 @@ export default function ShareButton({ className = 'nav-social-link share-button'
 
   return (
     <button type="button" className={className} onClick={handleShare} aria-label="Share this page">
-      {copied ? 'Copied!' : 'Share'}
+      {typeof children === 'function' ? children({ copied }) : (children || (copied ? 'Copied!' : 'Share'))}
     </button>
   );
 }

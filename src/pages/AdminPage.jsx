@@ -4,7 +4,9 @@ import { useSite } from '../context/SiteContext';
 import { usePageReveal } from '../hooks/usePageReveal';
 import '../styles/admin.css';
 
-const CV_PATH = '/cv/sanjay';
+import { TIDAL_COPPER_CV_PATH } from '../data/cvTemplatePaths.js';
+
+const CV_PATH = TIDAL_COPPER_CV_PATH;
 
 export function Field({ label, value, onChange, multiline, hint }) {
   return (
@@ -175,7 +177,8 @@ export default function AdminPage() {
 
       <section className="admin-section">
         <h2>Individual</h2>
-        <Field label="Name" value={site.site.brand.firstName} onChange={(v) => updateSite('site.brand.firstName', v)} />
+        <Field label="First name" value={site.site.brand.firstName} onChange={(v) => updateSite('site.brand.firstName', v)} />
+        <Field label="Last name" value={site.site.brand.lastName || ''} onChange={(v) => updateSite('site.brand.lastName', v)} hint="Shooote hero line 2 — below the portrait" />
         <Field label="Email" value={site.site.contact.email} onChange={(v) => updateSite('site.contact.email', v)} />
         <Field label="Mailto subject" value={site.site.contact.mailtoSubjectNav} onChange={(v) => updateSite('site.contact.mailtoSubjectNav', v)} />
       </section>

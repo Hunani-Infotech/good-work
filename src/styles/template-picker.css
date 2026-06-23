@@ -64,8 +64,8 @@
 }
 
 .template-picker__bg[data-i="0"] { background: #3d6b7a; }
-.template-picker__bg[data-i="1"] { background: #f0eeea; }
-.template-picker__bg[data-i="2"] { background: #181818; }
+.template-picker__bg[data-i="1"] { background: #0a0a0a; }
+.template-picker__bg[data-i="2"] { background: #f5f6f7; }
 .template-picker__bg[data-i="3"] { background: #ece6de; }
 .template-picker__bg[data-i="4"] { background: #0c1a28; }
 
@@ -185,8 +185,8 @@
 }
 
 .template-picker__hero[data-i="0"] .template-picker__hero-fill { background: linear-gradient(140deg, #1e3a4a, #7ac4da); }
-.template-picker__hero[data-i="1"] .template-picker__hero-fill { background: linear-gradient(140deg, #ccdce4, #f6fafc); }
-.template-picker__hero[data-i="2"] .template-picker__hero-fill { background: linear-gradient(140deg, #0e0e1a, #461e62); }
+.template-picker__hero[data-i="1"] .template-picker__hero-fill { background: linear-gradient(140deg, #0a0a0a, #00de51); }
+.template-picker__hero[data-i="2"] .template-picker__hero-fill { background: linear-gradient(140deg, #f5f6f7, #2b2e33); }
 .template-picker__hero[data-i="3"] .template-picker__hero-fill { background: linear-gradient(140deg, #c8b8a0, #f6f0e8); }
 .template-picker__hero[data-i="4"] .template-picker__hero-fill { background: linear-gradient(140deg, #081420, #2a62a8); }
 
@@ -326,10 +326,10 @@
 
 .template-picker__info[data-i="0"] .template-picker__desc { color: rgba(255, 255, 255, 0.88); }
 .template-picker__info[data-i="0"].is-active .template-picker__desc { color: #fff; }
-.template-picker__info[data-i="1"] .template-picker__desc { color: #333; }
-.template-picker__info[data-i="1"].is-active .template-picker__desc { color: #111; }
-.template-picker__info[data-i="2"] .template-picker__desc { color: rgba(255, 255, 255, 0.88); }
-.template-picker__info[data-i="2"].is-active .template-picker__desc { color: #fff; }
+.template-picker__info[data-i="1"] .template-picker__desc { color: rgba(255, 255, 255, 0.88); }
+.template-picker__info[data-i="1"].is-active .template-picker__desc { color: #fff; }
+.template-picker__info[data-i="2"] .template-picker__desc { color: #333; }
+.template-picker__info[data-i="2"].is-active .template-picker__desc { color: #111; }
 .template-picker__info[data-i="3"] .template-picker__desc { color: #111; }
 .template-picker__info[data-i="3"].is-active .template-picker__desc { color: #000; }
 .template-picker__info[data-i="4"] .template-picker__desc { color: rgba(255, 255, 255, 0.88); }

@@ -142,3 +142,45 @@ export function syncScrollLayout() {
 export function getScrollOffset() {
   return -Math.round(window.innerHeight * 0.06);
 }
+
+export function getScrollY() {
+  return lenis ? lenis.scroll : window.scrollY;
+}
+
+/**
+ * Subscribe to scroll updates (Lenis when active, otherwise native window scroll).
+ * Re-attaches automatically when Lenis is initialized after subscription.
+ */
+export function subscribeScroll(handler) {
+  let attachedToLenis = false;
+  let lenisHandler = null;
+  const wrapped = () => handler(getScrollY());
+
+  const attachLenis = () => {
+    const instance = lenis;
+    if (!instance || attachedToLenis) return;
+    window.removeEventListener('scroll', wrapped);
+    lenisHandler = wrapped;
+    instance.on('scroll', lenisHandler);
+    attachedToLenis = true;
+    wrapped();
+  };
+
+  window.addEventListener('scroll', wrapped, { passive: true });
+  wrapped();
+
+  const retry = window.setInterval(() => {
+    if (lenis) {
+      attachLenis();
+      window.clearInterval(retry);
+    }
+  }, 200);
+
+  return () => {
+    window.clearInterval(retry);
+    window.removeEventListener('scroll', wrapped);
+    if (lenis && lenisHandler) {
+      lenis.off('scroll', lenisHandler);
+    }
+  };
+}

@@ -1,0 +1,6 @@
+/* Shooote theme vendor bundle — plain CSS only. Do not edit; overrides live in src/styles/shooote.css */
+@import url('./css/bootstrap.min.css');
+@import url('./css/animate.css');
+@import url('./css/themify-icons.css');
+@import url('./css/flaticon_shooote.css');
+@import url('./style.css');

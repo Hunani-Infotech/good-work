@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { isLoaderSessionComplete } from '../animations/loaderAnimations.js';
 import { resetDocumentScrollState } from '../animations/scrollRuntime.js';
-import { destroyCvAnimations, initCvPageAnimations } from '../animations/cvAnimations.js';
 import { destroyAgencyAnimations, initAgencyAnimations } from '../animations/agencyAnimations.js';
 
 function createAnimationHook({ init, destroy, resetScroll = true }) {
@@ -34,11 +33,6 @@ function createAnimationHook({ init, destroy, resetScroll = true }) {
     }, []);
   };
 }
-
-export const useCvAnimations = createAnimationHook({
-  init: initCvPageAnimations,
-  destroy: destroyCvAnimations,
-});
 
 export const useAgencyAnimations = createAnimationHook({
   init: initAgencyAnimations,
