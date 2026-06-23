@@ -30,8 +30,8 @@
       "heroStatement": "From integrating external hardware via Bluetooth to securing offline data synchronization, I solve complex technical challenges. I architect mobile apps that make intricate processes simple and intuitive for end-users.",
       "ctaLabel": "Let's Connect",
       "videoCv": {
-        "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        "poster": "/images/profiles/image1.png"
+        "src": "https://gddevvideobucket.s3.amazonaws.com/hls/eb398340-115b-440d-bf1f-2c29d8fd5bcc/index.m3u8",
+        "poster": "https://gddevvideobucket.s3.amazonaws.com/thumbnails/eb398340-115b-440d-bf1f-2c29d8fd5bcc.jpg"
       }
 
     },

@@ -6,7 +6,9 @@ import TidalCopperNarrativeSection from '../components/tidal-copper/TidalCopperN
 import TidalCopperCapabilitiesSection from '../components/tidal-copper/TidalCopperCapabilitiesSection.jsx';
 import { useTidalCopperAnimations } from '../hooks/tidal-copper/useTidalCopperPageAnimations.js';
 import { useSite } from '../context/SiteContext.jsx';
+import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import '../styles/tidal-copper.css';
+import '../styles/video-cv-widget.css';
 
 export default function TidalCopperCvPage() {
   useTidalCopperAnimations();
@@ -17,14 +19,17 @@ export default function TidalCopperCvPage() {
   }, [site.site.meta.homeTitle]);
 
   return (
-    <TidalCopperLayout>
-      <div id="scroll-progress" aria-hidden="true" />
-      <main className="main tidal-copper-landing">
-        <TidalCopperHero />
-        <TidalCopperExpertiseSection />
-        <TidalCopperNarrativeSection />
-        <TidalCopperCapabilitiesSection />
-      </main>
-    </TidalCopperLayout>
+    <>
+      <TidalCopperLayout>
+        <div id="scroll-progress" aria-hidden="true" />
+        <main className="main tidal-copper-landing">
+          <TidalCopperHero />
+          <TidalCopperExpertiseSection />
+          <TidalCopperNarrativeSection />
+          <TidalCopperCapabilitiesSection />
+        </main>
+      </TidalCopperLayout>
+      <VideoCvWidget accentColor="#510066" position="bottom-right" />
+    </>
   );
 }

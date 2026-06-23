@@ -7,7 +7,7 @@ export default function ShoooteFooter() {
   return (
     <footer className="wpo-site-footer shooote-site-footer">
       <div className="container">
-        <GoodWorkWordmark surface="light" className="shooote-site-footer__logo" />
+        <GoodWorkWordmark surface="dark" className="shooote-site-footer__logo" />
         <p className="shooote-site-footer__copy">
           Powered by GoodWork
           <br />© {new Date().getFullYear()} {logoText}

@@ -4,7 +4,9 @@ import IsakShell from '../components/isak/IsakShell.jsx';
 import { useIsakAnimations } from '../hooks/isak/useIsakPageAnimations.js';
 import { useIsakContent } from '../hooks/isak/useIsakContent.js';
 import { skipSiteLoader } from '../animations/loaderAnimations.js';
+import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import '../styles/isak.css';
+import '../styles/video-cv-widget.css';
 
 export default function IsakCvPage() {
   useIsakAnimations();
@@ -37,6 +39,7 @@ export default function IsakCvPage() {
     <>
       <CustomCursor />
       <IsakShell />
+      <VideoCvWidget accentColor="#1a1a1a" position="bottom-right" />
     </>
   );
 }

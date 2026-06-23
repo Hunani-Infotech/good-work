@@ -5,21 +5,12 @@ export default function TidalCopperExpertiseSection() {
   const { site } = useSite();
   const { hero } = site.home;
   const { contact } = site.site;
-  const videoCv = hero.videoCv || {};
   const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubjectNav || '')}`;
   const ctaLabel = hero.ctaLabel || "Let's Connect";
 
   return (
-    <TidalCopperSection screenClass="cv-what-screen" label="02 — Video" poweredByDark>
+    <TidalCopperSection screenClass="cv-what-screen" label="02 — What I Do" poweredByDark>
       <div className="cv-panel" id="whatPanel">
-        {videoCv.src ? (
-          <div className="cv-panel-video">
-            <video autoPlay muted loop playsInline poster={videoCv.poster || undefined}>
-              <source src={videoCv.src} type="video/mp4" />
-            </video>
-          </div>
-        ) : null}
-
         <div className="cv-panel-body">
           <h2 className="cv-what-header" id="whatHeader">{hero.heading}</h2>
 

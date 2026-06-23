@@ -10,15 +10,19 @@ export function Footer() {
     ? `mailto:${footer.email}?subject=${encodeURIComponent(footer.mailtoSubject)}`
     : null;
 
-  const surface = resolvedTheme === 'dark' ? 'dark' : 'light';
+  // Logo surface = background behind the pill, not page theme name
+  const logoSurface = resolvedTheme === 'dark' ? 'dark' : 'light';
 
   return (
     <div id="footer" className="tf-footer flat-spacing">
       <div className="br-line" />
       <div className="foot-inner">
-        <a href={mailto ?? '#'} className="f-logo effectFade fadeZoom">
+        <a
+          href={mailto ?? '#'}
+          className={`f-logo effectFade fadeZoom isak-footer__logo-pill isak-footer__logo-pill--${resolvedTheme}`}
+        >
           <div className="logo">
-            <GoodWorkWordmark surface={surface} className="isak-footer__logo" />
+            <GoodWorkWordmark surface={logoSurface} className="isak-footer__logo" />
           </div>
         </a>
         <div className="foot-bottom">

@@ -65,7 +65,6 @@ export function mapSiteToShooote(site = defaultSite) {
       sectionLabel: '02 — Hero',
       heading: hero.heading || '',
       statement: hero.heroStatement || '',
-      video: hero.videoCv || {},
       ctaLabel: hero.ctaLabel || "Let's Connect",
       mailto,
     },

@@ -292,7 +292,20 @@ html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text
   color: var(--black) !important;
 }
 
-/* Footer logo pill shape adjustment for horizontal brand logo */
+/* Footer logo pill — match wordmark to pill background per theme */
+html.isak-template .tf-footer .f-logo.isak-footer__logo-pill--light {
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  backdrop-filter: none;
+}
+
+html.isak-template body.dark-mode .tf-footer .f-logo.isak-footer__logo-pill--dark {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
 html.isak-template .tf-footer .f-logo {
   width: auto;
   padding: 0 24px;
@@ -342,9 +355,5 @@ html.isak-template .nav-mobile-item .item-link .tool-tip {
   padding: 0 !important;
   line-height: 1 !important;
 }
-
-
-
-
 
 

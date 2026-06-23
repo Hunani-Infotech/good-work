@@ -319,20 +319,6 @@ body.tidal-copper-template {
   opacity: 0;
   transform: translateY(36px);
 }
-.cv-panel-video {
-  width: 100%;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  position: relative;
-}
-.cv-panel-video::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(7, 19, 24, 0.15) 0%, transparent 50%, rgba(200, 121, 65, 0.12) 100%);
-  pointer-events: none;
-}
-.cv-panel-video video { width: 100%; height: 100%; object-fit: cover; }
 .cv-panel-body { padding: clamp(2rem, 4.5vw, 3rem); }
 
 .eyebrow {
