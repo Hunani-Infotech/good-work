@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import Nav from './Nav';
+import CvTopBar from './CvTopBar';
 import SharePreviewBanner from '../ui/SharePreviewBanner';
 import CustomCursor from '../ui/CustomCursor';
 import { useSite } from '../../context/SiteContext';
 import { resetDocumentScrollState } from '../../animations/scrollRuntime.js';
 
-export default function Layout({ children, bodyClass = '' }) {
-  const { pathname } = useLocation();
+export default function Layout({ children }) {
   const { site } = useSite();
   const theme = site.site.theme || {};
 
   useEffect(() => {
-    document.body.className = `body${bodyClass ? ` ${bodyClass}` : ''}`;
+    document.body.className = 'body cv-page';
     resetDocumentScrollState({ keepSiteReady: true });
-  }, [pathname, bodyClass]);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -37,7 +35,7 @@ export default function Layout({ children, bodyClass = '' }) {
     <>
       <CustomCursor />
       <SharePreviewBanner />
-      <Nav />
+      <CvTopBar />
       {children}
     </>
   );

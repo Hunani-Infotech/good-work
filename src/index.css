@@ -281,7 +281,7 @@
   transform: translate3d(0, 0, 0);
 }
 
-.hero-scroll-cue {
+.hero-goodwork .hero-scroll-cue {
   position: absolute;
   bottom: clamp(1.5rem, 4vw, 2.5rem);
   left: 50%;
@@ -295,7 +295,7 @@
   z-index: 3;
 }
 
-.hero-scroll-cue__line {
+.hero-goodwork .hero-scroll-cue__line {
   display: block;
   width: 1px;
   height: 2.5rem;
@@ -309,7 +309,7 @@
   50% { transform: scaleY(0.4); opacity: 0.35; }
 }
 
-.hero-scroll-cue__text {
+.hero-goodwork .hero-scroll-cue__text {
   font-family: Goga, Arial, sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
@@ -331,7 +331,7 @@
     visibility: hidden;
   }
 
-  .hero-scroll-cue {
+  .hero-goodwork .hero-scroll-cue {
     display: none;
   }
 }
@@ -1029,3 +1029,4 @@
   background: var(--theme-orange-100);
   color: #666;
 }
+

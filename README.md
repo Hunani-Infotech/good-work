@@ -1,6 +1,6 @@
-# GoodWork Portfolio
+# GoodWork CV
 
-Vite + React portfolio site for **GoodWork**, with scroll-driven animations (GSAP, Lenis) and **JSON-driven content**. All copy, projects, and media URLs are loaded from a single static file at build time.
+Vite + React site for **GoodWork** — agency marketing homepage plus individual CV landing pages. Content is driven by **`src/data/site.json`** with optional admin editing and share URLs.
 
 ## Quick start
 
@@ -11,99 +11,132 @@ npm run dev
 
 Open the URL shown in the terminal (usually `http://localhost:5173`).
 
+| Route | Page |
+|-------|------|
+| `/` | GoodWork agency homepage |
+| `/cv/sanjay` | Individual landing page (4 screens) |
+| `/admin` | Content editor |
+| `/*` | 404 |
+
+Preview the CV: `http://localhost:5173/cv/sanjay`
+
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start the Vite dev server with hot reload |
+| `npm run dev` | Vite dev server with hot reload |
 | `npm run build` | Production build to `dist/` |
 | `npm run preview` | Serve the production build locally |
-| `node scripts/build-site-json.mjs` | Regenerate `src/data/site.json` from `projects.extracted.json` (optional) |
 
-## Routes
+## Individual landing page (CV)
 
-| Route | Page |
-|-------|------|
-| `/` | Home |
-| `/work` | Work portfolio |
-| `/*` | 404 |
+The CV route follows the **GoodWork Individual Landing Page** content spec — four scroll screens only:
 
-## Content
+| Screen | Content |
+|--------|---------|
+| 1 — Profile | Photo, name, professional title |
+| 2 — Video | 10s looping video CV, hero header, statement, mailto CTA |
+| 3 — Narrative | Professional narrative (3 paragraphs), optional Merdeka 118 background |
+| 4 — Capabilities | Capabilities & skills (4 bullets), optional youth/cafe background |
 
-All site content lives in **`src/data/site.json`**. Edit this file, then restart dev or run `npm run build`.
+Every screen shows **Powered by GoodWork** in the footer. Share button is top-right (`CvTopBar`).
+
+## Content (`site.json`)
+
+All editable copy lives in **`src/data/site.json`**. Shape:
 
 ```json
 {
   "site": {
-    "brand": {},
-    "theme": {},
-    "meta": {},
-    "contact": {},
-    "social": {},
-    "footer": {},
-    "assets": {}
+    "brand": { "firstName": "Sanjay" },
+    "theme": { "purple": "#510066", "orange": "#f25828", "bgWarm": "#faf8f5", "grey": "#96908c" },
+    "meta": { "homeTitle": "", "description": "", "favicon": "", "publishedUrl": "", "configUrl": "" },
+    "contact": { "email": "", "mailtoSubjectNav": "" }
   },
   "home": {
-    "hero": {},
-    "clickScroll": {},
-    "services": {},
-    "workCta": {},
-    "benefits": {},
-    "cta": {}
-  },
-  "work": {
-    "headline": "",
-    "headlinePrefix": "",
-    "folderImage": "",
-    "projects": [],
-    "cta": {}
+    "hero": {
+      "subtitle": "",
+      "profilePhoto": "",
+      "heading": "",
+      "heroStatement": "",
+      "ctaLabel": "Let's Connect",
+      "videoCv": { "src": "", "poster": "" }
+    },
+    "narrative": {
+      "tag": "Professional Narrative",
+      "backgroundImage": "",
+      "paragraphs": ["", "", ""]
+    },
+    "capabilities": {
+      "tag": "Capabilities & Skills",
+      "backgroundImage": "",
+      "bullets": ["", "", "", ""]
+    }
   }
 }
 ```
 
-- **`SiteProvider`** (`src/context/SiteContext.jsx`) imports `site.json` at build time — read-only, no admin panel, no browser storage override.
-- **Theme colors** under `site.theme` are applied at runtime via CSS variables (`--brand-purple`, `--brand-orange`, etc.).
-- **Lottie / static assets** live in `public/` (e.g. `public/documents/`, `public/images/goodwork/`).
-
-### Theme defaults
-
-| Token | Default |
-|-------|---------|
-| Purple | `#510066` |
-| Orange | `#f25828` |
-| Warm background | `#faf8f5` |
-| Grey | `#96908c` |
+- **`SiteProvider`** (`src/context/SiteContext.jsx`) loads `site.json`, with optional localStorage override and `?share=` / `?config=` URL preview.
+- Edit via **`/admin`** or edit `site.json` directly, then restart dev or rebuild.
+- Theme colors under `site.theme` are applied at runtime via CSS variables on CV pages.
 
 ## Project structure
 
 ```
 src/
-  data/site.json           # Single source of truth for content
-  context/SiteContext.jsx  # Read-only site context
-  pages/                   # Home, Work, NotFound
+  data/
+    site.json                 # CV + meta content
+    portfolioTemplates.js     # Agency homepage template cards
+  pages/
+    AgencyHomePage.jsx        # /
+    CvPage.jsx                # /cv/sanjay
+    AdminPage.jsx             # /admin
+    NotFoundPage.jsx
   components/
-    home/                  # Hero, services, benefits, work CTA
-    work/                  # Projects, sidebar + mobile nav
-    sections/              # Footer, main CTA
-    layout/                # Nav, layout shell
-    ui/                    # Loader, Lottie, media helpers
-  animations/              # GSAP + Lenis (home, work, nav)
-  styles/                  # site.css, work.css
+    agency/                   # Agency marketing sections
+    cv/                       # Individual landing (4 screens)
+      CvHero.jsx
+      CvExpertiseSection.jsx
+      CvNarrativeSection.jsx
+      CvCapabilitiesSection.jsx
+      CvSection.jsx           # Shared screen shell
+      CvSectionChrome.jsx     # Label + eyebrow primitives
+      CvPoweredBy.jsx
+    layout/
+      Layout.jsx              # CV page shell (top bar, cursor, theme)
+      CvTopBar.jsx            # Share button
+    ui/                       # Loader, share, cursor, media helpers
+  animations/
+    cvAnimations.js           # CV scroll animations
+    agencyAnimations.js       # Agency homepage animations
+    scrollPageBoot.js         # Shared Lenis + loader boot
+    scrollRuntime.js          # Lenis / ScrollTrigger helpers
+    gsapTextHelpers.js        # CV text reveal helpers
+    loaderAnimations.js
+  hooks/
+    useScrollPageAnimations.js  # useCvAnimations + useAgencyAnimations
+    useSiteLoader.js
+    usePageReveal.js
+  styles/
+    cv-landing.css            # Imported by CvPage only
+    agency.css                # Imported by AgencyHomePage
+    site.css                  # Global legacy + shared
+    admin.css
 public/
-  documents/               # Lottie JSON
-  images/goodwork/         # Brand assets
-scripts/
-  build-site-json.mjs      # Optional JSON generator
-  extract-projects.mjs     # Project extraction helper
+  documents/                  # Lottie JSON (loader)
+  images/goodwork/            # Brand assets
+  images/agency/              # Agency marketing art
+  images/landing/             # CV background photos (optional)
 ```
 
 ## Tech stack
 
-- **React 19** + **React Router**
+- **React 19** + **React Router 7**
 - **Vite 6**
-- **GSAP** + **ScrollTrigger** + **CustomEase**
+- **GSAP 3** + **ScrollTrigger**
 - **Lenis** smooth scroll
-- **lottie-web** for animated logos
+- **lottie-web** (site loader)
+- **lz-string** (share URL compression)
 
 ## Deployment
 
@@ -111,4 +144,4 @@ scripts/
 npm run build
 ```
 
-Deploy the contents of **`dist/`** to any static host (Netlify, Vercel, S3, etc.). Configure the host to serve `index.html` for client-side routes (`/` and `/work`).
+Deploy **`dist/`** to any static host (Vercel, Netlify, etc.). `vercel.json` rewrites all paths to `index.html` for client-side routing.

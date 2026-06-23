@@ -1,9 +1,7 @@
 {
   "site": {
     "brand": {
-      "firstName": "Sanjay",
-      "lastName": "",
-      "navDisplay": "logo"
+      "firstName": "Sanjay"
     },
     "theme": {
       "purple": "#510066",
@@ -12,8 +10,7 @@
       "grey": "#96908c"
     },
     "meta": {
-      "homeTitle": "Sanjay | Senior Mobile App Developer — GoodWork",
-      "workTitle": "Work — Sanjay | GoodWork",
+      "homeTitle": "Sanjay | Project Lead Developer — GoodWork",
       "description": "Bridging Complex Business Workflows with Seamless Native and Cross-Platform Mobile Solutions.",
       "favicon": "/favicon-gw.png",
       "publishedUrl": "",
@@ -21,508 +18,39 @@
     },
     "contact": {
       "email": "Sanjay@goodwork.asia",
-      "emailDisplay": "Sanjay@goodwork.asia",
-      "mailtoSubjectNav": "Hey Sanjay!",
-      "mailtoSubjectFooter": "Hey Sanjay!"
-    },
-    "social": {
-      "nav": [
-        {
-          "label": "Email",
-          "href": "mailto:Sanjay@goodwork.asia?subject=Hey%20Sanjay!",
-          "external": false
-        }
-      ],
-      "footer": [
-        {
-          "label": "Email",
-          "href": "mailto:Sanjay@goodwork.asia?subject=Hey%20Sanjay!",
-          "external": false
-        }
-      ]
-    },
-    "footer": {
-      "builtWith": [
-        "React",
-        "GoodWork",
-        "GSAP",
-        "Lottie",
-        "Lenis Scroll"
-      ],
-      "tagline": "Project Lead Developer",
-      "year": "2026",
-      "studio": "GoodWork",
-      "studioNote": "",
-      "logoSrc": "/images/goodwork/symbol-on-dark.svg",
-      "backgroundImage": "/images/landing/malaysian-youth.jpg",
-      "video": {
-        "poster": "",
-        "src": ""
-      }
-    },
-    "assets": {
-      "logoFullColour": "/images/goodwork/logo-full-colour.svg",
-      "logoOnDark": "/images/goodwork/logo-on-dark.svg",
-      "logoWhite": "/images/goodwork/logo-white.svg",
-      "logoBlack": "/images/goodwork/logo-black.svg",
-      "symbol": "/images/goodwork/symbol-full-colour.svg",
-      "symbolOnDark": "/images/goodwork/symbol-on-dark.svg",
-      "tickIcon": "/images/goodwork/tick-icon.svg",
-      "navLogo": "/images/goodwork/symbol-full-colour.svg",
-      "loaderLottie": "/documents/loading-style-01.json",
-      "navLottie": "/documents/loading-style-01.json",
-      "heroLottie": "/documents/goodwork-logo-style-01.json",
-      "arrowGrey": "",
-      "arrowGreyOut": "",
-      "checkMark": "/images/goodwork/tick-icon.svg",
-      "videoPosterHome": "https://picsum.photos/seed/video-poster-home/800/450",
-      "folderFront": "https://juanmora.co/images/folder-icon-front.png",
-      "folderProjects": "https://juanmora.co/images/projects-folder.png",
-      "folderBack": "https://juanmora.co/images/folder-icon-back.png"
+      "mailtoSubjectNav": "Hey Sanjay!"
     }
   },
   "home": {
     "hero": {
-      "heading": "Seamless native &\ncross-platform mobile apps.",
-      "subtitle": "Senior Mobile Developer",
+      "subtitle": "Project Lead Developer",
       "profilePhoto": "https://randomuser.me/api/portraits/men/47.jpg",
-      "heroStatement": "I build resilient apps that integrate hardware, work offline, and feel intuitive for end-users.",
-      "lottie": "/documents/goodwork-logo-style-01.json",
+      "heading": "Bridging Complex Business Workflows with Seamless Native and Cross-Platform Mobile Solutions.",
+      "heroStatement": "From integrating external hardware via Bluetooth to securing offline data synchronization, I solve complex technical challenges. I architect mobile apps that make intricate processes simple and intuitive for end-users.",
+      "ctaLabel": "Let's Connect",
       "videoCv": {
         "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        "poster": "https://picsum.photos/seed/video-cv-sanjay/800/450",
-        "link": "https://goodwork.asia"
+        "poster": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=450&fit=crop&auto=format&q=80"
       }
     },
     "narrative": {
-      "tag": "Professional Background",
+      "tag": "Professional Narrative",
+      "backgroundImage": "/images/landing/merdeka-118.jpg",
       "paragraphs": [
         "I believe the best mobile apps do not just look good—they seamlessly connect the physical and digital worlds to solve real human problems. My drive is rooted in building resilient software that works flawlessly, whether you are online, offline, or connected to external hardware.",
         "Over the past 4.5+ years, my career has evolved from prototyping basic Android features to architecting cross-platform systems using Flutter and Dart. My deep foundation in Kotlin and modern toolkits like Jetpack Compose gives me a unique edge in bridging the gap between native performance and cross-platform agility.",
         "Today, as a Senior Mobile App Developer, I partner with forward-thinking tech companies to deliver robust Android and iOS applications. I bring technical leadership, advanced API integration capabilities, and an unyielding commitment to shipping products that drive tangible business growth."
       ]
     },
-    "clickScroll": {
-      "lines": [
-        "From integrating external hardware",
-        "to seamless cross-platform",
-        "mobile solutions"
-      ],
-      "highlightWord": "scroll",
-      "hoverWord": "",
-      "clickWord": "",
-      "scrollWord": "scroll",
-      "suffix": "to explore",
-      "lottie": "",
-      "shapes": []
-    },
-    "services": {
+    "capabilities": {
       "tag": "Capabilities & Skills",
-      "headline": "I help companies solve problems like:",
-      "items": [
-        {
-          "id": "mobile-engineering",
-          "title": "Mobile engineering",
-          "description": "Led an Android development team to deliver and maintain multiple large-scale software projects, improving development velocity by modularizing legacy codebases into modern architectural standards.",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/android-team1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/android-team2/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/mobile-ui1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/kotlin-dev1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/android-ui2/900/1200"
-            }
-          ]
-        },
-        {
-          "id": "pos-ticketing",
-          "title": "Transport & POS systems",
-          "description": "Deployed a scalable POS Bus Ticketing Solution across 4 major metropolitan areas by integrating custom SDKs and core Java SQLite databases, enabling real-time fare calculations and automated reporting.",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/pos-system1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/transit-kl1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/bus-tech1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/sqlite-pos/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/fare-calc1/900/1200"
-            }
-          ]
-        },
-        {
-          "id": "bluetooth-hardware",
-          "title": "Hardware integration",
-          "description": "Engineered a cross-platform dairy management application deployed on Play Store and App Store, eliminating manual entry by integrating Bluetooth sockets with external DPU hardware.",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/bluetooth-hw1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/flutter-app1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/dpu-device1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/crossplatform1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/playstore1/900/1200"
-            }
-          ]
-        },
-        {
-          "id": "offline-first",
-          "title": "Offline-first architecture",
-          "description": "Ensured zero data loss during network outages by designing an offline-first data storage system using SQLite, enabling seamless asynchronous cloud synchronization upon network restoration.",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/offline-arch1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/cloud-sync1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/sqlite-db1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/network-res1/900/1200"
-            },
-            {
-              "type": "image",
-              "src": "https://picsum.photos/seed/async-sync1/900/1200"
-            }
-          ]
-        }
-      ]
-    },
-    "workCta": {
-      "topWords": [
-        "Curious?...",
-        "Check",
-        "out",
-        "my"
-      ],
-      "bottomWords": [
-        "Or",
-        "keep",
-        "scrolling"
-      ],
-      "bigText": {
-        "w": "W",
-        "rk": "rk"
-      }
-    },
-    "benefits": {
-      "step1": {
-        "line1": "Mobile apps",
-        "line2": "that work.",
-        "line3": "online, offline, or wired to hardware",
-        "silhouette": "",
-        "backgroundImage": "/images/landing/merdeka-118.jpg"
-      },
-      "step2": {
-        "headline1": "Partners choose me for my",
-        "headline2": "technical<br>leadership",
-        "bullets": [
-          "Led an Android development team to deliver multiple large-scale software projects, improving velocity by modularizing legacy codebases into modern architectural standards.",
-          "Deployed a scalable POS Bus Ticketing Solution across 4 major metropolitan areas with custom SDKs and SQLite, enabling real-time fare calculations and automated reporting.",
-          "Engineered a cross-platform dairy management app on Play Store and App Store, eliminating manual entry by integrating Bluetooth sockets with external DPU hardware.",
-          "Ensured zero data loss during network outages by designing an offline-first SQLite storage system with seamless asynchronous cloud synchronization upon restoration."
-        ],
-        "ctaLabel": "Let's Connect",
-        "darkImage": "/images/landing/malaysian-youth.jpg",
-        "lightImage": "/images/landing/merdeka-118.jpg"
-      }
-    },
-    "cta": {
-      "headline": "Ready to build something resilient?",
-      "subheadline": "from Android to cross-platform — let's architect it right.",
-      "buttonLabel": "Let's Connect",
-      "tooltip": "Email Sanjay"
-    },
-    "expertise": {
-      "tag": "Tech Stack & Skills",
-      "headline": "Tools I build with",
-      "categories": [
-        {
-          "name": "Mobile",
-          "skills": [
-            "Android Native",
-            "Flutter / Dart",
-            "Kotlin",
-            "Java",
-            "Jetpack Compose"
-          ]
-        },
-        {
-          "name": "Architecture",
-          "skills": [
-            "MVVM",
-            "Clean Architecture",
-            "Modular Design",
-            "Offline-First",
-            "REST APIs"
-          ]
-        },
-        {
-          "name": "Data & Sync",
-          "skills": [
-            "SQLite",
-            "Room DB",
-            "Cloud Sync",
-            "Background Workers",
-            "Async Patterns"
-          ]
-        },
-        {
-          "name": "Hardware & IoT",
-          "skills": [
-            "Bluetooth SDK",
-            "DPU Integration",
-            "POS Systems",
-            "Custom SDKs",
-            "Socket Comms"
-          ]
-        },
-        {
-          "name": "Tooling",
-          "skills": [
-            "Git",
-            "CI/CD",
-            "Firebase",
-            "Play Store / App Store",
-            "Agile / Scrum"
-          ]
-        }
+      "backgroundImage": "/images/landing/malaysian-youth.jpg",
+      "bullets": [
+        "Led an Android development team to deliver and maintain multiple large-scale software projects, improving development velocity by modularizing legacy codebases into modern architectural standards.",
+        "Deployed a scalable POS Bus Ticketing Solution across 4 major metropolitan areas by integrating custom SDKs and core Java SQLite databases, enabling real-time fare calculations and automated reporting.",
+        "Engineered a cross-platform dairy management application deployed on Play Store and App Store, eliminating manual entry by integrating Bluetooth sockets with external DPU hardware.",
+        "Ensured zero data loss during network outages by designing an offline-first data storage system using SQLite, enabling seamless asynchronous cloud synchronization upon network restoration."
       ]
     }
-  },
-  "work": {
-    "headlinePrefix": "",
-    "headline": "Selected mobile & cross-platform work",
-    "folderImage": "",
-    "cta": {
-      "headline": "Let's Connect",
-      "subheadline": "Sanjay@goodwork.asia",
-      "buttonLabel": "Let's Connect",
-      "tooltip": "Email Sanjay"
-    },
-    "projects": [
-      {
-        "id": "bus-ticketing",
-        "titleLine1": "POS Bus Ticketing",
-        "titleLine2": "Cross-City Transport Solution",
-        "year": "2024",
-        "challenge": "Deploy a scalable point-of-sale ticketing system across 4 major metropolitan areas requiring real-time fare calculations and offline resilience.",
-        "role": "Led full Android development, integrating custom SDKs and core Java SQLite databases for automated reporting and real-time fare synchronization.",
-        "services": [
-          "Android Development",
-          "SDK Integration",
-          "SQLite Architecture"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "Bus Ticketing",
-        "navThumb": "https://picsum.photos/seed/bustick-nav/600/400",
-        "galleryLayoutClass": "maps",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/bustick-cover/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/bustick-s1/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/bustick-s2/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/bustick-d1/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/bustick-d2/1600/900",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "dairy-app",
-        "titleLine1": "Dairy Management",
-        "titleLine2": "Cross-Platform Mobile App",
-        "year": "2023",
-        "challenge": "Eliminate manual data entry for dairy operations by connecting mobile devices directly to external DPU hardware via Bluetooth sockets.",
-        "role": "Engineered cross-platform Flutter app for Play Store and App Store with full Bluetooth socket integration to external DPU hardware.",
-        "services": [
-          "Flutter / Dart",
-          "Bluetooth Integration",
-          "Play Store & App Store"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "Dairy App",
-        "navThumb": "https://picsum.photos/seed/dairy-nav/600/400",
-        "galleryLayoutClass": "ai-google",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/dairy-cover/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/dairy-s1/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/dairy-s2/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/dairy-d1/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/dairy-d2/1600/900",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "offline-sync",
-        "titleLine1": "Offline-First",
-        "titleLine2": "Data Sync Platform",
-        "year": "2023",
-        "challenge": "Ensure zero data loss during network outages for enterprise mobile apps operating across low-connectivity field environments.",
-        "role": "Designed an offline-first SQLite storage system that enables seamless asynchronous cloud synchronization upon network restoration.",
-        "services": [
-          "SQLite Architecture",
-          "Cloud Sync",
-          "Android / iOS"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "Offline Sync",
-        "navThumb": "https://picsum.photos/seed/offlinesync-nav/600/400",
-        "galleryLayoutClass": "_1000",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/offlinesync-cover/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/offlinesync-s1/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/offlinesync-s2/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/offlinesync-d1/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/offlinesync-d2/1600/900",
-            "variant": "default"
-          }
-        ]
-      },
-      {
-        "id": "enterprise-android",
-        "titleLine1": "Enterprise Android",
-        "titleLine2": "Modular Architecture",
-        "year": "2022",
-        "challenge": "Scale and modernise legacy Android codebases for multiple large-scale enterprise clients without disrupting ongoing production releases.",
-        "role": "Led Android development team to improve velocity by refactoring monolithic codebases into clean, modular architectural standards.",
-        "services": [
-          "Android Lead",
-          "Kotlin",
-          "Jetpack Compose"
-        ],
-        "liveUrl": null,
-        "liveCtaLabel": null,
-        "navLabel": "Enterprise Android",
-        "navThumb": "https://picsum.photos/seed/enterprise-nav/600/400",
-        "galleryLayoutClass": "rappi",
-        "media": [
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/enterprise-cover/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/enterprise-s1/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/enterprise-s2/900/1200",
-            "variant": "small"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/enterprise-d1/1600/900",
-            "variant": "default"
-          },
-          {
-            "type": "image",
-            "src": "https://picsum.photos/seed/enterprise-d2/1600/900",
-            "variant": "default"
-          }
-        ]
-      }
-    ]
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import '../styles/agency.css';
-import { useAgencyAnimations } from '../hooks/useAgencyAnimations';
+import { useAgencyAnimations } from '../hooks/useScrollPageAnimations';
 import AgencyNav from '../components/agency/AgencyNav';
 import AgencyHero from '../components/agency/AgencyHero';
 import AgencyTicker from '../components/agency/AgencyTicker';

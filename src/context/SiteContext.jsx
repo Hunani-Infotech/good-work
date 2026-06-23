@@ -103,15 +103,6 @@ export function SiteProvider({ children }) {
     });
   }, [persistSite]);
 
-  const updateProject = useCallback((index, field, value) => {
-    setSite((prev) => {
-      const next = structuredClone(prev);
-      next.work.projects[index][field] = value;
-      persistSite(next);
-      return next;
-    });
-  }, [persistSite]);
-
   const resetSite = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setSite(defaultSite);
@@ -152,7 +143,6 @@ export function SiteProvider({ children }) {
     shareConfigUrl,
     isPreviewMode: Boolean(shareMode),
     updateSite,
-    updateProject,
     resetSite,
     exportJson,
     importJson,
@@ -169,7 +159,6 @@ export function SiteProvider({ children }) {
     shareMode,
     shareConfigUrl,
     updateSite,
-    updateProject,
     resetSite,
     exportJson,
     importJson,

@@ -6,8 +6,8 @@ export function validateSiteShape(data) {
   if (!data || typeof data !== 'object') {
     throw new Error('Invalid site JSON');
   }
-  if (!data.site || !data.home || !data.work) {
-    throw new Error('Site JSON must include site, home, and work sections');
+  if (!data.site || !data.home) {
+    throw new Error('Site JSON must include site and home sections');
   }
 }
 

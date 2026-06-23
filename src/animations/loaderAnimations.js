@@ -12,6 +12,24 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function waitForFonts(timeoutMs = 3000) {
+  if (!document.fonts || !document.fonts.ready) {
+    return sleep(0);
+  }
+
+  return Promise.race([
+    document.fonts.ready.catch(() => undefined),
+    sleep(timeoutMs),
+  ]);
+}
+
+function finishLoaderSession(runId) {
+  hideLoaderEl();
+  if (runId !== loaderRunId) return;
+  loaderSessionComplete = true;
+  applySiteReady();
+}
+
 export function isLoaderSessionComplete() {
   return loaderSessionComplete;
 }
@@ -297,19 +315,15 @@ export function initSiteLoader(options) {
 
   const staleCheck = () => runId !== loaderRunId || isStale();
 
-  loaderSessionPromise = document.fonts.ready
+  loaderSessionPromise = waitForFonts(3000)
     .then(() => sleep(100))
     .then(() => {
       if (staleCheck()) return;
       return runLuxuryLoader(loader, staleCheck);
     })
-    .then(() => {
-      if (staleCheck()) return;
-      loaderSessionComplete = true;
-    })
-    .catch(() => {
-      hideLoaderEl();
-      loaderSessionComplete = true;
+    .catch(() => {})
+    .finally(() => {
+      finishLoaderSession(runId);
     });
 
   return loaderSessionPromise;
