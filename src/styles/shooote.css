@@ -975,25 +975,3 @@ body.shooote-template .shooote-site-footer.wpo-site-footer {
   line-height: 1.5;
 }
 
-/* ── Video CV Widget: force interactivity on Shooote template ──
-   Shooote vendor CSS uses broad selectors and very high z-indices.
-   These rules ensure the widget is always hoverable/clickable. ── */
-.vcv-widget,
-.vcv-widget *,
-.vcv-bubble,
-.vcv-bubble *,
-.vcv-card--open,
-.vcv-card--open * {
-  visibility: visible !important;
-}
-
-.vcv-card--open,
-.vcv-card--open * {
-  pointer-events: auto !important;
-}
-
-.vcv-bubble {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-}
-

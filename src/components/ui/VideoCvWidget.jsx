@@ -3,13 +3,12 @@ import { createPortal } from 'react-dom';
 import { useSite } from '../../context/SiteContext.jsx';
 
 /**
- * VideoCvWidget – floating chatbot-style Video CV widget.
- * Rendered via React Portal directly into <body> to escape any ancestor
- * overflow:hidden, pointer-events:none, or stacking context issues.
+ * VideoCvWidget – compact corner video card (chatbot-style).
+ * Always visible on load, closes on X click, reappears on page reload.
  *
  * Props:
- *   accentColor  – hex/rgb for the ring / badge accent (default: '#510066')
- *   position     – 'bottom-right' | 'bottom-left' (default: 'bottom-right')
+ *   accentColor – accent color for the header/ring (default: '#510066')
+ *   position    – 'bottom-right' | 'bottom-left' (default: 'bottom-right')
  */
 export default function VideoCvWidget({ accentColor = '#510066', position = 'bottom-right' }) {
   const { site } = useSite();
@@ -17,64 +16,68 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
   const { brand } = site.site;
   const videoCv = hero.videoCv || {};
 
-  const [open, setOpen] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [muted, setMuted] = useState(true);
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
 
-  // Load HLS when opened
-  const initVideo = useCallback(async () => {
+  useEffect(() => {
     const video = videoRef.current;
-    if (!video || !videoCv.src) return;
+    if (!video || !videoCv.src || dismissed) return;
 
     const isHls = videoCv.src.includes('.m3u8');
+    let destroyed = false;
 
-    if (!isHls) {
-      video.src = videoCv.src;
-      video.load();
-      video.play().catch(() => {});
-      return;
-    }
-
-    const { default: Hls } = await import('hls.js');
-
-    if (Hls.isSupported()) {
-      const hls = new Hls({ enableWorker: true, backBufferLength: 60 });
-      hlsRef.current = hls;
-      hls.loadSource(videoCv.src);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+    const startPlayback = async () => {
+      if (!isHls) {
+        video.src = videoCv.src;
+        video.load();
         video.play().catch(() => {});
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoCv.src;
-      video.load();
-      video.play().catch(() => {});
-    }
-  }, [videoCv.src]);
+        return;
+      }
 
-  const destroyHls = useCallback(() => {
-    const video = videoRef.current;
-    if (hlsRef.current) {
-      hlsRef.current.destroy();
-      hlsRef.current = null;
-    } else if (video) {
-      video.pause();
-      video.removeAttribute('src');
-      video.load();
-    }
-  }, []);
+      const { default: Hls } = await import('hls.js');
+      if (destroyed) return;
 
-  useEffect(() => {
-    if (open) {
-      initVideo();
-    } else {
-      destroyHls();
-    }
-    return () => {
-      if (!open) destroyHls();
+      if (Hls.isSupported()) {
+        const hls = new Hls({ enableWorker: true, backBufferLength: 60 });
+        hlsRef.current = hls;
+        hls.loadSource(videoCv.src);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          if (!destroyed) video.play().catch(() => {});
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoCv.src;
+        video.load();
+        video.play().catch(() => {});
+      }
     };
-  }, [open, initVideo, destroyHls]);
+
+    startPlayback();
+
+    return () => {
+      destroyed = true;
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      } else if (video) {
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+      }
+    };
+  }, [videoCv.src, dismissed]);
+
+  // Sync muted state to the video element
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = muted;
+    if (!muted) video.play().catch(() => {});
+  }, [muted]);
+
+  const toggleMute = useCallback(() => setMuted((m) => !m), []);
 
   if (!videoCv.src || dismissed) return null;
 
@@ -89,104 +92,66 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
       role="complementary"
       aria-label="GoodWork Video CV"
     >
-      {/* ── Expanded Card ── */}
-      <div
-        className={`vcv-card ${open ? 'vcv-card--open' : ''}`}
-        aria-hidden={!open}
-      >
-        {/* Header */}
-        <div className="vcv-card__header">
-          <div className="vcv-card__header-info">
-            <span className="vcv-live-dot" aria-hidden="true" />
-            <span className="vcv-card__label">GoodWork Video CV</span>
-          </div>
-          <button
-            type="button"
-            className="vcv-card__close"
-            onClick={() => setOpen(false)}
-            aria-label="Close video CV"
-          >
-            ✕
-          </button>
-        </div>
+      {/* ── Compact Video Card ── */}
+      <div className="vcv-card">
+
+        {/* Close button — top right */}
+        <button
+          type="button"
+          className="vcv-card__close"
+          onClick={() => setDismissed(true)}
+          aria-label="Close video CV"
+        >
+          ✕
+        </button>
+
+        {/* Mute / Unmute button — bottom right */}
+        <button
+          type="button"
+          className={`vcv-card__mute ${muted ? 'vcv-card__mute--muted' : ''}`}
+          onClick={toggleMute}
+          aria-label={muted ? 'Unmute video' : 'Mute video'}
+          aria-pressed={!muted}
+        >
+          {muted ? (
+            /* Muted icon */
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" aria-hidden="true">
+              <path d="M16.5 12a4.5 4.5 0 01-4.5 4.5v-3.1l4.5-4.5c.6.8 1 1.8 1 3zm2.5 0c0-1.3-.4-2.5-1-3.5l1.4-1.4L18 5.7l-1.4 1.4A6.98 6.98 0 0012 5v2a5 5 0 015 5c0 .9-.3 1.8-.7 2.5l1.4 1.4c.8-1.1 1.3-2.5 1.3-3.9zM12 3L9.9 5.1 12 7.2V3zm-8.3.3L2.3 4.7l4.1 4.1L3 12h4l5 5v-6.7l4.3 4.3c-.7.5-1.4.9-2.3 1.1v2.1c1.4-.3 2.6-1 3.6-1.9l2 2 1.4-1.4L3.7 3.3z" />
+            </svg>
+          ) : (
+            /* Unmuted icon */
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" aria-hidden="true">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.7-4.1v8.3c1.6-.7 2.7-2.3 2.7-4.2zM14 3.23v2.06c2.9.87 5 3.54 5 6.71s-2.1 5.84-5 6.71v2.06c4.01-.91 7-4.49 7-8.77S18.01 4.14 14 3.23z" />
+            </svg>
+          )}
+        </button>
 
         {/* Video */}
-        <div className="vcv-card__video-wrap">
-          <video
-            ref={videoRef}
-            className="vcv-card__video"
-            poster={videoCv.poster || undefined}
-            muted
-            loop
-            playsInline
-            autoPlay
-          />
-          {/* Overlay gradient */}
-          <div className="vcv-card__video-overlay" aria-hidden="true" />
+        <video
+          ref={videoRef}
+          className="vcv-card__video"
+          poster={videoCv.poster || undefined}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
 
-          {/* Name pill */}
-          <div className="vcv-card__identity">
-            <p className="vcv-card__name">{firstName}</p>
-            <p className="vcv-card__title">{title}</p>
-          </div>
+        {/* Bottom overlay with name */}
+        <div className="vcv-card__video-overlay" aria-hidden="true" />
+        <div className="vcv-card__identity">
+          <p className="vcv-card__name">{firstName}</p>
+          <p className="vcv-card__title">{title}</p>
         </div>
 
-        {/* Footer */}
-        <div className="vcv-card__footer">
-          <span className="vcv-card__powered">Powered by <strong>GoodWork</strong></span>
-          <button
-            type="button"
-            className="vcv-card__dismiss"
-            onClick={() => { setOpen(false); setDismissed(true); }}
-          >
-            Dismiss
-          </button>
+        {/* GoodWork badge */}
+        <div className="vcv-card__badge">
+          <span className="vcv-card__badge-dot" />
+          <span>Video CV</span>
         </div>
       </div>
-
-      {/* ── Collapsed Bubble ── */}
-      <button
-        type="button"
-        className={`vcv-bubble ${open ? 'vcv-bubble--open' : ''}`}
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Close Video CV' : 'Watch my Video CV'}
-        aria-expanded={open}
-      >
-        {/* Pulsing ring */}
-        <span className="vcv-bubble__ring" aria-hidden="true" />
-        <span className="vcv-bubble__ring vcv-bubble__ring--delay" aria-hidden="true" />
-
-        {/* Thumbnail / avatar */}
-        {videoCv.poster ? (
-          <img
-            src={videoCv.poster}
-            alt={`${firstName}'s Video CV`}
-            className="vcv-bubble__avatar"
-          />
-        ) : (
-          <span className="vcv-bubble__initials">{firstName[0]}</span>
-        )}
-
-        {/* Play icon shown when closed */}
-        {!open && (
-          <span className="vcv-bubble__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </span>
-        )}
-
-        {/* Tooltip label */}
-        {!open && (
-          <span className="vcv-bubble__tooltip" role="tooltip">
-            Watch my Video CV
-          </span>
-        )}
-      </button>
     </div>
   );
 
-  // Render directly into <body> via portal — escapes ALL ancestor
-  // overflow:hidden, pointer-events, and stacking context constraints.
   return createPortal(widget, document.body);
 }
