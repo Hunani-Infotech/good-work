@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import SiteLoader from './components/ui/SiteLoader';
 import { useSiteLoader } from './hooks/useSiteLoader';
 import AgencyHomePage from './pages/AgencyHomePage';
@@ -13,24 +13,12 @@ import {
   TIDAL_COPPER_CV_PATH,
 } from './data/cvTemplatePaths.js';
 
-function hasOwnTemplateLoader(pathname) {
-  return (
-    pathname === ISAK_CV_PATH
-    || pathname.startsWith(`${ISAK_CV_PATH}/`)
-    || pathname === SHOOOTE_CV_PATH
-    || pathname.startsWith(`${SHOOOTE_CV_PATH}/`)
-  );
-}
-
 export default function App() {
-  const location = useLocation();
-  const hideGlobalLoader = hasOwnTemplateLoader(location.pathname);
-
   useSiteLoader();
 
   return (
     <>
-      {!hideGlobalLoader && <SiteLoader />}
+      <SiteLoader />
       <Routes>
         <Route path="/" element={<AgencyHomePage />} />
         <Route path={TIDAL_COPPER_CV_PATH} element={<TidalCopperCvPage />} />

@@ -62,8 +62,8 @@
 /* ── Name / title ── */
 .vcv-card__identity {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0px;
+  left: 5px;
   right: 10px;
 }
 
@@ -72,7 +72,7 @@
   font-weight: 700;
   color: #fff;
   margin: 0 0 1px;
-  line-height: 1.2;
+  line-height: 0.5;
   text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
@@ -91,8 +91,8 @@
 /* ── Close (X) button ── */
 .vcv-card__close {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 3px;
+  right: 3px;
   z-index: 10;
   width: 22px;
   height: 22px;
@@ -121,8 +121,8 @@
 /* ── Mute / Unmute button ── */
 .vcv-card__mute {
   position: absolute;
-  bottom: 44px;
-  right: 8px;
+  bottom: 11px;
+  right: 2px;
   z-index: 10;
   width: 26px;
   height: 26px;
@@ -175,8 +175,8 @@
 /* ── GoodWork badge ── */
 .vcv-card__badge {
   position: absolute;
-  top: 8px;
-  left: 22px;
+  top: 2px;
+  left: 2px;
   z-index: 10;
   display: flex;
   align-items: center;

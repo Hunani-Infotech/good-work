@@ -3,7 +3,6 @@ import CustomCursor from '../components/ui/CustomCursor';
 import IsakShell from '../components/isak/IsakShell.jsx';
 import { useIsakAnimations } from '../hooks/isak/useIsakPageAnimations.js';
 import { useIsakContent } from '../hooks/isak/useIsakContent.js';
-import { skipSiteLoader } from '../animations/loaderAnimations.js';
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import '../styles/isak.css';
 import '../styles/video-cv-widget.css';
@@ -13,7 +12,6 @@ export default function IsakCvPage() {
   const { meta } = useIsakContent();
 
   useEffect(() => {
-    skipSiteLoader();
     document.documentElement.classList.add('isak-template');
     document.body.classList.add('isak-template');
 

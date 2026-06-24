@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { isLoaderSessionComplete, whenSiteLoaderReady } from '../../animations/loaderAnimations.js';
 import { useSite } from '../../context/SiteContext.jsx';
 
 /**
  * VideoCvWidget – compact corner video card (chatbot-style).
- * Always visible on load, closes on X click, reappears on page reload.
+ * Appears after the global GoodWork loader finishes.
  *
  * Props:
  *   accentColor – accent color for the header/ring (default: '#510066')
@@ -16,14 +17,31 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
   const { brand } = site.site;
   const videoCv = hero.videoCv || {};
 
+  const [loaderReady, setLoaderReady] = useState(isLoaderSessionComplete());
   const [dismissed, setDismissed] = useState(false);
   const [muted, setMuted] = useState(true);
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
 
   useEffect(() => {
+    if (isLoaderSessionComplete()) {
+      setLoaderReady(true);
+      return undefined;
+    }
+
+    let active = true;
+    whenSiteLoaderReady().then(() => {
+      if (active) setLoaderReady(true);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
-    if (!video || !videoCv.src || dismissed) return;
+    if (!video || !videoCv.src || dismissed || !loaderReady) return;
 
     const isHls = videoCv.src.includes('.m3u8');
     let destroyed = false;
@@ -67,7 +85,7 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
         video.load();
       }
     };
-  }, [videoCv.src, dismissed]);
+  }, [videoCv.src, dismissed, loaderReady]);
 
   // Sync muted state to the video element
   useEffect(() => {
@@ -79,7 +97,7 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
 
   const toggleMute = useCallback(() => setMuted((m) => !m), []);
 
-  if (!videoCv.src || dismissed) return null;
+  if (!videoCv.src || dismissed || !loaderReady) return null;
 
   const firstName = brand?.firstName || 'Sanjay';
   const title = hero?.subtitle || 'Project Lead Developer';

@@ -1,29 +1,7 @@
 import { useEffect } from 'react';
+import { isLoaderSessionComplete, whenSiteLoaderReady } from '../../animations/loaderAnimations.js';
 import { resetDocumentScrollState } from '../../animations/scrollRuntime.js';
 import { destroyShoooteAnimations, initShoooteAnimations } from '../../animations/shoooteAnimations.js';
-
-function waitForPreloaderHidden() {
-  return new Promise((resolve) => {
-    const preloader = document.querySelector('.preloader');
-    if (!preloader || preloader.classList.contains('is-hidden')) {
-      resolve();
-      return;
-    }
-
-    const observer = new MutationObserver(() => {
-      if (preloader.classList.contains('is-hidden')) {
-        observer.disconnect();
-        resolve();
-      }
-    });
-
-    observer.observe(preloader, { attributes: true, attributeFilter: ['class'] });
-    window.setTimeout(() => {
-      observer.disconnect();
-      resolve();
-    }, 1500);
-  });
-}
 
 function createAnimationHook({ init, destroy, resetScroll = true }) {
   let mountCount = 0;
@@ -36,8 +14,11 @@ function createAnimationHook({ init, destroy, resetScroll = true }) {
       const boot = async () => {
         if (resetScroll) {
           resetDocumentScrollState({ keepSiteReady: true });
+          if (!isLoaderSessionComplete()) {
+            document.documentElement.classList.remove('site-ready');
+          }
         }
-        await waitForPreloaderHidden();
+        await whenSiteLoaderReady();
         if (!active) return;
         init();
       };

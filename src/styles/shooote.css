@@ -1,20 +1,5 @@
 /* Shooote template — single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
 
-/* Shooote uses its own preloader — hide the global GoodWork loader */
-body.shooote-template .container-loader.site-loader,
-body.shooote-template .loader-curtain-reveal {
-  display: none !important;
-  pointer-events: none !important;
-  opacity: 0 !important;
-}
-
-html:has(body.shooote-template).is-loader-active,
-html:has(body.shooote-template).is-loader-active body {
-  overflow: auto !important;
-  touch-action: auto !important;
-  overscroll-behavior: auto !important;
-}
-
 /* Back to top */
 .back-to-top {
   display: none;
@@ -40,14 +25,6 @@ html:has(body.shooote-template).is-loader-active body {
 .back-to-top:hover {
   color: #fff;
   opacity: 0.85;
-}
-
-/* Preloader fade */
-.preloader.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 /* Logo text fallback */
@@ -881,7 +858,7 @@ body.shooote-template .shooote-nav__share {
   }
 }
 
-/* Shooote Logo Sizing — legacy selector kept for preloader/other uses */
+/* Shooote Logo Sizing — legacy selector kept for navbar/other uses */
 body.shooote-template .navbar-brand img {
   max-width: 6.5rem;
   height: auto;

@@ -61,22 +61,6 @@ html.isak-template .text-white-72 {
   color: var(--white-72) !important;
 }
 
-/* GoodWork global loader must not stack above Isak preloader */
-html.isak-template .container-loader.site-loader,
-html.isak-template .loader-curtain-reveal {
-  display: none !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  visibility: hidden !important;
-}
-
-html.isak-template.is-loader-active,
-html.isak-template.is-loader-active body {
-  overflow: auto;
-  touch-action: auto;
-  overscroll-behavior: auto;
-}
-
 html.isak-template #wrapper {
   opacity: 1;
   visibility: visible;

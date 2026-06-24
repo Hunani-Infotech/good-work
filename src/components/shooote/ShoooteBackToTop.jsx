@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getLenis, subscribeScroll } from '../../animations/scrollRuntime.js';
 
-export default function ShoooteBackToTop({ ready = true }) {
+export default function ShoooteBackToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!ready) return undefined;
     return subscribeScroll((scrollTop) => setVisible(scrollTop > 1000));
-  }, [ready]);
+  }, []);
 
   const scrollTop = (e) => {
     e.preventDefault();

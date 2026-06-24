@@ -44,7 +44,6 @@ export function mapSiteToShooote(site = defaultSite) {
     SHOOOTE_BASE,
     navLinks,
     logoImage: hero.profilePhoto,
-    preloaderImage: hero.profilePhoto,
     logoText: firstName,
     siteMeta: {
       title: meta.homeTitle || `${firstName} | GoodWork`,

@@ -259,24 +259,6 @@ export function whenSiteLoaderReady(options) {
   return initSiteLoader(options);
 }
 
-export function destroySiteLoader() {
-  if (loaderSessionComplete || loaderSessionPromise) {
-    return;
-  }
-
-  loaderRunId += 1;
-  hideLoaderEl();
-}
-
-/** Skip GoodWork loader for templates that ship their own preloader. */
-export function skipSiteLoader() {
-  loaderRunId += 1;
-  loaderSessionPromise = null;
-  hideLoaderEl();
-  loaderSessionComplete = true;
-  applySiteReady();
-}
-
 /**
  * Luxury GoodWork loader with orange dot curtain reveal.
  * @param {{ prefersReduced?: boolean, isStale?: () => boolean }} options

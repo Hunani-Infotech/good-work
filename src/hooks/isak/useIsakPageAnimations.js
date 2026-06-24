@@ -1,29 +1,7 @@
 import { useEffect } from 'react';
+import { isLoaderSessionComplete, whenSiteLoaderReady } from '../../animations/loaderAnimations.js';
 import { resetDocumentScrollState, syncScrollLayout } from '../../animations/scrollRuntime.js';
 import { destroyIsakAnimations, initIsakAnimations } from '../../animations/isakAnimations.js';
-
-function waitForIsakPreloader() {
-  return new Promise((resolve) => {
-    const preloader = document.getElementById('preload');
-    if (!preloader || preloader.classList.contains('is-hidden')) {
-      resolve();
-      return;
-    }
-
-    const observer = new MutationObserver(() => {
-      if (preloader.classList.contains('is-hidden')) {
-        observer.disconnect();
-        resolve();
-      }
-    });
-
-    observer.observe(preloader, { attributes: true, attributeFilter: ['class', 'style'] });
-    window.setTimeout(() => {
-      observer.disconnect();
-      resolve();
-    }, 1200);
-  });
-}
 
 function createAnimationHook({ init, destroy, resetScroll = true }) {
   let mountCount = 0;
@@ -36,8 +14,11 @@ function createAnimationHook({ init, destroy, resetScroll = true }) {
       const boot = async () => {
         if (resetScroll) {
           resetDocumentScrollState({ keepSiteReady: true });
+          if (!isLoaderSessionComplete()) {
+            document.documentElement.classList.remove('site-ready');
+          }
         }
-        await waitForIsakPreloader();
+        await whenSiteLoaderReady();
         if (!active) return;
         init();
         window.requestAnimationFrame(() => {

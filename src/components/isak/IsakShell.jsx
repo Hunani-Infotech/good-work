@@ -6,7 +6,6 @@ import { MobileMenu } from './MobileMenu.jsx';
 import { DesktopSidebar } from './DesktopSidebar.jsx';
 import { HeaderClock } from './HeaderClock.jsx';
 import { UserSidebar } from './UserSidebar.jsx';
-import { Preloader } from './Preloader.jsx';
 import { Intro } from './sections/Intro.jsx';
 import { About } from './sections/About.jsx';
 import { Footer } from './sections/Footer.jsx';
@@ -37,8 +36,6 @@ function IsakShellInner({
 
   return (
     <SettingColorProvider defaultMode={defaultMode}>
-      <Preloader bgDark={defaultMode === 'dark'} />
-
       <BodyBackground showCloudItem={showCloudBg} />
 
       <MobileMenu />
