@@ -5267,6 +5267,28 @@ html.site-ready main > section {
   body.agency-page label {
     cursor: none;
   }
+
+  /* Shooote cursor (z-index 1111) sits under loader (9999) and video modal (10080) */
+  html.is-loader-active .cursor,
+  html.is-loader-active .cursor2,
+  body.vcv-modal-open .cursor,
+  body.vcv-modal-open .cursor2 {
+    z-index: 10100;
+  }
+
+  /* Shooote custom cursor is desktop-only — restore native pointer on smaller screens */
+  @media (max-width: 991px) {
+    html.is-loader-active body.shooote-template,
+    html.is-loader-active body.shooote-template a,
+    html.is-loader-active body.shooote-template button,
+    html.is-loader-active body.shooote-template [role="button"],
+    body.shooote-template.vcv-modal-open,
+    body.shooote-template.vcv-modal-open a,
+    body.shooote-template.vcv-modal-open button,
+    body.shooote-template.vcv-modal-open [role="button"] {
+      cursor: auto !important;
+    }
+  }
 }
 
 .cursor-dot {

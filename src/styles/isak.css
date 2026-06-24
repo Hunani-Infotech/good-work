@@ -276,6 +276,113 @@ html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text
   color: #000000 !important;
 }
 
+/* Mute — pinned to the right of the action row */
+html.isak-template .sidebar-user .action-group {
+  align-items: center;
+  width: 100%;
+}
+
+html.isak-template .sidebar-user .action-group .profile-video-mute {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+html.isak-template .sidebar-user .action-group .profile-video-mute:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #000;
+}
+
+html.isak-template .sidebar-user .action-group .profile-video-mute svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Mobile — keep CTA, Share, and mute on one row */
+@media (max-width: 991px) {
+  html.isak-template .sidebar-user .action-group {
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action {
+    gap: 4px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action .ic-wrap,
+  html.isak-template .sidebar-user .action-group .tf-btn-action .text,
+  html.isak-template .sidebar-user .action-group .profile-video-mute {
+    height: 34px;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action .ic-wrap {
+    width: 34px;
+    min-width: 34px;
+    flex-shrink: 0;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action .text {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.6875rem;
+    white-space: nowrap;
+  }
+
+  /* Hover duplicate icon — hidden on touch layouts to save width */
+  html.isak-template .sidebar-user .action-group .tf-btn-action .ic-wrap:nth-child(3) {
+    display: none;
+  }
+
+  html.isak-template .sidebar-user .action-group .profile-video-mute {
+    width: 34px;
+    flex-shrink: 0;
+  }
+
+  html.isak-template .sidebar-user .action-group .profile-video-mute svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  html.isak-template .sidebar-user .action-group {
+    gap: 6px;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action .ic-wrap,
+  html.isak-template .sidebar-user .action-group .tf-btn-action .text,
+  html.isak-template .sidebar-user .action-group .profile-video-mute {
+    height: 32px;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action .ic-wrap,
+  html.isak-template .sidebar-user .action-group .profile-video-mute {
+    width: 32px;
+    min-width: 32px;
+  }
+
+  html.isak-template .sidebar-user .action-group .tf-btn-action .text {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 0.625rem;
+  }
+}
+
 /* Footer logo pill — match wordmark to pill background per theme */
 html.isak-template .tf-footer .f-logo.isak-footer__logo-pill--light {
   background: #fff;

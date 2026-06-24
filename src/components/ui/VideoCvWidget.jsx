@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { isLoaderSessionComplete, whenSiteLoaderReady } from '../../animations/loaderAnimations.js';
 import { useSite } from '../../context/SiteContext.jsx';
+import { useVideoPlayback } from '../../hooks/useVideoPlayback.js';
 
 const MOBILE_MAX_WIDTH = 768;
 
@@ -19,56 +20,6 @@ function useIsMobile(maxWidth = MOBILE_MAX_WIDTH) {
   }, [maxWidth]);
 
   return isMobile;
-}
-
-function useVideoPlayback(videoRef, hlsRef, src, active) {
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !src || !active) return undefined;
-
-    const isHls = src.includes('.m3u8');
-    let destroyed = false;
-
-    const startPlayback = async () => {
-      if (!isHls) {
-        video.src = src;
-        video.load();
-        video.play().catch(() => {});
-        return;
-      }
-
-      const { default: Hls } = await import('hls.js');
-      if (destroyed) return;
-
-      if (Hls.isSupported()) {
-        const hls = new Hls({ enableWorker: true, backBufferLength: 60 });
-        hlsRef.current = hls;
-        hls.loadSource(src);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          if (!destroyed) video.play().catch(() => {});
-        });
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-        video.load();
-        video.play().catch(() => {});
-      }
-    };
-
-    startPlayback();
-
-    return () => {
-      destroyed = true;
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-        hlsRef.current = null;
-      } else if (video) {
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
-      }
-    };
-  }, [src, active, videoRef, hlsRef]);
 }
 
 function MuteIcon({ muted }) {
@@ -101,14 +52,18 @@ function ExpandIcon() {
 }
 
 /**
- * VideoCvWidget – compact corner video card (chatbot-style).
- * Mobile: toggle button opens a small corner popup above the trigger.
+ * VideoCvWidget – compact corner card (chatbot-style).
+ * Plays video when `videoCv.src` is set; otherwise shows poster image only.
  */
 export default function VideoCvWidget({ accentColor = '#510066', position = 'bottom-right' }) {
   const { site } = useSite();
   const { hero } = site.home;
   const { brand } = site.site;
   const videoCv = hero.videoCv || {};
+  const poster = videoCv.poster?.trim() || '';
+  const videoSrc = videoCv.src?.trim() || '';
+  const hasVideo = Boolean(videoSrc);
+  const hasPoster = Boolean(poster);
 
   const isMobile = useIsMobile();
   const [loaderReady, setLoaderReady] = useState(isLoaderSessionComplete());
@@ -121,12 +76,14 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
   const modalVideoRef = useRef(null);
   const modalHlsRef = useRef(null);
   const resumeTimeRef = useRef(0);
+  const mutedRef = useRef(muted);
+  mutedRef.current = muted;
 
   const firstName = brand?.firstName || 'Sanjay';
   const title = hero?.subtitle || 'Project Lead Developer';
   const positionClass = position === 'bottom-left' ? 'vcv-widget--left' : 'vcv-widget--right';
   const videoActive = !isMobile || expanded;
-  const cardPlaybackActive = !dismissed && loaderReady && videoActive && !fullscreen;
+  const cardPlaybackActive = hasVideo && !dismissed && loaderReady && videoActive && !fullscreen;
 
   useEffect(() => {
     if (isLoaderSessionComplete()) {
@@ -144,32 +101,40 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
     };
   }, []);
 
-  useVideoPlayback(videoRef, hlsRef, videoCv.src, cardPlaybackActive);
-  useVideoPlayback(modalVideoRef, modalHlsRef, videoCv.src, fullscreen && loaderReady);
+  useVideoPlayback(videoRef, hlsRef, videoSrc, cardPlaybackActive);
+  useVideoPlayback(modalVideoRef, modalHlsRef, videoSrc, hasVideo && fullscreen && loaderReady);
+
+  const getActiveVideo = useCallback(
+    () => (fullscreen ? modalVideoRef.current : videoRef.current),
+    [fullscreen],
+  );
 
   useEffect(() => {
-    [videoRef, modalVideoRef].forEach((ref) => {
-      const video = ref.current;
-      if (!video) return;
-      video.muted = muted;
-      if (!muted) video.play().catch(() => {});
-    });
-  }, [muted, expanded, isMobile, fullscreen]);
+    if (!hasVideo || fullscreen) return;
+    const card = videoRef.current;
+    if (card) card.muted = muted;
+  }, [hasVideo, muted, fullscreen]);
 
   useEffect(() => {
-    if (!fullscreen) return undefined;
+    if (!hasVideo || !fullscreen) return undefined;
 
     const card = videoRef.current;
     const modal = modalVideoRef.current;
     if (!modal) return undefined;
 
+    const startTime =
+      (card && Number.isFinite(card.currentTime) ? card.currentTime : 0) ||
+      resumeTimeRef.current;
+
     const syncTime = () => {
-      if (card && Number.isFinite(card.currentTime)) {
-        modal.currentTime = card.currentTime;
-      } else if (resumeTimeRef.current > 0) {
-        modal.currentTime = resumeTimeRef.current;
+      if (startTime > 0) {
+        try {
+          modal.currentTime = startTime;
+        } catch {
+          /* metadata not ready */
+        }
       }
-      modal.muted = muted;
+      modal.muted = mutedRef.current;
       modal.play().catch(() => {});
     };
 
@@ -177,9 +142,10 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
     else modal.addEventListener('loadedmetadata', syncTime, { once: true });
 
     return () => modal.removeEventListener('loadedmetadata', syncTime);
-  }, [fullscreen, muted]);
+  }, [hasVideo, fullscreen]);
 
   useEffect(() => {
+    if (!hasVideo) return;
     const card = videoRef.current;
     if (!card) return;
 
@@ -195,7 +161,13 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
       }
       card.play().catch(() => {});
     }
-  }, [fullscreen, cardPlaybackActive]);
+  }, [hasVideo, fullscreen, cardPlaybackActive]);
+
+  useEffect(() => {
+    if (!hasVideo || !fullscreen) return;
+    const modal = modalVideoRef.current;
+    if (modal) modal.muted = muted;
+  }, [hasVideo, muted, fullscreen]);
 
   useEffect(() => {
     if (!isMobile && expanded) setExpanded(false);
@@ -205,27 +177,45 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
     setExpanded((open) => !open);
   }, []);
 
-  const toggleMute = useCallback(() => setMuted((m) => !m), []);
+  const toggleMute = useCallback(() => {
+    if (!hasVideo) return;
+
+    setMuted((prev) => {
+      const next = !prev;
+      const video = getActiveVideo();
+      if (!video) return next;
+
+      video.muted = next;
+      if (!next && video.paused) {
+        video.play().catch(() => {});
+      }
+      return next;
+    });
+  }, [getActiveVideo, hasVideo]);
 
   const closePopup = useCallback(() => {
     setExpanded(false);
   }, []);
 
   const openFullscreen = useCallback(() => {
-    const card = videoRef.current;
-    if (card && Number.isFinite(card.currentTime)) {
-      resumeTimeRef.current = card.currentTime;
+    if (hasVideo) {
+      const card = videoRef.current;
+      if (card && Number.isFinite(card.currentTime)) {
+        resumeTimeRef.current = card.currentTime;
+      }
     }
     setFullscreen(true);
-  }, []);
+  }, [hasVideo]);
 
   const closeFullscreen = useCallback(() => {
-    const modal = modalVideoRef.current;
-    if (modal && Number.isFinite(modal.currentTime)) {
-      resumeTimeRef.current = modal.currentTime;
+    if (hasVideo) {
+      const modal = modalVideoRef.current;
+      if (modal && Number.isFinite(modal.currentTime)) {
+        resumeTimeRef.current = modal.currentTime;
+      }
     }
     setFullscreen(false);
-  }, []);
+  }, [hasVideo]);
 
   useEffect(() => {
     if (!fullscreen) return undefined;
@@ -237,46 +227,105 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
     document.addEventListener('keydown', onKeyDown);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('vcv-modal-open');
 
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = previousOverflow;
+      document.body.classList.remove('vcv-modal-open');
     };
   }, [fullscreen, closeFullscreen]);
 
-  if (!videoCv.src || dismissed || !loaderReady) return null;
+  if ((!hasVideo && !hasPoster) || dismissed || !loaderReady) return null;
 
-  const renderMuteButton = (size = 'card') => (
-    <button
-      type="button"
-      className={`vcv-card__mute ${muted ? 'vcv-card__mute--muted' : ''}${size === 'modal' ? ' vcv-card__mute--modal' : ''}`}
-      onClick={toggleMute}
-      aria-label={muted ? 'Unmute video' : 'Mute video'}
-      aria-pressed={!muted}
-    >
-      <MuteIcon muted={muted} />
-    </button>
-  );
+  const mediaLabel = `${firstName} video CV`;
+
+  const renderMuteButton = () => {
+    if (!hasVideo) return null;
+
+    return (
+      <button
+        type="button"
+        className={`vcv-card__mute${muted ? ' vcv-card__mute--muted' : ''}`}
+        onClick={toggleMute}
+        aria-label={muted ? 'Unmute video' : 'Mute video'}
+        aria-pressed={!muted}
+      >
+        <MuteIcon muted={muted} />
+      </button>
+    );
+  };
 
   const renderExpandButton = () => (
     <button
       type="button"
       className="vcv-card__expand"
       onClick={openFullscreen}
-      aria-label="Open video CV in fullscreen"
+      aria-label={hasVideo ? 'Open video CV in fullscreen' : 'Open video CV preview in fullscreen'}
     >
       <ExpandIcon />
     </button>
   );
 
+  const renderCardMedia = () => {
+    if (hasVideo) {
+      return (
+        <video
+          ref={videoRef}
+          className="vcv-card__video"
+          poster={poster || undefined}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
+      );
+    }
+
+    return (
+      <img
+        className="vcv-card__poster"
+        src={poster}
+        alt={mediaLabel}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  };
+
+  const renderModalMedia = () => {
+    if (hasVideo) {
+      return (
+        <video
+          ref={modalVideoRef}
+          className="vcv-modal__video"
+          poster={poster || undefined}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
+      );
+    }
+
+    return (
+      <img
+        className="vcv-modal__poster"
+        src={poster}
+        alt={mediaLabel}
+        decoding="async"
+      />
+    );
+  };
+
   const videoCard = (
-    <div className={`vcv-card${isMobile ? ' vcv-card--popup' : ''}`}>
+    <div className={`vcv-card${isMobile ? ' vcv-card--popup' : ''}${hasVideo ? '' : ' vcv-card--poster-only'}`}>
       {isMobile ? (
         <button
           type="button"
           className="vcv-card__close"
           onClick={closePopup}
-          aria-label="Close video"
+          aria-label="Close video CV"
         >
           ✕
         </button>
@@ -294,15 +343,7 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
       {renderExpandButton()}
       {renderMuteButton()}
 
-      <video
-        ref={videoRef}
-        className="vcv-card__video"
-        poster={videoCv.poster || undefined}
-        muted
-        loop
-        playsInline
-        autoPlay
-      />
+      {renderCardMedia()}
 
       <div className="vcv-card__video-overlay" aria-hidden="true" />
       <div className="vcv-card__identity">
@@ -322,13 +363,13 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
       className="vcv-modal"
       role="dialog"
       aria-modal="true"
-      aria-label={`${firstName} video CV`}
+      aria-label={mediaLabel}
     >
       <button
         type="button"
         className="vcv-modal__backdrop"
         onClick={closeFullscreen}
-        aria-label="Close fullscreen video"
+        aria-label="Close fullscreen preview"
       />
 
       <div className="vcv-modal__panel">
@@ -336,22 +377,13 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
           type="button"
           className="vcv-modal__close"
           onClick={closeFullscreen}
-          aria-label="Close fullscreen video"
+          aria-label="Close fullscreen preview"
         >
           ✕
         </button>
 
-        {renderMuteButton('modal')}
-
-        <video
-          ref={modalVideoRef}
-          className="vcv-modal__video"
-          poster={videoCv.poster || undefined}
-          muted
-          loop
-          playsInline
-          autoPlay
-        />
+        {renderMuteButton()}
+        {renderModalMedia()}
 
         <div className="vcv-card__video-overlay" aria-hidden="true" />
         <div className="vcv-modal__identity">
@@ -377,7 +409,7 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
       {isMobile ? (
         <div className="vcv-mobile-stack">
           {expanded ? (
-            <div className="vcv-popup" id="vcv-mobile-popup" role="region" aria-label={`${firstName} video CV`}>
+            <div className="vcv-popup" id="vcv-mobile-popup" role="region" aria-label={mediaLabel}>
               {videoCard}
             </div>
           ) : null}
@@ -390,8 +422,8 @@ export default function VideoCvWidget({ accentColor = '#510066', position = 'bot
             aria-controls="vcv-mobile-popup"
             aria-label={expanded ? 'Close video CV' : `Open video CV for ${firstName}`}
           >
-            {videoCv.poster ? (
-              <img className="vcv-trigger__poster" src={videoCv.poster} alt="" />
+            {poster ? (
+              <img className="vcv-trigger__poster" src={poster} alt="" />
             ) : (
               <span className="vcv-trigger__fallback" aria-hidden="true" />
             )}

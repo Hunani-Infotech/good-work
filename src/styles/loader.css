@@ -121,11 +121,11 @@ html.is-loader-active body {
 
 .site-loader .loader-eyebrow {
   font-family: Inter, Goga, Arial, sans-serif;
-  font-weight: 300;
-  font-size: clamp(9px, 1.3vw, 11px);
-  letter-spacing: 0.45em;
+  font-weight: 500;
+  font-size: clamp(10px, 1.4vw, 12px);
+  letter-spacing: 0.38em;
   text-transform: uppercase;
-  color: rgba(26, 10, 46, 0.35);
+  color: rgba(26, 10, 46, 0.72);
   margin-bottom: 10px;
   opacity: 0;
   transform: translateY(6px);
@@ -208,7 +208,7 @@ html.is-loader-active body {
 
 .site-loader .loader-counter-wrap {
   font-family: 'Cormorant Garamond', Goga, serif;
-  font-weight: 300;
+  font-weight: 500;
   display: flex;
   align-items: baseline;
   gap: 3px;
@@ -220,20 +220,22 @@ html.is-loader-active body {
   color: var(--brand-orange, #f25828);
   line-height: 1;
   min-width: 3ch;
+  font-weight: 600;
 }
 
 .site-loader .loader-counter-pct {
   font-size: clamp(14px, 2vw, 18px);
-  color: rgba(242, 88, 40, 0.45);
+  color: rgba(242, 88, 40, 0.85);
   font-style: italic;
+  font-weight: 500;
 }
 
 .site-loader .loader-status-text {
   font-family: 'Cormorant Garamond', Goga, serif;
   font-style: italic;
-  font-weight: 300;
-  font-size: clamp(11px, 1.8vw, 14px);
-  color: rgba(26, 10, 46, 0.35);
+  font-weight: 500;
+  font-size: clamp(12px, 1.9vw, 15px);
+  color: rgba(26, 10, 46, 0.78);
   letter-spacing: 0.06em;
   align-self: flex-end;
   padding-bottom: 4px;
@@ -261,9 +263,10 @@ html.is-loader-active body {
   }
 
   .site-loader .loader-eyebrow {
-    font-size: clamp(8px, 2.4vw, 10px);
-    letter-spacing: 0.32em;
+    font-size: clamp(9px, 2.5vw, 11px);
+    letter-spacing: 0.28em;
     line-height: 1.5;
+    color: rgba(26, 10, 46, 0.68);
   }
 
   .site-loader .loader-hud {

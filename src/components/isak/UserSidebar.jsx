@@ -1,5 +1,9 @@
+import { useState } from 'react';
 import { ImageSwitch } from './ImageSwitch.jsx';
 import { useIsakContent } from '../../hooks/isak/useIsakContent.js';
+import { useSite } from '../../context/SiteContext.jsx';
+import ProfileVideoMuteIcon from './ProfileVideoMuteIcon.jsx';
+import { ProfileVideoLoop } from './ProfileVideoLoop.jsx';
 import ShareButton from '../ui/ShareButton.jsx';
 
 const AVATAR_FALLBACK =
@@ -7,6 +11,11 @@ const AVATAR_FALLBACK =
 
 export function UserSidebar() {
   const { profile } = useIsakContent();
+  const { site } = useSite();
+  const videoCv = site?.home?.hero?.videoCv;
+  const [muted, setMuted] = useState(true);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  
   const mailto = profile.email
     ? `mailto:${profile.email}?subject=${encodeURIComponent(profile.mailtoSubject)}`
     : '#contact';
@@ -16,15 +25,25 @@ export function UserSidebar() {
       <div className="wrap">
         <div className="user-image">
           <div className="image">
-            <img
-              width={468}
-              height={856}
-              src={profile.sidebarPhoto}
-              alt={profile.fullName}
-              onError={(e) => {
-                e.currentTarget.src = AVATAR_FALLBACK;
-              }}
-            />
+            {videoCv?.src ? (
+              <ProfileVideoLoop
+                imageSrc={profile.sidebarPhoto || AVATAR_FALLBACK}
+                videoSrc={videoCv.src}
+                imageAlt={profile.fullName}
+                muted={muted}
+                onPlayingChange={setVideoPlaying}
+              />
+            ) : (
+              <img
+                width={468}
+                height={856}
+                src={profile.sidebarPhoto}
+                alt={profile.fullName}
+                onError={(e) => {
+                  e.currentTarget.src = AVATAR_FALLBACK;
+                }}
+              />
+            )}
           </div>
 
           <div className="meta-left d-none d-sm-block">
@@ -107,6 +126,18 @@ export function UserSidebar() {
                 </>
               )}
             </ShareButton>
+
+            {videoCv?.src && videoPlaying ? (
+              <button
+                type="button"
+                className="profile-video-mute"
+                onClick={() => setMuted((value) => !value)}
+                aria-label={muted ? 'Unmute video' : 'Mute video'}
+                aria-pressed={!muted}
+              >
+                <ProfileVideoMuteIcon muted={muted} />
+              </button>
+            ) : null}
 
           </div>
         </div>

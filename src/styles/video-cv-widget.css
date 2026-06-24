@@ -39,6 +39,17 @@
   display: block;
 }
 
+.vcv-card__poster {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  display: block;
+}
+
+.vcv-card--poster-only .vcv-card__identity {
+  right: 36px;
+}
+
 .vcv-card__video-overlay {
   position: absolute;
   inset: 0;
@@ -55,7 +66,7 @@
   position: absolute;
   bottom: 0;
   left: 6px;
-  right: 64px;
+  right: 52px;
   pointer-events: none;
 }
 
@@ -269,6 +280,14 @@ body.shooote-template .vcv-popup {
   max-height: min(88vh, 860px);
 }
 
+.vcv-modal__poster {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  display: block;
+  max-height: min(88vh, 860px);
+}
+
 .vcv-modal__close {
   position: absolute;
   top: 10px;
@@ -436,6 +455,10 @@ body.shooote-template .vcv-popup {
     height: 24px;
     bottom: 5px;
     right: 31px;
+  }
+
+  .vcv-card--popup.vcv-card--poster-only .vcv-card__identity {
+    right: 30px;
   }
 
   .vcv-card--popup .vcv-card__name {

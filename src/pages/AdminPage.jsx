@@ -191,8 +191,8 @@ export default function AdminPage() {
 
       <section className="admin-section">
         <h2>Screen 2 — Video &amp; hero</h2>
-        <Field label="Video CV — MP4 URL" value={site.home.hero.videoCv?.src} onChange={(v) => updateSite('home.hero.videoCv.src', v)} />
-        <ImageField label="Video CV — poster" value={site.home.hero.videoCv?.poster} onChange={(v) => updateSite('home.hero.videoCv.poster', v)} />
+        <Field label="Video CV — file path (optional, e.g. /videos/video-cv.mp4)" value={site.home.hero.videoCv?.src} onChange={(v) => updateSite('home.hero.videoCv.src', v)} />
+        <ImageField label="Video CV — poster (shown when no video file)" value={site.home.hero.videoCv?.poster} onChange={(v) => updateSite('home.hero.videoCv.poster', v)} />
         <Field label="Hero header" value={site.home.hero.heading} multiline onChange={(v) => updateSite('home.hero.heading', v)} />
         <Field label="Hero statement" value={site.home.hero.heroStatement} multiline onChange={(v) => updateSite('home.hero.heroStatement', v)} />
         <Field label="CTA button label" value={site.home.hero.ctaLabel} onChange={(v) => updateSite('home.hero.ctaLabel', v)} />
