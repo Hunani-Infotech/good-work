@@ -12,17 +12,8 @@ export function Intro() {
         </div>
       </div>
 
-      <h1 className="intro-title letter-space--2 ">
-        {intro.plain ? (
-          intro.headline
-        ) : (
-          <>
-            {intro.lead} <span className="is-bg">{intro.highlightA}</span>
-            <br />
-            <span className="type-2 is-bg">{intro.highlightB}</span>
-            {intro.tail ? ` ${intro.tail}` : ''}
-          </>
-        )}
+      <h1 className="intro-title letter-space--2">
+        {intro.headline}
       </h1>
 
       <div className="intro-item">

@@ -231,49 +231,36 @@ html.isak-template button.tf-btn-action.style-outline-share {
   outline: none;
 }
 
+/* Share button — always white border + white text on the dark sidebar */
 html.isak-template .tf-btn-action.style-outline-share .ic-wrap,
-html.isak-template .tf-btn-action.style-outline-share .text {
-  background-color: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+html.isak-template .tf-btn-action.style-outline-share .text,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .ic-wrap,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .text {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
 }
 
 html.isak-template .tf-btn-action.style-outline-share .icon,
-html.isak-template .tf-btn-action.style-outline-share .text {
-  color: var(--black-72);
+html.isak-template .tf-btn-action.style-outline-share .text,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .icon,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share .text {
+  color: #ffffff !important;
 }
 
+/* Hover — fill with accent green */
 html.isak-template .tf-btn-action.style-outline-share:hover .ic-wrap,
-html.isak-template .tf-btn-action.style-outline-share:hover .text {
-  background-color: var(--primary);
-  border-color: var(--primary);
+html.isak-template .tf-btn-action.style-outline-share:hover .text,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .ic-wrap,
+html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 html.isak-template .tf-btn-action.style-outline-share:hover .icon,
-html.isak-template .tf-btn-action.style-outline-share:hover .text {
-  color: var(--black) !important;
-}
-
-/* Dark mode overrides for custom outline share button */
-html.isak-template body.dark-mode .tf-btn-action.style-outline-share .ic-wrap,
-html.isak-template body.dark-mode .tf-btn-action.style-outline-share .text {
-  background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-html.isak-template body.dark-mode .tf-btn-action.style-outline-share .icon,
-html.isak-template body.dark-mode .tf-btn-action.style-outline-share .text {
-  color: var(--white-72) !important;
-}
-
-html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .ic-wrap,
-html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text {
-  background-color: var(--primary);
-  border-color: var(--primary);
-}
-
+html.isak-template .tf-btn-action.style-outline-share:hover .text,
 html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .icon,
 html.isak-template body.dark-mode .tf-btn-action.style-outline-share:hover .text {
-  color: var(--black) !important;
+  color: #000000 !important;
 }
 
 /* Footer logo pill — match wordmark to pill background per theme */

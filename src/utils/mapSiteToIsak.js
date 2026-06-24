@@ -22,27 +22,8 @@ function buildIntroHeadline(heading) {
   if (!heading) {
     return { lead: '', highlightA: '', highlightB: '', tail: '', plain: true };
   }
-
-  const withIdx = heading.indexOf(' with ');
-  if (withIdx === -1) {
-    return { lead: heading, highlightA: '', highlightB: '', tail: '', plain: true };
-  }
-
-  const leadPart = heading.slice(0, withIdx).trim();
-  const rest = heading.slice(withIdx + 6).trim();
-  const leadWords = leadPart.split(/\s+/);
-  const restWords = rest.split(/\s+/);
-
-  if (leadWords.length < 3 || restWords.length < 2) {
-    return { lead: heading, highlightA: '', highlightB: '', tail: '', plain: true };
-  }
-
-  const highlightA = leadWords.slice(-2).join(' ');
-  const lead = leadWords.slice(0, -2).join(' ');
-  const highlightB = restWords.slice(0, 2).join(' ');
-  const tail = restWords.slice(2).join(' ');
-
-  return { lead, highlightA, highlightB, tail, plain: false };
+  // Always render as a single-color field — no span-based colour splits.
+  return { lead: heading, highlightA: '', highlightB: '', tail: '', plain: true };
 }
 
 function buildCapabilitiesTimeline(bullets) {
