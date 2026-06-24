@@ -18,7 +18,7 @@ function useSettingColor() {
   return ctx;
 }
 
-export function SettingColorProvider({ defaultMode = 'dark', children }) {
+export function SettingColorProvider({ defaultMode = 'dark', forceMode, children }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(null);
   const { setTheme } = useIsakTheme();
@@ -33,6 +33,14 @@ export function SettingColorProvider({ defaultMode = 'dark', children }) {
   }, [setTheme]);
 
   useEffect(() => {
+    if (forceMode) {
+      const fallbackClass = getDefaultColorBodyClass(forceMode);
+      applyColorVariant(fallbackClass);
+      setActive(fallbackClass);
+      setTheme(forceMode);
+      return;
+    }
+
     const saved = localStorage.getItem(COLOR_VARIANT_STORAGE_KEY);
     const savedSwatch = getColorSwatch(saved);
 
@@ -48,7 +56,7 @@ export function SettingColorProvider({ defaultMode = 'dark', children }) {
     setActive(fallbackClass);
     setTheme(defaultMode);
     localStorage.setItem(COLOR_VARIANT_STORAGE_KEY, fallbackClass);
-  }, [defaultMode, setTheme]); // eslint-disable-line react-hooks/exhaustive-deps -- init once per page mode
+  }, [defaultMode, forceMode, setTheme]); // eslint-disable-line react-hooks/exhaustive-deps -- init once per page mode
 
   useEffect(() => {
     if (!open) return undefined;

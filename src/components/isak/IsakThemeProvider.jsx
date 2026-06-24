@@ -23,8 +23,14 @@ function readStoredTheme(defaultTheme) {
   return defaultTheme;
 }
 
-export function IsakThemeProvider({ children, defaultTheme = 'dark' }) {
-  const [theme, setThemeState] = useState(() => readStoredTheme(defaultTheme));
+export function IsakThemeProvider({ children, defaultTheme = 'dark', forceTheme }) {
+  const [theme, setThemeState] = useState(() => forceTheme || readStoredTheme(defaultTheme));
+
+  useEffect(() => {
+    if (forceTheme) {
+      setThemeState(forceTheme);
+    }
+  }, [forceTheme]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

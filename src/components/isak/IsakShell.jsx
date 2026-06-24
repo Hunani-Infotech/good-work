@@ -15,6 +15,7 @@ import { useBodyThemeClass } from '../../hooks/isak/useBodyThemeClass.js';
 
 function IsakShellInner({
   defaultMode = 'dark',
+  forceMode,
   showCloudBg = true,
   bodyClass = 'counter-scroll',
 }) {
@@ -35,7 +36,7 @@ function IsakShellInner({
   useHeadlineRotate();
 
   return (
-    <SettingColorProvider defaultMode={defaultMode}>
+    <SettingColorProvider defaultMode={defaultMode} forceMode={forceMode}>
       <BodyBackground showCloudItem={showCloudBg} />
 
       <MobileMenu />
@@ -67,7 +68,7 @@ function IsakShellInner({
 
 export default function IsakShell(props) {
   return (
-    <IsakThemeProvider defaultTheme={props.defaultMode ?? 'dark'}>
+    <IsakThemeProvider defaultTheme={props.defaultMode ?? 'dark'} forceTheme={props.forceMode}>
       <IsakShellInner {...props} />
     </IsakThemeProvider>
   );

@@ -44,7 +44,7 @@ export function UserSidebar() {
         </div>
         <div className="user-logo d-none d-lg-block">
           <ImageSwitch
-            light="/images/goodwork/symbol-on-light.svg"
+            light="/images/goodwork/symbol-on-dark.svg"
             dark="/images/goodwork/symbol-on-dark.svg"
             width={40}
             height={40}
