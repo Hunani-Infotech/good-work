@@ -64,7 +64,7 @@ export function UserSidebar() {
             <span className="dot" />
             <span>Available for Work</span>
           </p>
-          <h5 className="greeting letter-space--2 text-white animationtext clip">
+          <h6 className="greeting letter-space--2 text-white animationtext clip">
             Hey, I&apos;m{' '}
             <span className="cd-words-wrapper">
               {profile.rotatingNames.map((name, i) => (
@@ -76,7 +76,7 @@ export function UserSidebar() {
                 </span>
               ))}
             </span>
-          </h5>
+          </h6>
           <p className="introduce text-white-56 letter-space--05 text-body-3">
             {profile.introBio}
           </p>
