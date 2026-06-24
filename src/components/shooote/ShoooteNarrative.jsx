@@ -18,7 +18,7 @@ export default function ShoooteNarrative() {
       <div className="about-wrap">
         <div className="gw-section__prose">
           {narrative.paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 32)} className="wow fadeInUp" data-wow-duration="1200ms">
+            <p key={paragraph.slice(0, 32)} className="shooote-scroll-fade">
               {paragraph}
             </p>
           ))}

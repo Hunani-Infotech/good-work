@@ -19,8 +19,7 @@ export default function ShoooteCapabilities() {
         {capabilities.bullets.map((bullet, index) => (
           <li
             key={bullet}
-            className="gw-section__cap-item wow fadeInUp"
-            data-wow-delay={`${0.1 + index * 0.05}s`}
+            className="gw-section__cap-item shooote-scroll-fade"
           >
             <span className="gw-section__cap-num" aria-hidden="true">
               {String(index + 1).padStart(2, '0')}

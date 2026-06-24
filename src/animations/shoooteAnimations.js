@@ -188,6 +188,51 @@ function revealAllWowElements(root = document) {
   root.querySelectorAll('.wow').forEach((el) => revealWowElement(el, true));
 }
 
+const SHOOOTE_DESCRIPTION_SELECTOR = '.gw-section--shooote .shooote-scroll-fade';
+
+function revealAllDescriptionElements(root = document) {
+  root.querySelectorAll(SHOOOTE_DESCRIPTION_SELECTOR).forEach((el) => {
+    gsap.set(el, { opacity: 1, y: 0, clearProps: 'transform' });
+    el.classList.remove('shooote-scroll-fade--pending');
+  });
+}
+
+function initShoooteDescriptionReveals(root = document) {
+  const elements = root.querySelectorAll(SHOOOTE_DESCRIPTION_SELECTOR);
+  if (!elements.length) return;
+
+  elements.forEach((el) => {
+    if (el.dataset.shoooteDescReveal) return;
+    el.dataset.shoooteDescReveal = '1';
+    el.classList.add('shooote-scroll-fade--pending');
+
+    gsap.set(el, { opacity: 0, y: 18 });
+
+    const tween = gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 92%',
+        end: 'top 70%',
+        scrub: 0.65,
+      },
+    });
+
+    if (ScrollTrigger.isInViewport(el, 0.08)) {
+      tween.progress(1);
+      el.classList.remove('shooote-scroll-fade--pending');
+    }
+
+    tween.eventCallback('onUpdate', () => {
+      if (tween.progress() >= 0.98) {
+        el.classList.remove('shooote-scroll-fade--pending');
+      }
+    });
+  });
+}
+
 function initPoortTextAnimations(root = document) {
   const elements = root.querySelectorAll('.poort-text');
   if (!elements.length) return;
@@ -428,6 +473,7 @@ export function initShoooteAnimations(root = document) {
 
   if (prefersReduced) {
     revealAllWowElements(root);
+    revealAllDescriptionElements(root);
     initHeroSplitAnimation(root);
     initStickyHeader();
     initMenuLinkScroll(root);
@@ -437,6 +483,7 @@ export function initShoooteAnimations(root = document) {
   requestAnimationFrame(() => {
     if (id !== shoooteRunId) return;
     initWowReveals(root);
+    initShoooteDescriptionReveals(root);
     initHeroSplitAnimation(root);
     initPoortTextAnimations(root);
     initStickyHeader();
