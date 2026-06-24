@@ -18,24 +18,32 @@ function getSplitText() {
 function manualCharSplit(el, linesClass = 'poort-line') {
   const text = el.textContent;
   el.innerHTML = '';
-  const line = document.createElement('div');
-  line.className = linesClass;
+  const flat =
+    el.classList.contains('shooote-luxury-heading__row')
+    || Boolean(el.closest('.wpo-portfolio-section .wpo-section-title'));
+  const line = flat ? null : document.createElement('div');
+  if (line) line.className = linesClass;
   const chars = [];
   text.split('').forEach((char) => {
     const span = document.createElement('span');
     span.className = 'poort-char';
     span.textContent = char === ' ' ? '\u00a0' : char;
-    line.appendChild(span);
+    if (line) line.appendChild(span);
+    else el.appendChild(span);
     chars.push(span);
   });
-  el.appendChild(line);
+  if (line) el.appendChild(line);
   return { chars };
 }
 
 function splitPoortElement(el) {
   const SplitText = getSplitText();
   if (SplitText) {
-    return new SplitText(el, { type: 'lines,words,chars', linesClass: 'poort-line' });
+    const flatHeading =
+      el.classList.contains('shooote-luxury-heading__row')
+      || Boolean(el.closest('.wpo-portfolio-section .wpo-section-title'));
+    const type = flatHeading ? 'chars' : 'lines,words,chars';
+    return new SplitText(el, { type, linesClass: 'poort-line' });
   }
   return manualCharSplit(el);
 }

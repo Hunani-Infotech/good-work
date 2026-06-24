@@ -12,6 +12,14 @@ export default function ShoooteHero() {
 
   return (
     <section className="wpo-hero-static shooote-hero-split" id="profile">
+      <div className="shooote-hero-petals" aria-hidden="true">
+        <span className="shooote-hero-petal shooote-hero-petal--a" />
+        <span className="shooote-hero-petal shooote-hero-petal--b" />
+        <span className="shooote-hero-petal shooote-hero-petal--c" />
+        <span className="shooote-hero-petal shooote-hero-petal--d" />
+      </div>
+      <div className="shooote-hero-grain" aria-hidden="true" />
+
       <GwSectionLabel center>{hero.sectionLabel}</GwSectionLabel>
 
       <div className="shooote-hero-stage">
@@ -30,7 +38,9 @@ export default function ShoooteHero() {
         ) : null}
 
         <a href="#expertise" className="shooote-hero-scroll menu-link" onClick={onScrollCue} aria-label="Scroll to expertise">
-          <span aria-hidden="true">⌄</span>
+          <svg className="shooote-hero-scroll__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </a>
       </div>
     </section>
