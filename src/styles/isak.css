@@ -180,19 +180,110 @@ html.isak-template .gw-section--isak + .gw-section--isak {
   padding-top: 0;
 }
 
-/* Fix visibility of name and duty subtitle on the navbar/intro section */
-html.isak-template .intro-author .info_name {
-  color: var(--black) !important;
-}
-html.isak-template .intro-author .info_duty {
-  color: var(--black-50) !important;
+/* ── Section headings (editorial) ── */
+html.isak-template .isak-section-heading {
+  margin-bottom: 2rem;
 }
 
-html.isak-template body.dark-mode .intro-author .info_name {
-  color: var(--white) !important;
+html.isak-template .isak-section-heading__title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.85rem;
 }
-html.isak-template body.dark-mode .intro-author .info_duty {
-  color: var(--white) !important;
+
+html.isak-template .isak-section-heading__index {
+  flex-shrink: 0;
+  font-family: "Apfel Grotezk", system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--primary);
+}
+
+html.isak-template .isak-section-heading__title {
+  margin: 0;
+  font-family: "Apfel Grotezk", system-ui, sans-serif;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--black-72);
+}
+
+html.isak-template body.dark-mode .isak-section-heading__title {
+  color: var(--white);
+}
+
+html.isak-template .isak-section-heading__title--single-line {
+  white-space: nowrap;
+  letter-spacing: -0.05em;
+  font-size: clamp(1.5rem, 3.8vw, 2.35rem);
+}
+
+html.isak-template .isak-section-heading__rule {
+  width: 3.5rem;
+  height: 2px;
+  margin-top: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 20%, transparent));
+}
+
+@media (max-width: 575px) {
+  html.isak-template .isak-section-heading__title-row {
+    align-items: center;
+    flex-direction: row;
+    gap: 0.6rem;
+  }
+
+  html.isak-template .isak-section-heading__title--single-line {
+    white-space: normal;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* ── Intro name / role (matches section heading system) ── */
+html.isak-template .isak-intro-heading {
+  margin-bottom: 2rem;
+}
+
+html.isak-template .section-intro .isak-intro-heading {
+  margin-bottom: 2.5rem;
+}
+
+html.isak-template .isak-intro-heading__copy {
+  min-width: 0;
+}
+
+html.isak-template .isak-intro-heading__name {
+  margin: 0;
+  font-family: "Apfel Grotezk", system-ui, sans-serif;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--black-72);
+}
+
+html.isak-template body.dark-mode .isak-intro-heading__name {
+  color: var(--white);
+}
+
+html.isak-template .isak-intro-heading__duty {
+  margin: 0.35rem 0 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--black-56);
+}
+
+html.isak-template body.dark-mode .isak-intro-heading__duty {
+  color: var(--white-56);
+}
+
+html.isak-template .isak-intro-heading .isak-section-heading__rule {
+  margin-top: 1rem;
 }
 
 /* Sidebar user-image hover effect: restore color, remove grayscale filter & dark overlay gradient */

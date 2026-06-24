@@ -23,9 +23,9 @@ export default function ShoooteLayout({ wrapperClass = 'page-wrapper', children 
 
   return (
     <>
+      <ShoooteCursor />
       <ShoooteHeader />
       <div className={wrapperClass} ref={wrapperRef}>
-        <ShoooteCursor />
         {children}
         <ShoooteBackToTop />
       </div>

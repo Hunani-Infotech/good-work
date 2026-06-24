@@ -1,5 +1,5 @@
-import { ImageSwitch } from '../ImageSwitch.jsx';
 import GwSection from '../../shared/GwSection.jsx';
+import IsakSectionHeading from '../IsakSectionHeading.jsx';
 import { useIsakContent } from '../../../hooks/isak/useIsakContent.js';
 
 export function About() {
@@ -7,14 +7,8 @@ export function About() {
 
   return (
     <>
-      <GwSection
-        theme="isak"
-        id="about"
-        className="section-about"
-        icon="icon-user-circle"
-        eyebrow={about.tag}
-        title={about.title}
-      >
+      <GwSection theme="isak" id="about" className="section-about">
+        <IsakSectionHeading tag={about.tag} sectionIndex="01" />
         <p className="s-desc text-black-56 scrolling-effect effectTop">
           {about.paragraphs.map((paragraph) => (
             <span key={paragraph.slice(0, 32)}>
@@ -27,13 +21,8 @@ export function About() {
       </GwSection>
 
       {education.length > 0 ? (
-        <GwSection
-          theme="isak"
-          id="education"
-          className="section-education-experience"
-          icon="icon-edu"
-          eyebrow={capabilities.tag}
-        >
+        <GwSection theme="isak" id="education" className="section-education-experience">
+          <IsakSectionHeading tag={capabilities.tag} sectionIndex="02" singleLine />
           <div className="timeline scroll-down">
             <div className="timeline-line">
               <div className="prg-line" />

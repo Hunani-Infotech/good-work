@@ -5268,12 +5268,20 @@ html.site-ready main > section {
     cursor: none;
   }
 
-  /* Shooote cursor (z-index 1111) sits under loader (9999) and video modal (10080) */
-  html.is-loader-active .cursor,
-  html.is-loader-active .cursor2,
+  /* When the Video CV modal is open, restore the native cursor and hide the Shooote custom cursor */
+  body.shooote-template.vcv-modal-open,
+  body.shooote-template.vcv-modal-open *,
+  body.vcv-modal-open,
+  body.vcv-modal-open * {
+    cursor: auto !important;
+  }
+
+  body.shooote-template.vcv-modal-open .cursor,
+  body.shooote-template.vcv-modal-open .cursor2,
   body.vcv-modal-open .cursor,
   body.vcv-modal-open .cursor2 {
-    z-index: 10100;
+    opacity: 0 !important;
+    visibility: hidden !important;
   }
 
   /* Shooote custom cursor is desktop-only — restore native pointer on smaller screens */
@@ -5281,11 +5289,7 @@ html.site-ready main > section {
     html.is-loader-active body.shooote-template,
     html.is-loader-active body.shooote-template a,
     html.is-loader-active body.shooote-template button,
-    html.is-loader-active body.shooote-template [role="button"],
-    body.shooote-template.vcv-modal-open,
-    body.shooote-template.vcv-modal-open a,
-    body.shooote-template.vcv-modal-open button,
-    body.shooote-template.vcv-modal-open [role="button"] {
+    html.is-loader-active body.shooote-template [role="button"] {
       cursor: auto !important;
     }
   }
