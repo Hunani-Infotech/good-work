@@ -67,6 +67,8 @@ function resetShoooteRuntime() {
 
   document.querySelectorAll('[data-shooote-placeholder]').forEach((node) => node.remove());
 
+  resetHeroSplitState(document);
+
   gsap.killTweensOf('*');
   ScrollTrigger.getAll().forEach((t) => t.kill());
   destroyLenis();
@@ -217,36 +219,134 @@ function initStickyHeader() {
   // Header is always fixed via shooote.css — legacy scroll-hide behavior removed.
 }
 
+function getHeroLineText(el) {
+  if (!el) return '';
+  if (el.dataset.heroLineText) return el.dataset.heroLineText;
+  const text = el.textContent.trim();
+  if (text) el.dataset.heroLineText = text;
+  return text;
+}
+
+function resetHeroSplitState(root = document) {
+  const section = root.querySelector('.shooote-hero-split');
+  if (!section) return;
+
+  delete section.dataset.heroAnim;
+
+  section.querySelectorAll('.shooote-hero-blur-text').forEach((line) => {
+    const text = getHeroLineText(line);
+    if (text) line.textContent = text;
+    delete line.dataset.heroLineSplit;
+    line.style.removeProperty('visibility');
+  });
+
+  const portrait = section.querySelector('.shooote-hero-portrait');
+  if (portrait) gsap.set(portrait, { clearProps: 'opacity,transform,scale' });
+}
+
+function prepareHeroLine(el) {
+  if (!el) return null;
+
+  const text = getHeroLineText(el);
+  if (!text) return null;
+
+  el.textContent = text;
+  el.dataset.heroLineSplit = '1';
+
+  const split = splitPoortElement(el);
+  const chars = split.chars || [];
+
+  if (!chars.length) {
+    gsap.set(el, { visibility: 'visible', opacity: 1, filter: 'none' });
+    return null;
+  }
+
+  gsap.set(el, { visibility: 'visible', opacity: 1 });
+  gsap.set(chars, {
+    display: 'inline-block',
+    opacity: 0,
+    y: -20,
+    filter: 'blur(10px)',
+  });
+
+  return chars;
+}
+
+/** Blur + slide-in per letter — matches portfolio-hero BlurText (ALEX / KANE). */
+function animateHeroLineChars(el, options = {}) {
+  const chars = prepareHeroLine(el);
+  if (!chars?.length) return null;
+
+  return gsap.to(chars, {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    duration: 0.5,
+    stagger: 0.1,
+    ease: 'power2.out',
+    ...options,
+  });
+}
+
+function heroNameRevealDuration(root, topLine, bottomLine) {
+  const topLen = topLine ? getHeroLineText(topLine).length : 0;
+  const bottomLen = bottomLine ? getHeroLineText(bottomLine).length : 0;
+  const letters = Math.max(topLen, bottomLen, 1);
+  return 0.5 + (letters - 1) * 0.1;
+}
+
 function initHeroSplitAnimation(root = document) {
   const section = root.querySelector('.shooote-hero-split');
-  if (!section || section.dataset.heroAnim) return;
-  section.dataset.heroAnim = '1';
+  if (!section) return;
 
-  const lines = section.querySelectorAll('h1.shooote-hero-line');
+  resetHeroSplitState(root);
 
+  const topLine = section.querySelector('.shooote-hero-line--top');
+  const bottomLine = section.querySelector('.shooote-hero-line--bottom');
   const portrait = section.querySelector('.shooote-hero-portrait');
   const role = section.querySelector('.shooote-hero-role');
   const tagline = section.querySelector('.shooote-hero-tagline');
   const scrollCue = section.querySelector('.shooote-hero-scroll');
-  const isMobileHero = window.matchMedia('(max-width: 767px)').matches;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (portrait) {
-    gsap.fromTo(portrait, { opacity: 0, scale: 0.9 }, {
-      opacity: 1,
-      scale: 1,
-      duration: 1.1,
-      ease: 'power3.out',
-      delay: isMobileHero ? 0.15 : 0.3,
+  section.dataset.heroAnim = '1';
+
+  if (prefersReduced) {
+    [topLine, bottomLine].forEach((line) => {
+      if (!line) return;
+      line.dataset.heroLineSplit = '1';
+      gsap.set(line, { opacity: 1, visibility: 'visible', filter: 'none' });
     });
+    [role, tagline, scrollCue, portrait].forEach((el) => {
+      if (el) gsap.set(el, { opacity: 1, visibility: 'visible', x: 0, y: 0, scale: 1 });
+    });
+    return;
   }
 
-  if (lines.length) {
-    gsap.fromTo(lines, { opacity: 0 }, {
+  const nameStart = 0.08;
+  const nameDuration = heroNameRevealDuration(root, topLine, bottomLine);
+  const portraitDelay = nameStart + nameDuration + 0.12;
+  const portraitDuration = 1.1;
+
+  if (portrait) {
+    gsap.set(portrait, { opacity: 0, scale: 0.9 });
+  }
+
+  if (topLine) {
+    animateHeroLineChars(topLine, { delay: nameStart });
+  }
+
+  if (bottomLine) {
+    animateHeroLineChars(bottomLine, { delay: nameStart });
+  }
+
+  if (portrait) {
+    gsap.to(portrait, {
       opacity: 1,
-      duration: 1,
-      stagger: 0.14,
+      scale: 1,
+      duration: portraitDuration,
       ease: 'power3.out',
-      delay: isMobileHero ? 0.42 : 0.15,
+      delay: portraitDelay,
     });
   }
 
@@ -256,7 +356,7 @@ function initHeroSplitAnimation(root = document) {
       y: 0,
       duration: 0.8,
       ease: 'power2.out',
-      delay: 0.55,
+      delay: portraitDelay + portraitDuration * 0.45,
     });
   }
 
@@ -266,7 +366,7 @@ function initHeroSplitAnimation(root = document) {
       y: 0,
       duration: 0.85,
       ease: 'power2.out',
-      delay: 0.72,
+      delay: portraitDelay + portraitDuration * 0.62,
     });
   }
 
@@ -274,7 +374,7 @@ function initHeroSplitAnimation(root = document) {
     gsap.fromTo(scrollCue, { opacity: 0 }, {
       opacity: 1,
       duration: 0.6,
-      delay: 0.95,
+      delay: portraitDelay + portraitDuration * 0.78,
     });
   }
 }

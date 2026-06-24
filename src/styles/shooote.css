@@ -99,6 +99,19 @@ body.shooote-template .wow.is-visible {
   z-index: 1;
 }
 
+.shooote-hero-line:not([data-hero-line-split]) {
+  visibility: hidden;
+}
+
+.shooote-hero-line .poort-line {
+  display: block;
+}
+
+.shooote-hero-line .poort-char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
 .shooote-hero-line--top {
   margin-bottom: var(--hero-name-gap);
 }
@@ -119,6 +132,7 @@ body.shooote-template .wow.is-visible {
   background: #e8eaed;
   box-shadow: 0 0 0 4px #f5f6f7, 0 14px 36px rgba(43, 46, 51, 0.12);
   pointer-events: none;
+  opacity: 0;
 }
 
 .shooote-hero-name--no-last {

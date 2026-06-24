@@ -16,12 +16,12 @@ export default function ShoooteHero() {
 
       <div className="shooote-hero-stage">
         <div className={`shooote-hero-name${hero.hasLastName ? '' : ' shooote-hero-name--no-last'}`}>
-          <h1 className="shooote-hero-line shooote-hero-line--top poort-in-up">{hero.nameLine1}</h1>
+          <h1 className="shooote-hero-line shooote-hero-line--top shooote-hero-blur-text">{hero.nameLine1}</h1>
           <div className="shooote-hero-portrait">
             <img src={hero.image} alt={hero.title} />
           </div>
           {hero.hasLastName ? (
-            <h1 className="shooote-hero-line shooote-hero-line--bottom poort-in-up">{hero.nameLine2}</h1>
+            <h1 className="shooote-hero-line shooote-hero-line--bottom shooote-hero-blur-text">{hero.nameLine2}</h1>
           ) : null}
         </div>
 
