@@ -993,6 +993,104 @@ button.shooote-share-btn:hover .tooltip-text {
   margin-right: 0.03em;
 }
 
+/* ── Mobile section headings (≤991px) ── */
+@media (max-width: 991px) {
+  body.shooote-template .gw-section--shooote .container {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
+  body.shooote-template .gw-section--shooote .gw-section__label {
+    margin-bottom: 0.7rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+
+  body.shooote-template .gw-section--shooote .wpo-section-title {
+    margin-bottom: 1.15rem;
+  }
+
+  body.shooote-template .gw-section--shooote .wpo-section-title h2.gw-section__title,
+  body.shooote-template .gw-section--shooote .wpo-section-title h3.gw-section__title {
+    padding-top: 0 !important;
+    font-size: clamp(1.45rem, 6.2vw, 1.95rem) !important;
+    line-height: 1.14 !important;
+    letter-spacing: -0.022em !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+  }
+
+  body.shooote-template .gw-section--shooote .wpo-section-title h2.gw-section__title.poort-text .poort-line,
+  body.shooote-template .gw-section--shooote .wpo-section-title h3.gw-section__title.poort-text .poort-line {
+    display: block !important;
+    line-height: 1.14 !important;
+    margin-bottom: 0.12em;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+
+  body.shooote-template .gw-section--shooote.wpo-about-section.gw-section--photo-bg .wpo-section-title h3.gw-section__title {
+    color: #fff !important;
+  }
+
+  body.shooote-template .wpo-expertise-section .shooote-luxury-heading {
+    font-size: clamp(1.4rem, 5.4vw, 1.9rem) !important;
+    line-height: 1.2 !important;
+    margin: 0 0 1.1rem !important;
+    letter-spacing: -0.024em !important;
+  }
+
+  body.shooote-template .wpo-expertise-section .shooote-luxury-heading__row {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  body.shooote-template .wpo-expertise-section .shooote-luxury-heading__row + .shooote-luxury-heading__row {
+    margin-top: 0.22em;
+  }
+
+  body.shooote-template .wpo-expertise-section .gw-section__statement {
+    font-size: 0.95rem !important;
+    line-height: 1.62 !important;
+    margin-bottom: 1.35rem !important;
+    max-width: 100%;
+  }
+
+  body.shooote-template .gw-section--shooote.wpo-portfolio-section .wpo-section-title h2.gw-section__title {
+    white-space: normal !important;
+    font-size: clamp(1.45rem, 6.2vw, 1.95rem) !important;
+    letter-spacing: -0.022em !important;
+  }
+
+  body.shooote-template .gw-section--shooote.wpo-portfolio-section .wpo-section-title h2.gw-section__title.poort-text .poort-line {
+    display: block !important;
+    white-space: normal !important;
+  }
+
+  body.shooote-template .gw-section--shooote .gw-section__prose {
+    max-width: 100%;
+  }
+
+  body.shooote-template .gw-section--shooote .gw-section__prose p {
+    font-size: 0.95rem;
+    line-height: 1.62;
+  }
+
+  body.shooote-template .gw-section--shooote.wpo-about-section.section-padding,
+  body.shooote-template .gw-section--shooote.wpo-expertise-section.section-padding,
+  body.shooote-template .gw-section--shooote.wpo-portfolio-section.section-padding {
+    padding-top: 3.25rem;
+    padding-bottom: 3rem;
+  }
+
+  body.shooote-template .gw-section--shooote.wpo-about-section,
+  body.shooote-template .gw-section--shooote.wpo-expertise-section,
+  body.shooote-template .gw-section--shooote.wpo-portfolio-section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
 /* ── Shooote navbar ── */
 body.shooote-template {
   --shooote-nav-height: 3.75rem;
