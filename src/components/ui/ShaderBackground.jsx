@@ -112,8 +112,8 @@ export default function ShaderBackground({
 
     const applyLayout = () => {
       const isMobileLayout = root.getBoundingClientRect().width < 992;
-      gl.uniform1f(uniformEdgeInset, isMobileLayout ? 0.02 : 0.1);
-      gl.uniform1f(uniformSideVignette, isMobileLayout ? 0.35 : 1.0);
+      gl.uniform1f(uniformEdgeInset, isMobileLayout ? 0.02 : 0.12);
+      gl.uniform1f(uniformSideVignette, isMobileLayout ? 0.3 : 1.0);
     };
 
     const applyPalette = () => {
