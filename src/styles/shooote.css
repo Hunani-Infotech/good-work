@@ -1,78 +1,80 @@
 /* Shooote template — single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
 
-/* Vendor resets — Shooote blue-gray surface */
+/* Vendor resets — Moody pastel palette (Lilac Ash / Periwinkle / Alabaster) */
 html.shooote-template,
 body.shooote-template {
-  --shooote-surface: #7798ab;
-  --shooote-surface-elevated: #7fa3b4;
-  --shooote-surface-sunken: #6f90a3;
+  --shooote-lilac-ash: #9f9aa4;
+  --shooote-periwinkle: #a3a5c3;
+  --shooote-periwinkle-light: color-mix(in srgb, var(--shooote-periwinkle) 32%, #ffffff);
+  --shooote-alabaster-grey: #cfd8d7;
+  --shooote-lilac-mist: color-mix(in srgb, var(--shooote-lilac-ash) 38%, var(--shooote-alabaster-grey));
+
+  --shooote-surface: var(--shooote-lilac-ash);
+  --shooote-surface-elevated: var(--shooote-alabaster-grey);
+  --shooote-surface-sunken: var(--shooote-lilac-mist);
   --shooote-surface-ink: #ffffff;
-  --shooote-surface-muted: rgba(255, 255, 255, 0.82);
+  --shooote-surface-muted: rgba(255, 255, 255, 0.86);
   --shooote-hero-accent: #ffffff;
   --shooote-heading-font: "Poppins", system-ui, sans-serif;
 
-  /* Per-section contrast palette */
-  --shooote-hero-bg: #7798ab;
-  --shooote-expertise-bg: #546a7a;
-  --shooote-narrative-bg: #afc3ce;
-  --shooote-capabilities-bg: #465e6e;
-  --shooote-footer-bg: #2e4450;
+  /* Per-section contrast rhythm */
+  --shooote-hero-bg: var(--shooote-lilac-ash);
+  --shooote-expertise-bg: var(--shooote-alabaster-grey);
+  --shooote-narrative-bg: var(--shooote-periwinkle-light);
+  --shooote-capabilities-bg: var(--shooote-lilac-mist);
+  --shooote-footer-bg: var(--shooote-lilac-ash);
 
-  /* Typography on dark section surfaces */
+  /* Typography on dark surfaces (Lilac Ash hero + footer) */
   --shooote-on-dark-ink: #ffffff;
-  --shooote-on-dark-muted: rgba(255, 255, 255, 0.82);
-  --shooote-on-dark-label: rgba(255, 255, 255, 0.72);
-  --shooote-on-dark-border: rgba(255, 255, 255, 0.22);
+  --shooote-on-dark-muted: rgba(255, 255, 255, 0.86);
+  --shooote-on-dark-label: rgba(255, 255, 255, 0.74);
+  --shooote-on-dark-border: rgba(255, 255, 255, 0.24);
 
-  /* Typography on light section surfaces (narrative) */
-  --shooote-on-light-ink: #152028;
-  --shooote-on-light-muted: rgba(21, 32, 40, 0.78);
-  --shooote-on-light-label: rgba(21, 32, 40, 0.62);
-  --shooote-on-light-border: rgba(21, 32, 40, 0.14);
+  /* Typography on light surfaces (Alabaster / Periwinkle / Lilac Mist sections) */
+  --shooote-on-light-ink: #2e2a2c;
+  --shooote-on-light-muted: rgba(46, 42, 44, 0.78);
+  --shooote-on-light-label: rgba(46, 42, 44, 0.62);
+  --shooote-on-light-border: rgba(46, 42, 44, 0.14);
+
+  width: 100%;
+  min-height: 100%;
 }
 
-html.shooote-template,
-body.shooote-template,
 html.shooote-template .page-wrapper,
-body.shooote-template .page-wrapper {
+body.shooote-template .page-wrapper,
+.page-wrapper {
   background-color: var(--shooote-hero-bg);
   color: var(--shooote-surface-ink);
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
 }
 
-html.shooote-template,
 body.shooote-template p {
   color: inherit;
 }
 
-html.shooote-template,
 body.shooote-template .gw-section__prose p,
-html.shooote-template,
 body.shooote-template .gw-section__cap-item p {
   color: var(--gw-section-prose-color, #ffffff);
 }
 
-html.shooote-template,
 body.shooote-template .wpo-site-header #navbar > ul li a,
-html.shooote-template,
 body.shooote-template .wpo-site-header #navbar > ul li a:hover,
-html.shooote-template,
 body.shooote-template .wpo-site-header #navbar > ul li a:focus {
   color: #ffffff !important;
 }
 
-html.shooote-template,
 body.shooote-template .gw-section--shooote .wpo-section-title h2 {
   padding-top: 0;
 }
 
 @media (min-width: 992px) {
-  html.shooote-template,
-body.shooote-template .cursor {
+  body.shooote-template .cursor {
     border-color: #8a8e94;
   }
 
-  html.shooote-template,
-body.shooote-template .cursor2 {
+  body.shooote-template .cursor2 {
     background-color: #4f5359;
     opacity: 0.55;
   }
@@ -114,27 +116,56 @@ body.shooote-template .cursor2 {
   text-decoration: none;
 }
 
-/* WOW reveal — keep layout visible; GSAP animates opacity in shoooteAnimations.js */
-html.shooote-template,
-body.shooote-template .wow {
+/* WOW reveal — beat vendor animate.css (.wow { visibility: hidden }) */
+html.shooote-template .wow,
+body.shooote-template .wow,
+.page-wrapper .wow {
   visibility: visible !important;
 }
 
-html.shooote-template,
-body.shooote-template .wow.is-visible {
+html.shooote-template .wow.is-visible,
+body.shooote-template .wow.is-visible,
+.page-wrapper .wow.is-visible {
   visibility: visible !important;
+}
+
+/* Critical shell — full viewport even before template class is applied */
+#root,
+html.shooote-template #root,
+body.shooote-template #root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+}
+
+/* Hero/name fallbacks — visible until GSAP split runs */
+.shooote-hero-blur-text:not([data-hero-line-split]) {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Section headings — visible until poort split runs */
+.gw-section--shooote .poort-text:not([data-shooote-split]) {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Scroll fades — readable if ScrollTrigger never boots */
+.gw-section--shooote .shooote-scroll-fade:not([data-shooote-desc-reveal]) {
+  opacity: 1;
+  transform: none;
 }
 
 /* ── Hero (screen 1) — petal luxury, warm stone ── */
 .shooote-hero-split {
-  --shooote-hero-bg: #7798ab;
-  --shooote-hero-ink: #ffffff;
-  --shooote-hero-ink-soft: rgba(255, 255, 255, 0.82);
+  --shooote-hero-bg: var(--shooote-lilac-ash);
+  --shooote-hero-ink: var(--shooote-on-dark-ink);
+  --shooote-hero-ink-soft: var(--shooote-on-dark-muted);
   --shooote-hero-accent: rgba(255, 255, 255, 0.92);
-  --shooote-petal-rose: rgba(255, 255, 255, 0.14);
-  --shooote-petal-blush: rgba(255, 255, 255, 0.1);
-  --shooote-petal-champagne: rgba(255, 255, 255, 0.12);
-  --shooote-petal-mauve: rgba(255, 255, 255, 0.08);
+  --shooote-petal-rose: rgba(255, 255, 255, 0.16);
+  --shooote-petal-blush: rgba(163, 165, 195, 0.22);
+  --shooote-petal-champagne: rgba(207, 216, 215, 0.2);
+  --shooote-petal-mauve: rgba(159, 154, 164, 0.16);
 
   position: relative;
   isolation: isolate;
@@ -158,7 +189,7 @@ body.shooote-template .wow.is-visible {
   background: radial-gradient(
     ellipse 120% 90% at 50% 38%,
     transparent 42%,
-    rgba(22, 20, 18, 0.1) 100%
+    rgba(46, 42, 44, 0.08) 100%
   );
 }
 
@@ -389,7 +420,7 @@ body.shooote-template .wow.is-visible {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--shooote-hero-accent) 70%, #c4a89e),
+    color-mix(in srgb, var(--shooote-hero-accent) 70%, var(--shooote-periwinkle)),
     transparent
   );
 }
@@ -550,7 +581,6 @@ body.shooote-template .wow.is-visible {
 }
 
 /* ── Screens 2–4 — per-section contrast surfaces ── */
-html.shooote-template,
 body.shooote-template {
   --gw-section-label-size: 0.75rem;
   --gw-section-label-weight: 600;
@@ -575,17 +605,17 @@ body.shooote-template {
   --gw-section-border: var(--shooote-section-border);
 }
 
-/* Screen 2 — Expertise (darker blue-gray) */
+/* Screen 2 — Expertise (Alabaster Grey) */
 .gw-section--shooote.wpo-expertise-section {
-  --shooote-section-bg: #546a7a;
-  --shooote-section-ink: var(--shooote-on-dark-ink);
-  --shooote-section-ink-muted: var(--shooote-on-dark-muted);
-  --shooote-section-label: var(--shooote-on-dark-label);
-  --shooote-section-border: var(--shooote-on-dark-border);
-  --shooote-section-divider: rgba(255, 255, 255, 0.14);
+  --shooote-section-bg: var(--shooote-expertise-bg);
+  --shooote-section-ink: var(--shooote-on-light-ink);
+  --shooote-section-ink-muted: var(--shooote-on-light-muted);
+  --shooote-section-label: var(--shooote-on-light-label);
+  --shooote-section-border: var(--shooote-on-light-border);
+  --shooote-section-divider: rgba(46, 42, 44, 0.1);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 20px 40px rgba(15, 22, 28, 0.1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 16px 36px rgba(46, 42, 44, 0.06);
 }
 
 .gw-section--shooote.wpo-expertise-section::after {
@@ -595,19 +625,19 @@ body.shooote-template {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 55% at 8% 18%, rgba(255, 255, 255, 0.08), transparent 58%),
-    radial-gradient(ellipse 60% 50% at 92% 82%, rgba(255, 255, 255, 0.06), transparent 52%);
+    radial-gradient(ellipse 70% 55% at 8% 18%, rgba(255, 255, 255, 0.35), transparent 58%),
+    radial-gradient(ellipse 60% 50% at 92% 82%, rgba(207, 216, 215, 0.35), transparent 52%);
 }
 
-/* Screen 3 — Narrative (light contrast band) */
+/* Screen 3 — Narrative (Periwinkle Light) */
 .gw-section--shooote.wpo-about-section {
-  --shooote-section-bg: #afc3ce;
+  --shooote-section-bg: var(--shooote-narrative-bg);
   --shooote-section-ink: var(--shooote-on-light-ink);
   --shooote-section-ink-muted: var(--shooote-on-light-muted);
   --shooote-section-label: var(--shooote-on-light-label);
   --shooote-section-border: var(--shooote-on-light-border);
-  --shooote-section-divider: rgba(21, 32, 40, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --shooote-section-divider: rgba(46, 42, 44, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
 }
 
 .gw-section--shooote.wpo-about-section::after {
@@ -617,19 +647,46 @@ body.shooote-template {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 65% 50% at 12% 20%, rgba(255, 255, 255, 0.45), transparent 55%),
-    radial-gradient(ellipse 55% 45% at 88% 78%, rgba(21, 32, 40, 0.04), transparent 50%);
+    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(255, 255, 255, 0.32), transparent 52%),
+    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(207, 216, 215, 0.28), transparent 48%);
 }
 
-/* Screen 4 — Capabilities (deepest content section) */
-.gw-section--shooote.wpo-portfolio-section {
-  --shooote-section-bg: #465e6e;
+/* Narrative + photo — white text, darker tint (same photo layout as capabilities) */
+.gw-section--shooote.wpo-about-section.gw-section--photo-bg {
+  --shooote-section-bg: color-mix(in srgb, var(--shooote-periwinkle) 72%, var(--shooote-lilac-ash));
   --shooote-section-ink: var(--shooote-on-dark-ink);
   --shooote-section-ink-muted: var(--shooote-on-dark-muted);
   --shooote-section-label: var(--shooote-on-dark-label);
   --shooote-section-border: var(--shooote-on-dark-border);
-  --shooote-section-divider: rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shooote-section-divider: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.gw-section--shooote.wpo-about-section.gw-section--photo-bg::after {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(159, 154, 164, 0.32) 0%,
+      rgba(163, 165, 195, 0.24) 48%,
+      rgba(46, 42, 44, 0.18) 100%
+    ),
+    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(163, 165, 195, 0.48), transparent 52%),
+    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(159, 154, 164, 0.56), transparent 48%);
+}
+
+.gw-section--shooote.wpo-about-section.gw-section--photo-bg::before {
+  opacity: 0.09;
+}
+
+/* Screen 4 — Capabilities (Lilac Mist) */
+.gw-section--shooote.wpo-portfolio-section {
+  --shooote-section-bg: var(--shooote-capabilities-bg);
+  --shooote-section-ink: var(--shooote-on-light-ink);
+  --shooote-section-ink-muted: var(--shooote-on-light-muted);
+  --shooote-section-label: var(--shooote-on-light-label);
+  --shooote-section-border: var(--shooote-on-light-border);
+  --shooote-section-divider: rgba(46, 42, 44, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
 }
 
 .gw-section--shooote.wpo-portfolio-section::after {
@@ -639,18 +696,11 @@ body.shooote-template {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(255, 255, 255, 0.07), transparent 52%),
-    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(0, 0, 0, 0.08), transparent 48%);
+    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(255, 255, 255, 0.32), transparent 52%),
+    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(207, 216, 215, 0.28), transparent 48%);
 }
 
-.gw-section--shooote.gw-section--photo-bg::before {
-  opacity: 0.11;
-}
-
-.gw-section--shooote.wpo-about-section.gw-section--photo-bg::before {
-  opacity: 0.05;
-}
-
+/* Shared background photo — narrative + capabilities */
 .gw-section--shooote.gw-section--photo-bg {
   position: relative;
   overflow: hidden;
@@ -660,10 +710,12 @@ body.shooote-template {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 0;
   background-image: var(--gw-section-photo);
   background-size: cover;
   background-position: center;
-  opacity: 0.07;
+  background-repeat: no-repeat;
+  opacity: 0.11;
   pointer-events: none;
 }
 
@@ -929,6 +981,11 @@ button.shooote-share-btn:hover .tooltip-text {
 .gw-section--shooote.wpo-about-section .wpo-section-title h3.gw-section__title {
   font-weight: 800 !important;
   letter-spacing: 0.02em !important;
+  color: var(--shooote-section-ink, var(--shooote-on-light-ink));
+}
+
+.gw-section--shooote.wpo-about-section:not(.gw-section--photo-bg) .wpo-section-title h3.gw-section__title {
+  color: var(--shooote-on-light-ink);
 }
 
 .gw-section--shooote.wpo-about-section .wpo-section-title h3.gw-section__title .poort-char {
@@ -937,20 +994,18 @@ button.shooote-share-btn:hover .tooltip-text {
 }
 
 /* ── Shooote navbar ── */
-html.shooote-template,
 body.shooote-template {
   --shooote-nav-height: 3.75rem;
   padding-top: var(--shooote-nav-height);
 }
 
-html.shooote-template,
 body.shooote-template #header.shooote-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: color-mix(in srgb, #7798ab 92%, transparent) !important;
+  background: color-mix(in srgb, var(--shooote-lilac-ash) 92%, transparent) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
@@ -958,7 +1013,6 @@ body.shooote-template #header.shooote-header {
 }
 
 /* site.css hides `.navbar` globally for the agency layout — restore Shooote header */
-html.shooote-template,
 body.shooote-template .wpo-site-header .navigation.navbar.shooote-nav {
   display: flex !important;
   flex-flow: row nowrap;
@@ -973,14 +1027,11 @@ body.shooote-template .wpo-site-header .navigation.navbar.shooote-nav {
   padding: 0;
 }
 
-html.shooote-template,
 body.shooote-template .wpo-site-header,
-html.shooote-template,
 body.shooote-template .wpo-site-header .navigation {
   background: transparent !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__bar {
   position: relative;
   display: flex;
@@ -994,7 +1045,6 @@ body.shooote-template .shooote-nav__bar {
   padding: 0.65rem clamp(1rem, 3vw, 2rem);
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__left {
   display: flex;
   align-items: center;
@@ -1004,12 +1054,10 @@ body.shooote-template .shooote-nav__left {
   z-index: 2;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__toggle-wrap {
   display: none;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__brand-wrap {
   margin: 0;
   padding: 0;
@@ -1017,7 +1065,6 @@ body.shooote-template .shooote-nav__brand-wrap {
   text-align: left;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__brand {
   display: inline-flex;
   align-items: center;
@@ -1025,9 +1072,7 @@ body.shooote-template .shooote-nav__brand {
   margin: 0;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__brand-logo,
-html.shooote-template,
 body.shooote-template .shooote-nav__brand img {
   display: block;
   width: auto;
@@ -1036,8 +1081,7 @@ body.shooote-template .shooote-nav__brand img {
 }
 
 @media (min-width: 992px) {
-  html.shooote-template,
-body.shooote-template .shooote-nav__center {
+  body.shooote-template .shooote-nav__center {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -1051,32 +1095,26 @@ body.shooote-template .shooote-nav__center {
     pointer-events: none;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__center .shooote-nav__menu {
+  body.shooote-template .shooote-nav__center .shooote-nav__menu {
     pointer-events: auto;
   }
 
-  html.shooote-template,
-body.shooote-template .wpo-site-header #navbar {
+  body.shooote-template .wpo-site-header #navbar {
     justify-content: center !important;
   }
 
-  html.shooote-template,
-body.shooote-template .wpo-site-header #navbar.shooote-nav__menu {
+  body.shooote-template .wpo-site-header #navbar.shooote-nav__menu {
     justify-content: center !important;
   }
 
-  html.shooote-template,
-body.shooote-template .wpo-site-header #navbar ul,
-  html.shooote-template,
-body.shooote-template .shooote-nav__list {
+  body.shooote-template .wpo-site-header #navbar ul,
+  body.shooote-template .shooote-nav__list {
     max-width: none !important;
     width: auto !important;
     justify-content: center !important;
   }
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__right {
   display: flex;
   align-items: center;
@@ -1089,8 +1127,7 @@ body.shooote-template .shooote-nav__right {
 }
 
 @media (min-width: 992px) {
-  html.shooote-template,
-body.shooote-template .shooote-nav__menu {
+  body.shooote-template .shooote-nav__menu {
     display: flex !important;
     align-items: center;
     position: static !important;
@@ -1105,13 +1142,11 @@ body.shooote-template .shooote-nav__menu {
     border: 0;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__menu-close {
+  body.shooote-template .shooote-nav__menu-close {
     display: none;
   }
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__list {
   display: flex;
   flex-direction: row;
@@ -1125,12 +1160,10 @@ body.shooote-template .shooote-nav__list {
   list-style: none;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__item {
   float: none;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__link {
   display: block;
   padding: 0.45rem 0.8rem;
@@ -1146,15 +1179,12 @@ body.shooote-template .shooote-nav__link {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__link:hover,
-html.shooote-template,
 body.shooote-template .shooote-nav__link:focus-visible {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.12);
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__link.hire-me {
   font-family: "Newsreader", Georgia, serif;
   font-style: italic;
@@ -1165,38 +1195,32 @@ body.shooote-template .shooote-nav__link.hire-me {
   white-space: nowrap;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-nav__share {
   flex-shrink: 0;
 }
 
 @media (max-width: 1199px) {
-  html.shooote-template,
-body.shooote-template .shooote-nav__link {
+  body.shooote-template .shooote-nav__link {
     padding-inline: 0.55rem;
     font-size: 0.76rem;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__link.hire-me {
+  body.shooote-template .shooote-nav__link.hire-me {
     font-size: 0.8rem;
   }
 }
 
 @media (max-width: 991px) {
-  html.shooote-template,
-body.shooote-template .shooote-nav__toggle.open-btn {
+  body.shooote-template .shooote-nav__toggle.open-btn {
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.45);
   }
 
-  html.shooote-template,
-body.shooote-template {
+  body.shooote-template {
     --shooote-nav-height: 3.5rem;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__bar {
+  body.shooote-template .shooote-nav__bar {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -1204,26 +1228,22 @@ body.shooote-template .shooote-nav__bar {
     padding: 0.45rem 0.85rem;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__left {
+  body.shooote-template .shooote-nav__left {
     grid-column: 1;
     min-width: 2.5rem;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__right {
+  body.shooote-template .shooote-nav__right {
     grid-column: 3;
     min-width: 2.5rem;
     justify-content: flex-end;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__toggle-wrap {
+  body.shooote-template .shooote-nav__toggle-wrap {
     display: block;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__brand-wrap {
+  body.shooote-template .shooote-nav__brand-wrap {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -1233,32 +1253,24 @@ body.shooote-template .shooote-nav__brand-wrap {
     width: max-content;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__brand {
+  body.shooote-template .shooote-nav__brand {
     pointer-events: auto;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__brand-logo,
-  html.shooote-template,
-body.shooote-template .shooote-nav__brand img {
+  body.shooote-template .shooote-nav__brand-logo,
+  body.shooote-template .shooote-nav__brand img {
     height: 1.55rem;
     width: auto;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__right {
+  body.shooote-template .shooote-nav__right {
     gap: 0;
   }
 
-  html.shooote-template,
-body.shooote-template .wpo-site-header .navbar-collapse.collapse.shooote-nav__menu,
-  html.shooote-template,
-body.shooote-template .wpo-site-header #navbar.shooote-nav__menu,
-  html.shooote-template,
-body.shooote-template #navbar.shooote-nav__menu,
-  html.shooote-template,
-body.shooote-template .shooote-nav__menu {
+  body.shooote-template .wpo-site-header .navbar-collapse.collapse.shooote-nav__menu,
+  body.shooote-template .wpo-site-header #navbar.shooote-nav__menu,
+  body.shooote-template #navbar.shooote-nav__menu,
+  body.shooote-template .shooote-nav__menu {
     display: block !important;
     position: fixed !important;
     top: 0;
@@ -1282,18 +1294,15 @@ body.shooote-template .shooote-nav__menu {
     border: 0;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__menu.slideInn,
-  html.shooote-template,
-body.shooote-template .shooote-nav__menu.slideInn.show {
+  body.shooote-template .shooote-nav__menu.slideInn,
+  body.shooote-template .shooote-nav__menu.slideInn.show {
     transform: translate3d(0, 0, 0) !important;
     left: 0 !important;
     visibility: visible !important;
     pointer-events: auto;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__menu-close {
+  body.shooote-template .shooote-nav__menu-close {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1308,15 +1317,13 @@ body.shooote-template .shooote-nav__menu-close {
     cursor: pointer;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__list {
+  body.shooote-template .shooote-nav__list {
     flex-direction: column;
     align-items: stretch;
     gap: 0.15rem;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__link {
+  body.shooote-template .shooote-nav__link {
     padding: 0.85rem 0.25rem;
     font-size: 1rem;
     color: #fff;
@@ -1324,16 +1331,13 @@ body.shooote-template .shooote-nav__link {
     background: transparent;
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__link:hover,
-  html.shooote-template,
-body.shooote-template .shooote-nav__link:focus-visible {
+  body.shooote-template .shooote-nav__link:hover,
+  body.shooote-template .shooote-nav__link:focus-visible {
     color: #fff;
     background: rgba(255, 255, 255, 0.06);
   }
 
-  html.shooote-template,
-body.shooote-template .shooote-nav__link.hire-me {
+  body.shooote-template .shooote-nav__link.hire-me {
     color: #fff;
     margin-top: 0.5rem;
   }
@@ -1350,14 +1354,12 @@ body.shooote-template.shooote-nav-open::before {
 }
 
 /* Shooote Logo Sizing — legacy selector kept for navbar/other uses */
-html.shooote-template,
 body.shooote-template .navbar-brand img {
   max-width: 6.5rem;
   height: auto;
 }
 
 /* Shooote Custom Mailto Button Styling */
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn {
   display: inline-flex !important;
   align-items: center !important;
@@ -1378,7 +1380,6 @@ body.shooote-template .shooote-mailto-btn {
   margin-top: 15px !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn:hover {
   background-color: #f25828 !important; /* GoodWork Brand Orange */
   color: #ffffff !important;
@@ -1386,7 +1387,6 @@ body.shooote-template .shooote-mailto-btn:hover {
   box-shadow: 0 6px 20px rgba(242, 88, 40, 0.25) !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn .icon {
   display: flex !important;
   align-items: center !important;
@@ -1396,25 +1396,21 @@ body.shooote-template .shooote-mailto-btn .icon {
   transition: transform 0.3s ease !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn:hover .icon {
   transform: translateX(4px) !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn .icon img {
   width: 12px !important;
   height: auto !important;
   filter: brightness(0) invert(1) !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn .link-text {
   font-style: normal !important;
   margin-left: 8px !important;
 }
 
-html.shooote-template,
 body.shooote-template .shooote-mailto-btn .link-text span {
   font-family: 'Manrope', sans-serif !important;
   font-style: normal !important;
@@ -1429,7 +1425,6 @@ body.shooote-template .shooote-mailto-btn .link-text span {
 }
 
 /* Shooote footer — deepest contrast anchor */
-html.shooote-template,
 body.shooote-template .shooote-site-footer.wpo-site-footer {
   padding: 2.75rem 0 !important;
   text-align: center;
@@ -1438,9 +1433,7 @@ body.shooote-template .shooote-site-footer.wpo-site-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-html.shooote-template,
 body.shooote-template .shooote-site-footer p,
-html.shooote-template,
 body.shooote-template .shooote-site-footer .shooote-site-footer__copy {
   margin: 0;
   font-size: 0.875rem;

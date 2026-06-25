@@ -59,6 +59,8 @@ function hideLoaderEl() {
   if (reveal) {
     reveal.style.opacity = '0';
     reveal.style.transform = 'translate(-50%, -50%) scale(0)';
+    reveal.style.width = '100px';
+    reveal.style.height = '100px';
   }
 }
 

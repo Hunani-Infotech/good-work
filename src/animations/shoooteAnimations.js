@@ -254,7 +254,7 @@ function initPoortTextAnimations(root = document) {
     if (el.classList.contains('poort-in-up')) gsap.set(chars, { opacity: 0, y: 200 });
     if (el.classList.contains('poort-in-down')) gsap.set(chars, { opacity: 0, y: -80 });
 
-    gsap.to(chars, {
+    const tween = gsap.to(chars, {
       scrollTrigger: { trigger: el, start: 'top 90%' },
       x: 0,
       y: 0,
@@ -265,6 +265,10 @@ function initPoortTextAnimations(root = document) {
       stagger: 0.02,
       ease: 'power2.out',
     });
+
+    if (ScrollTrigger.isInViewport(el, 0.08)) {
+      tween.progress(1);
+    }
   });
 }
 
@@ -464,6 +468,21 @@ function initMenuLinkScroll(root = document) {
   });
 }
 
+function revealAllShoooteContent(root = document) {
+  revealAllWowElements(root);
+  revealAllDescriptionElements(root);
+  root.querySelectorAll('.poort-text[data-shooote-split] .poort-char').forEach((char) => {
+    gsap.set(char, { opacity: 1, x: 0, y: 0, clearProps: 'transform,filter' });
+  });
+  resetHeroSplitState(root);
+  const section = root.querySelector('.shooote-hero-split');
+  if (section) {
+    section.querySelectorAll('.shooote-hero-line, .shooote-hero-role, .shooote-hero-tagline, .shooote-hero-scroll, .shooote-hero-portrait').forEach((el) => {
+      gsap.set(el, { opacity: 1, visibility: 'visible', x: 0, y: 0, scale: 1, filter: 'none', clearProps: 'transform' });
+    });
+  }
+}
+
 export function initShoooteAnimations(root = document) {
   resetShoooteRuntime();
   const id = shoooteRunId;
@@ -471,9 +490,14 @@ export function initShoooteAnimations(root = document) {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   initLenis();
 
+  const safetyTimer = window.setTimeout(() => {
+    if (id !== shoooteRunId) return;
+    revealAllShoooteContent(root);
+  }, 4000);
+
   if (prefersReduced) {
-    revealAllWowElements(root);
-    revealAllDescriptionElements(root);
+    window.clearTimeout(safetyTimer);
+    revealAllShoooteContent(root);
     initHeroSplitAnimation(root);
     initStickyHeader();
     initMenuLinkScroll(root);
@@ -489,7 +513,12 @@ export function initShoooteAnimations(root = document) {
     initStickyHeader();
     initMenuLinkScroll(root);
     ScrollTrigger.refresh();
-    window.setTimeout(() => ScrollTrigger.refresh(), 500);
+    window.setTimeout(() => {
+      if (id !== shoooteRunId) return;
+      ScrollTrigger.refresh();
+      revealWowInViewport(root);
+      window.clearTimeout(safetyTimer);
+    }, 500);
   });
 }
 

@@ -546,6 +546,16 @@ html.isak-template .isak-intro-luxury__rule {
   background: var(--isak-lux-rule);
 }
 
+@media (max-width: 991px) {
+  html.isak-template .section-intro .isak-intro-shader {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    border-radius: 0;
+  }
+}
+
 @media (max-width: 575px) {
   html.isak-template .isak-intro-bio {
     margin-bottom: 2.5rem;
@@ -579,7 +589,8 @@ html.isak-template .isak-intro-luxury__rule {
 }
 
 /* Sidebar user-image hover effect: restore color, remove grayscale filter & dark overlay gradient */
-html.isak-template .sidebar-user .user-image img {
+html.isak-template .sidebar-user .user-image img,
+html.isak-template .sidebar-user .user-image video {
   transition: filter 0.3s ease;
 }
 
@@ -591,7 +602,12 @@ html.isak-template .sidebar-user .user-image::before {
   transition: opacity 0.3s ease;
 }
 
-html.isak-template .sidebar-user .user-image:hover img {
+html.isak-template body.dark-mode .sidebar-user .user-image video {
+  filter: grayscale(100%);
+}
+
+html.isak-template .sidebar-user .user-image:hover img,
+html.isak-template .sidebar-user .user-image:hover video {
   filter: grayscale(0%) !important;
 }
 

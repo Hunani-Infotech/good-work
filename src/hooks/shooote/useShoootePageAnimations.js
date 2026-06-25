@@ -12,15 +12,29 @@ function createAnimationHook({ init, destroy, resetScroll = true }) {
       mountCount += 1;
 
       const boot = async () => {
+        let started = false;
+        const start = () => {
+          if (!active || started) return;
+          started = true;
+          init();
+        };
+
         if (resetScroll) {
           resetDocumentScrollState({ keepSiteReady: true });
           if (!isLoaderSessionComplete()) {
             document.documentElement.classList.remove('site-ready');
           }
         }
-        await whenSiteLoaderReady();
-        if (!active) return;
-        init();
+
+        const loaderTimeout = window.setTimeout(start, 8000);
+
+        try {
+          await whenSiteLoaderReady();
+        } finally {
+          window.clearTimeout(loaderTimeout);
+        }
+
+        start();
       };
 
       boot();

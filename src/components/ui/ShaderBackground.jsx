@@ -107,6 +107,14 @@ export default function ShaderBackground({
     const uniformBg2 = gl.getUniformLocation(program, 'uBgColor2');
     const uniformLineGain = gl.getUniformLocation(program, 'uLineGain');
     const uniformLightMode = gl.getUniformLocation(program, 'uLightMode');
+    const uniformEdgeInset = gl.getUniformLocation(program, 'uEdgeInset');
+    const uniformSideVignette = gl.getUniformLocation(program, 'uSideVignette');
+
+    const applyLayout = () => {
+      const isMobileLayout = root.getBoundingClientRect().width < 992;
+      gl.uniform1f(uniformEdgeInset, isMobileLayout ? 0.02 : 0.1);
+      gl.uniform1f(uniformSideVignette, isMobileLayout ? 0.35 : 1.0);
+    };
 
     const applyPalette = () => {
       const palette = ISAK_PLASMA_PALETTES[theme] || ISAK_PLASMA_PALETTES.dark;
@@ -127,6 +135,7 @@ export default function ShaderBackground({
         canvas.height = h;
         gl.viewport(0, 0, w, h);
       }
+      applyLayout();
     };
 
     const ro = new ResizeObserver(resizeCanvas);
@@ -146,6 +155,7 @@ export default function ShaderBackground({
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.useProgram(program);
       applyPalette();
+      applyLayout();
       gl.uniform2f(uniformResolution, canvas.width, canvas.height);
       gl.uniform1f(uniformTime, elapsed);
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);

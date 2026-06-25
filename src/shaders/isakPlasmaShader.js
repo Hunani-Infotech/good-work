@@ -16,6 +16,8 @@ export const FRAGMENT_SHADER = `
   uniform vec3 uBgColor2;
   uniform float uLineGain;
   uniform float uLightMode;
+  uniform float uEdgeInset;
+  uniform float uSideVignette;
 
   const float overallSpeed = 0.2;
   const float gridSmoothWidth = 0.015;
@@ -58,9 +60,10 @@ export const FRAGMENT_SHADER = `
     vec2 uv = fragCoord.xy / iResolution.xy;
     vec2 space = (fragCoord - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
 
-    float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
+    float sideBell = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
+    float horizontalFade = mix(1.0, sideBell, uSideVignette);
     float verticalFade = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
-    float tightEdgeX = smoothstep(0.0, 0.1, uv.x) * smoothstep(1.0, 0.9, uv.x);
+    float tightEdgeX = smoothstep(0.0, uEdgeInset, uv.x) * smoothstep(1.0, 1.0 - uEdgeInset, uv.x);
     float tightEdgeY = smoothstep(0.0, 0.14, uv.y) * smoothstep(1.0, 0.86, uv.y);
     float lineMask = horizontalFade * verticalFade * tightEdgeX * tightEdgeY;
 
