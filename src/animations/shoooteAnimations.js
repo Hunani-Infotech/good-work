@@ -483,12 +483,16 @@ function revealAllShoooteContent(root = document) {
   }
 }
 
+function isShoooteMobileViewport() {
+  return window.matchMedia('(max-width: 991px)').matches;
+}
+
 export function initShoooteAnimations(root = document) {
   resetShoooteRuntime();
   const id = shoooteRunId;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  initLenis();
+  initLenis(isShoooteMobileViewport() ? { forceNative: true } : {});
 
   const safetyTimer = window.setTimeout(() => {
     if (id !== shoooteRunId) return;

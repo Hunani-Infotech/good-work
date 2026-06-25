@@ -6,31 +6,10 @@ import { useShoooteContent } from '../../hooks/shooote/useShoooteContent.js';
 import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 import ShareButton from '../ui/ShareButton.jsx';
 
-function NavMenu({ menuOpen, smallNav, navLinks, onClose, onHashClick }) {
-  const menuClassName = [
-    'collapse navbar-collapse navigation-holder shooote-nav__menu',
-    menuOpen && smallNav ? 'slideInn show' : '',
-    !smallNav ? 'show' : '',
-  ].filter(Boolean).join(' ');
-
+function NavMenu({ navLinks, onClose, onHashClick }) {
   return (
-    <div
-      id="navbar"
-      className={menuClassName}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        type="button"
-        className="menu-close shooote-nav__menu-close"
-        onClick={(e) => {
-          e.stopPropagation();
-          onClose();
-        }}
-        aria-label="Close menu"
-      >
-        <i className="ti-close" />
-      </button>
-      <ul className={`nav navbar-nav shooote-nav__list${smallNav ? ' small-nav' : ''}`}>
+    <div id="navbar" className="navigation-holder shooote-nav__menu show">
+      <ul className="nav navbar-nav shooote-nav__list">
         {navLinks.map((link) => (
           <li key={link.label} className="shooote-nav__item">
             {link.isHash ? (
@@ -53,6 +32,49 @@ function NavMenu({ menuOpen, smallNav, navLinks, onClose, onHashClick }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function MobileNavOverlay({ open, navLinks, onClose, onHashClick }) {
+  return (
+    <div
+      id="shooote-mobile-nav"
+      className={`shooote-mobile-nav${open ? ' shooote-mobile-nav--open' : ''}`}
+      aria-hidden={!open}
+    >
+      <button
+        type="button"
+        className="shooote-mobile-nav__backdrop"
+        onClick={onClose}
+        aria-label="Close menu"
+        tabIndex={open ? 0 : -1}
+      />
+      <nav className="shooote-mobile-nav__panel" aria-label="Main">
+        <ul className="shooote-mobile-nav__list">
+          {navLinks.map((link) => (
+            <li key={link.label} className="shooote-mobile-nav__item">
+              {link.isHash ? (
+                <a
+                  href={link.href}
+                  className={`shooote-mobile-nav__link menu-link${link.className ? ` ${link.className}` : ''}`}
+                  onClick={(e) => onHashClick(e, link.href)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <a
+                  href={link.href}
+                  className={`shooote-mobile-nav__link${link.className ? ` ${link.className}` : ''}`}
+                  onClick={onClose}
+                >
+                  {link.label}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }
@@ -88,15 +110,6 @@ export default function ShoooteHeader() {
   useEffect(() => {
     if (!menuOpen || !smallNav) return undefined;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    const onDismiss = (e) => {
-      if (e.target.closest('.shooote-nav__toggle, #navbar, .shooote-nav__menu')) return;
-      setMenuOpen(false);
-      setTogglerClass('');
-    };
-
     const onEscape = (e) => {
       if (e.key === 'Escape') {
         setMenuOpen(false);
@@ -104,17 +117,8 @@ export default function ShoooteHeader() {
       }
     };
 
-    const timer = window.setTimeout(() => {
-      document.addEventListener('click', onDismiss);
-      document.addEventListener('keydown', onEscape);
-    }, 0);
-
-    return () => {
-      window.clearTimeout(timer);
-      document.removeEventListener('click', onDismiss);
-      document.removeEventListener('keydown', onEscape);
-      document.body.style.overflow = previousOverflow;
-    };
+    document.addEventListener('keydown', onEscape);
+    return () => document.removeEventListener('keydown', onEscape);
   }, [menuOpen, smallNav]);
 
   const closeMenu = () => {
@@ -137,8 +141,6 @@ export default function ShoooteHeader() {
 
   const menu = (
     <NavMenu
-      menuOpen={menuOpen}
-      smallNav={smallNav}
       navLinks={navLinks}
       onClose={closeMenu}
       onHashClick={handleHashClick}
@@ -146,7 +148,10 @@ export default function ShoooteHeader() {
   );
 
   return (
-    <header id="header" className="shooote-header">
+    <header
+      id="header"
+      className={`shooote-header${menuOpen && smallNav ? ' shooote-header--menu-open' : ''}`}
+    >
       <div className="wpo-site-header">
         <nav className="navigation navbar navbar-expand-lg navbar-light shooote-nav" aria-label="Main">
           <div className="shooote-nav__bar">
@@ -157,7 +162,7 @@ export default function ShoooteHeader() {
                   className={`navbar-toggler open-btn shooote-nav__toggle${togglerClass ? ` ${togglerClass}` : ''}`}
                   onClick={toggleMenu}
                   aria-expanded={menuOpen}
-                  aria-controls="navbar"
+                  aria-controls="shooote-mobile-nav"
                 >
                   <span className="sr-only">Toggle navigation</span>
                   <span className="icon-bar first-angle" />
@@ -194,7 +199,15 @@ export default function ShoooteHeader() {
       </div>
 
       {smallNav && typeof document !== 'undefined'
-        ? createPortal(menu, document.body)
+        ? createPortal(
+          <MobileNavOverlay
+            open={menuOpen}
+            navLinks={navLinks}
+            onClose={closeMenu}
+            onHashClick={handleHashClick}
+          />,
+          document.body,
+        )
         : null}
     </header>
   );
