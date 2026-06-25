@@ -22,7 +22,10 @@ export default function IsakSectionHeading({
         ) : null}
         <h2 className={titleClass}>{tag}</h2>
       </div>
-      <div className="isak-section-heading__rule" aria-hidden="true" />
+      <div className="isak-section-heading__baseline" aria-hidden="true">
+        <span className="isak-luxury__gem" />
+        <span className="isak-section-heading__rule" />
+      </div>
     </header>
   );
 }

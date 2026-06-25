@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { getLenis, initLenis, destroyLenis } from './scrollRuntime.js';
+import { getLenis, initLenis, destroyLenis, subscribeScroll, getScrollY } from './scrollRuntime.js';
 
 function getSplitText() {
   if (typeof window !== 'undefined' && window.SplitText) {
@@ -277,17 +277,32 @@ export function initIsakAnimations() {
     if (path && svg) {
       const len = path.getTotalLength();
       svg.style.setProperty('--len', String(len));
-      const io = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            svg.classList.add('is-drawn');
-            io.disconnect();
-          }
-        },
-        { threshold: 0.2 },
-      );
-      io.observe(svg);
-      cleanups.push(() => io.disconnect());
+
+      let hasScrolled = false;
+      const startY = getScrollY();
+      let scribbleTrigger;
+
+      const drawScribble = () => {
+        if (!hasScrolled) return;
+        svg.classList.add('is-drawn');
+      };
+
+      const unsubScroll = subscribeScroll((scrollY) => {
+        if (Math.abs(scrollY - startY) > 12) {
+          hasScrolled = true;
+          if (scribbleTrigger?.isActive) drawScribble();
+        }
+      });
+      cleanups.push(unsubScroll);
+
+      scribbleTrigger = ScrollTrigger.create({
+        trigger: '.scribble-wrap',
+        start: 'top 82%',
+        once: true,
+        onEnter: drawScribble,
+        onEnterBack: drawScribble,
+      });
+      triggers.push(scribbleTrigger);
     }
   }
 

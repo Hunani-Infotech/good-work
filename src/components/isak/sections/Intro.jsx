@@ -5,16 +5,31 @@ export function Intro() {
 
   return (
     <div id="home" className="section-intro flat-spacing">
-      <div className="intro-author effectFade fadeUp no-div">
-        <div className="author-info letter-space--05">
-          <p className="info_name">{profile.fullName}</p>
-          <p className="info_duty text-body-3">{profile.duty}</p>
+      <header className="isak-intro-luxury effectFade fadeUp no-div">
+        <div className="isak-intro-luxury__masthead">
+          <span className="isak-intro-luxury__spine" aria-hidden="true" />
+          <div className="isak-intro-luxury__copy">
+            {profile.duty ? (
+              <p className="isak-intro-luxury__role">{profile.duty}</p>
+            ) : null}
+            <h2 className="isak-intro-luxury__name split-text effect-blur-fade">
+              {profile.fullName}
+            </h2>
+          </div>
         </div>
-      </div>
+        <div className="isak-intro-luxury__baseline" aria-hidden="true">
+          <span className="isak-luxury__gem" />
+          <span className="isak-intro-luxury__rule" />
+        </div>
+      </header>
 
       <h1 className="intro-title letter-space--2">
         {intro.headline}
       </h1>
+
+      {profile.introBio ? (
+        <p className="isak-intro-bio">{profile.introBio}</p>
+      ) : null}
 
       <div className="intro-item">
         <div className="scribble-wrap">

@@ -36,6 +36,21 @@ html.isak-template body.dark-mode .intro-title {
   color: var(--white);
 }
 
+html.isak-template .isak-intro-bio {
+  margin-top: 1.75rem;
+  margin-bottom: 3.5rem;
+  max-width: 48rem;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  color: var(--black-56);
+}
+
+html.isak-template .section-intro .intro-item {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
 /* Bootstrap (re-imported via Shooote) overrides Isak semantic text utilities */
 html.isak-template .text-black-50 {
   color: var(--black-50) !important;
@@ -176,8 +191,67 @@ html.isak-template .gw-section--isak .s-desc {
   margin-bottom: 0;
 }
 
+html.isak-template body.dark-mode .gw-section--isak .s-desc,
+html.isak-template body.dark-mode .gw-section--isak .timeline-date,
+html.isak-template body.dark-mode .gw-section--isak .timeline-role {
+  color: var(--black-56);
+}
+
 html.isak-template .gw-section--isak + .gw-section--isak {
   padding-top: 0;
+}
+
+/* ── Luxury accent tokens (light / dark) ── */
+/* Ink uses --black-* so Isak's .dark-mode inversion (styles.css) applies automatically. */
+html.isak-template {
+  --isak-lux-ink: var(--black-72);
+  --isak-lux-ink-muted: var(--black-50);
+  --isak-lux-spine: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--primary) 92%, transparent) 0%,
+    color-mix(in srgb, var(--primary) 28%, transparent) 72%,
+    transparent 100%
+  );
+  --isak-lux-rule: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--primary) 82%, transparent),
+    color-mix(in srgb, var(--primary) 10%, transparent)
+  );
+  --isak-lux-gem: var(--primary);
+  --isak-lux-gem-shadow: none;
+  --isak-lux-index-shadow: none;
+  --isak-lux-ambient: none;
+}
+
+html.isak-template body.dark-mode {
+  --isak-lux-spine: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--primary) 100%, #fff 8%) 0%,
+    color-mix(in srgb, var(--primary) 42%, transparent) 68%,
+    transparent 100%
+  );
+  --isak-lux-rule: linear-gradient(
+    90deg,
+    var(--primary),
+    color-mix(in srgb, var(--primary) 6%, transparent)
+  );
+  --isak-lux-gem: color-mix(in srgb, var(--primary) 88%, #fff);
+  --isak-lux-gem-shadow: 0 0 12px color-mix(in srgb, var(--primary) 45%, transparent);
+  --isak-lux-index-shadow: 0 0 36px color-mix(in srgb, var(--primary) 22%, transparent);
+  --isak-lux-ambient: radial-gradient(
+    ellipse 95% 70% at 8% 42%,
+    color-mix(in srgb, var(--primary) 7%, transparent),
+    transparent 68%
+  );
+}
+
+html.isak-template .isak-luxury__gem {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  transform: rotate(45deg);
+  background: var(--isak-lux-gem);
+  box-shadow: var(--isak-lux-gem-shadow);
 }
 
 /* ── Section headings (editorial) ── */
@@ -198,7 +272,11 @@ html.isak-template .isak-section-heading__index {
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--primary);
+  color: var(--black-72);
+}
+
+html.isak-template body.dark-mode .isak-section-heading__index {
+  color: var(--white);
 }
 
 html.isak-template .isak-section-heading__title {
@@ -211,9 +289,17 @@ html.isak-template .isak-section-heading__title {
   color: var(--black-72);
 }
 
-html.isak-template body.dark-mode .isak-section-heading__title {
+html.isak-template body.dark-mode .isak-section-heading__title,
+html.isak-template body.dark-mode .isak-section-heading__title .split-line {
   color: var(--white);
 }
+
+html.isak-template body.dark-mode .isak-intro-luxury__name,
+html.isak-template body.dark-mode .isak-intro-luxury__name .split-line {
+  color: var(--white);
+}
+
+
 
 html.isak-template .isak-section-heading__title--single-line {
   white-space: nowrap;
@@ -221,12 +307,17 @@ html.isak-template .isak-section-heading__title--single-line {
   font-size: clamp(1.5rem, 3.8vw, 2.35rem);
 }
 
-html.isak-template .isak-section-heading__rule {
-  width: 3.5rem;
-  height: 2px;
+html.isak-template .isak-section-heading__baseline {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   margin-top: 1rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 20%, transparent));
+}
+
+html.isak-template .isak-section-heading__rule {
+  width: 3.75rem;
+  height: 1px;
+  background: var(--isak-lux-rule);
 }
 
 @media (max-width: 575px) {
@@ -242,48 +333,113 @@ html.isak-template .isak-section-heading__rule {
   }
 }
 
-/* ── Intro name / role (matches section heading system) ── */
-html.isak-template .isak-intro-heading {
-  margin-bottom: 2rem;
+/* ── Intro identity — spined luxury masthead ── */
+html.isak-template .isak-intro-luxury {
+  position: relative;
+  margin-bottom: 2.75rem;
+  max-width: 36rem;
 }
 
-html.isak-template .section-intro .isak-intro-heading {
-  margin-bottom: 2.5rem;
+html.isak-template .isak-intro-luxury::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem -2rem -1rem -1.25rem;
+  background: var(--isak-lux-ambient);
+  pointer-events: none;
+  z-index: 0;
 }
 
-html.isak-template .isak-intro-heading__copy {
+html.isak-template .section-intro .isak-intro-luxury {
+  margin-bottom: 3rem;
+}
+
+html.isak-template .isak-intro-luxury__masthead {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 1.15rem;
+}
+
+html.isak-template .isak-intro-luxury__spine {
+  flex-shrink: 0;
+  width: 1px;
+  min-height: 3.75rem;
+  margin-top: 0.15rem;
+  background: var(--isak-lux-spine);
+}
+
+html.isak-template .isak-intro-luxury__copy {
   min-width: 0;
 }
 
-html.isak-template .isak-intro-heading__name {
-  margin: 0;
-  font-family: "Apfel Grotezk", system-ui, sans-serif;
-  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: var(--black-72);
-}
-
-html.isak-template body.dark-mode .isak-intro-heading__name {
-  color: var(--white);
-}
-
-html.isak-template .isak-intro-heading__duty {
-  margin: 0.35rem 0 0;
-  font-family: Inter, system-ui, sans-serif;
-  font-size: clamp(0.875rem, 2vw, 1rem);
+html.isak-template .isak-intro-luxury__role {
+  margin: 0 0 0.75rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--isak-lux-ink-muted);
+}
+
+html.isak-template body.dark-mode .isak-intro-luxury__role {
   color: var(--black-56);
 }
 
-html.isak-template body.dark-mode .isak-intro-heading__duty {
-  color: var(--white-56);
+html.isak-template .isak-intro-luxury__name {
+  margin: 0;
+  font-family: "Apfel Grotezk", system-ui, sans-serif;
+  font-size: clamp(2.35rem, 5.8vw, 3.65rem);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.048em;
+  color: var(--black-72);
 }
 
-html.isak-template .isak-intro-heading .isak-section-heading__rule {
-  margin-top: 1rem;
+html.isak-template .isak-intro-luxury__baseline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+  margin-left: calc(1px + 1.15rem);
+}
+
+html.isak-template .isak-intro-luxury__rule {
+  width: clamp(3.5rem, 14vw, 5.5rem);
+  height: 1px;
+  background: var(--isak-lux-rule);
+}
+
+@media (max-width: 575px) {
+  html.isak-template .isak-intro-bio {
+    margin-bottom: 2.5rem;
+  }
+
+  html.isak-template .section-intro .intro-item {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  html.isak-template .isak-intro-luxury {
+    margin-bottom: 2.25rem;
+  }
+
+  html.isak-template .isak-intro-luxury__masthead {
+    gap: 0.9rem;
+  }
+
+  html.isak-template .isak-intro-luxury__baseline {
+    margin-top: 1.15rem;
+    margin-left: calc(1px + 0.9rem);
+  }
+
+  html.isak-template .isak-intro-luxury__rule {
+    width: 3.25rem;
+  }
 }
 
 /* Sidebar user-image hover effect: restore color, remove grayscale filter & dark overlay gradient */
