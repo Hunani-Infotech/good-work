@@ -37,7 +37,7 @@ export default function ShoooteHero() {
           <p className="shooote-hero-role">{hero.role}</p>
         ) : null}
 
-        <a href="#expertise" className="shooote-hero-scroll menu-link" onClick={onScrollCue} aria-label="Scroll to expertise">
+        <a href="#expertise" className="shooote-hero-scroll menu-link" onClick={onScrollCue} aria-label="Scroll to about">
           <svg className="shooote-hero-scroll__icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

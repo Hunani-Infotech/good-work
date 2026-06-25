@@ -33,10 +33,10 @@ export function mapSiteToShooote(site = defaultSite) {
   const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubjectNav || `Hey ${firstName}!`)}`;
 
   const navLinks = [
-    { label: 'Profile', href: '#profile', isHash: true },
-    { label: 'Expertise', href: '#expertise', isHash: true },
+    { label: 'Home', href: '#profile', isHash: true },
+    { label: 'About', href: '#expertise', isHash: true },
     { label: 'Narrative', href: '#narrative', isHash: true },
-    { label: 'Capabilities', href: '#capabilities', isHash: true },
+    { label: 'Skills', href: '#capabilities', isHash: true },
     { label: ctaLabel, href: mailto, isHash: false, className: 'hire-me' },
   ];
 
@@ -58,10 +58,10 @@ export function mapSiteToShooote(site = defaultSite) {
       role: (hero.subtitle || '').trim(),
       tagline: heroTagline(hero),
       image: hero.profilePhoto,
-      sectionLabel: '01 — Profile',
+      sectionLabel: '01 — Home',
     },
     expertise: {
-      sectionLabel: '02 — Hero',
+      sectionLabel: '02 — About',
       heading: hero.heading || '',
       statement: hero.heroStatement || '',
       ctaLabel: hero.ctaLabel || "Let's Connect",
@@ -74,7 +74,7 @@ export function mapSiteToShooote(site = defaultSite) {
       backgroundImage: narrative.backgroundImage || '',
     },
     capabilities: {
-      sectionLabel: '04 — Capabilities',
+      sectionLabel: '04 — Skills',
       tag: capabilities.tag || 'Capabilities & Skills',
       bullets: capabilities.bullets || [],
       backgroundImage: capabilities.backgroundImage || '',
