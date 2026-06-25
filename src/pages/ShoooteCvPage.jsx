@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ShoooteLayout from '../components/shooote/ShoooteLayout.jsx';
 import ShoooteHero from '../components/shooote/ShoooteHero.jsx';
@@ -10,12 +10,29 @@ import { useShoooteAnimations } from '../hooks/shooote/useShoootePageAnimations.
 import { scrollToShoooteAnchor } from '../animations/shoooteAnimations.js';
 import { useShoooteContent } from '../hooks/shooote/useShoooteContent.js';
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
+import '../styles/shooote.css';
 import '../styles/video-cv-widget.css';
 
 export default function ShoooteCvPage() {
   const location = useLocation();
   const { siteMeta } = useShoooteContent();
   useShoooteAnimations();
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.add('shooote-template');
+    document.body.classList.add('shooote-template');
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/assets/shooote/vendor.css';
+    document.head.insertBefore(link, document.head.firstChild);
+
+    return () => {
+      document.documentElement.classList.remove('shooote-template');
+      document.body.classList.remove('shooote-template');
+      if (link.parentNode) link.parentNode.removeChild(link);
+    };
+  }, []);
 
   useEffect(() => {
     document.title = siteMeta.title;

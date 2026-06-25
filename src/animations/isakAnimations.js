@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { getLenis, initLenis, destroyLenis, subscribeScroll, getScrollY } from './scrollRuntime.js';
+import { getLenis, initLenis, destroyLenis } from './scrollRuntime.js';
 
 function getSplitText() {
   if (typeof window !== 'undefined' && window.SplitText) {
@@ -269,41 +269,6 @@ export function initIsakAnimations() {
       });
       triggers.push(t);
     });
-  }
-
-  if (document.querySelector('.scribble-wrap')) {
-    const path = document.getElementById('scribblePath');
-    const svg = document.querySelector('.scribble');
-    if (path && svg) {
-      const len = path.getTotalLength();
-      svg.style.setProperty('--len', String(len));
-
-      let hasScrolled = false;
-      const startY = getScrollY();
-      let scribbleTrigger;
-
-      const drawScribble = () => {
-        if (!hasScrolled) return;
-        svg.classList.add('is-drawn');
-      };
-
-      const unsubScroll = subscribeScroll((scrollY) => {
-        if (Math.abs(scrollY - startY) > 12) {
-          hasScrolled = true;
-          if (scribbleTrigger?.isActive) drawScribble();
-        }
-      });
-      cleanups.push(unsubScroll);
-
-      scribbleTrigger = ScrollTrigger.create({
-        trigger: '.scribble-wrap',
-        start: 'top 82%',
-        once: true,
-        onEnter: drawScribble,
-        onEnterBack: drawScribble,
-      });
-      triggers.push(scribbleTrigger);
-    }
   }
 
   const counterEls = document.querySelectorAll('.counter');

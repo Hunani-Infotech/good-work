@@ -1,43 +1,78 @@
 /* Shooote template — single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
 
-/* Vendor resets — warm stone surface (slightly dark) */
+/* Vendor resets — Shooote blue-gray surface */
+html.shooote-template,
 body.shooote-template {
-  --shooote-surface: #e8e2db;
-  --shooote-surface-elevated: #f4efe9;
-  --shooote-surface-sunken: #ddd5cc;
-  --shooote-surface-ink: #1a1b1f;
-  --shooote-surface-muted: #4a4541;
-  --shooote-hero-accent: #8a5f58;
+  --shooote-surface: #7798ab;
+  --shooote-surface-elevated: #7fa3b4;
+  --shooote-surface-sunken: #6f90a3;
+  --shooote-surface-ink: #ffffff;
+  --shooote-surface-muted: rgba(255, 255, 255, 0.82);
+  --shooote-hero-accent: #ffffff;
   --shooote-heading-font: "Poppins", system-ui, sans-serif;
 
-  color: var(--shooote-surface-ink);
-  background-color: var(--shooote-surface);
+  /* Per-section contrast palette */
+  --shooote-hero-bg: #7798ab;
+  --shooote-expertise-bg: #546a7a;
+  --shooote-narrative-bg: #afc3ce;
+  --shooote-capabilities-bg: #465e6e;
+  --shooote-footer-bg: #2e4450;
+
+  /* Typography on dark section surfaces */
+  --shooote-on-dark-ink: #ffffff;
+  --shooote-on-dark-muted: rgba(255, 255, 255, 0.82);
+  --shooote-on-dark-label: rgba(255, 255, 255, 0.72);
+  --shooote-on-dark-border: rgba(255, 255, 255, 0.22);
+
+  /* Typography on light section surfaces (narrative) */
+  --shooote-on-light-ink: #152028;
+  --shooote-on-light-muted: rgba(21, 32, 40, 0.78);
+  --shooote-on-light-label: rgba(21, 32, 40, 0.62);
+  --shooote-on-light-border: rgba(21, 32, 40, 0.14);
 }
 
+html.shooote-template,
+body.shooote-template,
+html.shooote-template .page-wrapper,
+body.shooote-template .page-wrapper {
+  background-color: var(--shooote-hero-bg);
+  color: var(--shooote-surface-ink);
+}
+
+html.shooote-template,
 body.shooote-template p {
   color: inherit;
 }
 
+html.shooote-template,
 body.shooote-template .gw-section__prose p,
+html.shooote-template,
 body.shooote-template .gw-section__cap-item p {
-  color: var(--gw-section-prose-color, #2b2e33);
+  color: var(--gw-section-prose-color, #ffffff);
 }
 
+html.shooote-template,
+body.shooote-template .wpo-site-header #navbar > ul li a,
+html.shooote-template,
 body.shooote-template .wpo-site-header #navbar > ul li a:hover,
+html.shooote-template,
 body.shooote-template .wpo-site-header #navbar > ul li a:focus {
-  color: #1f2226 !important;
+  color: #ffffff !important;
 }
 
+html.shooote-template,
 body.shooote-template .gw-section--shooote .wpo-section-title h2 {
   padding-top: 0;
 }
 
 @media (min-width: 992px) {
-  body.shooote-template .cursor {
+  html.shooote-template,
+body.shooote-template .cursor {
     border-color: #8a8e94;
   }
 
-  body.shooote-template .cursor2 {
+  html.shooote-template,
+body.shooote-template .cursor2 {
     background-color: #4f5359;
     opacity: 0.55;
   }
@@ -75,29 +110,31 @@ body.shooote-template .gw-section--shooote .wpo-section-title h2 {
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #2b2e33;
+  color: #ffffff;
   text-decoration: none;
 }
 
 /* WOW reveal — keep layout visible; GSAP animates opacity in shoooteAnimations.js */
+html.shooote-template,
 body.shooote-template .wow {
   visibility: visible !important;
 }
 
+html.shooote-template,
 body.shooote-template .wow.is-visible {
   visibility: visible !important;
 }
 
 /* ── Hero (screen 1) — petal luxury, warm stone ── */
 .shooote-hero-split {
-  --shooote-hero-bg: #e0d9d1;
-  --shooote-hero-ink: #0e0f12;
-  --shooote-hero-ink-soft: #2f2b28;
-  --shooote-hero-accent: #8a5f58;
-  --shooote-petal-rose: rgba(168, 118, 108, 0.32);
-  --shooote-petal-blush: rgba(186, 152, 142, 0.26);
-  --shooote-petal-champagne: rgba(162, 138, 118, 0.28);
-  --shooote-petal-mauve: rgba(140, 118, 128, 0.24);
+  --shooote-hero-bg: #7798ab;
+  --shooote-hero-ink: #ffffff;
+  --shooote-hero-ink-soft: rgba(255, 255, 255, 0.82);
+  --shooote-hero-accent: rgba(255, 255, 255, 0.92);
+  --shooote-petal-rose: rgba(255, 255, 255, 0.14);
+  --shooote-petal-blush: rgba(255, 255, 255, 0.1);
+  --shooote-petal-champagne: rgba(255, 255, 255, 0.12);
+  --shooote-petal-mauve: rgba(255, 255, 255, 0.08);
 
   position: relative;
   isolation: isolate;
@@ -222,7 +259,7 @@ body.shooote-template .wow.is-visible {
   position: relative;
   z-index: 2;
   margin-bottom: 1.35rem;
-  color: color-mix(in srgb, var(--shooote-hero-accent) 78%, #c9b0a8);
+  color: var(--shooote-on-dark-label);
   letter-spacing: 0.2em;
 }
 
@@ -363,7 +400,7 @@ body.shooote-template .wow.is-visible {
   font-size: clamp(0.95rem, 2.2vw, 1.125rem);
   line-height: 1.55;
   font-weight: 400;
-  color: color-mix(in srgb, var(--shooote-hero-ink-soft) 88%, #6d6560);
+  color: rgba(255, 255, 255, 0.88);
   letter-spacing: 0.02em;
 }
 
@@ -376,14 +413,14 @@ body.shooote-template .wow.is-visible {
   height: 2.75rem;
   margin: 2.5rem auto 0;
   padding: 0;
-  color: var(--shooote-hero-ink);
+  color: #ffffff;
   text-decoration: none;
-  border: 1px solid color-mix(in srgb, var(--shooote-hero-accent) 38%, transparent);
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--shooote-hero-bg) 65%, #d4cbc3);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: transparent;
+  box-shadow: none;
   opacity: 1;
-  transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .shooote-hero-scroll__icon {
@@ -396,9 +433,10 @@ body.shooote-template .wow.is-visible {
 .shooote-hero-scroll:hover {
   opacity: 1;
   transform: translateY(3px);
-  color: var(--shooote-hero-ink);
-  border-color: color-mix(in srgb, var(--shooote-hero-accent) 55%, transparent);
-  box-shadow: 0 10px 28px rgba(18, 19, 24, 0.1);
+  color: #ffffff;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 @media (max-width: 767px) {
@@ -511,29 +549,43 @@ body.shooote-template .wow.is-visible {
   text-transform: none;
 }
 
-/* ── Screens 2–4 (GwSection shooote theme) ── */
+/* ── Screens 2–4 — per-section contrast surfaces ── */
+html.shooote-template,
 body.shooote-template {
   --gw-section-label-size: 0.75rem;
   --gw-section-label-weight: 600;
   --gw-section-label-tracking: 0.14em;
-  --gw-section-label-color: #5c5652;
   --gw-section-prose-size: 1.05rem;
   --gw-section-prose-leading: 1.75;
-  --gw-section-prose-color: #1a1b1f;
-  --gw-section-muted: #45403c;
-  --gw-section-border: rgba(26, 27, 31, 0.16);
+  --gw-section-label-color: var(--shooote-on-dark-label);
+  --gw-section-prose-color: var(--shooote-on-dark-ink);
+  --gw-section-muted: var(--shooote-on-dark-muted);
+  --gw-section-border: var(--shooote-on-dark-border);
 }
 
-/* ── Section contrast rhythm (alternating surfaces) ── */
-.gw-section--shooote.wpo-expertise-section {
+.gw-section--shooote[class*='wpo-'] {
   position: relative;
   isolation: isolate;
-  background-color: var(--shooote-surface-elevated);
-  border-top: 1px solid color-mix(in srgb, var(--shooote-hero-accent) 14%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--shooote-hero-accent) 12%, transparent);
+  color: var(--shooote-section-ink);
+  background-color: var(--shooote-section-bg);
+  border-top: 1px solid var(--shooote-section-divider);
+  --gw-section-prose-color: var(--shooote-section-ink);
+  --gw-section-muted: var(--shooote-section-ink-muted);
+  --gw-section-label-color: var(--shooote-section-label);
+  --gw-section-border: var(--shooote-section-border);
+}
+
+/* Screen 2 — Expertise (darker blue-gray) */
+.gw-section--shooote.wpo-expertise-section {
+  --shooote-section-bg: #546a7a;
+  --shooote-section-ink: var(--shooote-on-dark-ink);
+  --shooote-section-ink-muted: var(--shooote-on-dark-muted);
+  --shooote-section-label: var(--shooote-on-dark-label);
+  --shooote-section-border: var(--shooote-on-dark-border);
+  --shooote-section-divider: rgba(255, 255, 255, 0.14);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 24px 48px rgba(22, 20, 18, 0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 20px 40px rgba(15, 22, 28, 0.1);
 }
 
 .gw-section--shooote.wpo-expertise-section::after {
@@ -543,17 +595,52 @@ body.shooote-template {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 55% at 8% 18%, rgba(212, 165, 155, 0.14), transparent 58%),
-    radial-gradient(ellipse 60% 50% at 92% 82%, rgba(196, 170, 182, 0.12), transparent 52%);
+    radial-gradient(ellipse 70% 55% at 8% 18%, rgba(255, 255, 255, 0.08), transparent 58%),
+    radial-gradient(ellipse 60% 50% at 92% 82%, rgba(255, 255, 255, 0.06), transparent 52%);
 }
 
+/* Screen 3 — Narrative (light contrast band) */
 .gw-section--shooote.wpo-about-section {
-  background-color: var(--shooote-surface-sunken);
+  --shooote-section-bg: #afc3ce;
+  --shooote-section-ink: var(--shooote-on-light-ink);
+  --shooote-section-ink-muted: var(--shooote-on-light-muted);
+  --shooote-section-label: var(--shooote-on-light-label);
+  --shooote-section-border: var(--shooote-on-light-border);
+  --shooote-section-divider: rgba(21, 32, 40, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
+.gw-section--shooote.wpo-about-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 50% at 12% 20%, rgba(255, 255, 255, 0.45), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 78%, rgba(21, 32, 40, 0.04), transparent 50%);
+}
+
+/* Screen 4 — Capabilities (deepest content section) */
 .gw-section--shooote.wpo-portfolio-section {
-  background-color: var(--shooote-surface-elevated);
-  border-top: 1px solid color-mix(in srgb, var(--shooote-hero-accent) 10%, transparent);
+  --shooote-section-bg: #465e6e;
+  --shooote-section-ink: var(--shooote-on-dark-ink);
+  --shooote-section-ink-muted: var(--shooote-on-dark-muted);
+  --shooote-section-label: var(--shooote-on-dark-label);
+  --shooote-section-border: var(--shooote-on-dark-border);
+  --shooote-section-divider: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.gw-section--shooote.wpo-portfolio-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(255, 255, 255, 0.07), transparent 52%),
+    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(0, 0, 0, 0.08), transparent 48%);
 }
 
 .gw-section--shooote.gw-section--photo-bg::before {
@@ -561,7 +648,7 @@ body.shooote-template {
 }
 
 .gw-section--shooote.wpo-about-section.gw-section--photo-bg::before {
-  opacity: 0.14;
+  opacity: 0.05;
 }
 
 .gw-section--shooote.gw-section--photo-bg {
@@ -603,6 +690,12 @@ body.shooote-template {
 .gw-section--shooote .gw-section__title {
   margin-bottom: 0;
   font-family: var(--shooote-heading-font) !important;
+  color: var(--shooote-section-ink, var(--shooote-on-dark-ink));
+}
+
+.gw-section--shooote .wpo-section-title h2,
+.gw-section--shooote .wpo-section-title h3 {
+  color: var(--shooote-section-ink, var(--shooote-on-dark-ink));
 }
 
 /* Expertise — luxury headline (fixed 2 rows, no inner wrap) */
@@ -620,7 +713,7 @@ body.shooote-template {
   line-height: 1.14;
   letter-spacing: -0.022em;
   text-transform: none;
-  color: #0e0f12;
+  color: var(--shooote-section-ink, var(--shooote-on-dark-ink));
 }
 
 .wpo-expertise-section .shooote-luxury-heading__row {
@@ -631,7 +724,7 @@ body.shooote-template {
 
 .wpo-expertise-section .shooote-luxury-heading__row + .shooote-luxury-heading__row {
   margin-top: 0.14em;
-  color: #3a3532;
+  color: var(--shooote-section-ink-muted, var(--shooote-on-dark-muted));
 }
 
 .wpo-expertise-section .shooote-luxury-heading__row .poort-char {
@@ -714,7 +807,7 @@ body.shooote-template {
 }
 
 .wpo-expertise-section .gw-section__statement {
-  color: #3a3532;
+  color: var(--shooote-section-ink-muted, var(--shooote-on-dark-muted));
 }
 
 /* Scroll-driven description fade-in (GSAP sets initial state) */
@@ -756,7 +849,7 @@ body.shooote-template {
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #3d4249;
+  color: var(--gw-section-label-color);
 }
 
 .gw-section__cap-item p {
@@ -776,7 +869,7 @@ body.shooote-template {
 /* Custom Shooote Share Button */
 button.shooote-share-btn {
   background: transparent;
-  border: 1px solid rgba(43, 46, 51, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -785,16 +878,16 @@ button.shooote-share-btn {
   justify-content: center;
   cursor: pointer;
   position: relative;
-  color: #2b2e33;
+  color: #ffffff;
   transition: all 0.3s ease;
   padding: 0;
   outline: none;
 }
 
 button.shooote-share-btn:hover {
-  background-color: #2b2e33;
-  color: #fff;
-  border-color: #2b2e33;
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
 button.shooote-share-btn .tooltip-text {
@@ -844,25 +937,28 @@ button.shooote-share-btn:hover .tooltip-text {
 }
 
 /* ── Shooote navbar ── */
+html.shooote-template,
 body.shooote-template {
   --shooote-nav-height: 3.75rem;
   padding-top: var(--shooote-nav-height);
 }
 
+html.shooote-template,
 body.shooote-template #header.shooote-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: color-mix(in srgb, var(--shooote-surface) 94%, transparent) !important;
+  background: color-mix(in srgb, #7798ab 92%, transparent) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1px solid rgba(26, 27, 31, 0.12);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* site.css hides `.navbar` globally for the agency layout — restore Shooote header */
+html.shooote-template,
 body.shooote-template .wpo-site-header .navigation.navbar.shooote-nav {
   display: flex !important;
   flex-flow: row nowrap;
@@ -877,11 +973,14 @@ body.shooote-template .wpo-site-header .navigation.navbar.shooote-nav {
   padding: 0;
 }
 
+html.shooote-template,
 body.shooote-template .wpo-site-header,
+html.shooote-template,
 body.shooote-template .wpo-site-header .navigation {
   background: transparent !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__bar {
   position: relative;
   display: flex;
@@ -895,6 +994,7 @@ body.shooote-template .shooote-nav__bar {
   padding: 0.65rem clamp(1rem, 3vw, 2rem);
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__left {
   display: flex;
   align-items: center;
@@ -904,10 +1004,12 @@ body.shooote-template .shooote-nav__left {
   z-index: 2;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__toggle-wrap {
   display: none;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__brand-wrap {
   margin: 0;
   padding: 0;
@@ -915,6 +1017,7 @@ body.shooote-template .shooote-nav__brand-wrap {
   text-align: left;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__brand {
   display: inline-flex;
   align-items: center;
@@ -922,7 +1025,9 @@ body.shooote-template .shooote-nav__brand {
   margin: 0;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__brand-logo,
+html.shooote-template,
 body.shooote-template .shooote-nav__brand img {
   display: block;
   width: auto;
@@ -931,7 +1036,8 @@ body.shooote-template .shooote-nav__brand img {
 }
 
 @media (min-width: 992px) {
-  body.shooote-template .shooote-nav__center {
+  html.shooote-template,
+body.shooote-template .shooote-nav__center {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -945,26 +1051,32 @@ body.shooote-template .shooote-nav__brand img {
     pointer-events: none;
   }
 
-  body.shooote-template .shooote-nav__center .shooote-nav__menu {
+  html.shooote-template,
+body.shooote-template .shooote-nav__center .shooote-nav__menu {
     pointer-events: auto;
   }
 
-  body.shooote-template .wpo-site-header #navbar {
+  html.shooote-template,
+body.shooote-template .wpo-site-header #navbar {
     justify-content: center !important;
   }
 
-  body.shooote-template .wpo-site-header #navbar.shooote-nav__menu {
+  html.shooote-template,
+body.shooote-template .wpo-site-header #navbar.shooote-nav__menu {
     justify-content: center !important;
   }
 
-  body.shooote-template .wpo-site-header #navbar ul,
-  body.shooote-template .shooote-nav__list {
+  html.shooote-template,
+body.shooote-template .wpo-site-header #navbar ul,
+  html.shooote-template,
+body.shooote-template .shooote-nav__list {
     max-width: none !important;
     width: auto !important;
     justify-content: center !important;
   }
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__right {
   display: flex;
   align-items: center;
@@ -977,7 +1089,8 @@ body.shooote-template .shooote-nav__right {
 }
 
 @media (min-width: 992px) {
-  body.shooote-template .shooote-nav__menu {
+  html.shooote-template,
+body.shooote-template .shooote-nav__menu {
     display: flex !important;
     align-items: center;
     position: static !important;
@@ -992,11 +1105,13 @@ body.shooote-template .shooote-nav__right {
     border: 0;
   }
 
-  body.shooote-template .shooote-nav__menu-close {
+  html.shooote-template,
+body.shooote-template .shooote-nav__menu-close {
     display: none;
   }
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__list {
   display: flex;
   flex-direction: row;
@@ -1010,10 +1125,12 @@ body.shooote-template .shooote-nav__list {
   list-style: none;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__item {
   float: none;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__link {
   display: block;
   padding: 0.45rem 0.8rem;
@@ -1022,19 +1139,22 @@ body.shooote-template .shooote-nav__link {
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.01em;
-  color: #2b2e33;
+  color: #ffffff;
   text-decoration: none;
   white-space: nowrap;
   border-radius: 999px;
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__link:hover,
+html.shooote-template,
 body.shooote-template .shooote-nav__link:focus-visible {
-  color: #1f2226;
-  background: rgba(43, 46, 51, 0.1);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__link.hire-me {
   font-family: "Newsreader", Georgia, serif;
   font-style: italic;
@@ -1045,27 +1165,38 @@ body.shooote-template .shooote-nav__link.hire-me {
   white-space: nowrap;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-nav__share {
   flex-shrink: 0;
 }
 
 @media (max-width: 1199px) {
-  body.shooote-template .shooote-nav__link {
+  html.shooote-template,
+body.shooote-template .shooote-nav__link {
     padding-inline: 0.55rem;
     font-size: 0.76rem;
   }
 
-  body.shooote-template .shooote-nav__link.hire-me {
+  html.shooote-template,
+body.shooote-template .shooote-nav__link.hire-me {
     font-size: 0.8rem;
   }
 }
 
 @media (max-width: 991px) {
-  body.shooote-template {
+  html.shooote-template,
+body.shooote-template .shooote-nav__toggle.open-btn {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+
+  html.shooote-template,
+body.shooote-template {
     --shooote-nav-height: 3.5rem;
   }
 
-  body.shooote-template .shooote-nav__bar {
+  html.shooote-template,
+body.shooote-template .shooote-nav__bar {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -1073,22 +1204,26 @@ body.shooote-template .shooote-nav__share {
     padding: 0.45rem 0.85rem;
   }
 
-  body.shooote-template .shooote-nav__left {
+  html.shooote-template,
+body.shooote-template .shooote-nav__left {
     grid-column: 1;
     min-width: 2.5rem;
   }
 
-  body.shooote-template .shooote-nav__right {
+  html.shooote-template,
+body.shooote-template .shooote-nav__right {
     grid-column: 3;
     min-width: 2.5rem;
     justify-content: flex-end;
   }
 
-  body.shooote-template .shooote-nav__toggle-wrap {
+  html.shooote-template,
+body.shooote-template .shooote-nav__toggle-wrap {
     display: block;
   }
 
-  body.shooote-template .shooote-nav__brand-wrap {
+  html.shooote-template,
+body.shooote-template .shooote-nav__brand-wrap {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -1098,24 +1233,32 @@ body.shooote-template .shooote-nav__share {
     width: max-content;
   }
 
-  body.shooote-template .shooote-nav__brand {
+  html.shooote-template,
+body.shooote-template .shooote-nav__brand {
     pointer-events: auto;
   }
 
-  body.shooote-template .shooote-nav__brand-logo,
-  body.shooote-template .shooote-nav__brand img {
+  html.shooote-template,
+body.shooote-template .shooote-nav__brand-logo,
+  html.shooote-template,
+body.shooote-template .shooote-nav__brand img {
     height: 1.55rem;
     width: auto;
   }
 
-  body.shooote-template .shooote-nav__right {
+  html.shooote-template,
+body.shooote-template .shooote-nav__right {
     gap: 0;
   }
 
-  body.shooote-template .wpo-site-header .navbar-collapse.collapse.shooote-nav__menu,
-  body.shooote-template .wpo-site-header #navbar.shooote-nav__menu,
-  body.shooote-template #navbar.shooote-nav__menu,
-  body.shooote-template .shooote-nav__menu {
+  html.shooote-template,
+body.shooote-template .wpo-site-header .navbar-collapse.collapse.shooote-nav__menu,
+  html.shooote-template,
+body.shooote-template .wpo-site-header #navbar.shooote-nav__menu,
+  html.shooote-template,
+body.shooote-template #navbar.shooote-nav__menu,
+  html.shooote-template,
+body.shooote-template .shooote-nav__menu {
     display: block !important;
     position: fixed !important;
     top: 0;
@@ -1139,15 +1282,18 @@ body.shooote-template .shooote-nav__share {
     border: 0;
   }
 
-  body.shooote-template .shooote-nav__menu.slideInn,
-  body.shooote-template .shooote-nav__menu.slideInn.show {
+  html.shooote-template,
+body.shooote-template .shooote-nav__menu.slideInn,
+  html.shooote-template,
+body.shooote-template .shooote-nav__menu.slideInn.show {
     transform: translate3d(0, 0, 0) !important;
     left: 0 !important;
     visibility: visible !important;
     pointer-events: auto;
   }
 
-  body.shooote-template .shooote-nav__menu-close {
+  html.shooote-template,
+body.shooote-template .shooote-nav__menu-close {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1162,13 +1308,15 @@ body.shooote-template .shooote-nav__share {
     cursor: pointer;
   }
 
-  body.shooote-template .shooote-nav__list {
+  html.shooote-template,
+body.shooote-template .shooote-nav__list {
     flex-direction: column;
     align-items: stretch;
     gap: 0.15rem;
   }
 
-  body.shooote-template .shooote-nav__link {
+  html.shooote-template,
+body.shooote-template .shooote-nav__link {
     padding: 0.85rem 0.25rem;
     font-size: 1rem;
     color: #fff;
@@ -1176,18 +1324,22 @@ body.shooote-template .shooote-nav__share {
     background: transparent;
   }
 
-  body.shooote-template .shooote-nav__link:hover,
-  body.shooote-template .shooote-nav__link:focus-visible {
+  html.shooote-template,
+body.shooote-template .shooote-nav__link:hover,
+  html.shooote-template,
+body.shooote-template .shooote-nav__link:focus-visible {
     color: #fff;
     background: rgba(255, 255, 255, 0.06);
   }
 
-  body.shooote-template .shooote-nav__link.hire-me {
+  html.shooote-template,
+body.shooote-template .shooote-nav__link.hire-me {
     color: #fff;
     margin-top: 0.5rem;
   }
 
-  body.shooote-template.shooote-nav-open::before {
+  html.shooote-template,
+body.shooote-template.shooote-nav-open::before {
     content: '';
     position: fixed;
     inset: 0;
@@ -1198,12 +1350,14 @@ body.shooote-template .shooote-nav__share {
 }
 
 /* Shooote Logo Sizing — legacy selector kept for navbar/other uses */
+html.shooote-template,
 body.shooote-template .navbar-brand img {
   max-width: 6.5rem;
   height: auto;
 }
 
 /* Shooote Custom Mailto Button Styling */
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn {
   display: inline-flex !important;
   align-items: center !important;
@@ -1224,6 +1378,7 @@ body.shooote-template .shooote-mailto-btn {
   margin-top: 15px !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn:hover {
   background-color: #f25828 !important; /* GoodWork Brand Orange */
   color: #ffffff !important;
@@ -1231,6 +1386,7 @@ body.shooote-template .shooote-mailto-btn:hover {
   box-shadow: 0 6px 20px rgba(242, 88, 40, 0.25) !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn .icon {
   display: flex !important;
   align-items: center !important;
@@ -1240,21 +1396,25 @@ body.shooote-template .shooote-mailto-btn .icon {
   transition: transform 0.3s ease !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn:hover .icon {
   transform: translateX(4px) !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn .icon img {
   width: 12px !important;
   height: auto !important;
   filter: brightness(0) invert(1) !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn .link-text {
   font-style: normal !important;
   margin-left: 8px !important;
 }
 
+html.shooote-template,
 body.shooote-template .shooote-mailto-btn .link-text span {
   font-family: 'Manrope', sans-serif !important;
   font-style: normal !important;
@@ -1268,22 +1428,25 @@ body.shooote-template .shooote-mailto-btn .link-text span {
   display: inline-block !important;
 }
 
-/* Shooote footer — warm charcoal, high-contrast copy */
+/* Shooote footer — deepest contrast anchor */
+html.shooote-template,
 body.shooote-template .shooote-site-footer.wpo-site-footer {
   padding: 2.75rem 0 !important;
   text-align: center;
-  color: #f4efe9;
-  background: #2a2624;
-  border-top: 1px solid color-mix(in srgb, var(--shooote-hero-accent, #8a5f58) 22%, transparent);
+  color: var(--shooote-on-dark-ink);
+  background: var(--shooote-footer-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
+html.shooote-template,
 body.shooote-template .shooote-site-footer p,
+html.shooote-template,
 body.shooote-template .shooote-site-footer .shooote-site-footer__copy {
   margin: 0;
   font-size: 0.875rem;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  color: rgba(244, 239, 233, 0.84) !important;
+  color: var(--shooote-on-dark-muted) !important;
   letter-spacing: 0.01em;
   line-height: 1.55;
 }
