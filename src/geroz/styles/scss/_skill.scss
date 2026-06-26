@@ -1,0 +1,335 @@
+@use "./mixins" as *;
+//>> Variables <<//
+@use "./variables" as *;
+
+.skill-1 {
+  .skill-box {
+    width: 100%;
+    height: 305px;
+    background-color: $white;
+    border: 1px solid $border-color;
+    border-radius: 100px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    h4 {
+      font-size: 38px;
+      line-height: 146%;
+      @include breakpoint(max-xl) {
+        font-size: 30px;
+        line-height: 130%;
+      }
+      @include breakpoint(max-sm) {
+        font-size: 25px;
+        line-height: 100%;
+      }
+    }
+    p {
+      text-transform: uppercase;
+      color: $text-color-2;
+    }
+  }
+}
+
+.countbar-1 {
+  .count-box-wrapper {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+
+    @include breakpoint(max-xxl) {
+      gap: 0;
+      text-align: center;
+    }
+    @include breakpoint(max-md) {
+      gap: 50px;
+      grid-template-columns: auto;
+      justify-content: center !important;
+    }
+
+    .count-box {
+      @include flex;
+      align-items: center;
+      gap: 25px;
+      @include breakpoint(max-xxl) {
+        flex-direction: column;
+      }
+      h4 {
+        font-size: 78px;
+        letter-spacing: -2.34px;
+        display: inline-flex;
+      }
+
+      p {
+        font-weight: 600;
+        line-height: 25px;
+      }
+    }
+  }
+  &.style-2 {
+    h4 {
+      color: $white;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+}
+
+.skill-2 {
+  background-color: #141414;
+  .skill-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    align-items: center;
+    justify-content: space-between;
+    @include breakpoint(max-xl) {
+      grid-template-columns: auto auto;
+      justify-content: center;
+      column-gap: 150px;
+      row-gap: 50px;
+    }
+    @include breakpoint(max-md) {
+      grid-template-columns: auto;
+    }
+  }
+
+  .circle-progress {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    @include breakpoint(max-md) {
+      margin: 0 auto;
+    }
+    .ring {
+      circle {
+        fill: none;
+        stroke-width: 5px;
+      }
+      .bg {
+        stroke: rgba(255, 255, 255, 0.17);
+      }
+    }
+    .progress {
+      stroke: $white;
+      stroke-linecap: round;
+      stroke-dasharray: 628;
+      stroke-dashoffset: 628;
+      transform: rotate(-10deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 1s ease;
+    }
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      display: inline-grid;
+
+      .icon {
+        margin: 0 auto;
+        text-align: center;
+      }
+      span {
+        color: $text-color;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      .count-num {
+        color: $white;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 37px;
+        letter-spacing: -0.78px;
+        text-align: center;
+      }
+    }
+  }
+  .content {
+    @include breakpoint(max-md) {
+      text-align: center;
+    }
+    p {
+      color: $white;
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 37px;
+      letter-spacing: -0.26px;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+.funfact-1 {
+  background-color: $white;
+  position: relative;
+  background-image: var(--geroz-img-counter-bg);
+  .text {
+    color: $white;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 50px;
+    padding-bottom: 100px;
+
+    @include breakpoint(max-xl) {
+      text-align: center;
+    }
+  }
+  .funfact-inner {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    @include breakpoint(max-xl) {
+      grid-template-columns: auto auto;
+      justify-content: center;
+      gap: 50px;
+      text-align: center;
+      column-gap: 150px;
+    }
+    @include breakpoint(max-lg) {
+      grid-template-columns: auto;
+    }
+    .signle-funfact-item {
+      border-right: 1px solid rgba(255, 255, 255, 0.75);
+      padding-right: 120px;
+      @include breakpoint(max-xxl) {
+        padding-right: 85px;
+      }
+      @include breakpoint(max-xxl) {
+        border-right: 0;
+        padding-right: 0;
+        text-align: center;
+      }
+      h4 {
+        font-size: 120px;
+        font-family: $text-font;
+        color: $white;
+        line-height: 1;
+        display: inline-flex;
+      }
+      p {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 26px;
+        font-family: $heading-font;
+        padding-top: 10px;
+      }
+    }
+  }
+  &.style-2 {
+    background-image: none;
+    height: auto;
+    .funfact-inner {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      justify-content: space-between;
+      @include breakpoint(max-xl) {
+        column-gap: 0;
+      }
+      @include breakpoint(max-lg) {
+        grid-template-columns: auto auto;
+        justify-content: center;
+        column-gap: 80px;
+      }
+      @include breakpoint(max-md) {
+        grid-template-columns: auto;
+        text-align: center;
+      }
+      .signle-funfact-item {
+        border: 0;
+        padding-right: 0;
+        h4 {
+          font-size: 180px;
+          font-family: $heading-font-2;
+          color: $theme-color;
+          @include breakpoint(max-xl) {
+            font-size: 150px;
+            text-align: center;
+          }
+        }
+        p {
+          text-align: start;
+          color: $theme-color;
+          font-family: $heading-font-2;
+          @include breakpoint(max-xl) {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.skill-3 {
+  .skill-box {
+    padding: 70px 60px;
+    margin-top: 40px;
+    @include transition;
+    @include breakpoint(max-xl) {
+      padding: 30px 20px;
+    }
+
+    .head {
+      font-family: $body-font;
+      font-weight: 700;
+      padding-bottom: 45px;
+    }
+    .infu-item {
+      position: relative;
+      border-bottom: 1px dashed $border-color;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      .brand-logo {
+        position: absolute;
+        top: 15px;
+        right: 0;
+        width: 125px;
+        height: 30px;
+        object-fit: contain;
+        @include breakpoint(max-md) {
+          top: -5px;
+        }
+      }
+      .vercity {
+        position: absolute;
+        top: 15px;
+        right: 0;
+        color: $text-color-3;
+      }
+      .date {
+        color: $text-color-3;
+        i {
+          color: #9f8fd7;
+          padding-right: 5px;
+        }
+      }
+      h5 {
+        font-family: $body-font;
+        font-size: 22px;
+        font-weight: 700;
+        padding-top: 10px;
+        padding-bottom: 20px;
+      }
+      p {
+        color: $text-color-3;
+      }
+    }
+
+    &:hover,
+    &.active {
+      background-color: #f6f3fc;
+    }
+  }
+  .image {
+    width: 100%;
+    height: 810px;
+    img {
+      @include imgw;
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@use "./mixins" as *;
+//>> Variables <<//
+@use "./variables" as *;
+
+.faq-1 {
+  .faq-content {
+    .accordion-item {
+      border: 0;
+      margin-top: 15px;
+      border-radius: 5px;
+      background-color: transparent;
+      border: 1px solid rgba(159, 159, 159, 0.43);
+      .accordion-header {
+        .accordion-button {
+          color: $theme-color;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: -0.18px;
+          border: 0;
+          border-radius: 0;
+          box-shadow: none;
+          padding: 15px 30px;
+          padding-right: 20px;
+
+          &::after {
+            content: "\f055";
+            background: transparent;
+            font-family: $fa;
+            font-weight: 300;
+            line-height: 1;
+            width: auto;
+          }
+
+          &:not(.collapsed)::after {
+            content: "\f068";
+            background: transparent;
+            font-family: $fa;
+            font-weight: 300;
+            line-height: 1;
+          }
+          &:not(.collapsed) {
+            background-color: #f8f5f0;
+          }
+        }
+      }
+
+      .accordion-collapse {
+        .accordion-body {
+          padding-top: 5px;
+          padding-left: 30px;
+          color: $text-color-2;
+          background-color: #f8f5f0;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 26px;
+          margin-top: -10px;
+        }
+      }
+    }
+  }
+  &.style-2 {
+    .faq-content {
+      .accordion-item {
+        .accordion-header {
+          .accordion-button {
+            font-family: $body-font;
+            &:not(.collapsed) {
+              background-color: #f3f2fa;
+            }
+          }
+        }
+        .accordion-collapse {
+          .accordion-body {
+            background-color: #f3f2fa;
+          }
+        }
+      }
+    }
+  }
+}

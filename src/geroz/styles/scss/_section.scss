@@ -1,0 +1,163 @@
+@use "./mixins" as *;
+//>> Variables <<//
+@use "./variables" as *;
+
+.section-title {
+  position: relative;
+
+  @include breakpoint(max-lg) {
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .sub-title {
+    display: inline-flex;
+    padding: 5px 16px 5px 10px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(77, 77, 77, 0.14);
+    background: #fff;
+    position: relative;
+
+    .dot {
+      width: 18px;
+      height: 18px;
+      background-color: #f6f3fc;
+      position: relative;
+      border-radius: 50%;
+
+      &::after {
+        @include after;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        @include transfromCenter;
+        background: linear-gradient(
+          84deg,
+          var(--theme) 0%,
+          var(--theme-2) 100%
+        );
+      }
+      &.dot-2 {
+        background-color: rgba(119, 253, 144, 0.31);
+        &::after {
+          background: #40d85c;
+        }
+      }
+    }
+    span {
+      color: $text-color-2;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+
+  h2 {
+    color: $theme-color;
+    font-size: 62px;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: -1.86px;
+    margin-top: 20px;
+    @include breakpoint(max-xl) {
+      font-size: 50px;
+      line-height: 65px;
+    }
+    @include breakpoint(max-md) {
+      font-size: 38px;
+      line-height: 45px;
+      text-align: center;
+    }
+
+    @include breakpoint(max-sm) {
+      font-size: 32px;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+  &.section-title-font {
+    h2 {
+      font-family: $body-font;
+      font-weight: 800;
+    }
+  }
+}
+
+.section-title-2 {
+  position: relative;
+  z-index: 1;
+  h2 {
+    text-align: center;
+    font-family: $text-font;
+    font-size: 250px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -4.5px;
+    @include breakpoint(max-xxl) {
+      font-size: 210px;
+    }
+    @include breakpoint(max-xl) {
+      font-size: 170px;
+    }
+    @include breakpoint(max-lg) {
+      font-size: 150px;
+    }
+    @include breakpoint(max-md) {
+      font-size: 95px;
+    }
+  }
+}
+
+.section-title-area {
+  @include flex;
+  justify-content: space-between;
+
+  @include breakpoint(max-lg) {
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+}
+
+//>>>>> Section Title End <<<<<//
+
+//>>>>> Basic Css Start <<<<<//
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.section-bg {
+  background-color: $bg-color !important;
+}
+
+.section-bg-2 {
+  background-color: $bg-color-2 !important;
+}
+.section-bg-3 {
+  background-color: $bg-color-3 !important;
+}
+.section-bg-4 {
+  background-color: $black-3;
+}
+.section-bg-5 {
+  background-color: $black-2;
+}
+.breadcrumb-bg {
+  background-color: $white-2;
+}
+.section-padding {
+  padding: 130px 0;
+
+  @include breakpoint(max-xl) {
+    padding: 100px 0;
+  }
+
+  @include breakpoint(max-lg) {
+    padding: 80px 0;
+  }
+}
+
+//>>>>> Basic Css End <<<<<//

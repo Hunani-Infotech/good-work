@@ -1,0 +1,166 @@
+import { GEROZ_TEMPLATE_IMAGES } from './constants.js';
+
+function parseExperienceYears(...texts) {
+  const joined = texts.filter(Boolean).join(' ');
+  const match = joined.match(/(\d+(?:\.\d+)?)\+?\s*years?/i);
+  return match ? Math.ceil(parseFloat(match[1])) : null;
+}
+
+function splitBulletTitle(bullet, maxWords = 7) {
+  const words = bullet.trim().split(/\s+/);
+  if (words.length <= maxWords) {
+    return { title: bullet, titleBreak: '' };
+  }
+  return {
+    title: words.slice(0, maxWords).join(' '),
+    titleBreak: words.slice(maxWords).join(' '),
+  };
+}
+
+function buildMailto(email, subject) {
+  if (!email) return '#cta';
+  return `mailto:${email}?subject=${encodeURIComponent(subject ?? '')}`;
+}
+
+function buildCircleText(label) {
+  const token = `.${label.replace(/\s+/g, '')}.`;
+  return token.repeat(5);
+}
+
+/**
+ * Maps site.json into Geroz template section content.
+ */
+export function mapSiteToGeroz(site) {
+  const { brand, meta, contact, theme } = site?.site ?? {};
+  const { hero, narrative, capabilities } = site?.home ?? {};
+
+  const firstName = brand?.firstName ?? 'Portfolio';
+  const lastName = brand?.lastName ?? '';
+  const fullName = [firstName, lastName].filter(Boolean).join(' ').trim();
+  const mailtoSubject = contact?.mailtoSubjectNav ?? `Hey ${firstName}!`;
+  const mailto = buildMailto(contact?.email, mailtoSubject);
+  const ctaLabel = hero?.ctaLabel ?? "Let's Connect";
+  const bullets = capabilities?.bullets ?? [];
+  const paragraphs = narrative?.paragraphs ?? [];
+  const experienceYears =
+    parseExperienceYears(...paragraphs, hero?.heroStatement, hero?.heading)
+    ?? Math.max(bullets.length, 4);
+
+  const caseImages = bullets.map(
+    (_, index) => GEROZ_TEMPLATE_IMAGES.cases[index % GEROZ_TEMPLATE_IMAGES.cases.length],
+  );
+
+  return {
+    siteMeta: {
+      title: meta?.homeTitle ?? `${firstName} | GoodWork`,
+      description: meta?.description ?? '',
+      favicon: meta?.favicon ?? '/favicon-gw.png',
+    },
+    theme: {
+      accent: theme?.orange ?? '#c9a96e',
+    },
+    contact: {
+      email: contact?.email ?? '',
+      mailto,
+      ctaLabel,
+    },
+    images: {
+      hero: hero?.profilePhoto ?? GEROZ_TEMPLATE_IMAGES.hero,
+      heroBg: narrative?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.heroBg,
+      expert: hero?.profilePhoto ?? GEROZ_TEMPLATE_IMAGES.expert,
+      video: narrative?.backgroundImage ?? capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.heroBg,
+      footerBg: capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBg,
+      footerBgAlt: narrative?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBgAlt,
+      ctaShape: GEROZ_TEMPLATE_IMAGES.ctaShape,
+      cases: caseImages.length ? caseImages : GEROZ_TEMPLATE_IMAGES.cases,
+    },
+    video: {
+      src: hero?.videoCv?.src ?? '',
+      poster: hero?.videoCv?.poster ?? GEROZ_TEMPLATE_IMAGES.video,
+      isFile: Boolean(hero?.videoCv?.src),
+    },
+    hero: {
+      firstName,
+      lastName,
+      fullName,
+      subtitle: hero?.subtitle ?? '',
+      statement: hero?.heroStatement ?? hero?.heading ?? meta?.description ?? '',
+      profilePhoto: hero?.profilePhoto ?? GEROZ_TEMPLATE_IMAGES.hero,
+      portraitAlt: fullName || firstName,
+      circleText: buildCircleText(ctaLabel),
+      circleHref: mailto,
+      ctaLabel,
+    },
+    expertise: {
+      tag: 'Expertise',
+      heading: hero?.heading ?? '',
+      statement: hero?.heroStatement ?? '',
+      ctaLabel: hero?.ctaLabel ?? "Let's Connect",
+      ctaHref: contact?.email ? `mailto:${contact.email}` : '#',
+    },
+    about: {
+      eyebrow: narrative?.tag ?? 'About Me',
+      heading: hero?.heading ?? paragraphs[0] ?? '',
+      body: paragraphs[0] ?? hero?.heroStatement ?? '',
+      extraParagraph: paragraphs[1] ?? '',
+      thirdParagraph: paragraphs[2] ?? '',
+    },
+    capabilities: {
+      eyebrow: capabilities?.tag ?? 'Capabilities & Skills',
+      title: capabilities?.tag ?? 'Capabilities & Skills',
+      description: meta?.description ?? hero?.heroStatement ?? '',
+      items: bullets.map((bullet, index) => {
+        const { title, titleBreak } = splitBulletTitle(bullet);
+        const categoryWords = bullet.split(' ').slice(0, 3).join(' ').toUpperCase();
+        return {
+          id: index + 1,
+          number: String(index + 1).padStart(2, '0'),
+          image: caseImages[index] ?? GEROZ_TEMPLATE_IMAGES.cases[0],
+          category: categoryWords,
+          title,
+          titleBreak,
+          href: mailto,
+        };
+      }),
+    },
+    expert: {
+      marqueeTitle: (hero?.subtitle ?? firstName).toUpperCase(),
+      years: experienceYears,
+      experiencePrefix: 'YEARS OF EXPERIENCE IN',
+      experienceField: (hero?.subtitle ?? 'MOBILE DEVELOPMENT').toUpperCase(),
+      image: hero?.profilePhoto ?? GEROZ_TEMPLATE_IMAGES.expert,
+      quote: hero?.heroStatement ?? paragraphs[0] ?? meta?.description ?? '',
+      authorName: fullName || firstName,
+      authorRole: hero?.subtitle ?? '',
+      signature: firstName,
+    },
+    cta: {
+      title: hero?.heading ?? "Let's build something great together",
+      href: mailto,
+      circleText: buildCircleText(ctaLabel),
+      shapeImage: GEROZ_TEMPLATE_IMAGES.ctaShape,
+    },
+    footer: {
+      displayName: fullName.toUpperCase(),
+      copyrightName: firstName,
+      headline: hero?.heading ?? "See how we can help you, get in touch today.",
+      email: contact?.email ?? '',
+      emailHref: mailto,
+      role: hero?.subtitle ?? '',
+      logoSrc: GEROZ_TEMPLATE_IMAGES.logoWhite,
+      links: [
+        { label: 'About Me', href: '#about' },
+        { label: 'Capabilities', href: '#capabilities' },
+        { label: 'Contact Me', href: mailto },
+      ],
+    },
+    nav: {
+      links: [
+        { label: 'Profile', href: '#top', isHash: true },
+        { label: 'Expertise', href: '#expertise', isHash: true },
+        { label: 'Narrative', href: '#about', isHash: true },
+        { label: 'Skills', href: '#capabilities', isHash: true },
+      ],
+    },
+  };
+}

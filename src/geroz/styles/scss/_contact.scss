@@ -1,0 +1,329 @@
+@use "./mixins" as *;
+//>> Variables <<//
+@use "./variables" as *;
+
+.contact-us-1 {
+  .image {
+    float: right;
+    width: 835px;
+    height: 810px;
+    @include breakpoint(max-xl) {
+      float: none;
+      width: 100%;
+    }
+    img {
+      @include imgw;
+    }
+  }
+  .contact-right {
+    @include breakpoint(max-lg) {
+      text-align: center;
+    }
+    .form-clt {
+      position: relative;
+      padding-top: 10px;
+      .icon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        line-height: 32px;
+        border-radius: 50%;
+        background-color: $white;
+        box-shadow: 0px 10px 20px 0px rgba(34, 34, 34, 0.08);
+        text-align: center;
+
+        @include breakpoint(max-sm) {
+          top: 15px;
+        }
+
+        i {
+          color: $theme-color;
+          font-size: 14px;
+        }
+      }
+
+      input {
+        width: 100%;
+        outline: none;
+        border: none;
+        padding: 10px 0;
+        color: $theme-color;
+        font-weight: 500;
+        @include transition;
+        border-bottom: 1px solid $border-color;
+        background-color: transparent;
+        &::placeholder {
+          color: $text-color-2;
+        }
+      }
+    }
+
+    .form-clt-big {
+      textarea {
+        padding: 10px 0 0;
+        width: 100%;
+        outline: none;
+        color: $theme-color;
+        font-weight: 500;
+        border: none;
+        border-bottom: 1px solid $border-color;
+        line-height: 1;
+        background-color: transparent;
+      }
+    }
+    .theme-btn {
+      padding: 18px 30px;
+      background: linear-gradient(90deg, #864ff5 0.81%, #2b1556 100.81%);
+    }
+  }
+  .social-icon {
+    padding-top: 50px;
+    @include breakpoint(max-lg) {
+      text-align: center;
+    }
+    p {
+      color: $theme-color;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    a {
+      width: 42px;
+      height: 42px;
+      @include icon;
+      border: 1px solid $border-color;
+      font-size: 18px;
+      color: $text-color;
+      margin-top: 15px;
+      margin-right: 8px;
+      &:hover {
+        background-color: $theme-color;
+        color: $white;
+        border-color: $theme-color;
+      }
+    }
+  }
+  &.style-2 {
+    position: relative;
+    background-color: #141414;
+    padding-bottom: 308px;
+
+    .content {
+      .section-title {
+        h2 {
+          font-size: 160px;
+          font-family: $text-font;
+          line-height: 1;
+          letter-spacing: -8px;
+          @include breakpoint(max-xxl) {
+            font-size: 130px;
+          }
+          @include breakpoint(max-sm) {
+            font-size: 100px;
+          }
+          @include breakpoint(max-xs) {
+            font-size: 60px;
+            letter-spacing: 1px;
+          }
+        }
+      }
+      .contact-right {
+        .form-clt {
+          input {
+            &::placeholder {
+              color: $white-3;
+            }
+          }
+        }
+        .form-clt-big {
+          textarea {
+            color: $white-3;
+          }
+        }
+        .theme-btn {
+          padding: 18px 30px;
+          background: #333333;
+        }
+      }
+    }
+    .contact-infu {
+      position: relative;
+      .image-2 {
+        text-align: right;
+        img {
+          width: 145px;
+          object-fit: cover;
+        }
+        p {
+          color: $white;
+          text-decoration-line: underline;
+          text-decoration-style: solid;
+          text-align: left;
+        }
+      }
+      .infu-inner {
+        padding-top: 120px;
+        @include breakpoint(max-lg) {
+          padding-top: 60px;
+        }
+        @include breakpoint(max-xs) {
+          flex-direction: column;
+        }
+        .infu {
+          h4 {
+            color: $white;
+          }
+          p {
+            color: $white;
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+          }
+        }
+      }
+      .circle {
+        @include breakpoint(max-xs) {
+          margin-right: 0;
+        }
+        &-text {
+          span {
+            color: $white;
+          }
+        }
+        &-icon {
+          color: $white;
+        }
+      }
+    }
+  }
+  &.style-3 {
+    .hand-shape {
+      margin-top: -15px;
+    }
+    .info {
+      h4 {
+        font-size: 26px;
+        margin-bottom: 15px;
+        font-family: $heading-font-2;
+      }
+    }
+    .social-icon {
+      padding-top: 190px;
+      @include breakpoint(max-xl) {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+    }
+    .theme-btn {
+      background: $lawyer-theme;
+    }
+    .icons {
+      gap: 60px;
+      .arrow-path {
+        color: $lawyer-theme;
+      }
+    }
+  }
+  &.style-4 {
+    .social-icon {
+      padding-top: 50px;
+    }
+    .info {
+      h4 {
+        font-family: $body-font;
+        font-weight: 700;
+      }
+      p {
+        color: $text-color-3;
+      }
+    }
+    .contact-infu {
+      padding-top: 20px;
+      h4 {
+        color: $theme-color;
+        font-size: 22px;
+        font-family: $body-font;
+        font-weight: 700;
+        line-height: 40px;
+        text-decoration-line: underline;
+        text-decoration-style: solid;
+        text-decoration-skip-ink: auto;
+        text-decoration-thickness: auto;
+        text-underline-offset: auto;
+        text-underline-position: from-font;
+        padding: 8px 0;
+      }
+    }
+    .contact-right {
+      h3 {
+        font-family: $body-font;
+        font-weight: 700;
+        padding-bottom: 20px;
+      }
+      .theme-btn {
+        background: linear-gradient(
+          90deg,
+          $theme-color-4 0.81%,
+          $theme-color-3 100.81%
+        );
+      }
+    }
+  }
+  &.contact-page {
+    background-color: $white;
+    padding-bottom: 130px;
+    @include breakpoint(max-lg) {
+      padding-bottom: 80px;
+    }
+    .content {
+      .contact-right {
+        .form-clt {
+          input {
+            &::placeholder {
+              color: $text-color-3;
+            }
+          }
+        }
+        .form-clt-big {
+          textarea {
+            color: $text-color-3;
+          }
+        }
+      }
+    }
+    .contact-infu {
+      position: relative;
+      .image-2 {
+        p {
+          color: $theme-color;
+        }
+      }
+      .infu-inner .infu {
+        h4 {
+          color: $theme-color;
+        }
+        p {
+          color: $theme-color;
+        }
+      }
+      .circle {
+        &-text {
+          span {
+            color: $theme-color;
+          }
+        }
+        &-icon {
+          color: $theme-color;
+        }
+      }
+    }
+  }
+}
+
+.office-google-map-wrapper {
+  margin-bottom: -230px;
+  iframe {
+    width: 100%;
+    height: 600px;
+  }
+}

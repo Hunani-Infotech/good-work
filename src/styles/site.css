@@ -5245,6 +5245,7 @@ html.site-ready main > section {
   body:has(.cursor-dot),
   body:has(.page-wrapper .cursor),
   body.tidal-copper-template,
+  body.geroz-template,
   body.agency-page {
     cursor: none;
   }
@@ -5261,6 +5262,10 @@ html.site-ready main > section {
   body.tidal-copper-template button,
   body.tidal-copper-template [role="button"],
   body.tidal-copper-template label,
+  body.geroz-template a,
+  body.geroz-template button,
+  body.geroz-template [role="button"],
+  body.geroz-template label,
   body.agency-page a,
   body.agency-page button,
   body.agency-page [role="button"],
@@ -5289,7 +5294,11 @@ html.site-ready main > section {
     html.is-loader-active body.shooote-template,
     html.is-loader-active body.shooote-template a,
     html.is-loader-active body.shooote-template button,
-    html.is-loader-active body.shooote-template [role="button"] {
+    html.is-loader-active body.shooote-template [role="button"],
+    body.geroz-template,
+    body.geroz-template a,
+    body.geroz-template button,
+    body.geroz-template [role="button"] {
       cursor: auto !important;
     }
   }

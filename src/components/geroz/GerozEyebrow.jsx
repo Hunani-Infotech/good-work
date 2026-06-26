@@ -1,0 +1,17 @@
+export default function GerozEyebrow({ children, className = '' }) {
+  if (!children) return null;
+
+  return (
+    <div
+      className={`inline-flex items-center gap-2.5 rounded-[1.25rem] border border-[rgba(77,77,77,0.14)] bg-white py-[0.3125rem] pl-2.5 pr-4 ${className}`.trim()}
+    >
+      <span
+        className="relative size-[1.125rem] shrink-0 rounded-full bg-[#f6f3fc] after:absolute after:left-1/2 after:top-1/2 after:size-1.5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-[linear-gradient(84deg,#333_0%,#e33a24_100%)] after:content-['']"
+        aria-hidden="true"
+      />
+      <span className="font-sans text-[0.8125rem] font-medium uppercase tracking-[0.12em] text-stone-500">
+        {children}
+      </span>
+    </div>
+  );
+}

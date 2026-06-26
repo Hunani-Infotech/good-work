@@ -1,0 +1,383 @@
+@use "./mixins" as *;
+//>> Variables <<//
+@use "./variables" as *;
+
+.price-1 {
+  position: relative;
+  z-index: 1;
+  .single-pricing-item {
+    border-radius: 10px;
+    background-color: $white;
+    border: 1px solid $border-color;
+    padding: 40px 50px;
+    position: relative;
+    margin-top: 30px;
+
+    .icon {
+      color: $theme-color;
+      opacity: 5%;
+      font-size: 110px;
+      position: absolute;
+      right: 35px;
+      top: 45px;
+    }
+
+    @include breakpoint(max-xxl) {
+      padding: 40px;
+    }
+
+    .header {
+      h4 {
+        font-weight: 700;
+        font-family: $body-font;
+      }
+    }
+
+    .price {
+      font-size: 78px;
+      font-weight: 400;
+      line-height: 83px;
+      font-family: $text-font;
+      letter-spacing: -2.34px;
+      padding-top: 30px;
+      color: $theme-color;
+
+      span {
+        color: $text-color-2;
+        font-family: $body-font;
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+
+    .list {
+      @include flex;
+      gap: 65px;
+
+      padding-bottom: 35px;
+      @include breakpoint(max-xxl) {
+        gap: 20px;
+      }
+      @include breakpoint(max-xl) {
+        flex-direction: column;
+        gap: 0;
+        align-items: start;
+      }
+      ul {
+        li {
+          color: $theme-color;
+          font-weight: 500;
+          line-height: 26px;
+          @include breakpoint(max-xl) {
+            padding: 5px 0;
+          }
+
+          i {
+            color: $text-color-2;
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+
+    .tag {
+      gap: 15px;
+
+      span {
+        color: $text-color-2;
+        i {
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+.pricing-2 {
+  position: relative;
+  z-index: 2;
+  .nav {
+    margin-top: 30px;
+    display: inline-flex;
+    border-radius: 31px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 11px 11px 32.2px 0px rgba(255, 255, 255, 0.12) inset;
+    backdrop-filter: blur(17.450000762939453px);
+
+    .nav-item {
+      .nav-link {
+        font-size: 16px;
+        font-weight: 500;
+        color: $white;
+        border-radius: 31px;
+        padding: 8px 24px;
+        border: none;
+        @include transition;
+        &.active {
+          background-color: $theme-color-2;
+          color: $white;
+        }
+      }
+    }
+  }
+  .single-pricing-item {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 11px 11px 32.2px 0px rgba(255, 255, 255, 0.12) inset;
+    backdrop-filter: blur(17.450000762939453px);
+    padding: 50px 45px;
+    position: relative;
+    margin-top: 30px;
+    .border-shape {
+      span {
+        position: absolute;
+        width: 50px;
+        height: 58px;
+        background-color: transparent;
+      }
+      span:nth-child(1) {
+        border-top: 1px solid $white;
+        border-left: 1px solid $white;
+        top: -2px;
+        left: -2px;
+      }
+      span:nth-child(2) {
+        border-top: 1px solid $white;
+        border-right: 1px solid $white;
+        top: -2px;
+        right: -2px;
+      }
+      span:nth-child(3) {
+        border-bottom: 1px solid $white;
+        border-left: 1px solid $white;
+        border-radius: 0 0 0 3px;
+        bottom: -2px;
+        left: -2px;
+      }
+      span:nth-child(4) {
+        border-bottom: 1px solid $white;
+        border-right: 1px solid $white;
+        bottom: -2px;
+        right: -2px;
+      }
+    }
+    @include breakpoint(max-xxl) {
+      padding: 40px;
+    }
+
+    .header {
+      h4 {
+        color: $white;
+        padding-bottom: 10px;
+      }
+    }
+
+    .price {
+      padding: 25px 0 20px;
+      font-size: 60px;
+      font-weight: 800;
+      line-height: 69px;
+      letter-spacing: -1.2px;
+      color: $white;
+      font-family: $text-font;
+
+      sub {
+        font-weight: 500;
+        font-size: 16px;
+        font-family: $body-font;
+        margin-left: 15px;
+        margin-top: 40px;
+        color: $text-color;
+      }
+    }
+
+    .list {
+      margin-top: 20px;
+
+      li {
+        color: $white;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 10px 0;
+
+        i {
+          padding-right: 10px;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .photo-theme-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 25px;
+      width: 100%;
+      border-radius: 2px;
+      border: none;
+      background-color: $theme-color-2;
+      box-shadow: none;
+      position: relative;
+    }
+  }
+}
+
+.pricing-3 {
+  position: relative;
+  background-image: none;
+  &.pricing-page {
+    background-image: none;
+    ul.nav {
+      background: linear-gradient(84deg, var(--theme) 0%, var(--theme-2) 100%);
+    }
+    .single-pricing-item {
+      .header {
+        h4 {
+          color: var(--theme);
+        }
+        .price {
+          color: var(--theme);
+        }
+      }
+      .features {
+        h4 {
+          color: var(--theme);
+        }
+        .list ul li {
+          color: var(--theme);
+        }
+      }
+    }
+  }
+  .shape-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.13;
+  }
+  .nav {
+    margin-top: 30px;
+    display: inline-flex;
+    border-radius: 31px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 11px 11px 32.2px 0px rgba(255, 255, 255, 0.12) inset;
+    backdrop-filter: blur(17.450000762939453px);
+
+    .nav-item {
+      .nav-link {
+        font-size: 16px;
+        font-weight: 500;
+        color: $white;
+        border-radius: 31px;
+        padding: 8px 24px;
+        border: none;
+        @include transition;
+        &.active {
+          background-color: $white;
+          color: $theme-color;
+        }
+      }
+    }
+  }
+  .single-pricing-item {
+    padding: 50px;
+    border: 1px solid $border-color;
+    display: grid;
+    grid-template-columns: 280px auto auto;
+    justify-content: space-between;
+    @include breakpoint(max-xxl) {
+      padding: 50px 30px;
+    }
+    @include breakpoint(max-xl) {
+      grid-template-columns: auto auto auto;
+    }
+    @include breakpoint(max-lg) {
+      grid-template-columns: auto;
+      gap: 20px;
+    }
+    .header {
+      padding-right: 60px;
+      border-right: 1px solid $border-color;
+      @include breakpoint(max-lg) {
+        border: 0;
+      }
+
+      h4 {
+        color: $white;
+        font-size: 22px;
+        font-weight: 700;
+        font-family: $body-font;
+        margin-bottom: 15px;
+      }
+      .price {
+        color: $white;
+        font-family: $text-font;
+        font-size: 78px;
+        letter-spacing: -2.34px;
+        line-height: 1;
+      }
+      p {
+        color: $text-color;
+        font-weight: 500;
+      }
+    }
+    .features {
+      padding-right: 60px;
+      border-right: 1px solid $border-color;
+      @include breakpoint(max-xxl) {
+        padding-right: 0;
+        padding-left: 60px;
+      }
+      @include breakpoint(max-lg) {
+        padding-left: 0;
+        border-right: 0;
+      }
+      h4 {
+        color: $white;
+        font-size: 22px;
+        font-weight: 700;
+        font-family: $body-font;
+        margin-bottom: 15px;
+      }
+      .list {
+        gap: 50px;
+        flex-wrap: wrap;
+        @include breakpoint(max-xxl) {
+          gap: 0;
+        }
+        @include breakpoint(max-lg) {
+          gap: 20px;
+        }
+        ul {
+          li {
+            color: $white-3;
+            padding: 5px 0;
+            i {
+              padding-right: 5px;
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+      padding-top: 20px;
+      @include breakpoint(max-xxl) {
+        padding-left: 60px;
+      }
+      @include breakpoint(max-lg) {
+        padding-left: 0;
+      }
+      .infu {
+        padding-top: 20px;
+        span {
+          color: $white;
+          font-weight: 500;
+          border-right: 1px solid $border-color-2;
+          padding: 0 15px;
+        }
+      }
+    }
+  }
+}

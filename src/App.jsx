@@ -6,9 +6,11 @@ import TidalCopperCvPage from './pages/TidalCopperCvPage';
 import IsakCvPage from './pages/IsakCvPage';
 import IsakLightCvPage from './pages/IsakLightCvPage';
 import ShoooteCvPage from './pages/ShoooteCvPage';
+import GerozCvPage from './pages/GerozCvPage';
 import AdminPage from './pages/AdminPage';
 import NotFoundPage from './pages/NotFoundPage';
 import {
+  GEROZ_CV_PATH,
   ISAK_CV_PATH,
   SHOOOTE_CV_PATH,
   TIDAL_COPPER_CV_PATH,
@@ -29,6 +31,8 @@ export default function App() {
         <Route path={`${ISAK_CV_PATH}/*`} element={<Navigate to={ISAK_CV_PATH} replace />} />
         <Route path={SHOOOTE_CV_PATH} element={<ShoooteCvPage />} />
         <Route path={`${SHOOOTE_CV_PATH}/*`} element={<Navigate to={SHOOOTE_CV_PATH} replace />} />
+        <Route path={GEROZ_CV_PATH} element={<GerozCvPage />} />
+        <Route path={`${GEROZ_CV_PATH}/*`} element={<Navigate to={GEROZ_CV_PATH} replace />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

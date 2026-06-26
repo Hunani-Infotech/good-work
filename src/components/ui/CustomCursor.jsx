@@ -43,7 +43,7 @@ export default function CustomCursor() {
       ring.classList.remove('is-hovering');
     }
 
-    const hoverSelectors = 'a, button, [role="button"], label, .folder-wrapper, .nav-link, .hero-cta-btn, .cv-share-btn, .cv-phone-frame, .cta-button-wrapper, .template-card, .agency-btn-primary, .agency-btn-ghost, .template-picker-wrap, .template-picker__cta, .template-picker__dot, .template-picker__hero.is-neighbor-hero, .scroll-link, .icon, .sect-tag, .theme-btn, .swiper-button-next, .swiper-button-prev, .offcanvas-toggler, .btn-style-2, .not-found-page__template-card, .not-found-page__btn-primary, .not-found-page__btn-ghost';
+    const hoverSelectors = 'a, button, [role="button"], label, .folder-wrapper, .nav-link, .hero-cta-btn, .cv-share-btn, .cv-phone-frame, .cta-button-wrapper, .template-card, .agency-btn-primary, .agency-btn-ghost, .template-picker-wrap, .template-picker__cta, .template-picker__dot, .template-picker__hero.is-neighbor-hero, .scroll-link, .icon, .sect-tag, .theme-btn, .geroz-theme-btn, .swiper-button-next, .swiper-button-prev, .offcanvas-toggler, .btn-style-2, .not-found-page__template-card, .not-found-page__btn-primary, .not-found-page__btn-ghost, .circle, .circle-icon, .geroz-cv-header__share, .signle-case-item .icon';
 
     function matchesHover(target) {
       return target && target.closest(hoverSelectors);

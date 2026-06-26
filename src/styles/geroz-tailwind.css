@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap');
+
+@import 'tailwindcss';
+
+@source '../components/geroz/**/*.jsx';
+@source '../geroz/components/hero/**/*.jsx';
+@source '../geroz/components/capabilities/**/*.jsx';
+@source '../geroz/components/about/**/*.jsx';
+@source '../geroz/components/video/**/*.jsx';
+@source '../geroz/components/utils/**/*.jsx';
+@source '../pages/GerozCvPage.jsx';
+
+@theme {
+  --font-serif: 'Baskervville', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --color-lawyer: #b68c5a;
+  --color-lawyer-dark: #1e1e1e;
+  --spacing-screen-2-media: clamp(12rem, 28vw, 520px);
+
+  --animate-cir36: cir36 10s linear infinite;
+  --animate-geroz-decor-fade: geroz-decor-fade 4s ease-in-out infinite;
+  --animate-geroz-hero-reveal: geroz-hero-reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  --animate-geroz-hero-reveal-delayed: geroz-hero-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+@keyframes cir36 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes geroz-decor-fade {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes geroz-hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  .geroz-container {
+    @apply mx-auto w-full max-w-[1520px] px-4 sm:px-6 lg:px-11;
+  }
+
+  .geroz-container-wide {
+    @apply mx-auto w-full max-w-[1620px] px-4 sm:px-6 lg:px-11;
+  }
+
+  .geroz-theme-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    max-height: 54px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 0;
+    padding: 18px 30px;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    text-transform: capitalize;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: background-color 0.5s ease-in-out;
+  }
+
+  .geroz-theme-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: #151515;
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 0.7s cubic-bezier(0, 0.96, 0.58, 1.1);
+  }
+
+  .geroz-theme-btn:hover::after {
+    clip-path: circle(100% at 50% 50%);
+    transition: clip-path 4s cubic-bezier(0, 0.96, 0.58, 1.1);
+  }
+}
+
+html.geroz-template,
+body.geroz-template {
+  --geroz-header-height: 4rem;
+  scroll-behavior: smooth;
+}
+
+body.geroz-template {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #1c1917;
+}
+
+body.geroz-template .cursor-dot {
+  background: #c9a96e;
+}
+
+body.geroz-template .cursor-ring {
+  border-color: color-mix(in srgb, #c9a96e 55%, transparent);
+}
+
+body.geroz-template .cursor-ring.is-hovering {
+  border-color: color-mix(in srgb, #c9a96e 80%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .geroz-video-band {
+    background-attachment: scroll !important;
+  }
+}

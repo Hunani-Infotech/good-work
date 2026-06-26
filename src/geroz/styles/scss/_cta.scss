@@ -1,0 +1,192 @@
+@use "./mixins" as *;
+//>> Variables <<//
+@use "./variables" as *;
+
+.cta-1 {
+  margin-bottom: -175px;
+  position: relative;
+  .shape-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.05;
+  }
+  .cta-inner {
+    height: 100%;
+    padding-left: 92px;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(22, 6, 52, 1);
+    overflow: hidden;
+    padding: 88px 100px;
+    border-radius: 42px;
+    @include breakpoint(max-lg) {
+      padding: 30px;
+    }
+
+    .circle {
+      float: right;
+      position: relative;
+      @include breakpoint(max-lg) {
+        float: none;
+        margin-top: 20px;
+      }
+      &-text {
+        span {
+          color: $white;
+        }
+      }
+      &-icon {
+        color: $white;
+      }
+    }
+    .cta-arrow {
+      position: absolute;
+      bottom: 0;
+      right: 25%;
+      @include breakpoint(max-lg) {
+        right: 0;
+        left: 10px;
+      }
+    }
+  }
+  .section-title h2 {
+    @include breakpoint(max-xxs) {
+      font-size: 28px;
+      line-height: 36px;
+    }
+  }
+}
+
+.cta-2 {
+  margin-top: -180px;
+  .cta-inner {
+    background-color: $protfolio-theme;
+    height: 440px;
+    padding-left: 92px;
+    position: relative;
+    z-index: 1;
+    border-radius: 55px;
+    overflow: hidden;
+
+    @include breakpoint(max-lg) {
+      height: 100%;
+      padding-left: 40px;
+      padding-top: 50px;
+    }
+    @include breakpoint(max-md) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .shape-1 {
+      position: absolute;
+      bottom: 0;
+      right: 10px;
+      z-index: -1;
+    }
+
+    .images {
+      width: 495px;
+      height: 450px;
+      margin-left: -100px;
+
+      @include breakpoint(max-lg) {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      @include breakpoint(max-md) {
+        height: 100%;
+      }
+
+      img {
+        @include imgw;
+        object-fit: contain;
+      }
+    }
+    .theme-btn {
+      background-color: $white;
+      color: $theme-color;
+    }
+  }
+}
+
+.cta-3 {
+  position: relative;
+  z-index: 1;
+  margin-bottom: -80px;
+  @include breakpoint(max-xl) {
+    margin-bottom: 0;
+  }
+  &::after {
+    @include after;
+    background-color: var(--lawyer-theme);
+    width: 92%;
+    left: auto;
+    height: 325px;
+    z-index: -1;
+    clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+    @include breakpoint(max-xl) {
+      height: 100%;
+      width: 100%;
+      clip-path: none;
+    }
+  }
+  .shape-1 {
+    position: absolute;
+    top: -15%;
+    left: 12%;
+    opacity: 0.05;
+    @include breakpoint(max-xl) {
+      display: none;
+    }
+  }
+  .section-title {
+    padding-top: 70px;
+    @include breakpoint(max-xxxl) {
+      padding-left: 85px;
+    }
+    @include breakpoint(max-xl) {
+      padding-top: 0;
+      padding-left: 0;
+      margin-left: 0 !important;
+    }
+    h2 {
+      font-family: $heading-font-2;
+      @include breakpoint(max-xxxl) {
+        font-size: 56px;
+      }
+      @include breakpoint(max-xxl) {
+        font-size: 50px;
+        margin-left: 20px;
+      }
+      @include breakpoint(max-xl) {
+        margin-left: 0;
+      }
+    }
+  }
+  .cta-arrow {
+    padding-top: 120px;
+    @include breakpoint(max-xl) {
+      padding-top: 20px;
+    }
+  }
+  .circle {
+    background-color: $white;
+    margin-top: 50px;
+    @include breakpoint(max-xl) {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    &-icon {
+      color: $lawyer-theme;
+    }
+    &-text {
+      span {
+        color: $lawyer-theme;
+      }
+    }
+  }
+}
