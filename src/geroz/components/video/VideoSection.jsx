@@ -3,9 +3,7 @@ import GerozDecorShapes from '../../../components/geroz/GerozDecorShapes.jsx';
 import GerozEyebrow from '../../../components/geroz/GerozEyebrow.jsx';
 import GerozThemeButton from '../../../components/geroz/GerozThemeButton.jsx';
 
-const EXPERTISE_AMBIENT_BG =
-  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")";
-
+import GerozLuxuryBackdrop from '../../../components/geroz/GerozLuxuryBackdrop.jsx';
 function ExpertiseAuthor({ name, role, className = '' }) {
   if (!name && !role) return null;
 
@@ -71,15 +69,7 @@ export default function VideoSection({ imgUrl }) {
   return (
     <section id="expertise" className="relative overflow-hidden">
       <div className="relative bg-[#f8f5f0] pt-[clamp(5.5rem,10vw,9rem)] pb-[clamp(4rem,8vw,7rem)]">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_8%_42%,color-mix(in_srgb,var(--color-lawyer)_9%,transparent),transparent_68%),radial-gradient(ellipse_45%_40%_at_92%_58%,color-mix(in_srgb,var(--color-lawyer)_7%,transparent),transparent_72%)]"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-25"
-          style={{ backgroundImage: EXPERTISE_AMBIENT_BG }}
-          aria-hidden="true"
-        />
+        <GerozLuxuryBackdrop variant="cream" />
 
         <div className="geroz-container-wide relative z-[1]">
           <div className="mb-10 lg:hidden">
