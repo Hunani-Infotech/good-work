@@ -64,7 +64,7 @@ function NavLinks({ links, className, linkClassName, onNavigate }) {
   );
 }
 
-function MobileDrawer({ open, brand, links, onClose }) {
+function MobileDrawer({ open, links, onClose }) {
   if (typeof document === 'undefined') return null;
 
   return createPortal(
@@ -85,7 +85,6 @@ function MobileDrawer({ open, brand, links, onClose }) {
         aria-label="Main"
       >
         <div className="geroz-cv-header__drawer-head">
-          <span className="geroz-cv-header__drawer-brand">{brand}</span>
           <button
             type="button"
             className="geroz-cv-header__drawer-close"
@@ -165,7 +164,6 @@ export default function GerozCvHeader() {
   }, [menuOpen, isMobile]);
 
   const closeMenu = () => setMenuOpen(false);
-  const brand = nav.brand || 'Portfolio';
 
   return (
     <header
@@ -173,18 +171,6 @@ export default function GerozCvHeader() {
       className={`geroz-cv-header pointer-events-none fixed inset-x-0 top-0 z-[300] ${scrolled ? 'is-scrolled' : ''}`}
     >
       <div className="geroz-cv-header__inner pointer-events-auto">
-        <a
-          href="#top"
-          className="geroz-cv-header__brand"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollGerozToHash('#top');
-          }}
-        >
-          <span className="geroz-cv-header__brand-mark" aria-hidden="true" />
-          <span className="geroz-cv-header__brand-text">{brand}</span>
-        </a>
-
         <nav className="geroz-cv-header__nav hidden lg:block" aria-label="Main">
           <NavLinks
             links={nav.links}
@@ -221,7 +207,7 @@ export default function GerozCvHeader() {
       </div>
 
       {isMobile ? (
-        <MobileDrawer open={menuOpen} brand={brand} links={nav.links} onClose={closeMenu} />
+        <MobileDrawer open={menuOpen} links={nav.links} onClose={closeMenu} />
       ) : null}
     </header>
   );

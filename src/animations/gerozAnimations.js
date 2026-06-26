@@ -101,7 +101,7 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
     opacity: 0,
     x: -300,
     scale: 0,
-    color: '#1c1917',
+    color: '#3d2a1c',
     force3D: true,
     transformOrigin: '50% 50%',
   });
@@ -123,13 +123,13 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
       .to(char, {
         x: 0,
         scale: 1.2,
-        color: '#b68c5a',
+        color: '#c9a06c',
         duration: stepDuration * 0.19,
         ease: 'power2.inOut',
       })
       .to(char, {
         scale: 1,
-        color: '#1c1917',
+        color: '#3d2a1c',
         duration: stepDuration * 0.21,
         ease: 'power2.out',
       });
@@ -142,15 +142,14 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
 function resetHeroNameChars(nameEl) {
   const chars = nameEl?.querySelectorAll('.gz-hero__char');
   if (!chars?.length) return;
-  gsap.set(chars, { opacity: 1, x: 0, scale: 1, color: '#1c1917', clearProps: 'transform' });
+  gsap.set(chars, { opacity: 1, x: 0, scale: 1, color: '#3d2a1c', clearProps: 'transform' });
 }
 
-/* ── Hero: side-slide name chars + portrait curtain + ambient drift ── */
+/* ── Hero: side-slide name chars + portrait curtain ── */
 function initGerozHero(prefersReduced) {
   const hero = document.querySelector('.gz-hero');
   if (!hero) return;
 
-  const bg = hero.querySelector('.gz-hero__bg');
   const copy = hero.querySelector('.gz-hero__copy');
   const firstName = hero.querySelector('.gz-hero__firstname');
   const lastName = hero.querySelector('.gz-hero__lastname');
@@ -164,7 +163,7 @@ function initGerozHero(prefersReduced) {
   const portraitCorner = hero.querySelector('.gz-hero__portrait-corner');
 
   const targets = [
-    bg, copy, firstName, lastName, accentLine, accentDot,
+    copy, firstName, lastName, accentLine, accentDot,
     subtitle, subtitleRule, portraitWrap, portraitFrame, portraitImg, portraitCorner,
   ];
   targets.forEach((el) => el && gsap.set(el, { visibility: 'visible' }));
@@ -175,11 +174,6 @@ function initGerozHero(prefersReduced) {
     resetHeroNameChars(lastName);
     if (portraitFrame) gsap.set(portraitFrame, { clipPath: 'inset(0% 0 0 0)' });
     return;
-  }
-
-  if (bg) {
-    gsap.fromTo(bg, { opacity: 0, scale: 1.06 }, { opacity: 0.35, scale: 1, duration: 1.6, ease: GEROZ_EASE_IO });
-    scrubParallax(bg, hero, { y: 36, start: 'top top', end: 'bottom top', scrub: 1 });
   }
 
   playHeroNameSideSlide(firstName, 0.1);

@@ -69,28 +69,28 @@
   0% {
     opacity: 0;
     transform: translate3d(-300px, 0, 0) scale(0);
-    color: #1c1917;
+    color: var(--gz-hero-text-deep);
   }
 
   60% {
     transform: translate3d(20px, 0, 0) scale(1);
-    color: #1c1917;
+    color: var(--gz-hero-text-deep);
   }
 
   80% {
     transform: translate3d(20px, 0, 0) scale(1);
-    color: #1c1917;
+    color: var(--gz-hero-text-deep);
   }
 
   99% {
     transform: translate3d(0, 0, 0) scale(1.2);
-    color: var(--color-lawyer);
+    color: #c9a06c;
   }
 
   100% {
     transform: translate3d(0, 0, 0) scale(1);
     opacity: 1;
-    color: #1c1917;
+    color: var(--gz-hero-text-deep);
   }
 }
 
@@ -187,21 +187,22 @@
   }
 
   .geroz-cv-header__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    position: relative;
+    display: flex;
     align-items: center;
-    gap: clamp(0.75rem, 2vw, 1.5rem);
+    justify-content: flex-end;
+    gap: clamp(1rem, 2.5vw, 2rem);
     max-width: 1920px;
     margin-inline: auto;
-    padding: clamp(0.85rem, 1.6vw, 1.15rem) clamp(1rem, 3vw, 2.75rem);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-lawyer) 22%, transparent);
+    padding: clamp(0.9rem, 1.6vw, 1.2rem) clamp(1.25rem, 3.5vw, 3rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-lawyer) 18%, transparent);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.82) 100%);
-    backdrop-filter: blur(18px) saturate(1.35);
-    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.86) 100%);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.65) inset,
-      0 12px 36px -28px rgba(28, 25, 23, 0.28);
+      0 1px 0 rgba(255, 255, 255, 0.72) inset,
+      0 14px 40px -32px rgba(28, 25, 23, 0.26);
     transition:
       padding 0.45s cubic-bezier(0.22, 1, 0.36, 1),
       background 0.45s ease,
@@ -210,58 +211,31 @@
   }
 
   .geroz-cv-header.is-scrolled .geroz-cv-header__inner {
-    padding-block: 0.65rem;
+    padding-block: 0.7rem;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(252, 250, 247, 0.92) 100%);
-    border-bottom-color: color-mix(in srgb, var(--color-lawyer) 32%, transparent);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 250, 247, 0.94) 100%);
+    border-bottom-color: color-mix(in srgb, var(--color-lawyer) 28%, transparent);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.75) inset,
-      0 18px 40px -30px rgba(28, 25, 23, 0.35);
-  }
-
-  .geroz-cv-header__brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    min-width: 0;
-    font-family: var(--font-serif);
-    font-size: clamp(1rem, 1.35vw, 1.2rem);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    color: #1c1917;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .geroz-cv-header__brand:hover {
-    color: color-mix(in srgb, var(--color-lawyer) 78%, #1c1917);
-  }
-
-  .geroz-cv-header__brand-mark {
-    width: 0.55rem;
-    height: 0.55rem;
-    flex-shrink: 0;
-    border-radius: 9999px;
-    background: linear-gradient(135deg, var(--color-lawyer), #d4b07a);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-lawyer) 18%, transparent);
-  }
-
-  .geroz-cv-header__brand-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 20px 44px -34px rgba(28, 25, 23, 0.32);
   }
 
   .geroz-cv-header__nav {
-    justify-self: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    max-width: calc(100% - 10rem);
   }
 
   .geroz-cv-header__nav-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.35rem, 1.2vw, 0.15rem) clamp(0.85rem, 1.8vw, 1.65rem);
+    gap: clamp(1.25rem, 2.2vw, 2.35rem);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -271,14 +245,15 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.1rem;
+    padding: 0.4rem 0;
     font-family: var(--font-sans);
-    font-size: 0.6875rem;
+    font-size: 0.625rem;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: color-mix(in srgb, #1c1917 72%, #78716c);
+    color: color-mix(in srgb, #1c1917 68%, #78716c);
     text-decoration: none;
+    white-space: nowrap;
     transition: color 0.3s ease;
   }
 
@@ -326,11 +301,13 @@
   }
 
   .geroz-cv-header__actions {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 0.65rem;
-    min-width: 0;
+    gap: 0.75rem;
+    flex-shrink: 0;
   }
 
   .geroz-cv-header__share {
@@ -445,15 +422,8 @@
   .geroz-cv-header__drawer-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: flex-end;
     margin-bottom: 2rem;
-  }
-
-  .geroz-cv-header__drawer-brand {
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
-    color: #1c1917;
   }
 
   .geroz-cv-header__drawer-close {
@@ -509,7 +479,18 @@
 
   @media (max-width: 1023px) {
     .geroz-cv-header__inner {
-      grid-template-columns: minmax(0, 1fr) auto;
+      padding-inline: clamp(1rem, 4vw, 1.5rem);
+    }
+  }
+
+  @media (max-width: 1279px) {
+    .geroz-cv-header__nav-list {
+      gap: clamp(0.85rem, 1.5vw, 1.35rem);
+    }
+
+    .geroz-cv-header__nav-link {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
     }
   }
 }
@@ -612,10 +593,11 @@ body.geroz-template .cursor-ring.is-hovering {
 .gz-capabilities__hover-bg {
   z-index: 0;
   background-color: #b68c5a;
-  clip-path: inset(0 0 100% 0);
   visibility: hidden;
+  transform: scaleY(0);
+  transform-origin: 50% 0%;
   pointer-events: none;
-  will-change: clip-path;
+  will-change: transform;
   backface-visibility: hidden;
 }
 
@@ -660,10 +642,104 @@ body.geroz-template .cursor-ring.is-hovering {
 
 .gz-hero {
   background-color: #f8f5f0;
-  background-image:
-    radial-gradient(ellipse 90% 70% at 10% 0%, rgba(252, 250, 247, 0.98) 0%, transparent 62%),
-    radial-gradient(ellipse 50% 42% at 92% 16%, color-mix(in srgb, var(--color-lawyer) 9%, transparent), transparent 72%),
-    linear-gradient(180deg, #fcfaf7 0%, #ffffff 82%);
+  --gz-hero-text: #4a3728;
+  --gz-hero-text-deep: #3d2a1c;
+  --gz-hero-text-muted: #8f6b42;
+  --gz-hero-text-gold: #b68c5a;
+  --gz-hero-text-gold-light: #c9a06c;
+}
+
+.gz-hero__firstname,
+.gz-hero__lastname {
+  color: var(--gz-hero-text-deep);
+}
+
+.gz-hero__subtitle {
+  color: var(--gz-hero-text-muted);
+}
+
+.gz-hero__accent-line {
+  background: linear-gradient(
+    90deg,
+    var(--gz-hero-text-gold),
+    color-mix(in srgb, var(--gz-hero-text-gold-light) 35%, transparent)
+  ) !important;
+}
+
+.gz-hero__accent-dot {
+  background-color: var(--gz-hero-text-gold) !important;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--gz-hero-text-gold) 22%, transparent) !important;
+}
+
+.gz-hero__subtitle-rule {
+  background-color: var(--gz-hero-text-gold) !important;
+}
+
+/* Full-bleed P1N2O-style shifting gradient — visible luxury palette */
+.gz-hero__gradients {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    -45deg,
+    #ffffff,
+    #f8f5f0,
+    #e8c9a0,
+    #b68c5a,
+    #8f6b42,
+    #f5efe6,
+    #ffffff
+  );
+  background-size: 400% 400%;
+  background-position: 0% 50%;
+  animation: geroz-hero-gradient-shift 15s ease infinite;
+  will-change: background-position;
+}
+
+/* Light wash on copy column only — keeps name readable */
+.gz-hero__gradients::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.58) 0%,
+    rgba(255, 255, 255, 0.22) 34%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+@keyframes geroz-hero-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .gz-hero__gradients::after {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.15) 38%,
+      transparent 55%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-hero__gradients {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }
 
 .gz-hero__copy {
@@ -700,7 +776,7 @@ body.geroz-template .cursor-ring.is-hovering {
   display: inline-block;
   white-space: nowrap;
   opacity: 0;
-  color: #1c1917;
+  color: var(--gz-hero-text-deep);
   will-change: transform, opacity, color;
 }
 
@@ -714,7 +790,7 @@ body.geroz-template .cursor-ring.is-hovering {
     opacity: 1;
     transform: none;
     animation: none;
-    color: #1c1917;
+    color: var(--gz-hero-text-deep);
   }
 }
 

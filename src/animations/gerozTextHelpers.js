@@ -356,11 +356,8 @@ export function refreshAfterImagesLoad(selectors, callback) {
   });
 }
 
-const CAPABILITY_SHUTTER_CLIP_CLOSED = 'inset(0 0 100% 0)';
-const CAPABILITY_SHUTTER_CLIP_OPEN = 'inset(0 0 0% 0)';
-
 /**
- * Top-down shutter hover — copper fill wipes in from the top as one solid panel.
+ * Top-down shutter on hover in (scale from top); slides down on hover out.
  */
 export function initCapabilitiesShutterHover(items, {
   prefersReduced = false,
@@ -384,64 +381,82 @@ export function initCapabilitiesShutterHover(items, {
 
     gsap.set([number, text, divider].filter(Boolean), { clearProps: 'color,backgroundColor' });
 
-    gsap.set(hoverBg, {
-      clipPath: CAPABILITY_SHUTTER_CLIP_CLOSED,
-      visibility: 'hidden',
-      force3D: true,
-    });
+    const resetHoverBg = () => {
+      gsap.set(hoverBg, {
+        scaleY: 0,
+        yPercent: 0,
+        visibility: 'hidden',
+        transformOrigin: '50% 0%',
+        force3D: true,
+      });
+    };
 
-    let tl;
+    resetHoverBg();
+
+    let tl = null;
+
+    const killTween = () => {
+      if (tl) {
+        tl.kill();
+        tl = null;
+      }
+      gsap.killTweensOf(hoverBg);
+    };
 
     const onEnter = () => {
-      tl?.kill();
-      gsap.set(hoverBg, { visibility: 'visible' });
-
-      tl = gsap.timeline({
-        overwrite: 'auto',
-        onStart: () => item.classList.add('is-hovered'),
+      killTween();
+      item.classList.add('is-hovered');
+      gsap.set(hoverBg, {
+        visibility: 'visible',
+        scaleY: 0,
+        yPercent: 0,
+        transformOrigin: '50% 0%',
+        force3D: true,
       });
-      tl.to(
-        hoverBg,
-        { clipPath: CAPABILITY_SHUTTER_CLIP_OPEN, duration, ease },
-        0,
-      );
+
+      tl = gsap.timeline({ overwrite: 'auto' });
+      tl.to(hoverBg, { scaleY: 1, duration, ease }, 0);
     };
 
     const onLeave = () => {
-      tl?.kill();
+      killTween();
       const reverseDuration = duration * 0.88;
+      const openSnap = 0.14;
+      const scaleY = Number(gsap.getProperty(hoverBg, 'scaleY')) || 0;
+
+      gsap.set(hoverBg, {
+        visibility: 'visible',
+        transformOrigin: '50% 0%',
+        force3D: true,
+      });
 
       tl = gsap.timeline({
         overwrite: 'auto',
         onComplete: () => {
-          gsap.set(hoverBg, { visibility: 'hidden' });
+          resetHoverBg();
           item.classList.remove('is-hovered');
         },
       });
-      tl.to(
-        hoverBg,
-        {
-          clipPath: CAPABILITY_SHUTTER_CLIP_CLOSED,
-          duration: reverseDuration,
-          ease: reverseEase,
-        },
-        0,
-      );
-      /* Fade text back once the copper panel is mostly closed — avoids muddy GSAP color lerp */
-      tl.call(() => item.classList.remove('is-hovered'), null, reverseDuration * 0.52);
+
+      if (scaleY < 0.99) {
+        tl.to(hoverBg, { scaleY: 1, duration: openSnap, ease: 'power2.out' }, 0);
+        tl.to(hoverBg, { yPercent: 100, duration: reverseDuration, ease: reverseEase }, openSnap * 0.65);
+        tl.call(() => item.classList.remove('is-hovered'), null, openSnap * 0.65 + reverseDuration * 0.52);
+      } else {
+        gsap.set(hoverBg, { scaleY: 1, yPercent: 0 });
+        tl.to(hoverBg, { yPercent: 100, duration: reverseDuration, ease: reverseEase }, 0);
+        tl.call(() => item.classList.remove('is-hovered'), null, reverseDuration * 0.52);
+      }
     };
 
     item.addEventListener('mouseenter', onEnter);
     item.addEventListener('mouseleave', onLeave);
     cleanups.push(() => {
-      tl?.kill();
+      killTween();
       item.removeEventListener('mouseenter', onEnter);
       item.removeEventListener('mouseleave', onLeave);
       item.classList.remove('is-hovered');
-      gsap.set(hoverBg, {
-        clipPath: CAPABILITY_SHUTTER_CLIP_CLOSED,
-        visibility: 'hidden',
-      });
+      resetHoverBg();
     });
   });
 
