@@ -173,7 +173,7 @@ export default function ShoooteHeader() {
 
               <div className="navbar-header shooote-nav__brand-wrap">
                 <Link className="navbar-brand shooote-nav__brand" to={SHOOOTE_BASE}>
-                  <GoodWorkWordmark surface="dark" className="shooote-nav__brand-logo" />
+                  <GoodWorkWordmark surface="light" className="shooote-nav__brand-logo" />
                 </Link>
               </div>
             </div>

@@ -1,40 +1,40 @@
 /* Shooote template — single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
 
-/* Vendor resets — Moody pastel palette (Lilac Ash / Periwinkle / Alabaster) */
+/* Shooote template — GoodWork brand palette (cream / orange / black) */
 html.shooote-template,
 body.shooote-template {
-  --shooote-lilac-ash: #9f9aa4;
-  --shooote-periwinkle: #a3a5c3;
-  --shooote-periwinkle-light: color-mix(in srgb, var(--shooote-periwinkle) 32%, #ffffff);
-  --shooote-alabaster-grey: #cfd8d7;
-  --shooote-lilac-mist: color-mix(in srgb, var(--shooote-lilac-ash) 38%, var(--shooote-alabaster-grey));
+  --shooote-cream: #fffce9;
+  --shooote-accent: #f25828;
+  --shooote-accent-deep: color-mix(in srgb, var(--shooote-accent) 88%, #1a1a1a);
+  --shooote-ink: #1a1a1a;
+  --shooote-black: #0d0d0d;
 
-  --shooote-surface: var(--shooote-lilac-ash);
-  --shooote-surface-elevated: var(--shooote-alabaster-grey);
-  --shooote-surface-sunken: var(--shooote-lilac-mist);
-  --shooote-surface-ink: #ffffff;
-  --shooote-surface-muted: rgba(255, 255, 255, 0.86);
-  --shooote-hero-accent: #ffffff;
+  --shooote-surface: var(--shooote-cream);
+  --shooote-surface-elevated: #ffffff;
+  --shooote-surface-sunken: color-mix(in srgb, var(--shooote-cream) 88%, #e8e4df);
+  --shooote-surface-ink: var(--shooote-ink);
+  --shooote-surface-muted: rgba(26, 26, 26, 0.72);
+  --shooote-hero-accent: var(--shooote-accent);
   --shooote-heading-font: "Poppins", system-ui, sans-serif;
 
-  /* Per-section contrast rhythm */
-  --shooote-hero-bg: var(--shooote-lilac-ash);
-  --shooote-expertise-bg: var(--shooote-alabaster-grey);
-  --shooote-narrative-bg: var(--shooote-periwinkle-light);
-  --shooote-capabilities-bg: var(--shooote-lilac-mist);
-  --shooote-footer-bg: var(--shooote-lilac-ash);
+  /* Per-section surfaces */
+  --shooote-hero-bg: var(--shooote-cream);
+  --shooote-expertise-bg: var(--shooote-accent);
+  --shooote-narrative-bg: var(--shooote-cream);
+  --shooote-capabilities-bg: var(--shooote-accent-deep);
+  --shooote-footer-bg: var(--shooote-black);
 
-  /* Typography on dark surfaces (Lilac Ash hero + footer) */
+  /* Typography on dark / accent surfaces */
   --shooote-on-dark-ink: #ffffff;
-  --shooote-on-dark-muted: rgba(255, 255, 255, 0.86);
+  --shooote-on-dark-muted: rgba(255, 255, 255, 0.88);
   --shooote-on-dark-label: rgba(255, 255, 255, 0.74);
-  --shooote-on-dark-border: rgba(255, 255, 255, 0.24);
+  --shooote-on-dark-border: rgba(255, 255, 255, 0.28);
 
-  /* Typography on light surfaces (Alabaster / Periwinkle / Lilac Mist sections) */
-  --shooote-on-light-ink: #2e2a2c;
-  --shooote-on-light-muted: rgba(46, 42, 44, 0.78);
-  --shooote-on-light-label: rgba(46, 42, 44, 0.62);
-  --shooote-on-light-border: rgba(46, 42, 44, 0.14);
+  /* Typography on light surfaces */
+  --shooote-on-light-ink: var(--shooote-ink);
+  --shooote-on-light-muted: rgba(26, 26, 26, 0.78);
+  --shooote-on-light-label: rgba(26, 26, 26, 0.58);
+  --shooote-on-light-border: rgba(26, 26, 26, 0.12);
 
   width: 100%;
   min-height: 100%;
@@ -44,7 +44,7 @@ html.shooote-template .page-wrapper,
 body.shooote-template .page-wrapper,
 .page-wrapper {
   background-color: var(--shooote-hero-bg);
-  color: var(--shooote-surface-ink);
+  color: var(--shooote-on-light-ink);
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
@@ -62,7 +62,7 @@ body.shooote-template .gw-section__cap-item p {
 body.shooote-template .wpo-site-header #navbar > ul li a,
 body.shooote-template .wpo-site-header #navbar > ul li a:hover,
 body.shooote-template .wpo-site-header #navbar > ul li a:focus {
-  color: #ffffff !important;
+  color: var(--shooote-ink) !important;
 }
 
 body.shooote-template .gw-section--shooote .wpo-section-title h2 {
@@ -71,12 +71,12 @@ body.shooote-template .gw-section--shooote .wpo-section-title h2 {
 
 @media (min-width: 992px) {
   body.shooote-template .cursor {
-    border-color: #8a8e94;
+    border-color: color-mix(in srgb, var(--shooote-accent) 55%, var(--shooote-ink));
   }
 
   body.shooote-template .cursor2 {
-    background-color: #4f5359;
-    opacity: 0.55;
+    background-color: var(--shooote-accent);
+    opacity: 0.65;
   }
 }
 
@@ -112,7 +112,7 @@ body.shooote-template .gw-section--shooote .wpo-section-title h2 {
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #ffffff;
+  color: var(--shooote-ink);
   text-decoration: none;
 }
 
@@ -156,16 +156,16 @@ body.shooote-template #root {
   transform: none;
 }
 
-/* ── Hero (screen 1) — petal luxury, warm stone ── */
+/* ── Hero (screen 1) — cream split-name hero ── */
 .shooote-hero-split {
-  --shooote-hero-bg: var(--shooote-lilac-ash);
-  --shooote-hero-ink: var(--shooote-on-dark-ink);
-  --shooote-hero-ink-soft: var(--shooote-on-dark-muted);
-  --shooote-hero-accent: rgba(255, 255, 255, 0.92);
-  --shooote-petal-rose: rgba(255, 255, 255, 0.16);
-  --shooote-petal-blush: rgba(163, 165, 195, 0.22);
-  --shooote-petal-champagne: rgba(207, 216, 215, 0.2);
-  --shooote-petal-mauve: rgba(159, 154, 164, 0.16);
+  --shooote-hero-bg: var(--shooote-cream);
+  --shooote-hero-ink: var(--shooote-ink);
+  --shooote-hero-ink-soft: var(--shooote-accent);
+  --shooote-hero-accent: var(--shooote-accent);
+  --shooote-petal-rose: transparent;
+  --shooote-petal-blush: transparent;
+  --shooote-petal-champagne: transparent;
+  --shooote-petal-mauve: transparent;
 
   position: relative;
   isolation: isolate;
@@ -186,11 +186,7 @@ body.shooote-template #root {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 120% 90% at 50% 38%,
-    transparent 42%,
-    rgba(46, 42, 44, 0.08) 100%
-  );
+  background: none;
 }
 
 .shooote-hero-split::after {
@@ -205,18 +201,14 @@ body.shooote-template #root {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--shooote-hero-accent) 35%, transparent),
+    color-mix(in srgb, var(--shooote-ink) 12%, transparent),
     transparent
   );
   pointer-events: none;
 }
 
 .shooote-hero-petals {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
+  display: none;
 }
 
 .shooote-hero-petal {
@@ -277,20 +269,14 @@ body.shooote-template #root {
 }
 
 .shooote-hero-grain {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.42;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  display: none;
 }
 
 .shooote-hero-split .gw-section__label--center {
   position: relative;
   z-index: 2;
   margin-bottom: 1.35rem;
-  color: var(--shooote-on-dark-label);
+  color: var(--shooote-on-light-label);
   letter-spacing: 0.2em;
 }
 
@@ -331,11 +317,10 @@ body.shooote-template #root {
   letter-spacing: 0.095em;
   font-weight: 400;
   text-transform: uppercase;
-  color: var(--shooote-hero-ink);
   white-space: nowrap;
   position: relative;
   z-index: 1;
-  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.12);
+  text-shadow: none;
 }
 
 .shooote-hero-line .poort-char {
@@ -347,10 +332,12 @@ body.shooote-template #root {
 
 .shooote-hero-line--top {
   margin-bottom: var(--hero-name-gap);
+  color: var(--shooote-accent);
 }
 
 .shooote-hero-line--bottom {
   margin-top: var(--hero-name-gap);
+  color: var(--shooote-ink);
 }
 
 .shooote-hero-portrait {
@@ -362,13 +349,11 @@ body.shooote-template #root {
   margin: calc(-1 * var(--hero-portrait-overlap)) 0;
   border-radius: 999px;
   overflow: hidden;
-  background: linear-gradient(165deg, #d4ccc4 0%, #c5bbb2 100%);
+  background: #e8e4df;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--shooote-hero-accent) 34%, transparent),
-    0 0 0 5px var(--shooote-hero-bg),
-    0 0 0 6px color-mix(in srgb, var(--shooote-hero-accent) 18%, transparent),
-    0 22px 52px rgba(0, 0, 0, 0.2),
-    0 4px 16px rgba(0, 0, 0, 0.1);
+    0 0 0 1px color-mix(in srgb, var(--shooote-ink) 8%, transparent),
+    0 0 0 5px var(--shooote-cream),
+    0 18px 42px rgba(26, 26, 26, 0.12);
   pointer-events: none;
   opacity: 0;
 }
@@ -408,7 +393,7 @@ body.shooote-template #root {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--shooote-hero-ink-soft);
+  color: var(--shooote-accent);
 }
 
 .shooote-hero-role::before {
@@ -420,7 +405,7 @@ body.shooote-template #root {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--shooote-hero-accent) 70%, var(--shooote-periwinkle)),
+    color-mix(in srgb, var(--shooote-accent) 70%, transparent),
     transparent
   );
 }
@@ -444,14 +429,14 @@ body.shooote-template #root {
   height: 2.75rem;
   margin: 2.5rem auto 0;
   padding: 0;
-  color: #ffffff;
+  color: var(--shooote-ink);
   text-decoration: none;
-  border: 1px solid transparent;
+  border: 1px solid color-mix(in srgb, var(--shooote-ink) 14%, transparent);
   border-radius: 999px;
   background: transparent;
   box-shadow: none;
   opacity: 1;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .shooote-hero-scroll__icon {
@@ -464,9 +449,9 @@ body.shooote-template #root {
 .shooote-hero-scroll:hover {
   opacity: 1;
   transform: translateY(3px);
-  color: #ffffff;
+  color: var(--shooote-accent);
   background: transparent;
-  border-color: transparent;
+  border-color: color-mix(in srgb, var(--shooote-accent) 40%, transparent);
   box-shadow: none;
 }
 
@@ -605,88 +590,64 @@ body.shooote-template {
   --gw-section-border: var(--shooote-section-border);
 }
 
-/* Screen 2 — Expertise (Alabaster Grey) */
+/* Screen 2 — Expertise (brand orange) */
 .gw-section--shooote.wpo-expertise-section {
   --shooote-section-bg: var(--shooote-expertise-bg);
-  --shooote-section-ink: var(--shooote-on-light-ink);
-  --shooote-section-ink-muted: var(--shooote-on-light-muted);
-  --shooote-section-label: var(--shooote-on-light-label);
-  --shooote-section-border: var(--shooote-on-light-border);
-  --shooote-section-divider: rgba(46, 42, 44, 0.1);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.42),
-    0 16px 36px rgba(46, 42, 44, 0.06);
+  --shooote-section-ink: var(--shooote-on-dark-ink);
+  --shooote-section-ink-muted: var(--shooote-on-dark-muted);
+  --shooote-section-label: var(--shooote-on-dark-label);
+  --shooote-section-border: var(--shooote-on-dark-border);
+  --shooote-section-divider: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
 }
 
 .gw-section--shooote.wpo-expertise-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 70% 55% at 8% 18%, rgba(255, 255, 255, 0.35), transparent 58%),
-    radial-gradient(ellipse 60% 50% at 92% 82%, rgba(207, 216, 215, 0.35), transparent 52%);
+  display: none;
 }
 
-/* Screen 3 — Narrative (Periwinkle Light) */
+/* Screen 3 — Narrative (cream) */
 .gw-section--shooote.wpo-about-section {
   --shooote-section-bg: var(--shooote-narrative-bg);
   --shooote-section-ink: var(--shooote-on-light-ink);
   --shooote-section-ink-muted: var(--shooote-on-light-muted);
   --shooote-section-label: var(--shooote-on-light-label);
   --shooote-section-border: var(--shooote-on-light-border);
-  --shooote-section-divider: rgba(46, 42, 44, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  --shooote-section-divider: rgba(26, 26, 26, 0.08);
+  box-shadow: none;
 }
 
 .gw-section--shooote.wpo-about-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(255, 255, 255, 0.32), transparent 52%),
-    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(207, 216, 215, 0.28), transparent 48%);
+  display: none;
 }
 
-/* Narrative + photo — white text, darker tint (same photo layout as capabilities) */
+/* Narrative + photo — unused when no background image */
 .gw-section--shooote.wpo-about-section.gw-section--photo-bg {
-  --shooote-section-bg: color-mix(in srgb, var(--shooote-periwinkle) 72%, var(--shooote-lilac-ash));
-  --shooote-section-ink: var(--shooote-on-dark-ink);
-  --shooote-section-ink-muted: var(--shooote-on-dark-muted);
-  --shooote-section-label: var(--shooote-on-dark-label);
-  --shooote-section-border: var(--shooote-on-dark-border);
-  --shooote-section-divider: rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-}
-
-.gw-section--shooote.wpo-about-section.gw-section--photo-bg::after {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(159, 154, 164, 0.32) 0%,
-      rgba(163, 165, 195, 0.24) 48%,
-      rgba(46, 42, 44, 0.18) 100%
-    ),
-    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(163, 165, 195, 0.48), transparent 52%),
-    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(159, 154, 164, 0.56), transparent 48%);
-}
-
-.gw-section--shooote.wpo-about-section.gw-section--photo-bg::before {
-  opacity: 0.09;
-}
-
-/* Screen 4 — Capabilities (Lilac Mist) */
-.gw-section--shooote.wpo-portfolio-section {
-  --shooote-section-bg: var(--shooote-capabilities-bg);
+  --shooote-section-bg: var(--shooote-narrative-bg);
   --shooote-section-ink: var(--shooote-on-light-ink);
   --shooote-section-ink-muted: var(--shooote-on-light-muted);
   --shooote-section-label: var(--shooote-on-light-label);
   --shooote-section-border: var(--shooote-on-light-border);
-  --shooote-section-divider: rgba(46, 42, 44, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  --shooote-section-divider: rgba(26, 26, 26, 0.08);
+  box-shadow: none;
+}
+
+.gw-section--shooote.wpo-about-section.gw-section--photo-bg::after {
+  display: none;
+}
+
+.gw-section--shooote.wpo-about-section.gw-section--photo-bg::before {
+  display: none;
+}
+
+/* Screen 4 — Capabilities (photo + orange overlay) */
+.gw-section--shooote.wpo-portfolio-section {
+  --shooote-section-bg: var(--shooote-capabilities-bg);
+  --shooote-section-ink: var(--shooote-on-dark-ink);
+  --shooote-section-ink-muted: var(--shooote-on-dark-muted);
+  --shooote-section-label: var(--shooote-on-dark-label);
+  --shooote-section-border: var(--shooote-on-dark-border);
+  --shooote-section-divider: rgba(255, 255, 255, 0.28);
+  box-shadow: none;
 }
 
 .gw-section--shooote.wpo-portfolio-section::after {
@@ -695,9 +656,20 @@ body.shooote-template {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  background: color-mix(in srgb, var(--shooote-accent) 82%, transparent);
+}
+
+.gw-section--shooote.wpo-portfolio-section.gw-section--photo-bg::before {
+  opacity: 0.42;
+}
+
+.gw-section--shooote.wpo-portfolio-section.gw-section--photo-bg::after {
   background:
-    radial-gradient(ellipse 60% 48% at 90% 15%, rgba(255, 255, 255, 0.32), transparent 52%),
-    radial-gradient(ellipse 50% 42% at 10% 85%, rgba(207, 216, 215, 0.28), transparent 48%);
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--shooote-accent) 78%, transparent) 0%,
+      color-mix(in srgb, var(--shooote-accent-deep) 88%, transparent) 100%
+    );
 }
 
 /* Shared background photo — narrative + capabilities */
@@ -776,7 +748,7 @@ body.shooote-template {
 
 .wpo-expertise-section .shooote-luxury-heading__row + .shooote-luxury-heading__row {
   margin-top: 0.14em;
-  color: var(--shooote-section-ink-muted, var(--shooote-on-dark-muted));
+  color: color-mix(in srgb, var(--shooote-on-dark-ink) 88%, transparent);
 }
 
 .wpo-expertise-section .shooote-luxury-heading__row .poort-char {
@@ -921,7 +893,7 @@ body.shooote-template {
 /* Custom Shooote Share Button */
 button.shooote-share-btn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid color-mix(in srgb, var(--shooote-ink) 18%, transparent);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -930,16 +902,16 @@ button.shooote-share-btn {
   justify-content: center;
   cursor: pointer;
   position: relative;
-  color: #ffffff;
+  color: var(--shooote-ink);
   transition: all 0.3s ease;
   padding: 0;
   outline: none;
 }
 
 button.shooote-share-btn:hover {
-  background-color: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.55);
+  background-color: color-mix(in srgb, var(--shooote-accent) 12%, transparent);
+  color: var(--shooote-accent);
+  border-color: color-mix(in srgb, var(--shooote-accent) 45%, transparent);
 }
 
 button.shooote-share-btn .tooltip-text {
@@ -974,7 +946,9 @@ button.shooote-share-btn:hover .tooltip-text {
 .gw-section--shooote.wpo-portfolio-section .wpo-section-title h2 {
   font-size: clamp(1.65rem, calc((100vw - 4.5rem) / 12.5), 6.5rem);
   line-height: 1.08;
-  letter-spacing: -0.06em !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+  font-weight: 700 !important;
 }
 
 /* Narrative title only — heavier weight, tighter tracking */
@@ -1103,11 +1077,11 @@ body.shooote-template #header.shooote-header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: color-mix(in srgb, var(--shooote-lilac-ash) 92%, transparent) !important;
+  background: color-mix(in srgb, var(--shooote-cream) 94%, transparent) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 0 4px 24px rgba(26, 26, 26, 0.04);
 }
 
 /* site.css hides `.navbar` globally for the agency layout — restore Shooote header */
@@ -1270,7 +1244,7 @@ body.shooote-template .shooote-nav__link {
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: var(--shooote-ink);
   text-decoration: none;
   white-space: nowrap;
   border-radius: 999px;
@@ -1279,8 +1253,8 @@ body.shooote-template .shooote-nav__link {
 
 body.shooote-template .shooote-nav__link:hover,
 body.shooote-template .shooote-nav__link:focus-visible {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--shooote-accent);
+  background: color-mix(in srgb, var(--shooote-accent) 10%, transparent);
 }
 
 body.shooote-template .shooote-nav__link.hire-me {
@@ -1289,6 +1263,7 @@ body.shooote-template .shooote-nav__link.hire-me {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.18em;
+  color: var(--shooote-accent);
   background: transparent;
   white-space: nowrap;
 }
@@ -1590,6 +1565,35 @@ body.shooote-template .shooote-mailto-btn .link-text span {
   padding: 0 !important;
   text-transform: uppercase !important;
   display: inline-block !important;
+}
+
+/* Expertise CTA — white pill on orange section */
+body.shooote-template .wpo-expertise-section .shooote-mailto-btn {
+  background-color: #ffffff !important;
+  color: var(--shooote-accent) !important;
+  box-shadow: 0 8px 24px rgba(26, 26, 26, 0.12) !important;
+}
+
+body.shooote-template .wpo-expertise-section .shooote-mailto-btn:hover {
+  background-color: var(--shooote-ink) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 28px rgba(26, 26, 26, 0.18) !important;
+}
+
+body.shooote-template .wpo-expertise-section .shooote-mailto-btn .link-text span {
+  color: var(--shooote-accent) !important;
+}
+
+body.shooote-template .wpo-expertise-section .shooote-mailto-btn:hover .link-text span {
+  color: #ffffff !important;
+}
+
+body.shooote-template .wpo-expertise-section .shooote-mailto-btn .icon img {
+  filter: brightness(0) saturate(100%) invert(42%) sepia(89%) saturate(1752%) hue-rotate(345deg) brightness(98%) contrast(96%) !important;
+}
+
+body.shooote-template .wpo-expertise-section .shooote-mailto-btn:hover .icon img {
+  filter: brightness(0) invert(1) !important;
 }
 
 /* Shooote footer — deepest contrast anchor */

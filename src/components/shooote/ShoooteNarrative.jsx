@@ -13,7 +13,6 @@ export default function ShoooteNarrative() {
       className="wpo-about-section"
       sectionLabel={narrative.sectionLabel}
       title={narrative.tag}
-      backgroundImage={narrative.backgroundImage}
     >
       <div className="about-wrap">
         <div className="gw-section__prose">

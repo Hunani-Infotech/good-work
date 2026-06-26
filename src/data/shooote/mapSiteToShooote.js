@@ -45,6 +45,11 @@ export function mapSiteToShooote(site = defaultSite) {
     navLinks,
     logoImage: hero.profilePhoto,
     logoText: firstName,
+    theme: {
+      accent: site.site?.theme?.orange ?? '#f25828',
+      cream: '#FFFCE9',
+      ink: '#1a1a1a',
+    },
     siteMeta: {
       title: meta.homeTitle || `${firstName} | GoodWork`,
       tagline: hero.subtitle || '',

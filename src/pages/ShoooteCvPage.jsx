@@ -15,12 +15,17 @@ import '../styles/video-cv-widget.css';
 
 export default function ShoooteCvPage() {
   const location = useLocation();
-  const { siteMeta } = useShoooteContent();
+  const { siteMeta, theme } = useShoooteContent();
   useShoooteAnimations();
 
   useLayoutEffect(() => {
     document.documentElement.classList.add('shooote-template');
     document.body.classList.add('shooote-template');
+
+    const root = document.documentElement;
+    if (theme?.accent) root.style.setProperty('--shooote-accent', theme.accent);
+    if (theme?.cream) root.style.setProperty('--shooote-cream', theme.cream);
+    if (theme?.ink) root.style.setProperty('--shooote-ink', theme.ink);
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -30,9 +35,12 @@ export default function ShoooteCvPage() {
     return () => {
       document.documentElement.classList.remove('shooote-template');
       document.body.classList.remove('shooote-template');
+      root.style.removeProperty('--shooote-accent');
+      root.style.removeProperty('--shooote-cream');
+      root.style.removeProperty('--shooote-ink');
       if (link.parentNode) link.parentNode.removeChild(link);
     };
-  }, []);
+  }, [theme?.accent, theme?.cream, theme?.ink]);
 
   useEffect(() => {
     document.title = siteMeta.title;
@@ -57,7 +65,7 @@ export default function ShoooteCvPage() {
         <ShoooteCapabilities />
         <ShoooteFooter />
       </ShoooteLayout>
-      <VideoCvWidget accentColor="#f25828" position="bottom-right" />
+      <VideoCvWidget accentColor={theme?.accent ?? '#f25828'} position="bottom-right" />
     </>
   );
 }
