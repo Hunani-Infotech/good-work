@@ -68,7 +68,72 @@ function initGerozSmoothAnchors() {
   anchorCleanup = () => links.forEach((link) => link.removeEventListener('click', onClick));
 }
 
-/* ── Hero: editorial char rise + portrait curtain + ambient drift ── */
+function getHeroNameRevealEnd(firstNameEl, lastNameEl) {
+  const charDelay = 0.05;
+  const charDuration = 0.5;
+  const firstText = firstNameEl?.getAttribute('aria-label') || '';
+  const lastText = lastNameEl?.getAttribute('aria-label') || '';
+  const lastStart = firstText.length * charDelay + 0.15;
+  const lastEnd = lastStart + Math.max(lastText.length - 1, 0) * charDelay + charDuration;
+  return lastEnd + 0.12;
+}
+
+function playHeroNameSideSlide(nameEl, startDelay = 0) {
+  const chars = nameEl?.querySelectorAll('.gz-hero__char');
+  if (!chars?.length) return startDelay;
+
+  const charDelay = 0.05;
+  const stepDuration = 0.5;
+
+  gsap.set(chars, {
+    opacity: 0,
+    x: -300,
+    scale: 0,
+    color: '#1c1917',
+    force3D: true,
+    transformOrigin: '50% 50%',
+  });
+
+  chars.forEach((char, index) => {
+    gsap.timeline({ delay: startDelay + index * charDelay })
+      .to(char, {
+        x: 20,
+        scale: 1,
+        opacity: 1,
+        duration: stepDuration * 0.6,
+        ease: 'power2.out',
+      })
+      .to(char, {
+        x: 20,
+        duration: stepDuration * 0.2,
+        ease: 'none',
+      })
+      .to(char, {
+        x: 0,
+        scale: 1.2,
+        color: '#b68c5a',
+        duration: stepDuration * 0.19,
+        ease: 'power2.inOut',
+      })
+      .to(char, {
+        scale: 1,
+        color: '#1c1917',
+        duration: stepDuration * 0.21,
+        ease: 'power2.out',
+      });
+  });
+
+  const text = nameEl.getAttribute('aria-label') || '';
+  return startDelay + Math.max(text.length - 1, 0) * charDelay + stepDuration;
+}
+
+function resetHeroNameChars(nameEl) {
+  const chars = nameEl?.querySelectorAll('.gz-hero__char');
+  if (!chars?.length) return;
+  gsap.set(chars, { opacity: 1, x: 0, scale: 1, color: '#1c1917', clearProps: 'transform' });
+}
+
+/* ── Hero: side-slide name chars + portrait curtain + ambient drift ── */
 function initGerozHero(prefersReduced) {
   const hero = document.querySelector('.gz-hero');
   if (!hero) return;
@@ -94,6 +159,8 @@ function initGerozHero(prefersReduced) {
 
   if (prefersReduced) {
     setReducedState(targets);
+    resetHeroNameChars(firstName);
+    resetHeroNameChars(lastName);
     if (portraitFrame) gsap.set(portraitFrame, { clipPath: 'inset(0% 0 0 0)' });
     return;
   }
@@ -103,12 +170,15 @@ function initGerozHero(prefersReduced) {
     scrubParallax(bg, hero, { y: 36, start: 'top top', end: 'bottom top', scrub: 1 });
   }
 
-  const firstChars = splitCharsIntoMasks(firstName);
-  const lastInner = lastName ? wrapLineMask(lastName) : null;
-  const subtitleInner = subtitle ? wrapLineMask(subtitle) : null;
+  playHeroNameSideSlide(firstName, 0.1);
+  if (lastName) {
+    const lastStart = (firstName?.getAttribute('aria-label')?.length || 0) * 0.05 + 0.15;
+    playHeroNameSideSlide(lastName, lastStart);
+  }
 
-  gsap.set(firstChars, { y: '115%', rotationX: -28, opacity: 0, transformOrigin: '50% 100%', force3D: true });
-  if (lastInner) gsap.set(lastInner, { x: '-108%', opacity: 1 });
+  const subtitleInner = subtitle ? wrapLineMask(subtitle) : null;
+  const accentStart = getHeroNameRevealEnd(firstName, lastName);
+
   if (accentLine) gsap.set(accentLine, { scaleX: 0, transformOrigin: 'left center' });
   if (accentDot) gsap.set(accentDot, { scale: 0, opacity: 0 });
   if (subtitleRule) gsap.set(subtitleRule, { scaleX: 0, transformOrigin: 'left center' });
@@ -120,23 +190,11 @@ function initGerozHero(prefersReduced) {
 
   const tl = gsap.timeline({ defaults: { ease: GEROZ_EASE }, delay: 0.1 });
 
-  tl.to(firstChars, {
-    y: 0,
-    rotationX: 0,
-    opacity: 1,
-    duration: 1.15,
-    stagger: 0.022,
-    ease: GEROZ_EASE_IO,
-  }, 0);
-
-  if (lastInner) {
-    tl.to(lastInner, { x: 0, duration: 1.2, ease: GEROZ_EASE_LUX }, 0.18);
-  }
-  if (accentLine) tl.to(accentLine, { scaleX: 1, duration: 1, ease: GEROZ_EASE_IO }, 0.32);
-  if (accentDot) tl.to(accentDot, { scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' }, 0.48);
-  if (subtitleRule) tl.to(subtitleRule, { scaleX: 1, duration: 0.8, ease: GEROZ_EASE_IO }, 0.52);
+  if (accentLine) tl.to(accentLine, { scaleX: 1, duration: 1, ease: GEROZ_EASE_IO }, accentStart);
+  if (accentDot) tl.to(accentDot, { scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' }, accentStart + 0.16);
+  if (subtitleRule) tl.to(subtitleRule, { scaleX: 1, duration: 0.8, ease: GEROZ_EASE_IO }, accentStart + 0.2);
   if (subtitleInner) {
-    tl.to(subtitleInner, { y: 0, letterSpacing: '0.2em', duration: 1.1, ease: GEROZ_EASE }, 0.58);
+    tl.to(subtitleInner, { y: 0, letterSpacing: '0.2em', duration: 1.1, ease: GEROZ_EASE }, accentStart + 0.26);
   }
   if (portraitWrap) tl.to(portraitWrap, { opacity: 1, x: 0, rotation: 0, duration: 1.25, ease: GEROZ_EASE_IO }, 0.2);
   if (portraitFrame) tl.to(portraitFrame, { clipPath: 'inset(0% 0 0 0)', duration: 1.45, ease: GEROZ_EASE_IO }, 0.28);

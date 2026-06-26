@@ -1,10 +1,13 @@
 import { useGerozContent } from '../../../hooks/geroz/useGerozContent.js';
+import HeroAnimatedName from './HeroAnimatedName.jsx';
 
 const HERO_AMBIENT_BG =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")";
 
 export default function HeroSection4() {
   const { hero } = useGerozContent();
+  const firstNameChars = hero.firstName?.length || 1;
+  const lastNameChars = hero.lastName?.length || firstNameChars;
 
   return (
     <section
@@ -20,10 +23,18 @@ export default function HeroSection4() {
       <div className="relative z-[1] mx-auto flex w-full max-w-[1920px] min-h-[calc(100svh-var(--geroz-header-height))] flex-col px-4 sm:px-6 lg:px-12 max-lg:min-h-0">
         <div className="relative z-[1] flex flex-1 flex-col justify-center px-[clamp(1.25rem,5vw,4.5rem)] max-lg:min-h-0 max-lg:justify-start max-lg:pt-[clamp(2rem,6vw,4rem)] min-h-[calc(100svh-var(--geroz-header-height)-clamp(2rem,4vw,3.5rem))] max-lg:min-h-0">
           <div className="mx-auto grid w-full max-w-[88rem] grid-cols-[minmax(0,1fr)_minmax(14rem,28rem)] items-center gap-x-[clamp(2rem,6vw,5.5rem)] max-xl:grid-cols-[minmax(0,1fr)_minmax(12rem,22rem)] max-xl:gap-x-[clamp(1.5rem,4vw,3rem)] max-lg:flex max-lg:max-w-full max-lg:flex-col max-lg:items-center max-lg:text-center">
-            <div className="gz-hero__copy col-start-1 row-start-1 py-[clamp(1rem,3vw,2.5rem)] max-lg:w-full max-lg:py-0">
-              <h1 className="gz-hero__firstname m-0 font-serif text-[clamp(4.5rem,16vw,13.125rem)] leading-[0.92] tracking-[-0.055em] text-stone-900 max-lg:text-center">
-                {hero.firstName}
-              </h1>
+            <div
+              className="gz-hero__copy col-start-1 row-start-1 py-[clamp(1rem,3vw,2.5rem)] max-lg:w-full max-lg:py-0"
+              style={{
+                '--gz-name-chars-first': firstNameChars,
+                '--gz-name-chars-last': lastNameChars,
+              }}
+            >
+              <HeroAnimatedName
+                as="h1"
+                text={hero.firstName}
+                className="gz-hero__firstname m-0 font-serif leading-[0.92] tracking-[-0.055em] text-stone-900 max-lg:text-center"
+              />
 
               <div
                 className="mt-[clamp(1.25rem,3.5vw,2.5rem)] mb-[clamp(0.35rem,1vw,0.65rem)] flex items-center gap-3.5 pl-[clamp(2rem,7vw,5.5rem)] max-lg:my-[clamp(0.75rem,2vw,1.25rem)] max-lg:justify-center max-lg:pl-0"
@@ -35,9 +46,10 @@ export default function HeroSection4() {
 
               <div className="flex flex-col items-start gap-0 max-lg:items-center">
                 {hero.lastName ? (
-                  <span className="gz-hero__lastname font-serif text-[clamp(4.5rem,16vw,13.125rem)] leading-[0.92] tracking-[-0.055em] text-stone-900 pl-[clamp(1.25rem,4.5vw,3.5rem)] max-lg:pl-0 max-lg:text-center">
-                    {hero.lastName}
-                  </span>
+                  <HeroAnimatedName
+                    text={hero.lastName}
+                    className="gz-hero__lastname font-serif leading-[0.92] tracking-[-0.055em] text-stone-900 pl-[clamp(1.25rem,4.5vw,3.5rem)] max-lg:pl-0 max-lg:text-center"
+                  />
                 ) : null}
                 {hero.subtitle ? (
                   <div className="mt-[clamp(1.25rem,3vw,2rem)] flex items-center gap-[clamp(0.75rem,2vw,1.25rem)] pl-[clamp(2.5rem,8vw,6.5rem)] max-lg:mt-[clamp(1rem,2.5vw,1.5rem)] max-lg:justify-center max-lg:pl-0">

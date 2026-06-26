@@ -22,6 +22,7 @@
   --animate-geroz-hero-reveal: geroz-hero-reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
   --animate-geroz-hero-reveal-delayed: geroz-hero-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
   --animate-geroz-btn-sheen: geroz-btn-sheen 3s ease-in-out infinite;
+  --animate-gz-hero-side-slide: gz-hero-side-slide 0.5s forwards;
 }
 
 @keyframes cir36 {
@@ -61,6 +62,35 @@
 
   100% {
     transform: translateX(340%) skewX(-22deg);
+  }
+}
+
+@keyframes gz-hero-side-slide {
+  0% {
+    opacity: 0;
+    transform: translate3d(-300px, 0, 0) scale(0);
+    color: #1c1917;
+  }
+
+  60% {
+    transform: translate3d(20px, 0, 0) scale(1);
+    color: #1c1917;
+  }
+
+  80% {
+    transform: translate3d(20px, 0, 0) scale(1);
+    color: #1c1917;
+  }
+
+  99% {
+    transform: translate3d(0, 0, 0) scale(1.2);
+    color: var(--color-lawyer);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    color: #1c1917;
   }
 }
 
@@ -248,11 +278,41 @@ body.geroz-template .cursor-ring.is-hovering {
 }
 
 .gz-hero__copy {
+  container-type: inline-size;
   perspective: 900px;
+  --gz-name-inset: clamp(1.25rem, 4.5vw, 3.5rem);
+  --gz-hero-name-size-first: clamp(
+    2.25rem,
+    calc((100cqw - 0.5rem) / var(--gz-name-chars-first, 8) * 1.72),
+    13.125rem
+  );
+  --gz-hero-name-size-last: clamp(
+    2.25rem,
+    calc((100cqw - var(--gz-name-inset) - 0.5rem) / var(--gz-name-chars-last, 8) * 1.72),
+    13.125rem
+  );
+  --gz-hero-name-size: min(var(--gz-hero-name-size-first), var(--gz-hero-name-size-last));
 }
 
-.gz-hero__firstname {
-  perspective: 900px;
+@media (max-width: 1023px) {
+  .gz-hero__copy {
+    --gz-name-inset: 0px;
+  }
+}
+
+.gz-hero__name-line {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  font-size: var(--gz-hero-name-size);
+}
+
+.gz-hero__char {
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 0;
+  color: #1c1917;
+  will-change: transform, opacity, color;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -260,11 +320,16 @@ body.geroz-template .cursor-ring.is-hovering {
     animation: none;
     opacity: 0;
   }
+
+  .gz-hero__char {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    color: #1c1917;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html.geroz-template:not(.w-mod-ix3) .gz-hero__firstname,
-  html.geroz-template:not(.w-mod-ix3) .gz-hero__lastname,
   html.geroz-template:not(.w-mod-ix3) .gz-hero__portrait {
     visibility: hidden;
   }
