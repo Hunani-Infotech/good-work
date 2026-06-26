@@ -568,6 +568,43 @@ body.shooote-nav-open .vcv-widget--mobile {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+/* Desktop: align scroll-to-top with Video CV right edge — up when card open, down when closed */
+@media (min-width: 769px) {
+  body:has(.vcv-widget):not(.vcv-modal-open) .gz-back-to-top {
+    right: max(24px, env(safe-area-inset-right, 0px));
+    bottom: calc(24px + 160px * 16 / 9 + 12px);
+    top: auto;
+    z-index: 10070;
+  }
+
+  body:not(:has(.vcv-widget)) .gz-back-to-top {
+    right: max(24px, env(safe-area-inset-right, 0px));
+    bottom: 110px;
+    top: auto;
+    z-index: 999;
+  }
+
+  body.vcv-modal-open .gz-back-to-top {
+    right: max(20px, env(safe-area-inset-right, 0px));
+    top: max(20px, env(safe-area-inset-top, 0px));
+    bottom: auto;
+    z-index: 10085;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 480px) {
+  body:has(.vcv-widget):not(.vcv-modal-open) .gz-back-to-top {
+    right: max(14px, env(safe-area-inset-right, 0px));
+    bottom: calc(16px + 136px * 16 / 9 + 12px);
+  }
+
+  body:not(:has(.vcv-widget)) .gz-back-to-top {
+    right: max(14px, env(safe-area-inset-right, 0px));
+  }
+}
+
 @media (max-width: 480px) {
   .vcv-widget:not(.vcv-widget--mobile) {
     bottom: 16px;
