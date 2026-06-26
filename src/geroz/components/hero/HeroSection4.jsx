@@ -12,7 +12,7 @@ export default function HeroSection4() {
   return (
     <section
       id="top"
-      className="gz-hero relative box-border flex min-h-svh flex-col overflow-hidden bg-[radial-gradient(ellipse_75%_55%_at_88%_18%,color-mix(in_srgb,var(--color-lawyer)_10%,transparent),transparent_68%),radial-gradient(ellipse_45%_35%_at_8%_92%,color-mix(in_srgb,var(--color-lawyer)_6%,#fafaf9),transparent_72%),#fafaf9] pt-[var(--geroz-header-height)] pb-[clamp(2rem,4vw,3.5rem)] max-lg:min-h-0 max-lg:pb-[clamp(2rem,5vw,3.5rem)]"
+      className="gz-hero relative box-border flex min-h-svh flex-col overflow-hidden pt-[var(--geroz-header-height)] pb-[clamp(2rem,4vw,3.5rem)] max-lg:min-h-0 max-lg:pb-[clamp(2rem,5vw,3.5rem)]"
     >
       <div
         className="gz-hero__bg pointer-events-none absolute inset-0 opacity-35"

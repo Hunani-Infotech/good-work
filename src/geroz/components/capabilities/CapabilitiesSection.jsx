@@ -1,6 +1,6 @@
 import { useGerozContent } from '../../../hooks/geroz/useGerozContent.js';
 import GerozEyebrow from '../../../components/geroz/GerozEyebrow.jsx';
-import GerozLuxuryBackdrop from '../../../components/geroz/GerozLuxuryBackdrop.jsx';
+import GerozLuxuryBackdrop, { GEROZ_AMBIENT_BG } from '../../../components/geroz/GerozLuxuryBackdrop.jsx';
 
 function SectionTitleAccent({ children }) {
   return (
@@ -57,18 +57,27 @@ export default function CapabilitiesSection() {
           {capabilities.items.map((item, index) => (
             <article
               key={item.id}
-              className="gz-capabilities__item relative grid grid-cols-[clamp(3.5rem,8vw,5rem)_minmax(0,1fr)] items-start gap-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(1.5rem,3vw,2.25rem)]"
+              className="gz-capabilities__item relative py-[clamp(1.5rem,3vw,2.25rem)] px-3"
             >
-              <span className="gz-capabilities__number font-serif text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-[-0.04em] text-lawyer">
-                {item.number}
-              </span>
-              <p className="gz-capabilities__text m-0 min-w-0 pt-[0.35rem] font-sans text-[clamp(1.0625rem,1.55vw,1.25rem)] leading-[1.85] text-stone-800">
-                {item.title}
-                {item.titleBreak ? ` ${item.titleBreak}` : ''}
-              </p>
+              <div
+                className="gz-capabilities__hover-bg pointer-events-none absolute inset-0"
+                aria-hidden="true"
+                style={{ backgroundImage: GEROZ_AMBIENT_BG }}
+              />
+
+              <div className="gz-capabilities__item-inner relative grid grid-cols-[clamp(3.5rem,8vw,5rem)_minmax(0,1fr)] items-start gap-[clamp(1.25rem,3vw,2.5rem)]">
+                <span className="gz-capabilities__number font-serif text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-[-0.04em] text-lawyer">
+                  {item.number}
+                </span>
+                <p className="gz-capabilities__text m-0 min-w-0 pt-[0.35rem] font-sans text-[clamp(1.0625rem,1.55vw,1.25rem)] leading-[1.85] text-stone-800">
+                  {item.title}
+                  {item.titleBreak ? ` ${item.titleBreak}` : ''}
+                </p>
+              </div>
+
               {index < capabilities.items.length - 1 ? (
                 <span
-                  className="gz-capabilities__divider absolute right-0 bottom-0 left-[clamp(3.5rem,8vw,5rem)] h-px origin-left bg-[color-mix(in_srgb,var(--color-lawyer)_18%,#e7e5e4)]"
+                  className="gz-capabilities__divider absolute right-0 bottom-0 left-[clamp(3.5rem,8vw,5rem)] z-[3] h-px origin-left bg-[color-mix(in_srgb,var(--color-lawyer)_18%,#e7e5e4)]"
                   aria-hidden="true"
                 />
               ) : null}

@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ShareButton from '../ui/ShareButton.jsx';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
+import { scrollGerozToHash } from '../../animations/gerozAnimations.js';
 
 function ShareIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M12 16V4m0 0 4 4m-4-4-4 4M5 20h14"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -19,11 +20,11 @@ function ShareIcon() {
 
 function CheckIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M5 12.5 9.5 17 19 7"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -31,19 +32,13 @@ function CheckIcon() {
   );
 }
 
-function scrollToHash(href) {
-  if (!href.startsWith('#')) return;
-  const target = document.querySelector(href);
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+function CloseIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
 }
-
-const navLinkClass =
-  'font-sans text-[0.9375rem] font-medium text-stone-900 no-underline transition-colors hover:text-lawyer focus-visible:text-lawyer';
-
-const navCtaClass =
-  'rounded-full bg-lawyer px-[1.1rem] py-2 font-sans text-[0.8125rem] font-semibold uppercase tracking-[0.03em] text-white no-underline transition-colors hover:bg-[color-mix(in_srgb,var(--color-lawyer)_88%,#000)] focus-visible:bg-[color-mix(in_srgb,var(--color-lawyer)_88%,#000)]';
 
 function NavLinks({ links, className, linkClassName, onNavigate }) {
   return (
@@ -52,11 +47,11 @@ function NavLinks({ links, className, linkClassName, onNavigate }) {
         <li key={link.label}>
           <a
             href={link.href}
-            className={`${linkClassName}${link.isCta ? ` ${navCtaClass}` : ''}`}
+            className={`${linkClassName}${link.isCta ? ' geroz-cv-header__cta' : ''}`}
             onClick={(e) => {
               if (link.isHash) {
                 e.preventDefault();
-                scrollToHash(link.href);
+                scrollGerozToHash(link.href);
               }
               onNavigate?.();
             }}
@@ -69,36 +64,45 @@ function NavLinks({ links, className, linkClassName, onNavigate }) {
   );
 }
 
-function MobileNav({ open, links, onClose }) {
+function MobileDrawer({ open, brand, links, onClose }) {
   if (typeof document === 'undefined') return null;
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[299] transition-[opacity,visibility] duration-250 ${
-        open
-          ? 'visible opacity-100 pointer-events-auto'
-          : 'invisible opacity-0 pointer-events-none'
-      }`}
+      className={`geroz-cv-header__drawer-root ${open ? 'is-open' : ''}`}
       aria-hidden={!open}
     >
       <button
         type="button"
-        className="absolute inset-0 m-0 cursor-pointer border-0 bg-[rgba(12,10,9,0.42)] p-0"
+        className="geroz-cv-header__drawer-backdrop"
         onClick={onClose}
         aria-label="Close menu"
         tabIndex={open ? 0 : -1}
       />
-      <nav
-        className="absolute top-[var(--geroz-header-height)] right-0 left-0 border-b border-stone-900/8 bg-white/[0.98] px-6 pt-5 pb-6 shadow-[0_16px_40px_rgba(12,10,9,0.08)]"
+      <aside
+        id="geroz-mobile-nav"
+        className="geroz-cv-header__drawer"
         aria-label="Main"
       >
+        <div className="geroz-cv-header__drawer-head">
+          <span className="geroz-cv-header__drawer-brand">{brand}</span>
+          <button
+            type="button"
+            className="geroz-cv-header__drawer-close"
+            onClick={onClose}
+            aria-label="Close menu"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
         <NavLinks
           links={links}
-          className="m-0 flex list-none flex-col items-stretch gap-1 p-0"
-          linkClassName="block px-1 py-3.5 font-sans text-base font-medium text-stone-900 no-underline transition-colors hover:text-lawyer focus-visible:text-lawyer [&.rounded-full]:mt-2 [&.rounded-full]:text-center"
+          className="geroz-cv-header__drawer-links"
+          linkClassName="geroz-cv-header__drawer-link"
           onNavigate={onClose}
         />
-      </nav>
+      </aside>
     </div>,
     document.body,
   );
@@ -106,8 +110,10 @@ function MobileNav({ open, links, onClose }) {
 
 export default function GerozCvHeader() {
   const { nav } = useGerozContent();
+  const headerRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onResize = () => {
@@ -119,6 +125,27 @@ export default function GerozCvHeader() {
     onResize();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return undefined;
+
+    const syncHeight = () => {
+      document.documentElement.style.setProperty('--geroz-header-height', `${el.offsetHeight}px`);
+    };
+
+    syncHeight();
+    const observer = new ResizeObserver(syncHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -138,48 +165,63 @@ export default function GerozCvHeader() {
   }, [menuOpen, isMobile]);
 
   const closeMenu = () => setMenuOpen(false);
+  const brand = nav.brand || 'Portfolio';
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[300] border-b border-stone-900/8 bg-white/88 shadow-[0_4px_24px_rgba(12,10,9,0.04)] backdrop-blur-[14px]">
-      <div className="pointer-events-auto mx-auto flex min-h-16 w-full max-w-[1320px] items-center gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
-        <button
-          type="button"
-          className={`inline-flex size-10 cursor-pointer flex-col items-center justify-center gap-1.5 border-0 bg-transparent p-0 lg:hidden ${
-            menuOpen ? '[&>span:first-child]:translate-y-1 [&>span:first-child]:rotate-45 [&>span:last-child]:-translate-y-1 [&>span:last-child]:-rotate-45' : ''
-          }`}
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-expanded={menuOpen}
-          aria-controls="geroz-mobile-nav"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+    <header
+      ref={headerRef}
+      className={`geroz-cv-header pointer-events-none fixed inset-x-0 top-0 z-[300] ${scrolled ? 'is-scrolled' : ''}`}
+    >
+      <div className="geroz-cv-header__inner pointer-events-auto">
+        <a
+          href="#top"
+          className="geroz-cv-header__brand"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollGerozToHash('#top');
+          }}
         >
-          <span className="block h-0.5 w-[1.35rem] bg-stone-900 transition-[transform,opacity] duration-250" />
-          <span className="block h-0.5 w-[1.35rem] bg-stone-900 transition-[transform,opacity] duration-250" />
-        </button>
+          <span className="geroz-cv-header__brand-mark" aria-hidden="true" />
+          <span className="geroz-cv-header__brand-text">{brand}</span>
+        </a>
 
-        <nav className="hidden flex-1 lg:block" aria-label="Main">
+        <nav className="geroz-cv-header__nav hidden lg:block" aria-label="Main">
           <NavLinks
             links={nav.links}
-            className="m-0 flex list-none items-center gap-[clamp(1.25rem,3vw,2.5rem)] p-0"
-            linkClassName={navLinkClass}
+            className="geroz-cv-header__nav-list"
+            linkClassName="geroz-cv-header__nav-link"
           />
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center gap-3">
-          <ShareButton className="group inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full border border-[color-mix(in_srgb,var(--color-lawyer)_70%,#d6d3d1)] bg-white px-4 py-2 font-sans text-[0.8125rem] font-semibold uppercase tracking-[0.04em] text-stone-900 transition-[background-color,border-color,color] duration-250 hover:border-lawyer hover:bg-lawyer hover:text-white max-sm:size-10 max-sm:min-w-10 max-sm:p-0">
+        <div className="geroz-cv-header__actions">
+          <ShareButton className="geroz-cv-header__share group">
             {({ copied }) => (
               <>
                 <span className="inline-flex leading-none" aria-hidden="true">
                   {copied ? <CheckIcon /> : <ShareIcon />}
                 </span>
-                <span className="max-sm:hidden">{copied ? 'Copied!' : 'Share'}</span>
+                <span className="max-sm:hidden">{copied ? 'Copied' : 'Share'}</span>
               </>
             )}
           </ShareButton>
+
+          <button
+            type="button"
+            className={`geroz-cv-header__menu-btn lg:hidden ${menuOpen ? 'is-open' : ''}`}
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="geroz-mobile-nav"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
       </div>
 
       {isMobile ? (
-        <MobileNav open={menuOpen} links={nav.links} onClose={closeMenu} />
+        <MobileDrawer open={menuOpen} brand={brand} links={nav.links} onClose={closeMenu} />
       ) : null}
     </header>
   );

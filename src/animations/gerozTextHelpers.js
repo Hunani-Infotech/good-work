@@ -356,6 +356,98 @@ export function refreshAfterImagesLoad(selectors, callback) {
   });
 }
 
+const CAPABILITY_SHUTTER_CLIP_CLOSED = 'inset(0 0 100% 0)';
+const CAPABILITY_SHUTTER_CLIP_OPEN = 'inset(0 0 0% 0)';
+
+/**
+ * Top-down shutter hover — copper fill wipes in from the top as one solid panel.
+ */
+export function initCapabilitiesShutterHover(items, {
+  prefersReduced = false,
+  duration = 0.62,
+  ease = GEROZ_EASE_LUX,
+  reverseEase = 'power2.inOut',
+} = {}) {
+  if (!items?.length) return () => {};
+
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!canHover || prefersReduced) return () => {};
+
+  const cleanups = [];
+
+  items.forEach((item) => {
+    const hoverBg = item.querySelector('.gz-capabilities__hover-bg');
+    const number = item.querySelector('.gz-capabilities__number');
+    const text = item.querySelector('.gz-capabilities__text');
+    const divider = item.querySelector('.gz-capabilities__divider');
+    if (!hoverBg) return;
+
+    gsap.set([number, text, divider].filter(Boolean), { clearProps: 'color,backgroundColor' });
+
+    gsap.set(hoverBg, {
+      clipPath: CAPABILITY_SHUTTER_CLIP_CLOSED,
+      visibility: 'hidden',
+      force3D: true,
+    });
+
+    let tl;
+
+    const onEnter = () => {
+      tl?.kill();
+      gsap.set(hoverBg, { visibility: 'visible' });
+
+      tl = gsap.timeline({
+        overwrite: 'auto',
+        onStart: () => item.classList.add('is-hovered'),
+      });
+      tl.to(
+        hoverBg,
+        { clipPath: CAPABILITY_SHUTTER_CLIP_OPEN, duration, ease },
+        0,
+      );
+    };
+
+    const onLeave = () => {
+      tl?.kill();
+      const reverseDuration = duration * 0.88;
+
+      tl = gsap.timeline({
+        overwrite: 'auto',
+        onComplete: () => {
+          gsap.set(hoverBg, { visibility: 'hidden' });
+          item.classList.remove('is-hovered');
+        },
+      });
+      tl.to(
+        hoverBg,
+        {
+          clipPath: CAPABILITY_SHUTTER_CLIP_CLOSED,
+          duration: reverseDuration,
+          ease: reverseEase,
+        },
+        0,
+      );
+      /* Fade text back once the copper panel is mostly closed — avoids muddy GSAP color lerp */
+      tl.call(() => item.classList.remove('is-hovered'), null, reverseDuration * 0.52);
+    };
+
+    item.addEventListener('mouseenter', onEnter);
+    item.addEventListener('mouseleave', onLeave);
+    cleanups.push(() => {
+      tl?.kill();
+      item.removeEventListener('mouseenter', onEnter);
+      item.removeEventListener('mouseleave', onLeave);
+      item.classList.remove('is-hovered');
+      gsap.set(hoverBg, {
+        clipPath: CAPABILITY_SHUTTER_CLIP_CLOSED,
+        visibility: 'hidden',
+      });
+    });
+  });
+
+  return () => cleanups.forEach((fn) => fn());
+}
+
 export function setReducedState(elements, values = {}) {
   elements.filter(Boolean).forEach((el) => {
     gsap.set(el, {

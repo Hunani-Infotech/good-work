@@ -12,6 +12,7 @@ import {
   GEROZ_EASE_LUX,
   GEROZ_SCROLL_TOGGLE,
   drawSvgStroke,
+  initCapabilitiesShutterHover,
   revealBlurUp,
   revealChars,
   revealClipX,
@@ -31,6 +32,7 @@ import {
 const page = createScrollPageController();
 let anchorCleanup = null;
 let layoutSyncHandler = null;
+let capabilitiesShutterCleanup = null;
 
 function gzScroll(trigger, start = 'top 86%') {
   return {
@@ -41,6 +43,26 @@ function gzScroll(trigger, start = 'top 86%') {
   };
 }
 
+const GEROZ_SCROLL_OFFSET = -72;
+const GEROZ_SCROLL_EASE = (t) => Math.min(1, 1.001 - (2 ** (-10 * t)));
+
+export function scrollGerozToHash(href) {
+  if (!href?.startsWith('#')) return;
+  const target = document.querySelector(href);
+  if (!target) return;
+
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(target, {
+      offset: GEROZ_SCROLL_OFFSET,
+      duration: 1.35,
+      easing: GEROZ_SCROLL_EASE,
+    });
+  } else {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 function initGerozSmoothAnchors() {
   if (anchorCleanup) anchorCleanup();
 
@@ -48,20 +70,10 @@ function initGerozSmoothAnchors() {
   const onClick = (event) => {
     const href = event.currentTarget.getAttribute('href');
     if (!href || href === '#') return;
-    const target = document.querySelector(href);
-    if (!target) return;
+    if (!document.querySelector(href)) return;
 
     event.preventDefault();
-    const lenis = getLenis();
-    if (lenis) {
-      lenis.scrollTo(target, {
-        offset: -72,
-        duration: 1.35,
-        easing: (t) => Math.min(1, 1.001 - (2 ** (-10 * t))),
-      });
-    } else {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    scrollGerozToHash(href);
   };
 
   links.forEach((link) => link.addEventListener('click', onClick));
@@ -526,6 +538,12 @@ function initGerozCapabilities(prefersReduced) {
       );
     }
   }
+
+  if (capabilitiesShutterCleanup) {
+    capabilitiesShutterCleanup();
+    capabilitiesShutterCleanup = null;
+  }
+  capabilitiesShutterCleanup = initCapabilitiesShutterHover(items, { prefersReduced });
 }
 
 /* ── Footer: layered depth, blur logo, clip email, signature bloom ── */
@@ -635,6 +653,10 @@ function initGerozScrollAnimations(prefersReduced) {
 }
 
 export function destroyGerozAnimations() {
+  if (capabilitiesShutterCleanup) {
+    capabilitiesShutterCleanup();
+    capabilitiesShutterCleanup = null;
+  }
   if (anchorCleanup) {
     anchorCleanup();
     anchorCleanup = null;

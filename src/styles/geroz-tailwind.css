@@ -185,11 +185,345 @@
     z-index: 2;
     color: #fff;
   }
+
+  .geroz-cv-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    max-width: 1920px;
+    margin-inline: auto;
+    padding: clamp(0.85rem, 1.6vw, 1.15rem) clamp(1rem, 3vw, 2.75rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-lawyer) 22%, transparent);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.82) 100%);
+    backdrop-filter: blur(18px) saturate(1.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.65) inset,
+      0 12px 36px -28px rgba(28, 25, 23, 0.28);
+    transition:
+      padding 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.45s ease,
+      box-shadow 0.45s ease,
+      border-color 0.45s ease;
+  }
+
+  .geroz-cv-header.is-scrolled .geroz-cv-header__inner {
+    padding-block: 0.65rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(252, 250, 247, 0.92) 100%);
+    border-bottom-color: color-mix(in srgb, var(--color-lawyer) 32%, transparent);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.75) inset,
+      0 18px 40px -30px rgba(28, 25, 23, 0.35);
+  }
+
+  .geroz-cv-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: #1c1917;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .geroz-cv-header__brand:hover {
+    color: color-mix(in srgb, var(--color-lawyer) 78%, #1c1917);
+  }
+
+  .geroz-cv-header__brand-mark {
+    width: 0.55rem;
+    height: 0.55rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--color-lawyer), #d4b07a);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-lawyer) 18%, transparent);
+  }
+
+  .geroz-cv-header__brand-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .geroz-cv-header__nav {
+    justify-self: center;
+  }
+
+  .geroz-cv-header__nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.35rem, 1.2vw, 0.15rem) clamp(0.85rem, 1.8vw, 1.65rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .geroz-cv-header__nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.1rem;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, #1c1917 72%, #78716c);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .geroz-cv-header__nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(90deg, var(--color-lawyer), transparent);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .geroz-cv-header__nav-link:hover,
+  .geroz-cv-header__nav-link:focus-visible {
+    color: #1c1917;
+  }
+
+  .geroz-cv-header__nav-link:hover::after,
+  .geroz-cv-header__nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .geroz-cv-header__cta {
+    margin-left: 0.35rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+    background: color-mix(in srgb, var(--color-lawyer) 8%, white);
+    letter-spacing: 0.16em;
+    color: #1c1917;
+  }
+
+  .geroz-cv-header__cta::after {
+    display: none;
+  }
+
+  .geroz-cv-header__cta:hover,
+  .geroz-cv-header__cta:focus-visible {
+    background: color-mix(in srgb, var(--color-lawyer) 16%, white);
+    border-color: var(--color-lawyer);
+  }
+
+  .geroz-cv-header__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+  }
+
+  .geroz-cv-header__share {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
+    background: rgba(255, 255, 255, 0.55);
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #44403c;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .geroz-cv-header__share:hover {
+    border-color: color-mix(in srgb, var(--color-lawyer) 45%, transparent);
+    background: rgba(255, 255, 255, 0.9);
+    color: #1c1917;
+  }
+
+  .geroz-cv-header__menu-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.32rem;
+    border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.72);
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .geroz-cv-header__menu-btn span {
+    display: block;
+    width: 1rem;
+    height: 1px;
+    background: #1c1917;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .geroz-cv-header__menu-btn.is-open span:nth-child(1) {
+    transform: translateY(0.42rem) rotate(45deg);
+  }
+
+  .geroz-cv-header__menu-btn.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .geroz-cv-header__menu-btn.is-open span:nth-child(3) {
+    transform: translateY(-0.42rem) rotate(-45deg);
+  }
+
+  .geroz-cv-header__drawer-root {
+    pointer-events: none;
+  }
+
+  .geroz-cv-header__drawer-root.is-open {
+    pointer-events: auto;
+  }
+
+  .geroz-cv-header__drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 310;
+    border: 0;
+    background: rgba(28, 25, 23, 0.38);
+    opacity: 0;
+    backdrop-filter: blur(2px);
+    transition: opacity 0.4s ease;
+    cursor: pointer;
+  }
+
+  .geroz-cv-header__drawer-root.is-open .geroz-cv-header__drawer-backdrop {
+    opacity: 1;
+  }
+
+  .geroz-cv-header__drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 320;
+    display: flex;
+    width: min(20rem, 88vw);
+    height: 100dvh;
+    flex-direction: column;
+    padding: clamp(1.25rem, 4vw, 1.75rem);
+    border-left: 1px solid color-mix(in srgb, var(--color-lawyer) 28%, transparent);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 247, 242, 0.96) 100%);
+    box-shadow: -24px 0 60px -32px rgba(28, 25, 23, 0.35);
+    transform: translateX(104%);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .geroz-cv-header__drawer-root.is-open .geroz-cv-header__drawer {
+    transform: translateX(0);
+  }
+
+  .geroz-cv-header__drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .geroz-cv-header__drawer-brand {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: #1c1917;
+  }
+
+  .geroz-cv-header__drawer-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #1c1917;
+    cursor: pointer;
+  }
+
+  .geroz-cv-header__drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .geroz-cv-header__drawer-link {
+    display: block;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid color-mix(in srgb, #1c1917 8%, transparent);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #44403c;
+    text-decoration: none;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+  }
+
+  .geroz-cv-header__drawer-link:hover,
+  .geroz-cv-header__drawer-link:focus-visible {
+    padding-left: 0.35rem;
+    color: #1c1917;
+  }
+
+  .geroz-cv-header__drawer-link.geroz-cv-header__cta {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+    border-radius: 9999px;
+    text-align: center;
+    background: color-mix(in srgb, var(--color-lawyer) 10%, white);
+  }
+
+  @media (max-width: 1023px) {
+    .geroz-cv-header__inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
 }
 
 html.geroz-template,
 body.geroz-template {
-  --geroz-header-height: 4rem;
+  --geroz-header-height: 4.25rem;
+}
+
+html.geroz-template #top,
+html.geroz-template #expertise,
+html.geroz-template #about,
+html.geroz-template #capabilities {
+  scroll-margin-top: var(--geroz-header-height);
 }
 
 html.geroz-template.lenis-smooth {
@@ -271,10 +605,65 @@ body.geroz-template .cursor-ring.is-hovering {
 .gz-capabilities__item {
   transform: translateZ(0);
   backface-visibility: hidden;
+  overflow: hidden;
+  cursor: default;
+}
+
+.gz-capabilities__hover-bg {
+  z-index: 0;
+  background-color: #b68c5a;
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  pointer-events: none;
+  will-change: clip-path;
+  backface-visibility: hidden;
+}
+
+.gz-capabilities__item-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.gz-capabilities__number,
+.gz-capabilities__text {
+  transition: color 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gz-capabilities__divider {
+  transition: background-color 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gz-capabilities__item.is-hovered .gz-capabilities__number,
+.gz-capabilities__item.is-hovered .gz-capabilities__text {
+  color: #fafaf9;
+}
+
+.gz-capabilities__item.is-hovered .gz-capabilities__divider {
+  background-color: #dbc4a8;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gz-capabilities__item {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-capabilities__hover-bg {
+    display: none;
+  }
 }
 
 .gz-capabilities__list {
   contain: layout style;
+}
+
+.gz-hero {
+  background-color: #f8f5f0;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 10% 0%, rgba(252, 250, 247, 0.98) 0%, transparent 62%),
+    radial-gradient(ellipse 50% 42% at 92% 16%, color-mix(in srgb, var(--color-lawyer) 9%, transparent), transparent 72%),
+    linear-gradient(180deg, #fcfaf7 0%, #ffffff 82%);
 }
 
 .gz-hero__copy {

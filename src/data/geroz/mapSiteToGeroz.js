@@ -156,11 +156,13 @@ export function mapSiteToGeroz(site) {
       ],
     },
     nav: {
+      brand: firstName,
       links: [
         { label: 'Profile', href: '#top', isHash: true },
         { label: 'Expertise', href: '#expertise', isHash: true },
         { label: 'Narrative', href: '#about', isHash: true },
         { label: 'Skills', href: '#capabilities', isHash: true },
+        { label: ctaLabel, href: mailto, isCta: true },
       ],
     },
   };
