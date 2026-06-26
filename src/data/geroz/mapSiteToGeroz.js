@@ -104,6 +104,7 @@ export function mapSiteToGeroz(site) {
       body: paragraphs[0] ?? hero?.heroStatement ?? '',
       extraParagraph: paragraphs[1] ?? '',
       thirdParagraph: paragraphs[2] ?? '',
+      backgroundImage: narrative?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.heroBg,
     },
     capabilities: {
       eyebrow: capabilities?.tag ?? 'Capabilities & Skills',

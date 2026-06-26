@@ -8,20 +8,20 @@ function ExpertiseAuthor({ name, role, className = '' }) {
   if (!name && !role) return null;
 
   return (
-    <footer className={`shrink-0 ${className}`.trim()}>
+    <footer className={`gz-expertise__author shrink-0 ${className}`.trim()}>
       <div className="flex items-start gap-4">
         <span
-          className="mt-2 block h-10 w-px shrink-0 bg-[linear-gradient(180deg,var(--color-lawyer),color-mix(in_srgb,var(--color-lawyer)_25%,transparent))]"
+          className="gz-expertise__author-line mt-2 block h-10 w-px shrink-0 bg-[linear-gradient(180deg,var(--color-lawyer),color-mix(in_srgb,var(--color-lawyer)_25%,transparent))]"
           aria-hidden="true"
         />
         <div className="min-w-0">
           {name ? (
-            <p className="m-0 font-sans text-[1.1875rem] font-bold leading-tight tracking-[-0.01em] text-stone-900">
+            <p className="gz-expertise__author-name m-0 font-sans text-[1.1875rem] font-bold leading-tight tracking-[-0.01em] text-stone-900">
               {name}
             </p>
           ) : null}
           {role ? (
-            <p className="mt-2 m-0 font-sans text-[0.6875rem] font-semibold uppercase leading-relaxed tracking-[0.18em] text-lawyer">
+            <p className="gz-expertise__author-role mt-2 m-0 font-sans text-[0.6875rem] font-semibold uppercase leading-relaxed tracking-[0.18em] text-lawyer">
               {role}
             </p>
           ) : null}
@@ -44,14 +44,14 @@ function ExpertisePortrait({ video, expert }) {
   }
 
   return (
-    <div className="relative mx-auto w-full max-w-[min(100%,28rem)] p-[clamp(0.5rem,1vw,0.85rem)] lg:mx-0">
+    <div className="gz-expertise__portrait relative mx-auto w-full max-w-[min(100%,28rem)] p-[clamp(0.5rem,1vw,0.85rem)] lg:mx-0">
       <span
-        className="pointer-events-none absolute top-0 right-0 z-0 h-[58%] w-[40%] translate-x-2 -translate-y-2 border border-[color-mix(in_srgb,var(--color-lawyer)_45%,transparent)]"
+        className="gz-expertise__portrait-corner pointer-events-none absolute top-0 right-0 z-0 h-[58%] w-[40%] translate-x-2 -translate-y-2 border border-[color-mix(in_srgb,var(--color-lawyer)_45%,transparent)]"
         aria-hidden="true"
       />
-      <div className="relative z-[1] overflow-hidden bg-white shadow-[0_1.5rem_3rem_-1.25rem_rgba(28,25,23,0.18),0_0_0_1px_color-mix(in_srgb,var(--color-lawyer)_22%,#e7e5e4)]">
+      <div className="gz-expertise__portrait-frame relative z-[1] overflow-hidden bg-white shadow-[0_1.5rem_3rem_-1.25rem_rgba(28,25,23,0.18),0_0_0_1px_color-mix(in_srgb,var(--color-lawyer)_22%,#e7e5e4)]">
         <img
-          className="block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
+          className="gz-expertise__portrait-img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
           src={imageSrc}
           alt={expert?.authorName ?? ''}
           width="670"
@@ -63,13 +63,17 @@ function ExpertisePortrait({ video, expert }) {
   );
 }
 
-export default function VideoSection({ imgUrl }) {
+export default function VideoSection() {
   const { expertise, expert, video } = useGerozContent();
 
   return (
-    <section id="expertise" className="relative overflow-hidden">
-      <div className="relative bg-[#f8f5f0] pt-[clamp(4rem,7vw,6rem)] pb-[clamp(3rem,5vw,4.5rem)]">
-        <GerozLuxuryBackdrop variant="cream" />
+    <section id="expertise" className="gz-expertise relative overflow-hidden">
+      <div className="gz-expertise__panel relative bg-[#f8f5f0] pt-[clamp(4rem,7vw,6rem)] pb-[clamp(3rem,5vw,4.5rem)]">
+        <GerozLuxuryBackdrop
+          variant="cream"
+          washClass="gz-expertise__backdrop-wash"
+          noiseClass="gz-expertise__backdrop-noise"
+        />
 
         <div className="geroz-container-wide relative z-[1]">
           <div className="mb-10 lg:hidden">
@@ -87,14 +91,14 @@ export default function VideoSection({ imgUrl }) {
 
             <div className="flex min-h-[clamp(16rem,34vw,34rem)] flex-col pb-[clamp(1.5rem,3vw,2.5rem)] lg:col-span-6 xl:col-span-6">
               {expertise.tag ? (
-                <div className="shrink-0">
+                <div className="gz-expertise__eyebrow shrink-0">
                   <GerozEyebrow>{expertise.tag}</GerozEyebrow>
                 </div>
               ) : null}
 
               <div className="mt-[clamp(1.25rem,2.5vw,1.75rem)] flex min-h-0 flex-1 flex-col">
                 {expertise.statement ? (
-                  <p className="m-0 max-w-[38rem] font-serif text-[clamp(1.125rem,1.65vw,1.5rem)] leading-[1.48] tracking-[-0.02em] text-stone-900">
+                  <p className="gz-expertise__statement m-0 max-w-[38rem] font-serif text-[clamp(1.125rem,1.65vw,1.5rem)] leading-[1.48] tracking-[-0.02em] text-stone-900">
                     {expertise.statement}
                   </p>
                 ) : null}
@@ -102,7 +106,7 @@ export default function VideoSection({ imgUrl }) {
                 {expertise.ctaLabel && expertise.ctaHref ? (
                   <GerozThemeButton
                     href={expertise.ctaHref}
-                    className="mt-[clamp(1.5rem,2.8vw,2rem)] self-start"
+                    className="gz-expertise__cta mt-[clamp(1.5rem,2.8vw,2rem)] self-start"
                   >
                     {expertise.ctaLabel}
                   </GerozThemeButton>
@@ -117,18 +121,6 @@ export default function VideoSection({ imgUrl }) {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="relative">
-        <div
-          className="geroz-video-band m-0 h-[clamp(16rem,40vw,760px)] w-full bg-cover bg-center bg-no-repeat max-lg:min-h-56 max-lg:bg-scroll"
-          style={{
-            backgroundImage: `url(${imgUrl})`,
-            backgroundAttachment: 'fixed',
-          }}
-          role="img"
-          aria-label="Featured background"
-        />
       </div>
     </section>
   );

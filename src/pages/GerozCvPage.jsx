@@ -4,6 +4,7 @@ import '../styles/video-cv-widget.css';
 
 import { applyGerozImageCssVars, clearGerozImageCssVars } from '../data/geroz/constants.js';
 import { useGerozContent } from '../hooks/geroz/useGerozContent.js';
+import { useGerozPageAnimations } from '../hooks/geroz/useGerozPageAnimations.js';
 
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import CustomCursor from '../components/ui/CustomCursor.jsx';
@@ -17,6 +18,7 @@ import CapabilitiesSection from '../geroz/components/capabilities/CapabilitiesSe
 
 export default function GerozCvPage() {
   const { siteMeta, images, theme } = useGerozContent();
+  useGerozPageAnimations();
 
   useLayoutEffect(() => {
     document.documentElement.classList.add('geroz-template');
@@ -41,7 +43,7 @@ export default function GerozCvPage() {
       <GerozBackToTop />
       <main className="overflow-hidden geroz-cv-main">
         <HeroSection4 />
-        <VideoSection imgUrl={images.video} />
+        <VideoSection />
         <AboutSection4 />
         <CapabilitiesSection />
         <GerozCvFooter />

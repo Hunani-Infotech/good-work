@@ -104,7 +104,10 @@
 html.geroz-template,
 body.geroz-template {
   --geroz-header-height: 4rem;
-  scroll-behavior: smooth;
+}
+
+html.geroz-template.lenis-smooth {
+  scroll-behavior: auto;
 }
 
 body.geroz-template {
@@ -126,7 +129,76 @@ body.geroz-template .cursor-ring.is-hovering {
 }
 
 @media (max-width: 1023px) {
-  .geroz-video-band {
+  .gz-about__photo-bg {
     background-attachment: scroll !important;
+  }
+}
+
+.geroz-line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.geroz-line-mask--stacked + .geroz-line-mask--stacked {
+  margin-top: 0.1em;
+}
+
+.geroz-line-inner {
+  display: block;
+  will-change: transform;
+}
+
+.geroz-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.geroz-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.geroz-char-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.geroz-char {
+  display: inline-block;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.gz-about__photo-bg,
+.gz-hero__portrait,
+.gz-expertise__portrait-img {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.gz-capabilities__item {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.gz-capabilities__list {
+  contain: layout style;
+}
+
+.gz-hero__copy {
+  perspective: 900px;
+}
+
+.gz-hero__firstname {
+  perspective: 900px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.geroz-template:not(.w-mod-ix3) .gz-hero__firstname,
+  html.geroz-template:not(.w-mod-ix3) .gz-hero__lastname,
+  html.geroz-template:not(.w-mod-ix3) .gz-hero__portrait {
+    visibility: hidden;
   }
 }

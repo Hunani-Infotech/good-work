@@ -7,21 +7,21 @@ export default function GerozDecorShapes({ className = '' }) {
       aria-hidden="true"
     >
       <img
-        className="pointer-events-none absolute right-0 bottom-[8%] block w-[clamp(1.5rem,3.5vw,2.05rem)] select-none motion-safe:animate-cir36 motion-reduce:animate-none max-lg:static max-lg:opacity-100"
+        className="gz-expertise__decor pointer-events-none absolute right-0 bottom-[8%] block w-[clamp(1.5rem,3.5vw,2.05rem)] select-none motion-safe:animate-cir36 motion-reduce:animate-none max-lg:static max-lg:opacity-100"
         src={GEROZ_DECOR_SHAPES.star}
         alt=""
         width="33"
         height="33"
       />
       <img
-        className="pointer-events-none absolute top-0 left-[32%] block w-[clamp(4.5rem,10vw,7.6rem)] select-none motion-safe:animate-geroz-decor-fade motion-reduce:animate-none max-lg:static max-lg:opacity-100 max-lg:animate-none"
+        className="gz-expertise__decor pointer-events-none absolute top-0 left-[32%] block w-[clamp(4.5rem,10vw,7.6rem)] select-none motion-safe:animate-geroz-decor-fade motion-reduce:animate-none max-lg:static max-lg:opacity-100 max-lg:animate-none"
         src={GEROZ_DECOR_SHAPES.starLarge}
         alt=""
         width="79"
         height="76"
       />
       <img
-        className="pointer-events-none absolute top-[42%] left-0 block w-[clamp(2rem,5vw,2.65rem)] select-none motion-safe:animate-cir36 motion-reduce:animate-none max-lg:static max-lg:opacity-100 max-lg:animate-none"
+        className="gz-expertise__decor pointer-events-none absolute top-[42%] left-0 block w-[clamp(2rem,5vw,2.65rem)] select-none motion-safe:animate-cir36 motion-reduce:animate-none max-lg:static max-lg:opacity-100 max-lg:animate-none"
         src={GEROZ_DECOR_SHAPES.sunburst}
         alt=""
         width="42"

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import GerozLuxuryBackdrop from './GerozLuxuryBackdrop.jsx';
 
@@ -38,26 +38,6 @@ function fitDisplayNameToWidth(band, heading) {
 function FooterDisplayName({ text }) {
   const bandRef = useRef(null);
   const textRef = useRef(null);
-  const hasRevealedRef = useRef(false);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const band = bandRef.current;
-    if (!band || hasRevealedRef.current) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || hasRevealedRef.current) return;
-        hasRevealedRef.current = true;
-        setRevealed(true);
-        observer.disconnect();
-      },
-      { threshold: 0.2, rootMargin: '0px' },
-    );
-
-    observer.observe(band);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const band = bandRef.current;
@@ -83,27 +63,25 @@ function FooterDisplayName({ text }) {
   }, [text]);
 
   return (
-    <div ref={bandRef} className="w-full max-w-full">
+    <div ref={bandRef} className="gz-footer__name-band w-full max-w-full">
       <div className="mb-[clamp(0.75rem,1.5vw,1rem)] flex items-center justify-center gap-[clamp(0.75rem,2vw,1.25rem)]">
         <span
-          className="h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(90deg,transparent,var(--color-lawyer))]"
+          className="gz-footer__accent-line h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(90deg,transparent,var(--color-lawyer))]"
           aria-hidden="true"
         />
         <span
-          className="block size-[0.35rem] shrink-0 rounded-full bg-lawyer shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-lawyer)_18%,transparent)]"
+          className="gz-footer__accent-dot block size-[0.35rem] shrink-0 rounded-full bg-lawyer shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-lawyer)_18%,transparent)]"
           aria-hidden="true"
         />
         <span
-          className="h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(270deg,transparent,var(--color-lawyer))]"
+          className="gz-footer__accent-line h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(270deg,transparent,var(--color-lawyer))]"
           aria-hidden="true"
         />
       </div>
 
       <h2
         ref={textRef}
-        className={`m-0 block w-full max-w-full whitespace-nowrap text-center font-serif leading-none tracking-[-0.05em] text-white transition-[opacity,transform] duration-700 will-change-[opacity,transform] ${
-          revealed ? 'scale-100 opacity-100' : 'scale-[0.88] opacity-0'
-        }`}
+        className="gz-footer__name m-0 block w-full max-w-full whitespace-nowrap text-center font-serif leading-none tracking-[-0.05em] text-white"
       >
         {text}
       </h2>
@@ -115,17 +93,21 @@ export default function GerozCvFooter() {
   const { footer } = useGerozContent();
 
   return (
-    <footer className="relative overflow-hidden bg-lawyer-dark text-stone-300">
+    <footer className="gz-footer relative overflow-hidden bg-lawyer-dark text-stone-300">
       <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
+        className="gz-footer__bg pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
         style={{ backgroundImage: 'var(--geroz-img-footer-bg)' }}
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,#1e1e1e_94%,transparent),#161616_98%)]"
+        className="gz-footer__gradient pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,#1e1e1e_94%,transparent),#161616_98%)]"
         aria-hidden="true"
       />
-      <GerozLuxuryBackdrop variant="dark" />
+      <GerozLuxuryBackdrop
+        variant="dark"
+        washClass="gz-footer__backdrop-wash"
+        noiseClass="gz-footer__backdrop-noise"
+      />
 
       <div className="geroz-container-wide relative z-[1]">
         <div className="flex flex-col items-center px-4 py-[clamp(2rem,3.5vw,2.75rem)] text-center sm:px-6 lg:px-8">
@@ -134,13 +116,13 @@ export default function GerozCvFooter() {
             alt="GoodWork"
             width="151"
             height="37"
-            className="block h-[clamp(1.5rem,3.5vw,1.875rem)] w-auto"
+            className="gz-footer__logo block h-[clamp(1.5rem,3.5vw,1.875rem)] w-auto"
           />
 
           {footer.email ? (
             <a
               href={footer.emailHref}
-              className="mt-4 font-serif text-[clamp(1rem,1.5vw,1.1875rem)] leading-snug tracking-[-0.015em] text-white no-underline transition-colors hover:text-lawyer"
+              className="gz-footer__email mt-4 font-serif text-[clamp(1rem,1.5vw,1.1875rem)] leading-snug tracking-[-0.015em] text-white no-underline transition-colors hover:text-lawyer"
             >
               {footer.email}
             </a>
@@ -154,7 +136,7 @@ export default function GerozCvFooter() {
         </div>
 
         <div className="border-t border-[color-mix(in_srgb,var(--color-lawyer)_18%,#2a2a2a)] px-4 py-3 sm:px-6 lg:px-8">
-          <p className="m-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center font-sans text-[0.8125rem] leading-relaxed text-stone-500">
+          <p className="gz-footer__copy m-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center font-sans text-[0.8125rem] leading-relaxed text-stone-500">
             <span>Powered by GoodWork</span>
             <span
               className="hidden size-[0.25rem] rounded-full bg-lawyer sm:inline-block"

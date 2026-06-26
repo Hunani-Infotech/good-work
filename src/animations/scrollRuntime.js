@@ -47,10 +47,12 @@ export function initLenis(options = {}) {
   }
 
   lenis = new Lenis({
-    lerp: 0.1,
-    wheelMultiplier: 1,
+    lerp: options.lerp ?? 0.1,
+    duration: options.duration ?? 1.2,
+    wheelMultiplier: options.wheelMultiplier ?? 1,
     gestureOrientation: 'vertical',
-    smoothTouch: false,
+    smoothTouch: options.smoothTouch ?? false,
+    ...options,
   });
 
   lenis.on('scroll', ScrollTrigger.update);

@@ -10,18 +10,22 @@ const WASH_VARIANTS = {
     'bg-[radial-gradient(ellipse_52%_42%_at_10%_18%,color-mix(in_srgb,var(--color-lawyer)_14%,transparent),transparent_72%),radial-gradient(ellipse_48%_38%_at_90%_82%,color-mix(in_srgb,var(--color-lawyer)_10%,transparent),transparent_74%)]',
 };
 
-export default function GerozLuxuryBackdrop({ variant = 'cream' }) {
+export default function GerozLuxuryBackdrop({
+  variant = 'cream',
+  washClass = 'gz-backdrop__wash',
+  noiseClass = 'gz-backdrop__noise',
+}) {
   const wash = WASH_VARIANTS[variant] ?? WASH_VARIANTS.cream;
   const noiseOpacity = variant === 'dark' ? 'opacity-35' : 'opacity-25';
 
   return (
     <>
       <div
-        className={`pointer-events-none absolute inset-0 ${wash}`}
+        className={`${washClass} pointer-events-none absolute inset-0 ${wash}`}
         aria-hidden="true"
       />
       <div
-        className={`pointer-events-none absolute inset-0 ${noiseOpacity}`}
+        className={`${noiseClass} pointer-events-none absolute inset-0 ${noiseOpacity}`}
         style={{ backgroundImage: GEROZ_AMBIENT_BG }}
         aria-hidden="true"
       />

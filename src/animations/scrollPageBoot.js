@@ -24,7 +24,7 @@ export function createScrollPageController() {
     resetDocumentScrollState({ keepSiteReady });
   }
 
-  function boot({ onReady, debounceMs = 150 } = {}) {
+  function boot({ onReady, debounceMs = 150, lenisOptions } = {}) {
     destroy({ keepSiteReady: true });
     const id = runId;
 
@@ -32,7 +32,7 @@ export function createScrollPageController() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!prefersReduced) {
-      initLenis();
+      initLenis(lenisOptions);
     }
 
     document.documentElement.classList.add('w-mod-ix3');
