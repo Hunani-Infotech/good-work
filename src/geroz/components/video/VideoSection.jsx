@@ -67,8 +67,8 @@ export default function VideoSection() {
   const { expertise, expert, video } = useGerozContent();
 
   return (
-    <section id="expertise" className="gz-expertise relative overflow-hidden">
-      <div className="gz-expertise__panel relative bg-[#f8f5f0] pt-[clamp(4rem,7vw,6rem)] pb-[clamp(3rem,5vw,4.5rem)]">
+    <section id="expertise" className="gz-expertise relative overflow-hidden bg-[#f8f5f0]">
+      <div className="gz-expertise__panel relative bg-[#f8f5f0] pt-[clamp(4rem,7vw,6rem)] pb-[clamp(2rem,3.5vw,3rem)]">
         <GerozLuxuryBackdrop
           variant="cream"
           washClass="gz-expertise__backdrop-wash"

@@ -48,11 +48,11 @@ export default function AboutSection4() {
   const { about } = useGerozContent();
 
   return (
-    <section id="about" className="gz-about relative overflow-hidden bg-white">
+    <section id="about" className="gz-about relative overflow-hidden bg-[#f8f5f0]">
       {about.backgroundImage ? (
         <>
           <div
-            className="gz-about__photo-bg pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat max-lg:bg-scroll lg:bg-fixed"
+            className="gz-about__photo-bg pointer-events-none absolute inset-x-0 top-0 h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${about.backgroundImage})` }}
             aria-hidden="true"
           />
@@ -69,7 +69,7 @@ export default function AboutSection4() {
         noiseClass="gz-about__backdrop-noise"
       />
 
-      <div className="geroz-container-wide relative z-[1] py-[clamp(4rem,7vw,6rem)]">
+      <div className="geroz-container-wide relative z-[1] pt-[clamp(2.5rem,5vw,4rem)] pb-[clamp(4rem,7vw,6rem)]">
         <div className="mx-auto w-full max-w-[72rem]">
           {about.eyebrow ? (
             <div className="gz-about__eyebrow mb-[clamp(1.5rem,3vw,2.25rem)]">

@@ -195,9 +195,8 @@ function initGerozExpertise(prefersReduced) {
   if (noise) scrubParallax(noise, section, { y: 12, scrub: 1 });
 
   if (panel) {
-    gsap.fromTo(panel, { clipPath: 'inset(100% 0 0 0)', y: 32 }, {
+    gsap.fromTo(panel, { clipPath: 'inset(100% 0 0 0)' }, {
       clipPath: 'inset(0% 0 0 0)',
-      y: 0,
       duration: 1.15,
       ease: GEROZ_EASE_IO,
       scrollTrigger: gzScroll(section, 'top 88%'),
@@ -308,18 +307,15 @@ function initGerozAbout(prefersReduced) {
   }
 
   if (photoBg) {
-    gsap.set(photoBg, { opacity: 0, scale: 1.04 });
-    gsap.to(photoBg, {
-      opacity: 1,
+    gsap.fromTo(photoBg, { scale: 1.05 }, {
       scale: 1,
-      duration: 1.5,
+      duration: 1.35,
       ease: GEROZ_EASE_IO,
-      scrollTrigger: gzScroll(section, 'top 92%'),
+      scrollTrigger: { ...gzScroll(section, 'top 92%'), once: true },
     });
-    scrubParallax(photoBg, section, { y: 28, scrub: 1 });
   }
 
-  if (wash) scrubParallax(wash, section, { y: 18, scrub: 1 });
+  if (wash) scrubParallax(wash, section, { y: 12, scrub: 1 });
 
   if (headerCol) {
     gsap.fromTo(headerCol, { opacity: 0, y: 36 }, {
