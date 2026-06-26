@@ -21,6 +21,7 @@
   --animate-geroz-decor-fade: geroz-decor-fade 4s ease-in-out infinite;
   --animate-geroz-hero-reveal: geroz-hero-reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
   --animate-geroz-hero-reveal-delayed: geroz-hero-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  --animate-geroz-btn-sheen: geroz-btn-sheen 3s ease-in-out infinite;
 }
 
 @keyframes cir36 {
@@ -52,6 +53,17 @@
   }
 }
 
+@keyframes geroz-btn-sheen {
+  0%,
+  58% {
+    transform: translateX(-165%) skewX(-22deg);
+  }
+
+  100% {
+    transform: translateX(340%) skewX(-22deg);
+  }
+}
+
 @layer components {
   .geroz-container {
     @apply mx-auto w-full max-w-[1520px] px-4 sm:px-6 lg:px-11;
@@ -69,6 +81,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    isolation: isolate;
     border-radius: 9999px;
     border: 0;
     padding: 18px 30px;
@@ -82,7 +95,44 @@
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
-    transition: background-color 0.5s ease-in-out;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 0 1px color-mix(in srgb, var(--color-lawyer) 42%, transparent),
+      0 0 20px color-mix(in srgb, var(--color-lawyer) 22%, transparent);
+    transition:
+      background-color 0.5s ease-in-out,
+      box-shadow 0.45s ease;
+  }
+
+  .geroz-theme-btn:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 0 0 1px color-mix(in srgb, var(--color-lawyer) 62%, transparent),
+      0 0 28px color-mix(in srgb, var(--color-lawyer) 34%, transparent);
+  }
+
+  .geroz-theme-btn::before {
+    content: '';
+    position: absolute;
+    top: -12%;
+    left: 0;
+    z-index: 1;
+    width: 42%;
+    height: 124%;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 34%,
+      rgba(255, 255, 255, 0.08) 44%,
+      rgba(255, 255, 255, 0.42) 50%,
+      rgba(255, 255, 255, 0.08) 56%,
+      transparent 66%,
+      transparent 100%
+    );
+    transform: translateX(-165%) skewX(-22deg);
+    animation: var(--animate-geroz-btn-sheen);
+    will-change: transform;
   }
 
   .geroz-theme-btn::after {
@@ -98,6 +148,12 @@
   .geroz-theme-btn:hover::after {
     clip-path: circle(100% at 50% 50%);
     transition: clip-path 4s cubic-bezier(0, 0.96, 0.58, 1.1);
+  }
+
+  .geroz-theme-btn__label {
+    position: relative;
+    z-index: 2;
+    color: #fff;
   }
 }
 
@@ -193,6 +249,13 @@ body.geroz-template .cursor-ring.is-hovering {
 
 .gz-hero__firstname {
   perspective: 900px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .geroz-theme-btn::before {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

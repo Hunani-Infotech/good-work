@@ -14,7 +14,7 @@ export default function GerozThemeButton({
       href={href}
       className={`geroz-theme-btn ${variantClass} ${className}`.trim()}
     >
-      <span className="relative z-[2] text-white">{children}</span>
+      <span className="geroz-theme-btn__label">{children}</span>
     </a>
   );
 }
