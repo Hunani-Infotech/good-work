@@ -76,10 +76,6 @@ export default function VideoSection() {
         />
 
         <div className="geroz-container-wide relative z-[1]">
-          <div className="mb-10 lg:hidden">
-            <GerozDecorShapes />
-          </div>
-
           <div className="grid w-full grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-x-[clamp(1.5rem,4vw,3.5rem)]">
             <div className="relative hidden min-h-[clamp(16rem,34vw,34rem)] lg:col-span-1 lg:block">
               <GerozDecorShapes className="h-full min-h-0" />
@@ -89,16 +85,16 @@ export default function VideoSection() {
               <ExpertisePortrait video={video} expert={expert} />
             </div>
 
-            <div className="flex min-h-[clamp(16rem,34vw,34rem)] flex-col pb-[clamp(1.5rem,3vw,2.5rem)] lg:col-span-6 xl:col-span-6">
+            <div className="flex min-h-[clamp(16rem,34vw,34rem)] w-full min-w-0 flex-col pb-[clamp(1.5rem,3vw,2.5rem)] lg:col-span-6 xl:col-span-6">
               {expertise.tag ? (
                 <div className="gz-expertise__eyebrow shrink-0">
                   <GerozEyebrow>{expertise.tag}</GerozEyebrow>
                 </div>
               ) : null}
 
-              <div className="mt-[clamp(1.25rem,2.5vw,1.75rem)] flex min-h-0 flex-1 flex-col">
+              <div className="gz-expertise__copy mt-[clamp(1.25rem,2.5vw,1.75rem)] flex min-h-0 w-full min-w-0 flex-1 flex-col">
                 {expertise.statement ? (
-                  <p className="gz-expertise__statement m-0 max-w-[38rem] font-serif text-[clamp(1.125rem,1.65vw,1.5rem)] leading-[1.48] tracking-[-0.02em] text-stone-900">
+                  <p className="gz-expertise__statement m-0 w-full max-w-none font-serif text-[clamp(1.125rem,1.65vw,1.5rem)] leading-[1.48] tracking-[-0.02em] text-stone-900 lg:max-w-[38rem]">
                     {expertise.statement}
                   </p>
                 ) : null}

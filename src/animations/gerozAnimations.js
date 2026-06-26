@@ -268,8 +268,24 @@ function initGerozExpertise(prefersReduced) {
   }
 
   if (statement) {
-    const lines = splitLinesIntoMasks(statement, 7);
-    revealLines(lines, statement, { start: 'top 82%', stagger: 0.14, duration: 0.95, y: '120%' });
+    const isMobileLayout = window.matchMedia('(max-width: 1023px)').matches;
+
+    if (isMobileLayout) {
+      const inner = wrapLineMask(statement);
+      if (inner) {
+        gsap.set(inner, { y: '108%', opacity: 0.85 });
+        gsap.to(inner, {
+          y: 0,
+          opacity: 1,
+          duration: 0.95,
+          ease: GEROZ_EASE,
+          scrollTrigger: gzScroll(statement, 'top 82%'),
+        });
+      }
+    } else {
+      const lines = splitLinesIntoMasks(statement, 7);
+      revealLines(lines, statement, { start: 'top 82%', stagger: 0.14, duration: 0.95, y: '120%' });
+    }
   }
 
   if (portrait) {
