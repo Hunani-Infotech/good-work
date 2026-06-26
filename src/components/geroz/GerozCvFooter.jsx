@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
+import GerozLuxuryBackdrop from './GerozLuxuryBackdrop.jsx';
 
 function getFitWidth(band) {
   if (!band) return 0;
@@ -15,8 +16,8 @@ function fitDisplayNameToWidth(band, heading) {
   const available = getFitWidth(band);
   if (available <= 0) return;
 
-  let low = 48;
-  let high = 280;
+  let low = 28;
+  let high = 88;
   let best = low;
 
   while (low <= high) {
@@ -82,10 +83,22 @@ function FooterDisplayName({ text }) {
   }, [text]);
 
   return (
-    <div
-      ref={bandRef}
-      className="w-full max-w-full px-[clamp(2.5rem,6vw,5rem)] pt-16 pb-0 sm:pt-20"
-    >
+    <div ref={bandRef} className="w-full max-w-full">
+      <div className="mb-[clamp(0.75rem,1.5vw,1rem)] flex items-center justify-center gap-[clamp(0.75rem,2vw,1.25rem)]">
+        <span
+          className="h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(90deg,transparent,var(--color-lawyer))]"
+          aria-hidden="true"
+        />
+        <span
+          className="block size-[0.35rem] shrink-0 rounded-full bg-lawyer shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-lawyer)_18%,transparent)]"
+          aria-hidden="true"
+        />
+        <span
+          className="h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(270deg,transparent,var(--color-lawyer))]"
+          aria-hidden="true"
+        />
+      </div>
+
       <h2
         ref={textRef}
         className={`m-0 block w-full max-w-full whitespace-nowrap text-center font-serif leading-none tracking-[-0.05em] text-white transition-[opacity,transform] duration-700 will-change-[opacity,transform] ${
@@ -104,40 +117,54 @@ export default function GerozCvFooter() {
   return (
     <footer className="relative overflow-hidden bg-lawyer-dark text-stone-300">
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
         style={{ backgroundImage: 'var(--geroz-img-footer-bg)' }}
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(51,51,51,0.96)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,#1e1e1e_94%,transparent),#161616_98%)]"
         aria-hidden="true"
       />
+      <GerozLuxuryBackdrop variant="dark" />
 
-      <div className="flex flex-col items-center gap-6 px-4 pt-12 pb-6 sm:px-6 lg:px-8">
-        <img
-          src={footer.logoSrc}
-          alt="GoodWork"
-          width="151"
-          height="37"
-          className="block h-[clamp(1.75rem,5vw,2.25rem)] w-auto"
-        />
+      <div className="geroz-container-wide relative z-[1]">
+        <div className="flex flex-col items-center px-4 py-[clamp(2rem,3.5vw,2.75rem)] text-center sm:px-6 lg:px-8">
+          <img
+            src={footer.logoSrc}
+            alt="GoodWork"
+            width="151"
+            height="37"
+            className="block h-[clamp(1.5rem,3.5vw,1.875rem)] w-auto"
+          />
 
-        {footer.email ? (
-          <a
-            href={footer.emailHref}
-            className="font-sans text-base font-medium text-white transition-colors hover:text-lawyer sm:text-lg"
-          >
-            {footer.email}
-          </a>
-        ) : null}
-      </div>
+          {footer.email ? (
+            <a
+              href={footer.emailHref}
+              className="mt-4 font-serif text-[clamp(1rem,1.5vw,1.1875rem)] leading-snug tracking-[-0.015em] text-white no-underline transition-colors hover:text-lawyer"
+            >
+              {footer.email}
+            </a>
+          ) : null}
 
-      {footer.displayName ? <FooterDisplayName text={footer.displayName} /> : null}
+          {footer.displayName ? (
+            <div className="mt-[clamp(1.5rem,2.5vw,2rem)] w-full max-w-full border-t border-[color-mix(in_srgb,var(--color-lawyer)_20%,#2a2a2a)] pt-[clamp(1.25rem,2vw,1.75rem)]">
+              <FooterDisplayName text={footer.displayName} />
+            </div>
+          ) : null}
+        </div>
 
-      <div className="px-4 pb-10 pt-4 sm:px-6 lg:px-8">
-        <p className="m-0 text-center font-sans text-sm text-white/80">
-          Powered by GoodWork — © {new Date().getFullYear()} {footer.copyrightName}
-        </p>
+        <div className="border-t border-[color-mix(in_srgb,var(--color-lawyer)_18%,#2a2a2a)] px-4 py-3 sm:px-6 lg:px-8">
+          <p className="m-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center font-sans text-[0.8125rem] leading-relaxed text-stone-500">
+            <span>Powered by GoodWork</span>
+            <span
+              className="hidden size-[0.25rem] rounded-full bg-lawyer sm:inline-block"
+              aria-hidden="true"
+            />
+            <span>
+              © {new Date().getFullYear()} {footer.copyrightName}
+            </span>
+          </p>
+        </div>
       </div>
     </footer>
   );

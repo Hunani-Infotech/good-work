@@ -5,7 +5,7 @@ import GerozLuxuryBackdrop from '../../../components/geroz/GerozLuxuryBackdrop.j
 function AboutDecorativeArrow() {
   return (
     <div
-      className="pointer-events-none relative w-full max-w-[10.5rem] text-lawyer xl:max-w-[12rem]"
+      className="pointer-events-none relative w-full max-w-[8rem] text-lawyer xl:max-w-[9.5rem]"
       aria-hidden="true"
     >
       <svg
@@ -51,7 +51,7 @@ export default function AboutSection4() {
     <section id="about" className="relative overflow-hidden bg-white">
       <GerozLuxuryBackdrop variant="white" />
 
-      <div className="geroz-container-wide relative z-[1] py-[clamp(5.5rem,10vw,9rem)]">
+      <div className="geroz-container-wide relative z-[1] py-[clamp(4rem,7vw,6rem)]">
         <div className="mx-auto w-full max-w-[72rem]">
           {about.eyebrow ? (
             <div className="mb-[clamp(1.5rem,3vw,2.25rem)]">
@@ -59,7 +59,7 @@ export default function AboutSection4() {
             </div>
           ) : null}
 
-          <div className="grid grid-cols-1 items-start gap-[clamp(2.5rem,5vw,3.5rem)] lg:grid-cols-12 lg:gap-x-[clamp(2rem,4.5vw,4rem)]">
+          <div className="grid grid-cols-1 items-start gap-[clamp(2.5rem,5vw,3.5rem)] lg:grid-cols-12 lg:gap-x-[clamp(1.5rem,3vw,2.5rem)]">
             <header className="lg:col-span-5">
               <div className="flex items-center gap-3.5">
                 <span
@@ -77,15 +77,12 @@ export default function AboutSection4() {
               </h2>
             </header>
 
-            <div className="relative lg:col-span-6 lg:col-start-7">
-              <div
-                className="pointer-events-none absolute -left-[clamp(5rem,10vw,8.25rem)] top-0 z-[1] hidden w-[10.5rem] lg:block xl:-left-[clamp(5.5rem,11vw,9rem)] xl:w-[12rem]"
-                aria-hidden="true"
-              >
-                <AboutDecorativeArrow />
-              </div>
+            <div className="hidden lg:col-span-2 lg:col-start-6 lg:flex lg:items-start lg:justify-end lg:pt-[0.35rem] lg:pr-1">
+              <AboutDecorativeArrow />
+            </div>
 
-              <div className="relative z-[2] flex max-w-[36rem] flex-col gap-[clamp(1.25rem,2.2vw,1.65rem)]">
+            <div className="lg:col-span-5 lg:col-start-8">
+              <div className="flex max-w-[36rem] flex-col gap-[clamp(1.25rem,2.2vw,1.65rem)]">
                 <NarrativeParagraph lead>{about.body}</NarrativeParagraph>
                 <NarrativeParagraph>{about.extraParagraph}</NarrativeParagraph>
                 <NarrativeParagraph>{about.thirdParagraph}</NarrativeParagraph>

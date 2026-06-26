@@ -68,7 +68,7 @@ export default function VideoSection({ imgUrl }) {
 
   return (
     <section id="expertise" className="relative overflow-hidden">
-      <div className="relative bg-[#f8f5f0] pt-[clamp(5.5rem,10vw,9rem)] pb-[clamp(4rem,8vw,7rem)]">
+      <div className="relative bg-[#f8f5f0] pt-[clamp(4rem,7vw,6rem)] pb-[clamp(3rem,5vw,4.5rem)]">
         <GerozLuxuryBackdrop variant="cream" />
 
         <div className="geroz-container-wide relative z-[1]">
@@ -111,7 +111,7 @@ export default function VideoSection({ imgUrl }) {
                 <ExpertiseAuthor
                   name={expert.authorName}
                   role={expert.authorRole}
-                  className="mt-auto pt-[clamp(2rem,4vw,3.25rem)]"
+                  className="mt-auto pt-[clamp(1.5rem,3vw,2.25rem)]"
                 />
               </div>
             </div>

@@ -32,7 +32,7 @@ export default function CapabilitiesSection() {
     <section id="capabilities" className="relative overflow-hidden bg-[#fafaf9]">
       <GerozLuxuryBackdrop variant="cream" />
 
-      <div className="geroz-container-wide relative z-[1] px-4 py-[clamp(5.5rem,10vw,9rem)] sm:px-6 lg:px-11">
+      <div className="geroz-container-wide relative z-[1] px-4 py-[clamp(4rem,7vw,6rem)] sm:px-6 lg:px-11">
         <div className="mx-auto max-w-[52rem]">
           <SectionTitleAccent>{capabilities.eyebrow}</SectionTitleAccent>
 
@@ -47,11 +47,11 @@ export default function CapabilitiesSection() {
           ) : null}
         </div>
 
-        <div className="mx-auto mt-[clamp(3rem,6vw,5rem)] flex w-full max-w-[56rem] flex-col">
+        <div className="mx-auto mt-[clamp(2.25rem,4.5vw,3.5rem)] flex w-full max-w-[56rem] flex-col">
           {capabilities.items.map((item, index) => (
             <article
               key={item.id}
-              className={`grid grid-cols-[clamp(3.5rem,8vw,5rem)_minmax(0,1fr)] items-start gap-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(2rem,4vw,3rem)] ${
+              className={`grid grid-cols-[clamp(3.5rem,8vw,5rem)_minmax(0,1fr)] items-start gap-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(1.5rem,3vw,2.25rem)] ${
                 index < capabilities.items.length - 1
                   ? 'border-b border-[color-mix(in_srgb,var(--color-lawyer)_18%,#e7e5e4)]'
                   : ''
