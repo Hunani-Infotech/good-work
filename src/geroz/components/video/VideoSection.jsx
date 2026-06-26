@@ -67,10 +67,10 @@ export default function VideoSection() {
   const { expertise, expert, video } = useGerozContent();
 
   return (
-    <section id="expertise" className="gz-expertise relative overflow-hidden bg-[#f8f5f0]">
-      <div className="gz-expertise__panel relative bg-[#f8f5f0] pt-[clamp(4rem,7vw,6rem)] pb-[clamp(2rem,3.5vw,3rem)]">
+    <section id="expertise" className="gz-expertise relative overflow-hidden">
+      <div className="gz-expertise__panel relative pt-[clamp(4rem,7vw,6rem)] pb-[clamp(2rem,3.5vw,3rem)]">
         <GerozLuxuryBackdrop
-          variant="cream"
+          variant="dark"
           washClass="gz-expertise__backdrop-wash"
           noiseClass="gz-expertise__backdrop-noise"
         />
@@ -102,6 +102,7 @@ export default function VideoSection() {
                 {expertise.ctaLabel && expertise.ctaHref ? (
                   <GerozThemeButton
                     href={expertise.ctaHref}
+                    variant="light"
                     className="gz-expertise__cta mt-[clamp(1.5rem,2.8vw,2rem)] self-start"
                   >
                     {expertise.ctaLabel}

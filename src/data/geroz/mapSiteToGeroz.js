@@ -1,4 +1,5 @@
 import { GEROZ_TEMPLATE_IMAGES } from './constants.js';
+import { getGerozColorTheme } from './gerozColorThemes.js';
 
 function parseExperienceYears(...texts) {
   const joined = texts.filter(Boolean).join(' ');
@@ -50,6 +51,8 @@ export function mapSiteToGeroz(site) {
     (_, index) => GEROZ_TEMPLATE_IMAGES.cases[index % GEROZ_TEMPLATE_IMAGES.cases.length],
   );
 
+  const colorTheme = getGerozColorTheme(theme?.colorThemeIndex ?? 0);
+
   return {
     siteMeta: {
       title: meta?.homeTitle ?? `${firstName} | GoodWork`,
@@ -57,7 +60,14 @@ export function mapSiteToGeroz(site) {
       favicon: meta?.favicon ?? '/favicon-gw.png',
     },
     theme: {
-      accent: theme?.orange ?? '#c9a96e',
+      accent: colorTheme.accent,
+      orange: colorTheme.accent,
+      purple: colorTheme.secondary,
+      bgWarm: colorTheme.bgWarm,
+      grey: colorTheme.grey,
+      colorThemeIndex: theme?.colorThemeIndex ?? 0,
+      colorThemeId: colorTheme.id,
+      colorThemeName: colorTheme.name,
     },
     contact: {
       email: contact?.email ?? '',
@@ -110,6 +120,8 @@ export function mapSiteToGeroz(site) {
       eyebrow: capabilities?.tag ?? 'Capabilities & Skills',
       title: capabilities?.tag ?? 'Capabilities & Skills',
       description: meta?.description ?? hero?.heroStatement ?? '',
+      backgroundImage:
+        capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBg,
       items: bullets.map((bullet, index) => {
         const { title, titleBreak } = splitBulletTitle(bullet);
         const categoryWords = bullet.split(' ').slice(0, 3).join(' ').toUpperCase();

@@ -93,7 +93,7 @@ export default function GerozCvFooter() {
   const { footer } = useGerozContent();
 
   return (
-    <footer className="gz-footer relative overflow-hidden bg-lawyer-dark text-stone-300">
+    <footer className="gz-footer relative overflow-hidden bg-black text-stone-300">
       <div
         className="gz-footer__bg pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
         style={{ backgroundImage: 'var(--geroz-img-footer-bg)' }}

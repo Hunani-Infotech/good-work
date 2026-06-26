@@ -48,7 +48,7 @@ export default function AboutSection4() {
   const { about } = useGerozContent();
 
   return (
-    <section id="about" className="gz-about relative overflow-hidden bg-[#f8f5f0]">
+    <section id="about" className="gz-about relative overflow-hidden">
       {about.backgroundImage ? (
         <>
           <div

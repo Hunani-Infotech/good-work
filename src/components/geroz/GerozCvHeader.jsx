@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ShareButton from '../ui/ShareButton.jsx';
+import GerozColorPaletteSwitcher from './GerozColorPaletteSwitcher.jsx';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import { scrollGerozToHash } from '../../animations/gerozAnimations.js';
 
@@ -95,6 +96,8 @@ function MobileDrawer({ open, links, onClose }) {
           </button>
         </div>
 
+        <GerozColorPaletteSwitcher className="geroz-palette--drawer mb-6" />
+
         <NavLinks
           links={links}
           className="geroz-cv-header__drawer-links"
@@ -171,6 +174,10 @@ export default function GerozCvHeader() {
       className={`geroz-cv-header pointer-events-none fixed inset-x-0 top-0 z-[300] ${scrolled ? 'is-scrolled' : ''}`}
     >
       <div className="geroz-cv-header__inner pointer-events-auto">
+        <div className="geroz-cv-header__palette hidden sm:flex">
+          <GerozColorPaletteSwitcher />
+        </div>
+
         <nav className="geroz-cv-header__nav hidden lg:block" aria-label="Main">
           <NavLinks
             links={nav.links}

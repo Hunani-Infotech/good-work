@@ -2,9 +2,15 @@ import { useEffect, useLayoutEffect } from 'react';
 import '../styles/geroz-tailwind.css';
 import '../styles/video-cv-widget.css';
 
-import { applyGerozImageCssVars, clearGerozImageCssVars } from '../data/geroz/constants.js';
+import {
+  applyGerozImageCssVars,
+  clearGerozImageCssVars,
+  clearGerozThemeCssVars,
+} from '../data/geroz/constants.js';
 import { useGerozContent } from '../hooks/geroz/useGerozContent.js';
 import { useGerozPageAnimations } from '../hooks/geroz/useGerozPageAnimations.js';
+import { GerozColorThemeProvider } from '../geroz/context/GerozColorThemeContext.jsx';
+import { useGerozColorTheme } from '../geroz/context/GerozColorThemeContext.jsx';
 
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import CustomCursor from '../components/ui/CustomCursor.jsx';
@@ -16,8 +22,9 @@ import AboutSection4 from '../geroz/components/about/AboutSection4.jsx';
 import VideoSection from '../geroz/components/video/VideoSection.jsx';
 import CapabilitiesSection from '../geroz/components/capabilities/CapabilitiesSection.jsx';
 
-export default function GerozCvPage() {
-  const { siteMeta, images, theme } = useGerozContent();
+function GerozCvPageContent() {
+  const { siteMeta, images } = useGerozContent();
+  const { theme } = useGerozColorTheme();
   useGerozPageAnimations();
 
   useLayoutEffect(() => {
@@ -29,6 +36,7 @@ export default function GerozCvPage() {
       document.documentElement.classList.remove('geroz-template');
       document.body.classList.remove('geroz-template');
       clearGerozImageCssVars();
+      clearGerozThemeCssVars();
     };
   }, [images]);
 
@@ -50,5 +58,15 @@ export default function GerozCvPage() {
       </main>
       <VideoCvWidget accentColor={theme.accent} position="bottom-right" />
     </>
+  );
+}
+
+export default function GerozCvPage() {
+  const { theme: initialTheme } = useGerozContent();
+
+  return (
+    <GerozColorThemeProvider initialIndex={initialTheme.colorThemeIndex ?? 0}>
+      <GerozCvPageContent />
+    </GerozColorThemeProvider>
   );
 }

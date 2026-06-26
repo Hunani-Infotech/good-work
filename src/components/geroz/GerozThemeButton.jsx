@@ -2,12 +2,14 @@ export default function GerozThemeButton({
   href,
   children,
   className = '',
-  variant = 'dark',
+  variant = 'accent',
 }) {
   const variantClass =
-    variant === 'lawyer'
-      ? 'bg-lawyer hover:bg-[color-mix(in_srgb,var(--color-lawyer)_88%,#000)]'
-      : 'bg-[#333] hover:bg-[#151515]';
+    variant === 'light'
+      ? 'geroz-theme-btn--light bg-white hover:bg-white'
+      : variant === 'dark'
+        ? 'bg-[#333] hover:bg-[#151515]'
+        : 'geroz-theme-btn--accent bg-lawyer hover:bg-[color-mix(in_srgb,var(--color-lawyer)_88%,#000)]';
 
   return (
     <a

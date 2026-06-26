@@ -54,3 +54,44 @@ export function clearGerozImageCssVars(root = document.documentElement) {
     '--geroz-img-video-fallback',
   ].forEach((name) => root.style.removeProperty(name));
 }
+
+function getGerozThemeTargets(root = document.documentElement) {
+  const targets = [root];
+  if (document.body && document.body !== root) {
+    targets.push(document.body);
+  }
+  return targets;
+}
+
+/** Apply GoodWork brand colours from site.json onto the Geroz route. */
+export function applyGerozThemeCssVars(
+  theme = {},
+  root = document.documentElement,
+) {
+  const { purple, orange, bgWarm, grey, accent } = theme;
+  const accentColor = orange ?? accent;
+
+  getGerozThemeTargets(root).forEach((el) => {
+    if (purple) el.style.setProperty('--brand-purple', purple);
+    if (accentColor) {
+      el.style.setProperty('--brand-orange', accentColor);
+      el.style.setProperty('--color-lawyer', accentColor);
+    }
+    if (bgWarm) el.style.setProperty('--brand-bg-warm', bgWarm);
+    if (grey) el.style.setProperty('--brand-grey', grey);
+  });
+}
+
+export function clearGerozThemeCssVars(root = document.documentElement) {
+  const names = [
+    '--brand-purple',
+    '--brand-orange',
+    '--brand-bg-warm',
+    '--brand-grey',
+    '--color-lawyer',
+  ];
+
+  getGerozThemeTargets(root).forEach((el) => {
+    names.forEach((name) => el.style.removeProperty(name));
+  });
+}

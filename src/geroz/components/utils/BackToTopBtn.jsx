@@ -41,7 +41,7 @@ export default function BackToTopBtn() {
       type="button"
       aria-label="Scroll to top"
       onClick={scrollTop}
-      className={`gz-back-to-top fixed right-7 bottom-[110px] z-[999] flex size-[50px] items-center justify-center rounded-full border-0 bg-transparent p-0 shadow-none outline-none transition-[opacity,transform,background-color,bottom,top,right] duration-300 ease-out [-webkit-tap-highlight-color:transparent] hover:bg-black/5 max-lg:right-[max(16px,env(safe-area-inset-right))] max-lg:bottom-[max(110px,calc(96px+env(safe-area-inset-bottom)))] max-lg:size-10 ${
+      className={`gz-back-to-top fixed right-7 bottom-[110px] z-[999] flex size-[50px] items-center justify-center rounded-full border-0 bg-transparent p-0 text-lawyer shadow-none outline-none transition-[opacity,transform,background-color,bottom,top,right,color] duration-300 ease-out [-webkit-tap-highlight-color:transparent] hover:bg-black/5 max-lg:right-[max(16px,env(safe-area-inset-right))] max-lg:bottom-[max(110px,calc(96px+env(safe-area-inset-bottom)))] max-lg:size-10 ${
         visible
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0'
@@ -56,7 +56,7 @@ export default function BackToTopBtn() {
           ref={scrollPathRef}
           d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
           fill="none"
-          stroke="#b68c5a"
+          stroke="currentColor"
           strokeWidth="3"
         />
       </svg>

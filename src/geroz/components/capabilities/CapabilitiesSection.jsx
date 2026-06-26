@@ -29,14 +29,31 @@ function SectionTitleAccent({ children }) {
 
 export default function CapabilitiesSection() {
   const { capabilities } = useGerozContent();
+  const hasImage = Boolean(capabilities.backgroundImage);
 
   return (
-    <section id="capabilities" className="gz-capabilities relative isolate overflow-hidden bg-[#fafaf9]">
-      <GerozLuxuryBackdrop
-        variant="cream"
-        washClass="gz-capabilities__backdrop-wash"
-        noiseClass="gz-capabilities__backdrop-noise"
-      />
+    <section
+      id="capabilities"
+      className={`gz-capabilities relative isolate overflow-hidden ${hasImage ? 'gz-capabilities--imaged' : 'bg-[var(--brand-bg-warm,#faf8f5)]'}`}
+    >
+      {hasImage ? (
+        <>
+          <div
+            className="gz-capabilities__photo-bg pointer-events-none"
+            style={{ backgroundImage: `url(${capabilities.backgroundImage})` }}
+            aria-hidden="true"
+          />
+          <div className="gz-capabilities__overlay pointer-events-none" aria-hidden="true" />
+        </>
+      ) : null}
+
+      {!hasImage ? (
+        <GerozLuxuryBackdrop
+          variant="cream"
+          washClass="gz-capabilities__backdrop-wash"
+          noiseClass="gz-capabilities__backdrop-noise"
+        />
+      ) : null}
 
       <div className="geroz-container-wide relative z-[1] px-4 py-[clamp(4rem,7vw,6rem)] sm:px-6 lg:px-11">
         <div className="mx-auto max-w-[52rem]">
