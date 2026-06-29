@@ -596,6 +596,28 @@ body.geroz-template .cursor-ring.is-hovering {
   box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.92);
 }
 
+/* Back to top — palette accent by default; white on accent-coloured section bands */
+body.geroz-template .gz-back-to-top {
+  color: var(--brand-orange, #f25828);
+  background: transparent;
+}
+
+body.geroz-template .gz-back-to-top:hover {
+  background: color-mix(in srgb, var(--brand-orange, #f25828) 10%, transparent);
+}
+
+body.geroz-template .gz-back-to-top.gz-back-to-top--on-accent {
+  color: #fff;
+}
+
+body.geroz-template .gz-back-to-top.gz-back-to-top--on-accent:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+body.geroz-template .gz-back-to-top svg path {
+  stroke: currentColor;
+}
+
 @media (max-width: 1023px) {
   .gz-about__photo-bg {
     background-attachment: scroll;
