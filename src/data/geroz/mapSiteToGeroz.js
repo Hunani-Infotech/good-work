@@ -119,7 +119,6 @@ export function mapSiteToGeroz(site) {
     capabilities: {
       eyebrow: capabilities?.tag ?? 'Capabilities & Skills',
       title: capabilities?.tag ?? 'Capabilities & Skills',
-      description: meta?.description ?? hero?.heroStatement ?? '',
       backgroundImage:
         capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBg,
       items: bullets.map((bullet, index) => {

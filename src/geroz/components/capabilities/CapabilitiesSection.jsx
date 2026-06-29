@@ -62,12 +62,6 @@ export default function CapabilitiesSection() {
           <h2 className="gz-capabilities__title mt-[clamp(1rem,2.2vw,1.75rem)] text-center font-serif text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.08] tracking-[-0.03em] text-stone-900">
             {capabilities.title}
           </h2>
-
-          {capabilities.description ? (
-            <p className="gz-capabilities__description mx-auto mt-[clamp(1.25rem,2.5vw,2rem)] max-w-[40rem] text-center font-serif text-[clamp(1.0625rem,1.5vw,1.25rem)] leading-[1.6] tracking-[-0.01em] text-stone-600">
-              {capabilities.description}
-            </p>
-          ) : null}
         </div>
 
         <div className="gz-capabilities__list mx-auto mt-[clamp(2.25rem,4.5vw,3.5rem)] flex w-full max-w-[56rem] flex-col">
