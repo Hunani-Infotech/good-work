@@ -28,6 +28,7 @@ function setNativeScrollerProxy() {
         };
       },
     });
+    ScrollTrigger.defaults({ scroller: document.documentElement });
   } catch {
     /* ScrollTrigger may be unavailable during route teardown */
   }
@@ -80,6 +81,7 @@ export function initLenis(options = {}) {
       },
     });
     lenisProxyActive = true;
+    ScrollTrigger.defaults({ scroller: document.documentElement });
   } catch {
     lenisProxyActive = false;
   }

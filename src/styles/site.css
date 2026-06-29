@@ -4843,7 +4843,7 @@ img, video { max-width: 100%; display: block; }
 a { color: inherit; }
 .w-list-unstyled { list-style: none; padding-left: 0; margin: 0; }
 
-body, .heading, .nav-brand-name, .click-scroll-text, .service-headline,
+body:not(.meridian-template), .heading, .nav-brand-name, .click-scroll-text, .service-headline,
 .service-h2, .body-copy, .h2-headline-step1-1, .h2-headline-step1-2,
 .h2-headline-step1-3, .h2-benefit-1, .h2-benefit-2, .heading-cta,
 .name-footer, .he-bulltet {
