@@ -132,6 +132,7 @@ body.meridian-template :is(
 /* Body copy */
 body.meridian-template :is(
   .meridian-manifesto__body,
+  .meridian-about__heading,
   .meridian-about__paragraph,
   .meridian-capabilities__text,
   .meridian-footer__value,
@@ -700,20 +701,121 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-about__inner {
-  width: min(52rem, 100%);
+  width: min(88rem, 100%);
   margin: 0 auto;
-  padding: clamp(2.5rem, 6vh, 4rem) clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(3rem, 8vh, 5.5rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(4rem, 10vh, 6.5rem);
+}
+
+.meridian-about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.meridian-about__media {
+  position: relative;
+}
+
+.meridian-about__media-shell {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  max-height: min(78vh, 44rem);
+  background: color-mix(in srgb, var(--meridian-ink) 4%, var(--meridian-surface));
+}
+
+.meridian-about__photo {
+  display: block;
+  width: 100%;
+  height: 122%;
+  object-fit: cover;
+  object-position: center 22%;
+  transform: translate3d(0, -8%, 0);
+  will-change: transform;
+}
+
+.meridian-about__content {
+  padding-top: clamp(0.25rem, 1.5vw, 1rem);
+}
+
+.meridian-about__seal {
+  position: relative;
+  width: clamp(4.5rem, 8vw, 5.75rem);
+  height: clamp(4.5rem, 8vw, 5.75rem);
+  margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.meridian-about__seal-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--meridian-border);
+}
+
+.meridian-about__seal-ring text {
+  fill: var(--meridian-muted);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.meridian-about__seal-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--meridian-ink);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.meridian-about__heading {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 14ch;
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.06;
+}
+
+.meridian-about__copy {
+  display: grid;
+  gap: 1.25rem;
 }
 
 .meridian-about__paragraph {
-  margin: 0 0 1.25rem;
+  margin: 0;
   color: var(--meridian-muted);
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: clamp(0.98rem, 1.25vw, 1.0625rem);
+  line-height: 1.78;
 }
 
-.meridian-about__paragraph:last-child {
-  margin-bottom: 0;
+@media (min-width: 960px) {
+  .meridian-about__media {
+    position: sticky;
+    top: calc(var(--meridian-header-height) + 1.5rem);
+  }
+}
+
+@media (max-width: 859px) {
+  .meridian-about__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .meridian-about__media-shell {
+    max-height: min(62vh, 32rem);
+  }
+
+  .meridian-about__heading {
+    max-width: none;
+  }
 }
 
 /* ── Capabilities ── */

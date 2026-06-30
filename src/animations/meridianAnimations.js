@@ -379,37 +379,68 @@ function initMeridianAbout(prefersReduced) {
   const section = document.querySelector('.meridian-about');
   if (!section) return;
 
-  const inner = section.querySelector('.meridian-about__inner');
+  const photo = section.querySelector('.meridian-about__photo');
+  const seal = section.querySelector('.meridian-about__seal');
+  const heading = section.querySelector('.meridian-about__heading');
   const paragraphs = section.querySelectorAll('.meridian-about__paragraph');
 
   if (prefersReduced) {
-    setReducedState([...paragraphs, inner]);
+    setReducedState([photo, seal, heading, ...paragraphs]);
     return;
   }
 
-  if (inner) {
-    drawLineScale(inner, section, { start: 'top 94%' });
+  if (photo) {
+    gsap.fromTo(
+      photo,
+      { y: '-12%', force3D: true },
+      {
+        y: '8%',
+        ease: 'none',
+        force3D: true,
+        scrollTrigger: meridianScrub(section, 'top bottom', 'bottom top', 1.1),
+      },
+    );
   }
 
-  paragraphs.forEach((para, index) => {
-    if (index === 0) {
-      const words = splitWordsIntoMasks(para, 'geroz-word geroz-word--lead');
-      revealStaggerWords(words, para, {
-        start: 'top 90%',
-        stagger: 0.028,
-        duration: 0.9,
-        y: '115%',
-      });
-      return;
-    }
+  if (seal) {
+    gsap.fromTo(seal, { opacity: 0, scale: 0.88, rotate: -12 }, {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      duration: 1,
+      ease: GEROZ_EASE_IO,
+      scrollTrigger: meridianScroll(seal, 'top 90%'),
+    });
+  }
 
-    const lines = splitLinesIntoMasks(para, 10);
+  if (heading) {
+    const lines = splitLinesIntoMasks(heading, 4);
     if (lines.length > 1) {
-      revealStaggerLines(lines, para, {
-        start: 'top 92%',
+      revealStaggerLines(lines, heading, {
+        start: 'top 88%',
         stagger: 0.1,
         duration: 0.95,
         y: '110%',
+      });
+    } else {
+      const inner = wrapLineMask(heading);
+      gsap.fromTo(inner, { y: '110%' }, {
+        y: 0,
+        duration: 0.95,
+        ease: GEROZ_EASE,
+        scrollTrigger: meridianScroll(heading, 'top 88%'),
+      });
+    }
+  }
+
+  paragraphs.forEach((para, index) => {
+    const lines = splitLinesIntoMasks(para, 12);
+    if (lines.length > 1) {
+      revealStaggerLines(lines, para, {
+        start: 'top 92%',
+        stagger: 0.08,
+        duration: 0.9,
+        y: '108%',
       });
       return;
     }
@@ -419,6 +450,7 @@ function initMeridianAbout(prefersReduced) {
       y: 0,
       duration: 0.95,
       ease: GEROZ_EASE,
+      delay: index * 0.04,
       scrollTrigger: meridianScroll(para, 'top 92%'),
     });
   });

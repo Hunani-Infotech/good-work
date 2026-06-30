@@ -145,7 +145,7 @@ function collectFooterTargets(root) {
   const pageSections = document.querySelectorAll('.meridian-cv-main > section:not(#contact):not(#capabilities)');
   const header = document.querySelector('.meridian-header');
   const parallaxLayers = document.querySelectorAll(
-    '.meridian-manifesto__inner, .meridian-about__inner, .meridian-capabilities__inner',
+    '.meridian-manifesto__inner, .meridian-about__content, .meridian-capabilities__inner',
   );
 
   return {

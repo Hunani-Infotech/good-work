@@ -85,6 +85,11 @@ export function mapSiteToMeridian(site) {
         ?? '',
     },
     about: {
+      image: narrative?.backgroundImage ?? '/images/landing/image1.png',
+      imageAlt: `${displayName} — professional narrative`,
+      imageObjectPosition: 'center 30%',
+      eyebrow: narrative?.tag ?? 'Professional Narrative',
+      heading: subtitle || `About ${firstName}`,
       paragraphs: paragraphs.length
         ? paragraphs
         : [hero?.heroStatement ?? meta?.description ?? ''].filter(Boolean),
