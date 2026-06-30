@@ -17,6 +17,7 @@ export default function MeridianCapabilitiesSection() {
                 <span className="meridian-capabilities__index">{item.number}</span>
                 <p className="meridian-capabilities__text">{item.text}</p>
               </div>
+              <span className="meridian-capabilities__divider" aria-hidden="true" />
             </li>
           ))}
         </ul>

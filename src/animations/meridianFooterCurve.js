@@ -67,7 +67,7 @@ function applyDividerCtaMotion(targets, scrollProgress, metrics) {
   const { travelX, lineReachProgress } = metrics;
 
   gsap.set(dividerLine, {
-    scaleX: 1, // Static divider line as requested
+    scaleX: lineProgress,
     transformOrigin: 'left center',
     force3D: true,
   });
@@ -84,8 +84,8 @@ function applyDividerCtaMotion(targets, scrollProgress, metrics) {
     xPercent: -50,
     yPercent: -50,
     x: gsap.utils.interpolate(travelX, 0, ctaProgress),
-    opacity: 1,
-    scale: 1,
+    opacity: gsap.utils.clamp(0, 1, gsap.utils.mapRange(0, 0.35, 0, 1, ctaProgress)),
+    scale: gsap.utils.interpolate(0.88, 1, ctaProgress),
     transformOrigin: 'center center',
     force3D: true,
   });
@@ -172,7 +172,7 @@ function buildAmbientTimeline(targets) {
     tl.fromTo(
       section,
       { opacity: 1, filter: 'blur(0px)' },
-      { opacity: 0.42, filter: 'blur(5px)', ease: 'power2.inOut' },
+      { opacity: 0.42, filter: 'blur(3px)', ease: 'power2.inOut' },
       0,
     );
   });
@@ -181,7 +181,7 @@ function buildAmbientTimeline(targets) {
     tl.fromTo(
       targets.header,
       { opacity: 1, filter: 'blur(0px)' },
-      { opacity: 0.35, filter: 'blur(4px)', ease: 'power2.inOut' },
+      { opacity: 0.35, filter: 'blur(2px)', ease: 'power2.inOut' },
       0,
     );
   }
@@ -194,13 +194,7 @@ function buildAmbientTimeline(targets) {
 }
 
 function setFixedFooterContent(targets) {
-  const staticEls = [
-    targets.contentLayer,
-    targets.headingWrap,
-    ...targets.panel?.querySelectorAll(
-      '.meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-contact__inner, .meridian-contact__pill, .meridian-footer, .meridian-footer__meta > div, .meridian-footer__social-list a',
-    ) ?? [],
-  ].filter(Boolean);
+  const staticEls = [targets.contentLayer].filter(Boolean);
 
   staticEls.forEach((el) => {
     gsap.set(el, {
