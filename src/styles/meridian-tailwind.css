@@ -21,13 +21,42 @@ html.meridian-template #root {
   --meridian-accent: #455ce9;
   --meridian-header-height: 4rem;
   --meridian-font: 'Neue Montreal', Arial, sans-serif;
+  --meridian-font-size: 16px;
+  --meridian-leading-body: 1.75;
+  --meridian-leading-tight: 1.08;
+  --meridian-tracking-body: -0.01em;
+  --meridian-tracking-display: -0.04em;
+  --meridian-tracking-caps: 0.16em;
 
   background: var(--meridian-surface);
   color: var(--meridian-ink);
   font-family: var(--meridian-font);
+  font-size: var(--meridian-font-size);
+  font-weight: 400;
+  font-style: normal;
+  line-height: var(--meridian-leading-body);
+  letter-spacing: var(--meridian-tracking-body);
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/*
+ * Meridian-only typography — Neue Montreal across the full page surface.
+ * Isolated from GoodWork global Goga / Instrument Serif rules in site.css.
+ */
+html.meridian-template :is(h1, h2, h3, h4, h5, h6) {
+  font-family: inherit;
+  font-weight: 400;
+  font-style: normal;
+  color: inherit;
+}
+
+html.meridian-template p {
+  font-family: inherit;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body.meridian-template .meridian-cv-main,
@@ -36,6 +65,7 @@ body.meridian-template .meridian-menu__root,
 body.meridian-template .vcv-widget,
 body.meridian-template .site-loader {
   font-family: var(--meridian-font);
+  font-synthesis: none;
 }
 
 body.meridian-template button,
@@ -44,6 +74,7 @@ body.meridian-template textarea,
 body.meridian-template select,
 body.meridian-template optgroup {
   font-family: inherit;
+  font-synthesis: none;
 }
 
 body.meridian-template .meridian-cv-main :is(h1, h2, h3, h4, h5, h6, p, a, span, li, label, small, strong, em),
@@ -69,6 +100,45 @@ body.meridian-template :is(
   .he-bulltet
 ) {
   font-family: inherit;
+}
+
+/* Display type — large headlines & marquee (Regular weight, tight tracking) */
+body.meridian-template :is(
+  .meridian-hero__marquee-item,
+  .meridian-manifesto__heading,
+  .meridian-contact__heading,
+  .meridian-menu__link
+) {
+  font-family: var(--meridian-font);
+  font-weight: 400;
+  letter-spacing: var(--meridian-tracking-display);
+}
+
+/* UI labels — uppercase caps with tracked spacing */
+body.meridian-template :is(
+  .meridian-header__credit,
+  .meridian-hero__role-copy,
+  .meridian-menu__panel-label,
+  .meridian-capabilities__eyebrow,
+  .meridian-capabilities__index,
+  .meridian-footer__label,
+  .meridian-contact__cta-ring
+) {
+  font-family: var(--meridian-font);
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Body copy */
+body.meridian-template :is(
+  .meridian-manifesto__body,
+  .meridian-about__paragraph,
+  .meridian-capabilities__text,
+  .meridian-footer__value,
+  .meridian-contact__pill .meridian-magnetic__surface
+) {
+  font-family: var(--meridian-font);
+  font-weight: 400;
 }
 
 html.meridian-template #top,
@@ -106,7 +176,7 @@ html.meridian-template #contact {
   pointer-events: auto;
   color: #fff;
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -243,7 +313,7 @@ html.meridian-template #contact {
 .meridian-menu__panel-label {
   margin: 0;
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.55;
@@ -272,7 +342,7 @@ html.meridian-template #contact {
   padding: 0.75rem 0;
   color: inherit;
   font-size: clamp(1.75rem, 6vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 1.1;
   text-decoration: none;
@@ -356,7 +426,7 @@ html.meridian-template #contact {
   flex-direction: column;
   gap: 0.28rem;
   font-size: clamp(0.75rem, 0.95vw, 0.875rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -383,7 +453,7 @@ html.meridian-template #contact {
   flex-shrink: 0;
   padding-right: clamp(1.75rem, 3.5vw, 3rem);
   font-size: clamp(4.5rem, 16vw, 11rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.05em;
   line-height: 0.9;
   white-space: nowrap;
@@ -524,7 +594,7 @@ html.meridian-template #contact {
 .meridian-manifesto__heading {
   margin: 0;
   font-size: clamp(2rem, 4.8vw, 3.75rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.08;
 }
@@ -640,7 +710,7 @@ html.meridian-template #contact {
   margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
   color: var(--meridian-muted);
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -667,7 +737,7 @@ html.meridian-template #contact {
 .meridian-capabilities__index {
   padding-top: 0.2rem;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.12em;
   opacity: 0.45;
 }
@@ -675,7 +745,7 @@ html.meridian-template #contact {
 .meridian-capabilities__text {
   margin: 0;
   font-size: clamp(1rem, 1.6vw, 1.2rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.55;
   letter-spacing: -0.01em;
 }
@@ -699,7 +769,7 @@ html.meridian-template #contact {
   background: transparent;
   color: inherit;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 400;
   --meridian-liquid-hover: var(--meridian-ink);
   --meridian-liquid-rise: 16%;
   transition: border-color 0.68s cubic-bezier(0.76, 0, 0.24, 1), color 0.68s cubic-bezier(0.76, 0, 0.24, 1);
@@ -871,7 +941,7 @@ html.meridian-template #contact {
   margin: 0;
   max-width: 12ch;
   font-size: clamp(3.25rem, 8.5vw, 6.5rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 0.98;
 }
@@ -928,7 +998,7 @@ html.meridian-template #contact {
   background: var(--meridian-accent);
   color: #fff;
   font-size: clamp(0.875rem, 1.1vw, 1.0625rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
 }
@@ -1008,7 +1078,7 @@ html.meridian-template #contact {
 .meridian-footer__label {
   margin: 0 0 0.35rem;
   font-size: clamp(0.6875rem, 0.9vw, 0.75rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   opacity: 0.45;
@@ -1177,4 +1247,5 @@ html.meridian-template body.meridian-template :where(
   .site-loader *
 ) {
   font-family: var(--meridian-font);
+  font-synthesis: none;
 }
