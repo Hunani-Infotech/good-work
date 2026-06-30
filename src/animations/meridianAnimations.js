@@ -617,10 +617,9 @@ function initMeridianContactReveal(prefersReduced) {
   const avatar = section.querySelector('.meridian-contact__avatar');
   const arrow = section.querySelector('.meridian-contact__heading-arrow');
   const pills = section.querySelectorAll('.meridian-contact__pill');
-  const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div, .meridian-footer__socials');
+  const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div');
   const footerLabels = section.querySelectorAll('.meridian-footer__label');
   const footerValues = section.querySelectorAll('.meridian-footer__value');
-  const socialLinks = section.querySelectorAll('.meridian-footer__social-list a');
 
   if (prefersReduced) {
     setReducedState([avatar, arrow, headingWrap, ...pills, ...footerBlocks]);
@@ -723,21 +722,6 @@ function initMeridianContactReveal(prefersReduced) {
       stagger: 0.07,
       ease: GEROZ_EASE,
     }, 0.52);
-  }
-
-  if (socialLinks.length) {
-    const words = [];
-    socialLinks.forEach((link) => {
-      words.push(...splitCharsIntoMasks(link));
-    });
-    gsap.set(words, { y: '100%', opacity: 0 });
-    tl.to(words, {
-      y: 0,
-      opacity: 1,
-      duration: 0.6,
-      stagger: 0.01,
-      ease: GEROZ_EASE,
-    }, 0.58);
   }
 }
 

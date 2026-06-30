@@ -119,21 +119,6 @@ export default function MeridianContactSection() {
               <p className="meridian-footer__value">{localTime}</p>
             </div>
           </div>
-
-          {footer.socials?.length ? (
-            <div className="meridian-footer__socials">
-              <p className="meridian-footer__label">Socials</p>
-              <ul className="meridian-footer__social-list">
-                {footer.socials.map((social) => (
-                  <li key={social.label}>
-                    <a href={social.href} target="_blank" rel="noreferrer noopener">
-                      {social.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
           </footer>
         </div>
       </div>

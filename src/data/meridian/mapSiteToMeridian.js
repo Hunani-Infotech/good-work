@@ -117,9 +117,6 @@ export function mapSiteToMeridian(site) {
     },
     footer: {
       version: 'GoodWork CV',
-      socials: [
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-      ],
     },
   };
 }

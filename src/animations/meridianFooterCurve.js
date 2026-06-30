@@ -426,7 +426,7 @@ export function initMeridianFooterCurve({ prefersReduced = false } = {}) {
     });
 
     const contentEls = targets.panel?.querySelectorAll(
-      '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-contact__pill, .meridian-footer, .meridian-footer__meta > div, .meridian-footer__social-list a',
+      '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-contact__pill, .meridian-footer, .meridian-footer__meta > div',
     );
     contentEls?.forEach((el) => {
       gsap.set(el, { clearProps: 'transform,opacity,filter,clipPath' });
