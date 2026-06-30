@@ -180,8 +180,8 @@ function buildAmbientTimeline(targets) {
   if (targets.header) {
     tl.fromTo(
       targets.header,
-      { opacity: 1, filter: 'blur(0px)' },
-      { opacity: 0.35, filter: 'blur(2px)', ease: 'power2.inOut' },
+      { opacity: 1 },
+      { opacity: 0.72, ease: 'power2.inOut' },
       0,
     );
   }
@@ -357,6 +357,10 @@ export function initMeridianFooterCurve({ prefersReduced = false } = {}) {
   setCurveCssVars(root, curveHeightPx);
   gsap.set(curveWrap, { height: curveHeightPx, '--meridian-curve-shadow': 0 });
 
+  if (targets.header) {
+    gsap.set(targets.header, { opacity: 1, filter: 'none', clearProps: 'filter' });
+  }
+
   if (curveEllipse) {
     gsap.set(curveEllipse, {
       xPercent: -50,
@@ -425,7 +429,11 @@ export function initMeridianFooterCurve({ prefersReduced = false } = {}) {
       '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-contact__pill, .meridian-footer, .meridian-footer__meta > div, .meridian-footer__social-list a',
     );
     contentEls?.forEach((el) => {
-      gsap.set(el, { clearProps: 'transform,opacity,filter' });
+      gsap.set(el, { clearProps: 'transform,opacity,filter,clipPath' });
+    });
+
+    document.querySelectorAll('.meridian-contact__pill, .meridian-capabilities__cta, .meridian-contact__cta').forEach((el) => {
+      gsap.set(el, { clearProps: 'clipPath' });
     });
   };
 

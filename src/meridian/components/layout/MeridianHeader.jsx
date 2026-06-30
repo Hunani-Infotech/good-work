@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.js';
 import { scrollMeridianToHash } from '../../../animations/meridianAnimations.js';
+import { getLenis } from '../../../animations/scrollRuntime.js';
 
 function MenuIcon() {
   return (
@@ -36,6 +37,23 @@ function NavLinks({ links, className, linkClassName, onNavigate, scrollToHash })
   );
 }
 
+function MenuButton({ menuOpen, onHero, onToggle }) {
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <button
+      type="button"
+      className={`meridian-menu-btn ${menuOpen ? 'is-open' : ''} ${onHero ? 'meridian-menu-btn--on-hero' : ''}`}
+      onClick={onToggle}
+      aria-expanded={menuOpen}
+      aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+    >
+      <MenuIcon />
+    </button>,
+    document.body,
+  );
+}
+
 function MenuDrawer({ open, links, onClose, scrollToHash }) {
   if (typeof document === 'undefined') return null;
 
@@ -45,9 +63,6 @@ function MenuDrawer({ open, links, onClose, scrollToHash }) {
       <aside className="meridian-menu__panel" aria-label="Navigation">
         <div className="meridian-menu__panel-head">
           <p className="meridian-menu__panel-label">Navigation</p>
-          <button type="button" className="meridian-menu__panel-close" onClick={onClose} aria-label="Close menu">
-            Close
-          </button>
         </div>
         <NavLinks
           links={links}
@@ -98,8 +113,17 @@ export default function MeridianHeader() {
   }, []);
 
   useEffect(() => {
-    document.body.classList.toggle('overflow-hidden', menuOpen);
-    return () => document.body.classList.remove('overflow-hidden');
+    document.body.classList.toggle('meridian-menu-open', menuOpen);
+    const lenis = getLenis();
+    if (menuOpen) {
+      lenis?.stop();
+    } else {
+      lenis?.start();
+    }
+    return () => {
+      document.body.classList.remove('meridian-menu-open');
+      getLenis()?.start();
+    };
   }, [menuOpen]);
 
   useEffect(() => {
@@ -110,6 +134,8 @@ export default function MeridianHeader() {
     document.addEventListener('keydown', onEscape);
     return () => document.removeEventListener('keydown', onEscape);
   }, [menuOpen]);
+
+  const toggleMenu = () => setMenuOpen((open) => !open);
 
   return (
     <>
@@ -130,18 +156,10 @@ export default function MeridianHeader() {
               {hero.creditLabel}
             </a>
           ) : null}
-
-          <button
-            type="button"
-            className={`meridian-menu-btn ${menuOpen ? 'is-open' : ''} ${onHero ? 'meridian-menu-btn--on-hero' : ''}`}
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            <MenuIcon />
-          </button>
         </div>
       </header>
+
+      <MenuButton menuOpen={menuOpen} onHero={onHero} onToggle={toggleMenu} />
 
       <MenuDrawer
         open={menuOpen}

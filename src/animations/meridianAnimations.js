@@ -111,23 +111,21 @@ function initMeridianHeader(prefersReduced) {
     return;
   }
 
-  const loadTargets = [credit, menuBtn].filter(Boolean);
-  if (loadTargets.length) {
-    gsap.fromTo(loadTargets, { opacity: 0, y: -12 }, {
+  if (credit && hero) {
+    gsap.fromTo(credit, { opacity: 0.92 }, {
+      opacity: 1,
+      ease: 'none',
+      scrollTrigger: meridianScrub(hero, 'top top', 'bottom top', 0.6),
+    });
+  }
+
+  if (menuBtn) {
+    gsap.fromTo(menuBtn, { opacity: 0, y: -12 }, {
       opacity: 1,
       y: 0,
       duration: 1,
       ease: GEROZ_EASE,
-      stagger: 0.1,
-      delay: 0.15,
-    });
-  }
-
-  if (header && hero) {
-    gsap.fromTo(header, { opacity: 0.92 }, {
-      opacity: 1,
-      ease: 'none',
-      scrollTrigger: meridianScrub(hero, 'top top', 'bottom top', 0.6),
+      delay: 0.25,
     });
   }
 }
@@ -143,33 +141,34 @@ function initMeridianMenu(prefersReduced) {
 
   let menuTl = null;
 
-  const animateOpen = () => {
+  const resetMenuMotion = () => {
+    menuTl?.kill();
+    menuTl = null;
+
     const backdrop = menuRoot.querySelector('.meridian-menu__backdrop');
     const panel = menuRoot.querySelector('.meridian-menu__panel');
     const links = menuRoot.querySelectorAll('.meridian-menu__link');
 
+    if (backdrop) gsap.set(backdrop, { clearProps: 'opacity' });
+    if (panel) gsap.set(panel, { clearProps: 'transform' });
+    if (links.length) gsap.set(links, { clearProps: 'transform,opacity' });
+  };
+
+  const animateOpen = () => {
+    const links = menuRoot.querySelectorAll('.meridian-menu__link');
     menuTl?.kill();
-    menuTl = gsap.timeline({ defaults: { ease: GEROZ_EASE_IO } });
-
-    if (backdrop) {
-      gsap.set(backdrop, { opacity: 0 });
-      menuTl.to(backdrop, { opacity: 1, duration: 0.45 }, 0);
-    }
-
-    if (panel) {
-      gsap.set(panel, { xPercent: 100 });
-      menuTl.to(panel, { xPercent: 0, duration: 0.65 }, 0.05);
-    }
+    menuTl = gsap.timeline({ defaults: { ease: GEROZ_EASE } });
 
     if (links.length) {
-      gsap.set(links, { y: '108%', opacity: 0 });
+      gsap.set(links, { opacity: 0, y: 28, force3D: true });
       menuTl.to(links, {
-        y: 0,
         opacity: 1,
-        duration: 0.85,
+        y: 0,
+        duration: 0.75,
         stagger: 0.07,
         ease: GEROZ_EASE,
-      }, 0.18);
+        clearProps: 'transform',
+      }, 0.15);
     }
   };
 
@@ -177,15 +176,14 @@ function initMeridianMenu(prefersReduced) {
     if (menuRoot.classList.contains('is-open')) {
       animateOpen();
     } else {
-      menuTl?.kill();
-      menuTl = null;
+      resetMenuMotion();
     }
   });
 
   observer.observe(menuRoot, { attributes: true, attributeFilter: ['class'] });
   menuObserverCleanup = () => {
     observer.disconnect();
-    menuTl?.kill();
+    resetMenuMotion();
   };
 }
 
@@ -506,14 +504,9 @@ function initMeridianCapabilities(prefersReduced) {
   }
 
   if (cta) {
-    gsap.set(cta, {
-      clipPath: 'inset(0 100% 0 0)',
-      opacity: 0,
-      y: 12,
-      force3D: true,
-    });
-    gsap.to(cta, {
-      clipPath: 'inset(0 0% 0 0)',
+    const ctaMotion = cta.querySelector('[data-magnetic-inner]') || cta;
+    gsap.set(cta, { clearProps: 'clipPath' });
+    gsap.fromTo(ctaMotion, { opacity: 0, y: 16 }, {
       opacity: 1,
       y: 0,
       duration: 0.95,
@@ -542,8 +535,12 @@ function initMeridianContactReveal(prefersReduced) {
     return;
   }
 
-  const revealTargets = [avatar, ...pills, ...footerBlocks].filter(Boolean);
+  const revealTargets = [avatar, ...footerBlocks].filter(Boolean);
   gsap.set(revealTargets, { opacity: 0, y: 24 });
+
+  if (pills.length) {
+    gsap.set(pills, { opacity: 0, y: 24, clearProps: 'clipPath' });
+  }
 
   if (headingWrap) {
     scrubParallax(headingWrap, section, {
@@ -617,9 +614,7 @@ function initMeridianContactReveal(prefersReduced) {
   });
 
   if (pills.length) {
-    gsap.set(pills, { clipPath: 'inset(0 100% 0 0)' });
     tl.to(pills, {
-      clipPath: 'inset(0 0% 0 0)',
       opacity: 1,
       y: 0,
       duration: 0.85,
@@ -733,6 +728,12 @@ function initMeridianScrollAnimations(prefersReduced) {
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ overwrite: 'auto' });
   ScrollTrigger.config({ limitCallbacks: true });
+
+  document.querySelectorAll(
+    '.meridian-magnetic, .meridian-contact__pill, .meridian-capabilities__cta, .meridian-contact__cta',
+  ).forEach((el) => {
+    gsap.set(el, { clearProps: 'clipPath' });
+  });
 
   initMeridianSmoothAnchors();
   initMeridianHeader(prefersReduced);
