@@ -597,16 +597,19 @@ function initMeridianCapabilities(prefersReduced) {
     if (window.innerWidth >= 720) {
       cards.forEach((card, i) => {
         const isTopRow = i < 4;
-        gsap.to(card, {
-          x: isTopRow ? -180 : 180,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.5,
-          },
-        });
+        gsap.fromTo(card, 
+          { x: isTopRow ? 150 : -150 },
+          {
+            x: isTopRow ? -150 : 150,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 0.5,
+            },
+          }
+        );
       });
     }
   }
