@@ -321,13 +321,57 @@ function initMeridianHero(prefersReduced) {
     });
   });
 
+  const mobileName = hero.querySelector('.meridian-hero__mobile-name');
+  const mobileArrow = hero.querySelector('.meridian-hero__mobile-arrow');
+  const globe = hero.querySelector('.meridian-hero__globe');
+  const isMobileHero = window.matchMedia('(max-width: 767px)').matches;
+
   if (scrollCue) {
-    gsap.fromTo(scrollCue, { opacity: 0, y: 8 }, {
+    if (isMobileHero) {
+      gsap.fromTo(scrollCue, { opacity: 0 }, {
+        opacity: 0.85,
+        duration: 0.85,
+        ease: GEROZ_EASE,
+        delay: 0.62,
+      });
+    } else {
+      gsap.fromTo(scrollCue, { opacity: 0, y: 8 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.85,
+        ease: GEROZ_EASE,
+        delay: 0.55,
+      });
+    }
+  }
+
+  if (isMobileHero && mobileName) {
+    gsap.fromTo(mobileName, { opacity: 0 }, {
       opacity: 1,
+      duration: 1,
+      ease: GEROZ_EASE_IO,
+      delay: 0.38,
+    });
+  }
+
+  if (isMobileHero && mobileArrow) {
+    gsap.fromTo(mobileArrow, { opacity: 0, x: -6, y: -6 }, {
+      opacity: 0.72,
+      x: 0,
       y: 0,
       duration: 0.85,
       ease: GEROZ_EASE,
-      delay: 0.55,
+      delay: 0.52,
+    });
+  }
+
+  if (isMobileHero && globe) {
+    gsap.fromTo(globe, { opacity: 0, scale: 0.92 }, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.9,
+      ease: GEROZ_EASE,
+      delay: 0.48,
     });
   }
 }
@@ -340,6 +384,7 @@ function initMeridianManifesto(prefersReduced) {
   const grid = section.querySelector('.meridian-manifesto__grid');
   const heading = section.querySelector('.meridian-manifesto__heading');
   const body = section.querySelector('.meridian-manifesto__body');
+  const isCompactManifesto = window.matchMedia('(max-width: 1023px)').matches;
 
   if (prefersReduced) {
     setReducedState([heading, body, inner, grid]);
@@ -356,23 +401,43 @@ function initMeridianManifesto(prefersReduced) {
   }
 
   if (heading) {
-    const lines = splitLinesIntoMasks(heading, 4);
-    scrubRevealLines(lines, section, {
-      start: 'top 88%',
-      end: 'top 48%',
-      scrub: 1.1,
-      fromY: '118%',
-    });
+    if (isCompactManifesto) {
+      gsap.fromTo(heading, { opacity: 0, y: 22 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.95,
+        ease: GEROZ_EASE,
+        scrollTrigger: meridianScroll(section, 'top 88%'),
+      });
+    } else {
+      const lines = splitLinesIntoMasks(heading, 4);
+      scrubRevealLines(lines, section, {
+        start: 'top 88%',
+        end: 'top 48%',
+        scrub: 1.1,
+        fromY: '118%',
+      });
+    }
   }
 
   if (body) {
-    const words = splitWordsIntoMasks(body);
-    revealStaggerWords(words, body, {
-      start: 'top 88%',
-      stagger: 0.022,
-      duration: 0.85,
-      y: '112%',
-    });
+    if (isCompactManifesto) {
+      gsap.fromTo(body, { opacity: 0, y: 18 }, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: GEROZ_EASE_IO,
+        scrollTrigger: meridianScroll(section, 'top 86%'),
+      });
+    } else {
+      const words = splitWordsIntoMasks(body);
+      revealStaggerWords(words, body, {
+        start: 'top 88%',
+        stagger: 0.022,
+        duration: 0.85,
+        y: '112%',
+      });
+    }
   }
 }
 
@@ -384,6 +449,7 @@ function initMeridianAbout(prefersReduced) {
   const seal = section.querySelector('.meridian-about__seal');
   const heading = section.querySelector('.meridian-about__heading');
   const paragraphs = section.querySelectorAll('.meridian-about__paragraph');
+  const isCompactAbout = window.matchMedia('(max-width: 1023px)').matches;
 
   if (prefersReduced) {
     setReducedState([photo, seal, heading, ...paragraphs]);
@@ -415,33 +481,43 @@ function initMeridianAbout(prefersReduced) {
   }
 
   if (heading) {
-    const lines = splitLinesIntoMasks(heading, 4);
-    if (lines.length > 1) {
-      revealStaggerLines(lines, heading, {
-        start: 'top 88%',
-        stagger: 0.1,
-        duration: 0.95,
-        y: '110%',
-      });
-    } else {
-      const inner = wrapLineMask(heading);
-      gsap.fromTo(inner, { y: '110%' }, {
+    if (isCompactAbout) {
+      gsap.fromTo(heading, { opacity: 0, y: 18 }, {
+        opacity: 1,
         y: 0,
         duration: 0.95,
         ease: GEROZ_EASE,
         scrollTrigger: meridianScroll(heading, 'top 88%'),
       });
+    } else {
+      const lines = splitLinesIntoMasks(heading, 4);
+      if (lines.length > 1) {
+        revealStaggerLines(lines, heading, {
+          start: 'top 88%',
+          stagger: 0.1,
+          duration: 0.95,
+          y: '110%',
+        });
+      } else {
+        const inner = wrapLineMask(heading);
+        gsap.fromTo(inner, { y: '110%' }, {
+          y: 0,
+          duration: 0.95,
+          ease: GEROZ_EASE,
+          scrollTrigger: meridianScroll(heading, 'top 88%'),
+        });
+      }
     }
   }
 
   paragraphs.forEach((para, index) => {
-    const lines = splitLinesIntoMasks(para, 12);
-    if (lines.length > 1) {
-      revealStaggerLines(lines, para, {
-        start: 'top 92%',
-        stagger: 0.08,
-        duration: 0.9,
-        y: '108%',
+    if (isCompactAbout) {
+      gsap.fromTo(para, { opacity: 0, y: 16 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.95,
+        ease: GEROZ_EASE,
+        scrollTrigger: meridianScroll(para, 'top 92%'),
       });
       return;
     }

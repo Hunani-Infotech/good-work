@@ -15,13 +15,31 @@ export default function MeridianHeroSection() {
         <div className="meridian-hero__grain" />
       </div>
 
+      <p className="meridian-hero__mobile-name" aria-hidden="true">
+        {hero.firstName}
+      </p>
+
       <div className="meridian-hero__role">
-        <span className="meridian-hero__role-arrow" aria-hidden="true">↗</span>
+        <span className="meridian-hero__role-arrow" aria-hidden="true">↘</span>
         <div className="meridian-hero__role-copy">
           {rolePrimary ? <span>{rolePrimary}</span> : null}
           {roleSecondary ? <span>{roleSecondary}</span> : null}
         </div>
       </div>
+
+      <svg
+        className="meridian-hero__globe"
+        viewBox="0 0 64 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <circle cx="32" cy="32" r="27.5" stroke="currentColor" strokeWidth="1.25" />
+        <ellipse cx="32" cy="32" rx="27.5" ry="10.5" stroke="currentColor" strokeWidth="1.25" />
+        <ellipse cx="32" cy="32" rx="10.5" ry="27.5" stroke="currentColor" strokeWidth="1.25" />
+        <path d="M4.5 32h55" stroke="currentColor" strokeWidth="1.25" />
+        <path d="M32 4.5v55" stroke="currentColor" strokeWidth="1.25" />
+      </svg>
 
       <div className="meridian-hero__portrait-wrap">
         <div className="meridian-hero__portrait-stage">

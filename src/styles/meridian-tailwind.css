@@ -42,6 +42,19 @@ html.meridian-template #root {
   text-rendering: optimizeLegibility;
 }
 
+html.meridian-template,
+html.meridian-template body.meridian-template {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+html.meridian-template .meridian-cv-main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  box-sizing: border-box;
+}
+
 /*
  * Meridian-only typography — Neue Montreal across the full page surface.
  * Isolated from GoodWork global Goga / Instrument Serif rules in site.css.
@@ -428,32 +441,34 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-hero__role {
   position: absolute;
-  top: clamp(5.25rem, 12vh, 8.5rem);
-  right: clamp(1.25rem, 4vw, 3rem);
+  top: 50%;
+  transform: translateY(-50%);
+  right: clamp(1.25rem, 8vw, 6rem);
   z-index: 6;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.75rem;
-  max-width: min(13rem, 32vw);
+  gap: 1.5rem;
+  max-width: min(20rem, 40vw);
 }
 
 .meridian-hero__role-arrow {
-  font-size: 0.9375rem;
+  font-size: 1.25rem;
   line-height: 1;
-  opacity: 0.7;
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.96);
 }
 
 .meridian-hero__role-copy {
   display: flex;
   flex-direction: column;
   gap: 0.28rem;
-  font-size: clamp(0.75rem, 0.95vw, 0.875rem);
+  font-size: clamp(1.25rem, 1.8vw, 2.5rem);
   font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.35;
+  letter-spacing: normal;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .meridian-hero__marquee {
@@ -463,6 +478,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   overflow: hidden;
   pointer-events: none;
   align-self: end;
+  box-sizing: border-box;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
   padding-bottom: clamp(4rem, 9vh, 5.75rem);
 }
 
@@ -478,7 +495,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   font-size: clamp(4.5rem, 16vw, 11rem);
   font-weight: 400;
   letter-spacing: -0.05em;
-  line-height: 0.9;
+  line-height: 1;
   white-space: nowrap;
   color: rgba(255, 255, 255, 0.94);
 }
@@ -594,6 +611,12 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   height: 28%;
 }
 
+.meridian-hero__mobile-name,
+.meridian-hero__mobile-arrow,
+.meridian-hero__globe {
+  display: none;
+}
+
 /* ── Manifesto ── */
 .meridian-manifesto {
   position: relative;
@@ -603,7 +626,9 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-manifesto__inner {
   width: min(88rem, 100%);
+  max-width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
   padding: clamp(4rem, 10vh, 7rem) clamp(1.25rem, 4vw, 3rem) clamp(6rem, 14vh, 9rem);
 }
 
@@ -612,6 +637,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: clamp(2rem, 6vw, 5rem);
   align-items: start;
+  width: 100%;
+  min-width: 0;
 }
 
 .meridian-manifesto__heading {
@@ -620,6 +647,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.08;
+  min-width: 0;
 }
 
 .meridian-manifesto__body {
@@ -628,6 +656,10 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   color: var(--meridian-muted);
   font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.75;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
 }
 
 .meridian-magnetic {
@@ -799,18 +831,37 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   color: var(--meridian-muted);
   font-size: clamp(0.98rem, 1.25vw, 1.0625rem);
   line-height: 1.78;
-}
-
-@media (min-width: 960px) {
-  .meridian-about__media {
-    position: sticky;
-    top: calc(var(--meridian-header-height) + 1.5rem);
-  }
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
 }
 
 @media (max-width: 859px) {
   .meridian-about__grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .meridian-about__inner {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-inline: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .meridian-about__content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .meridian-about__copy {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .meridian-about__paragraph {
+    width: 100%;
+    max-width: 100%;
+    text-wrap: pretty;
   }
 
   .meridian-about__media-shell {
@@ -819,6 +870,19 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
   .meridian-about__heading {
     max-width: none;
+  }
+
+  .meridian-template .meridian-about__paragraph .geroz-line-mask {
+    overflow: visible;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.08em;
+  }
+}
+
+@media (min-width: 960px) {
+  .meridian-about__media {
+    position: sticky;
+    top: calc(var(--meridian-header-height) + 1.5rem);
   }
 }
 
@@ -1329,7 +1393,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   }
 
   .meridian-hero__marquee-item {
-    font-size: clamp(3.25rem, 17vw, 6rem);
+    font-size: clamp(9.5rem, 45vw, 16rem);
+    text-transform: lowercase;
   }
 }
 
@@ -1340,8 +1405,131 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   }
 
   .meridian-hero__marquee-item {
-    font-size: clamp(2.75rem, 19vw, 4.75rem);
-    letter-spacing: -0.04em;
+    font-size: clamp(9.5rem, 45vw, 16rem);
+    letter-spacing: -0.05em;
+    text-transform: lowercase;
+  }
+}
+
+@media (max-width: 767px) {
+  .meridian-hero {
+    display: block;
+    background: #7a7a7a;
+  }
+
+  .meridian-hero__spotlight {
+    top: 42%;
+    width: 100%;
+    height: 70%;
+    opacity: 0.65;
+  }
+
+  .meridian-hero__vignette {
+    background:
+      radial-gradient(ellipse 110% 85% at 50% 38%, transparent 18%, rgba(0, 0, 0, 0.38) 100%),
+      linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.18) 34%, transparent 58%);
+  }
+
+  .meridian-hero__portrait-wrap {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+  }
+
+  .meridian-hero__portrait-stage {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+  }
+
+  .meridian-hero__portrait-halo,
+  .meridian-hero__portrait-ring {
+    display: none;
+  }
+
+  .meridian-hero__portrait-shell {
+    width: 100%;
+    height: 100%;
+    min-height: 100svh;
+    min-height: 100dvh;
+    border-radius: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .meridian-hero__portrait {
+    width: 100%;
+    height: 100%;
+    min-height: 100svh;
+    min-height: 100dvh;
+    object-position: center 18%;
+    filter: saturate(0.88) contrast(1.05) brightness(0.98);
+  }
+
+  .meridian-hero__mobile-name {
+    display: none;
+  }
+
+  .meridian-hero__marquee {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 51%;
+    z-index: 5;
+    padding: 0;
+    transform: translateY(-50%);
+  }
+
+  .meridian-hero__role {
+    top: auto;
+    right: auto;
+    bottom: clamp(6rem, 18vh, 12rem);
+    left: clamp(1.25rem, 4vw, 1.5rem);
+    flex-direction: column;
+    gap: 0.35rem;
+    max-width: 18rem;
+  }
+
+  .meridian-hero__role-arrow {
+    display: block;
+    font-size: 1.15rem;
+    line-height: 1;
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.96);
+    pointer-events: none;
+    margin-bottom: 0.2rem;
+  }
+
+  .meridian-hero__role-copy {
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .meridian-hero__globe {
+    display: none;
+  }
+
+  .meridian-hero__scroll-cue {
+    display: block;
+    bottom: clamp(4.75rem, 13vh, 6rem);
+    left: 50%;
+    z-index: 6;
+    transform: translateX(-50%);
+    opacity: 0.85;
+  }
+
+  .meridian-hero__scroll-line {
+    height: clamp(2.25rem, 5.5vh, 3rem);
+    opacity: 0.9;
+  }
+
+  .meridian-hero__scroll-hint {
+    height: 28%;
   }
 }
 
@@ -1359,6 +1547,25 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 @media (max-width: 1023px) {
   .meridian-manifesto__grid {
     grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .meridian-manifesto__inner {
+    padding-inline: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .meridian-manifesto__heading,
+  .meridian-manifesto__body {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .meridian-manifesto__body {
+    overflow: visible;
+  }
+
+  .meridian-manifesto {
+    overflow-x: clip;
   }
 
   .meridian-contact__divider-row {
@@ -1479,6 +1686,15 @@ html.meridian-template body.meridian-template :where(
 .meridian-template .geroz-char {
   display: inline-block;
   will-change: transform;
+}
+
+.meridian-template .meridian-hero__marquee-item .geroz-char-mask {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.08em;
+}
+
+.meridian-template .meridian-hero__marquee-item .geroz-char-mask:first-child {
+  padding-left: 0.05em;
 }
 
 .meridian-template .geroz-word--lead {
