@@ -15,7 +15,7 @@ import { syncScrollLayout } from './scrollRuntime.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LERP_DOWN = 0.16;
+const LERP_DOWN = 0.08;
 const LERP_UP_CURVE = 0.52;
 const CURVE_EASE_DOWN = gsap.parseEase('power2.inOut');
 const STRETCH_PHASE = 0.2;
@@ -26,7 +26,7 @@ let cleanup = null;
 
 /** Curve cap height in pixels — must be numeric (never multiply "10vh" strings). */
 function getCurveHeightPx() {
-  const ratio = window.matchMedia('(max-width: 720px)').matches ? 0.075 : 0.1;
+  const ratio = window.matchMedia('(max-width: 720px)').matches ? 0.15 : 0.25;
   return window.innerHeight * ratio;
 }
 
@@ -44,7 +44,7 @@ function getCtaMetrics(targets) {
 }
 
 function getDividerRevealProgress(scrollProgress) {
-  const dividerDuration = 0.36;
+  const dividerDuration = 0.5;
   return gsap.utils.clamp(
     0,
     1,
@@ -59,15 +59,15 @@ function getDividerRevealProgress(scrollProgress) {
   );
 }
 
-function applyDividerCtaMotion(targets, scrollProgress) {
+function applyDividerCtaMotion(targets, scrollProgress, metrics) {
   const { dividerLine, dividerRow, cta } = targets;
   if (!dividerLine || !dividerRow || !cta) return;
 
   const lineProgress = getDividerRevealProgress(scrollProgress);
-  const { travelX, lineReachProgress } = getCtaMetrics(targets);
+  const { travelX, lineReachProgress } = metrics;
 
   gsap.set(dividerLine, {
-    scaleX: lineProgress,
+    scaleX: 1, // Static divider line as requested
     transformOrigin: 'left center',
     force3D: true,
   });
@@ -84,8 +84,8 @@ function applyDividerCtaMotion(targets, scrollProgress) {
     xPercent: -50,
     yPercent: -50,
     x: gsap.utils.interpolate(travelX, 0, ctaProgress),
-    opacity: gsap.utils.interpolate(0, 1, ctaProgress),
-    scale: gsap.utils.interpolate(0.88, 1, ctaProgress),
+    opacity: 1,
+    scale: 1,
     transformOrigin: 'center center',
     force3D: true,
   });
@@ -142,7 +142,7 @@ function collectFooterTargets(root) {
   const dividerRow = root?.querySelector('.meridian-contact__divider-row');
   const cta = root?.querySelector('.meridian-contact__cta');
   const ctaRing = root?.querySelector('.meridian-contact__cta-ring');
-  const pageSections = document.querySelectorAll('.meridian-cv-main > section:not(#contact)');
+  const pageSections = document.querySelectorAll('.meridian-cv-main > section:not(#contact):not(#capabilities)');
   const header = document.querySelector('.meridian-header');
   const parallaxLayers = document.querySelectorAll(
     '.meridian-manifesto__inner, .meridian-about__inner, .meridian-capabilities__inner',
@@ -228,10 +228,13 @@ function createCurveDriver({
   ambientTl,
   targets,
 }) {
+  let ctaMetrics = getCtaMetrics(targets);
+  
   const state = {
     targetProgress: 0,
     direction: 1,
     curveProgress: 0,
+    ambientProgress: 0,
   };
 
   const applyCurve = () => {
@@ -261,53 +264,48 @@ function createCurveDriver({
 
   const syncAmbient = () => {
     ambientTl.progress(state.targetProgress);
-    applyDividerCtaMotion(targets, state.targetProgress);
+    applyDividerCtaMotion(targets, state.targetProgress, ctaMetrics);
   };
 
-  /* Reverse scroll only — cap races ahead to cover content */
   const tick = () => {
-    if (state.direction >= 0) return;
-
+    // Curve interpolation
+    const curveLerp = state.direction >= 0 ? LERP_DOWN : LERP_UP_CURVE;
     const curveTarget = getCurveTargetProgress(state.targetProgress, state.direction);
-    state.curveProgress += (curveTarget - state.curveProgress) * LERP_UP_CURVE;
+    state.curveProgress += (curveTarget - state.curveProgress) * curveLerp;
+    
+    // Ambient interpolation (CTA sliding + bg blur) 
+    // Uses LERP_DOWN symmetrically so it's smooth in both directions!
+    state.ambientProgress += (state.targetProgress - state.ambientProgress) * LERP_DOWN;
+    
     applyCurve();
-    syncAmbient();
+    
+    ambientTl.progress(state.ambientProgress);
+    applyDividerCtaMotion(targets, state.ambientProgress, ctaMetrics);
   };
 
-  /*
-   * Dennis entry pin: footer rises into view (top bottom → top top) while curve
-   * collapses. Previous end: '+=100%' after lock meant users only saw curve=0
-   * (flat line) once footer was already pinned — confirmed in diagnose report.
-   */
   const scrollTrigger = ScrollTrigger.create({
     trigger,
     start: 'top bottom',
-    end: 'top top',
-    pin: true,
-    pinSpacing: true,
-    pinType: 'transform',
-    anticipatePin: 1,
+    end: 'bottom bottom',
     invalidateOnRefresh: true,
     onUpdate(self) {
       state.targetProgress = self.progress;
       state.direction = self.direction;
-
-      if (self.direction >= 0) {
-        state.curveProgress = getCurveTargetProgress(self.progress, 1);
-        applyCurve();
-        syncAmbient();
-      }
+      // The tick function now handles BOTH up and down scrolling smoothly!
     },
   });
 
   const syncToScroll = () => {
+    ctaMetrics = getCtaMetrics(targets);
     setCurveCssVars(trigger, getHeightPx());
     const progress = scrollTrigger.progress;
     state.targetProgress = progress;
     state.direction = scrollTrigger.direction;
     state.curveProgress = getCurveTargetProgress(progress, state.direction);
+    state.ambientProgress = progress;
     applyCurve();
-    syncAmbient();
+    ambientTl.progress(state.ambientProgress);
+    applyDividerCtaMotion(targets, state.ambientProgress, ctaMetrics);
   };
 
   syncToScroll();

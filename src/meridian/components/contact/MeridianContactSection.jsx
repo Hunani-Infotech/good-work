@@ -24,7 +24,6 @@ export default function MeridianContactSection() {
       */}
       <div className="meridian-contact__curve-overlay" aria-hidden="true">
         <div className="meridian-contact__curve-wrap">
-          <div className="meridian-contact__curve-fill" />
           <div className="meridian-contact__curve-ellipse" />
         </div>
       </div>
