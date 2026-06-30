@@ -892,9 +892,9 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-capabilities__inner {
-  width: min(88rem, 100%);
+  width: 100%;
   margin: 0 auto;
-  padding: clamp(2rem, 5vh, 3rem) clamp(1.25rem, 4vw, 3rem) clamp(4rem, 8vh, 6rem);
+  padding: clamp(2rem, 5vh, 3rem) clamp(1rem, 2vw, 2rem) clamp(4rem, 8vh, 6rem);
 }
 
 .meridian-capabilities__eyebrow {
@@ -904,6 +904,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .meridian-capabilities__grid {
@@ -920,32 +921,54 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-capabilities__card-shell {
-  height: 100%;
-  padding: clamp(0.55rem, 1vw, 0.75rem);
-  background: color-mix(in srgb, var(--meridian-ink) 5%, var(--meridian-surface));
+  height: auto;
+  padding: 0;
+  background: transparent;
+}
+
+.meridian-capabilities__card:nth-child(5n + 1) .meridian-capabilities__card-frame {
+  --card-bg: #EAECEF;
+  --card-text: #1C1D20;
+  --card-muted: rgba(28, 29, 32, 0.5);
+}
+.meridian-capabilities__card:nth-child(5n + 2) .meridian-capabilities__card-frame {
+  --card-bg: #1A1B1F;
+  --card-text: #FFFFFF;
+  --card-muted: rgba(255, 255, 255, 0.5);
+}
+.meridian-capabilities__card:nth-child(5n + 3) .meridian-capabilities__card-frame {
+  --card-bg: #E2E8F0;
+  --card-text: #1C1D20;
+  --card-muted: rgba(28, 29, 32, 0.5);
+}
+.meridian-capabilities__card:nth-child(5n + 4) .meridian-capabilities__card-frame {
+  --card-bg: #F5E6E8;
+  --card-text: #1C1D20;
+  --card-muted: rgba(28, 29, 32, 0.5);
+}
+.meridian-capabilities__card:nth-child(5n + 5) .meridian-capabilities__card-frame {
+  --card-bg: #D5D4CD;
+  --card-text: #1C1D20;
+  --card-muted: rgba(28, 29, 32, 0.5);
 }
 
 .meridian-capabilities__card-frame {
   position: relative;
-  height: 100%;
-  min-height: clamp(14rem, 24vw, 18rem);
-  overflow: hidden;
-  background-color: color-mix(in srgb, var(--meridian-ink) 3%, var(--meridian-surface));
-  background-image: var(--meridian-cap-card-image);
-  background-size: cover;
-  background-position: center;
+  height: auto;
+  min-height: clamp(12rem, 20vw, 16rem);
+  border-radius: 4px;
+  background-color: var(--card-bg, #121212);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.4s ease;
+}
+
+.meridian-capabilities__card-frame:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .meridian-capabilities__card-frame::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.94) 0%,
-    rgba(255, 255, 255, 0.88) 58%,
-    rgba(255, 255, 255, 0.82) 100%
-  );
+  display: none;
 }
 
 .meridian-capabilities__card-inner {
@@ -953,27 +976,33 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.85rem, 1.5vw, 1.15rem);
-  height: 100%;
-  margin: clamp(0.65rem, 1.2vw, 0.9rem);
-  padding: clamp(1.15rem, 2.2vw, 1.65rem);
-  border: 1px solid color-mix(in srgb, var(--meridian-ink) 8%, transparent);
-  background: rgba(255, 255, 255, 0.92);
+  justify-content: flex-start;
+  gap: clamp(1.25rem, 2vw, 1.5rem);
+  height: auto;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .meridian-capabilities__index {
   font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 0.14em;
-  color: var(--meridian-muted);
+  letter-spacing: 0.2em;
+  color: var(--card-muted, rgba(255, 255, 255, 0.4));
+  text-transform: uppercase;
 }
 
 .meridian-capabilities__text {
   margin: 0;
-  font-size: clamp(0.95rem, 1.35vw, 1.0625rem);
-  font-weight: 400;
-  line-height: 1.62;
-  letter-spacing: -0.01em;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: var(--card-text, rgba(255, 255, 255, 0.9));
+}
+
+@media (max-width: 719px) {
+  .meridian-capabilities__inner {
+    padding-bottom: 2.5rem;
+  }
 }
 
 @media (min-width: 720px) {
@@ -988,7 +1017,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   }
 
   .meridian-capabilities__card-frame {
-    min-height: clamp(16rem, 22vw, 19rem);
+    min-height: clamp(14rem, 18vw, 20rem);
   }
 }
 

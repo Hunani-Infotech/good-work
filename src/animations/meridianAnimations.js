@@ -593,6 +593,22 @@ function initMeridianCapabilities(prefersReduced) {
         }, offset + 0.12);
       }
     });
+
+    if (window.innerWidth >= 720) {
+      cards.forEach((card, i) => {
+        const isTopRow = i < 4;
+        gsap.to(card, {
+          x: isTopRow ? -180 : 180,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.5,
+          },
+        });
+      });
+    }
   }
 
   if (cta) {
