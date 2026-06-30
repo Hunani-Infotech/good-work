@@ -14,7 +14,6 @@ import {
   initMeridianFooterCurve,
 } from './meridianFooterCurve.js';
 import {
-  drawLineScale,
   revealStaggerLines,
   revealStaggerWords,
   scrubRevealLines,
@@ -71,22 +70,24 @@ export function scrollMeridianToHash(href) {
 
   const lenis = getLenis();
   if (lenis) {
+    lenis.start();
     lenis.scrollTo(target, {
       offset: SCROLL_OFFSET,
       duration: 1.35,
       easing: SCROLL_EASE,
+      lock: false,
+      onComplete: () => refreshScrollTriggers(),
     });
-  } else {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
   }
+
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function initMeridianSmoothAnchors() {
   if (anchorCleanup) anchorCleanup();
 
-  const links = document.querySelectorAll(
-    '.meridian-cv-main a[href^="#"], .meridian-menu__link[href^="#"]',
-  );
+  const links = document.querySelectorAll('.meridian-cv-main a[href^="#"]');
   const onClick = (event) => {
     const href = event.currentTarget.getAttribute('href');
     if (!href || href === '#') return;
@@ -167,7 +168,7 @@ function initMeridianMenu(prefersReduced) {
         duration: 0.75,
         stagger: 0.07,
         ease: GEROZ_EASE,
-        clearProps: 'transform',
+        clearProps: 'transform,opacity',
       }, 0.15);
     }
   };
@@ -461,13 +462,12 @@ function initMeridianCapabilities(prefersReduced) {
   if (!section) return;
 
   const eyebrow = section.querySelector('.meridian-capabilities__eyebrow');
-  const items = section.querySelectorAll('.meridian-capabilities__item');
+  const grid = section.querySelector('.meridian-capabilities__grid');
+  const cards = section.querySelectorAll('.meridian-capabilities__card');
   const cta = section.querySelector('.meridian-capabilities__cta');
-  const list = section.querySelector('.meridian-capabilities__list');
-  const dividers = section.querySelectorAll('.meridian-capabilities__divider');
 
   if (prefersReduced) {
-    setReducedState([eyebrow, ...items, cta]);
+    setReducedState([eyebrow, ...cards, cta]);
     return;
   }
 
@@ -478,59 +478,43 @@ function initMeridianCapabilities(prefersReduced) {
     });
   }
 
-  if (list && items.length) {
-    items.forEach((item) => {
-      const indexEl = item.querySelector('.meridian-capabilities__index');
-      const textEl = item.querySelector('.meridian-capabilities__text');
+  if (grid && cards.length) {
+    gsap.set(cards, { opacity: 0, y: 36, force3D: true });
 
-      if (indexEl) {
-        gsap.set(indexEl, { opacity: 0, x: -6, force3D: true });
-      }
-
-      if (textEl) {
-        const inner = wrapLineMask(textEl);
-        gsap.set(inner, { y: '108%', force3D: true });
-      }
+    const gridTl = gsap.timeline({
+      scrollTrigger: meridianScroll(grid, 'top 84%'),
     });
 
-    if (dividers.length) {
-      gsap.set(dividers, { scaleX: 0, transformOrigin: 'left center', force3D: true });
-    }
+    cards.forEach((card, index) => {
+      const indexEl = card.querySelector('.meridian-capabilities__index');
+      const textEl = card.querySelector('.meridian-capabilities__text');
+      const inner = textEl ? wrapLineMask(textEl) : null;
+      const offset = index * 0.08;
 
-    const listTl = gsap.timeline({
-      scrollTrigger: meridianScroll(list, 'top 84%'),
-    });
-
-    items.forEach((item, index) => {
-      const indexEl = item.querySelector('.meridian-capabilities__index');
-      const textEl = item.querySelector('.meridian-capabilities__text');
-      const divider = item.querySelector('.meridian-capabilities__divider');
-      const inner = textEl?.querySelector('.geroz-line-inner');
-      const offset = index * 0.1;
+      gridTl.to(card, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: GEROZ_EASE,
+      }, offset);
 
       if (indexEl) {
-        listTl.to(indexEl, {
-          opacity: 0.45,
-          x: 0,
-          duration: 0.65,
+        gsap.set(indexEl, { opacity: 0, y: 8 });
+        gridTl.to(indexEl, {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
           ease: GEROZ_EASE,
-        }, offset);
+        }, offset + 0.08);
       }
 
       if (inner) {
-        listTl.to(inner, {
+        gsap.set(inner, { y: '108%' });
+        gridTl.to(inner, {
           y: 0,
-          duration: 0.85,
+          duration: 0.82,
           ease: GEROZ_EASE_IO,
-        }, offset + 0.06);
-      }
-
-      if (divider) {
-        listTl.to(divider, {
-          scaleX: 1,
-          duration: 0.75,
-          ease: GEROZ_EASE_IO,
-        }, offset + 0.1);
+        }, offset + 0.12);
       }
     });
   }

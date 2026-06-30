@@ -10,14 +10,20 @@ export default function MeridianCapabilitiesSection() {
       <div className="meridian-capabilities__inner">
         <p className="meridian-capabilities__eyebrow">{capabilities.eyebrow}</p>
 
-        <ul className="meridian-capabilities__list">
+        <ul className="meridian-capabilities__grid">
           {capabilities.items.map((item) => (
-            <li key={item.id} className="meridian-capabilities__item">
-              <div className="meridian-capabilities__row">
-                <span className="meridian-capabilities__index">{item.number}</span>
-                <p className="meridian-capabilities__text">{item.text}</p>
-              </div>
-              <span className="meridian-capabilities__divider" aria-hidden="true" />
+            <li key={item.id} className="meridian-capabilities__card">
+              <article className="meridian-capabilities__card-shell">
+                <div
+                  className="meridian-capabilities__card-frame"
+                  style={{ '--meridian-cap-card-image': `url(${capabilities.backgroundImage})` }}
+                >
+                  <div className="meridian-capabilities__card-inner">
+                    <span className="meridian-capabilities__index">{item.number}</span>
+                    <p className="meridian-capabilities__text">{item.text}</p>
+                  </div>
+                </div>
+              </article>
             </li>
           ))}
         </ul>

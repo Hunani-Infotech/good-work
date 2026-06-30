@@ -308,6 +308,7 @@ html.meridian-template #contact {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 2;
   width: min(24rem, 100vw);
   height: 100dvh;
   padding: 1.1rem clamp(1.25rem, 4vw, 3rem) 1.5rem;
@@ -315,6 +316,7 @@ html.meridian-template #contact {
   color: #fff;
   transform: translateX(100%);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: auto;
 }
 
 .meridian-menu__root.is-open .meridian-menu__panel {
@@ -357,6 +359,8 @@ html.meridian-template #contact {
   line-height: 1.1;
   text-decoration: none;
   opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 body.meridian-menu-open {
@@ -838,48 +842,90 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   text-transform: uppercase;
 }
 
-.meridian-capabilities__list {
+.meridian-capabilities__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.8vw, 1.15rem);
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--meridian-border);
 }
 
-.meridian-capabilities__divider {
-  display: block;
-  height: 1px;
-  margin-top: 0;
-  background: var(--meridian-border);
-  transform: scaleX(0);
-  transform-origin: left center;
+.meridian-capabilities__card {
+  min-width: 0;
 }
 
-.meridian-capabilities__item {
-  border-bottom: 0;
+.meridian-capabilities__card-shell {
+  height: 100%;
+  padding: clamp(0.55rem, 1vw, 0.75rem);
+  background: color-mix(in srgb, var(--meridian-ink) 5%, var(--meridian-surface));
 }
 
-.meridian-capabilities__row {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2rem);
-  align-items: start;
-  padding: clamp(1.35rem, 3vw, 2rem) 0;
+.meridian-capabilities__card-frame {
+  position: relative;
+  height: 100%;
+  min-height: clamp(14rem, 24vw, 18rem);
+  overflow: hidden;
+  background-color: color-mix(in srgb, var(--meridian-ink) 3%, var(--meridian-surface));
+  background-image: var(--meridian-cap-card-image);
+  background-size: cover;
+  background-position: center;
+}
+
+.meridian-capabilities__card-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.88) 58%,
+    rgba(255, 255, 255, 0.82) 100%
+  );
+}
+
+.meridian-capabilities__card-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.5vw, 1.15rem);
+  height: 100%;
+  margin: clamp(0.65rem, 1.2vw, 0.9rem);
+  padding: clamp(1.15rem, 2.2vw, 1.65rem);
+  border: 1px solid color-mix(in srgb, var(--meridian-ink) 8%, transparent);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .meridian-capabilities__index {
-  padding-top: 0.2rem;
   font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 0.12em;
-  opacity: 0.45;
+  letter-spacing: 0.14em;
+  color: var(--meridian-muted);
 }
 
 .meridian-capabilities__text {
   margin: 0;
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-size: clamp(0.95rem, 1.35vw, 1.0625rem);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.62;
   letter-spacing: -0.01em;
+}
+
+@media (min-width: 720px) {
+  .meridian-capabilities__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1120px) {
+  .meridian-capabilities__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .meridian-capabilities__card-frame {
+    min-height: clamp(16rem, 22vw, 19rem);
+  }
 }
 
 .meridian-capabilities__cta-wrap {

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.js';
 import { scrollMeridianToHash } from '../../../animations/meridianAnimations.js';
-import { getLenis } from '../../../animations/scrollRuntime.js';
+import { getLenis, subscribeScroll } from '../../../animations/scrollRuntime.js';
 
 function MenuIcon() {
   return (
@@ -14,6 +14,19 @@ function MenuIcon() {
 }
 
 function NavLinks({ links, className, linkClassName, onNavigate, scrollToHash }) {
+  const handleLinkClick = (event, link) => {
+    if (link.isHash) {
+      event.preventDefault();
+      onNavigate?.();
+      window.requestAnimationFrame(() => {
+        scrollToHash(link.href);
+      });
+      return;
+    }
+
+    onNavigate?.();
+  };
+
   return (
     <ul className={className}>
       {links.map((link) => (
@@ -21,13 +34,7 @@ function NavLinks({ links, className, linkClassName, onNavigate, scrollToHash })
           <a
             href={link.href}
             className={linkClassName}
-            onClick={(e) => {
-              if (link.isHash) {
-                e.preventDefault();
-                scrollToHash(link.href);
-              }
-              onNavigate?.();
-            }}
+            onClick={(event) => handleLinkClick(event, link)}
           >
             {link.label}
           </a>
@@ -87,14 +94,13 @@ export default function MeridianHeader() {
     const heroEl = document.querySelector('.meridian-hero');
     if (!heroEl) return undefined;
 
-    const onScroll = () => {
+    const syncOnHero = () => {
       const rect = heroEl.getBoundingClientRect();
       setOnHero(rect.bottom > window.innerHeight * 0.35);
     };
 
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    syncOnHero();
+    return subscribeScroll(syncOnHero);
   }, []);
 
   useEffect(() => {

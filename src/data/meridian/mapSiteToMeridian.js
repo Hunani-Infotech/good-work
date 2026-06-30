@@ -96,6 +96,7 @@ export function mapSiteToMeridian(site) {
     },
     capabilities: {
       eyebrow: capabilities?.tag ?? 'Capabilities & Skills',
+      backgroundImage: capabilities?.backgroundImage ?? '/images/landing/imag2.png',
       items: bullets.map((text, index) => ({
         id: index + 1,
         number: String(index + 1).padStart(2, '0'),
