@@ -8,17 +8,28 @@
   font-display: swap;
 }
 
+html.meridian-template {
+  --meridian-hero-bg: #ffffff;
+  --meridian-hero-bg-light: #fafafa;
+  --meridian-hero-bg-dark: #f2f2f2;
+  --meridian-hero-text: #0a0a0a;
+  --meridian-hero-vignette: 0.06;
+  --meridian-btn-bg: #ffffff;
+  --meridian-btn-text: #0a0a0a;
+  --meridian-btn-hover-text: #ffffff;
+  --meridian-accent: #455ce9;
+  --meridian-liquid-hover: var(--meridian-accent);
+}
+
 html.meridian-template,
 html.meridian-template body.meridian-template,
 html.meridian-template #root {
-  --meridian-hero-bg: #a6a6a6;
   --meridian-surface: #ffffff;
   --meridian-ink: #0a0a0a;
   --meridian-muted: rgba(10, 10, 10, 0.52);
   --meridian-border: rgba(10, 10, 10, 0.12);
   --meridian-dark: #1c1d20;
   --meridian-dark-muted: rgba(255, 255, 255, 0.58);
-  --meridian-accent: #455ce9;
   --meridian-header-height: 4rem;
   --meridian-font: 'Neue Montreal', Arial, sans-serif;
   --meridian-font-size: 16px;
@@ -187,7 +198,7 @@ html.meridian-template #contact {
 
 .meridian-header__credit {
   pointer-events: auto;
-  color: #fff;
+  color: var(--meridian-hero-text, #fff);
   font-size: 0.8125rem;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -210,50 +221,205 @@ html.meridian-template #contact {
   opacity: 0;
 }
 
-/* ── Menu button ── */
-.meridian-menu-btn {
+/* ── Header actions (palette + menu) ── */
+.meridian-header__actions {
   position: fixed;
   top: 1.1rem;
   right: clamp(1.25rem, 4vw, 3rem);
   z-index: 290;
   display: flex;
   align-items: center;
+  gap: 0.65rem;
+  pointer-events: none;
+}
+
+.meridian-header__actions:has(.meridian-menu-btn.is-open) {
+  z-index: 10090;
+}
+
+.meridian-header__actions > * {
+  pointer-events: auto;
+}
+
+/* ── Pastel palette switcher ── */
+.meridian-palette {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.4rem, 1vw, 0.6rem);
+  min-width: 0;
+}
+
+.meridian-palette__label {
+  flex-shrink: 0;
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--meridian-ink) 52%, transparent);
+}
+
+.meridian-palette--on-hero .meridian-palette__label {
+  color: color-mix(in srgb, var(--meridian-hero-text, #fff) 72%, transparent);
+}
+
+.meridian-palette__swatches {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  max-width: min(100%, 12.5rem);
+  padding: 0.26rem 0.38rem;
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--meridian-ink) 14%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--meridian-surface) 90%, transparent);
+  scrollbar-width: none;
+}
+
+.meridian-palette--on-hero .meridian-palette__swatches {
+  border-color: color-mix(in srgb, var(--meridian-hero-text, #fff) 35%, transparent);
+  background: color-mix(in srgb, var(--meridian-btn-bg, #fff) 82%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.meridian-palette__swatches::-webkit-scrollbar {
+  display: none;
+}
+
+.meridian-palette__swatch {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border: 1.5px solid color-mix(in srgb, var(--meridian-ink) 12%, transparent);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8e8e8 42%, var(--swatch-accent) 58%);
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.meridian-palette__swatch:hover {
+  transform: scale(1.08);
+}
+
+.meridian-palette__swatch.is-active {
+  border-color: var(--swatch-accent);
+  transform: scale(1.12);
+  box-shadow:
+    0 0 0 2px var(--meridian-surface),
+    0 0 0 3px var(--swatch-accent);
+}
+
+.meridian-palette--on-hero .meridian-palette__swatch.is-active {
+  box-shadow:
+    0 0 0 2px rgba(28, 29, 32, 0.35),
+    0 0 0 3px var(--swatch-accent);
+}
+
+.meridian-palette__swatch:focus-visible {
+  outline: 2px solid var(--swatch-accent);
+  outline-offset: 2px;
+}
+
+.meridian-palette__name {
+  flex-shrink: 0;
+  max-width: 5.5rem;
+  overflow: hidden;
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--meridian-ink) 68%, transparent);
+}
+
+.meridian-palette--on-hero .meridian-palette__name {
+  color: color-mix(in srgb, var(--meridian-hero-text, #fff) 82%, transparent);
+}
+
+.meridian-palette--drawer {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+.meridian-palette--drawer .meridian-palette__swatches {
+  max-width: none;
+  justify-content: flex-start;
+}
+
+.meridian-palette--drawer .meridian-palette__name {
+  max-width: none;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .meridian-palette--header {
+    display: none;
+  }
+}
+
+@media (max-width: 1279px) {
+  .meridian-palette--header .meridian-palette__name {
+    display: none;
+  }
+}
+
+/* ── Menu button ── */
+.meridian-menu-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
   justify-content: center;
   flex-shrink: 0;
   width: 3rem;
   height: 3rem;
-  margin-left: auto;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  margin-left: 0;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--meridian-btn-text, #0a0a0a) 18%, transparent);
   border-radius: 999px;
-  background: transparent;
-  color: #fff;
+  background: var(--meridian-btn-bg, #ffffff);
+  color: var(--meridian-btn-text, #0a0a0a);
   cursor: pointer;
   pointer-events: auto;
+  overflow: hidden;
+  isolation: isolate;
   filter: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  transition: transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  --meridian-liquid-hover: var(--meridian-accent);
+  --meridian-liquid-rise: 12%;
+  transition:
+    color 0.68s cubic-bezier(0.76, 0, 0.24, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
 }
 
 .meridian-menu-btn--on-hero {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #fff;
+  border-color: color-mix(in srgb, var(--meridian-btn-text, #0a0a0a) 18%, transparent);
+  color: var(--meridian-btn-text, #0a0a0a);
 }
 
 .meridian-menu-btn:not(.meridian-menu-btn--on-hero) {
-  border-color: rgba(10, 10, 10, 0.22);
-  color: var(--meridian-ink);
+  border-color: color-mix(in srgb, var(--meridian-btn-text, #0a0a0a) 18%, transparent);
+  color: var(--meridian-btn-text, #0a0a0a);
+}
+
+.meridian-menu-btn:hover,
+.meridian-menu-btn:focus-visible {
+  color: var(--meridian-btn-hover-text, #ffffff);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .meridian-menu-btn:hover {
-    border-color: var(--meridian-accent);
-    color: var(--meridian-accent);
+  .meridian-menu-btn:hover,
+  .meridian-menu-btn:focus-visible {
+    background: var(--meridian-accent);
   }
-}
-
-.meridian-menu-btn:hover {
-  transform: scale(1.05);
 }
 
 .meridian-menu-btn__icon {
@@ -272,14 +438,14 @@ html.meridian-template #contact {
 
 .meridian-menu-btn.is-open {
   z-index: 10090;
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #fff;
-  background: transparent;
+  border-color: color-mix(in srgb, var(--meridian-btn-text, #0a0a0a) 18%, transparent);
+  color: var(--meridian-btn-text, #0a0a0a);
+  background: var(--meridian-btn-bg, #ffffff);
 }
 
-.meridian-menu-btn.is-open:not(.meridian-menu-btn--on-hero) {
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #fff;
+.meridian-menu-btn.is-open:hover,
+.meridian-menu-btn.is-open:focus-visible {
+  color: var(--meridian-btn-hover-text, #ffffff);
 }
 
 .meridian-menu-btn.is-open .meridian-menu-btn__icon span:first-child {
@@ -321,6 +487,8 @@ html.meridian-template #contact {
   top: 0;
   right: 0;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
   width: min(24rem, 100vw);
   height: 100dvh;
   padding: 1.1rem clamp(1.25rem, 4vw, 3rem) 1.5rem;
@@ -392,13 +560,19 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   min-height: 100svh;
   min-height: 100dvh;
   overflow: hidden;
-  --meridian-hero-portrait-w: clamp(10.5rem, 17.5vw, 15.5rem);
+  --meridian-hero-portrait-w: clamp(12.5rem, 21vw, 18.5rem);
   --meridian-hero-portrait-fade-start: 72%;
   background:
-    radial-gradient(ellipse 95% 70% at 50% 18%, rgba(255, 255, 255, 0.07) 0%, transparent 58%),
-    radial-gradient(ellipse 90% 75% at 50% 88%, rgba(0, 0, 0, 0.45) 0%, transparent 62%),
-    linear-gradient(180deg, #3d3d3d 0%, #6e6e6e 38%, #848484 52%, #5a5a5a 100%);
-  color: #fff;
+    radial-gradient(ellipse 95% 70% at 50% 18%, rgba(255, 255, 255, 0.12) 0%, transparent 58%),
+    radial-gradient(ellipse 90% 75% at 50% 88%, rgba(0, 0, 0, 0.12) 0%, transparent 62%),
+    linear-gradient(
+      180deg,
+      var(--meridian-hero-bg-dark) 0%,
+      var(--meridian-hero-bg) 38%,
+      var(--meridian-hero-bg-light) 52%,
+      color-mix(in srgb, var(--meridian-hero-bg) 88%, var(--meridian-hero-text, #000) 12%) 100%
+    );
+  color: var(--meridian-hero-text, #fff);
 }
 
 .meridian-hero__atmosphere {
@@ -426,7 +600,11 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 92% 82% at 50% 48%, transparent 28%, rgba(0, 0, 0, 0.42) 100%);
+    radial-gradient(
+      ellipse 92% 82% at 50% 48%,
+      transparent 28%,
+      rgba(0, 0, 0, var(--meridian-hero-vignette, 0.38)) 100%
+    );
 }
 
 .meridian-hero__grain {
@@ -519,7 +697,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   justify-content: center;
   width: var(--meridian-hero-portrait-w);
   height: var(--meridian-hero-portrait-w);
-  margin-top: clamp(0.25rem, 2vh, 1.5rem);
+  margin-top: clamp(4rem, 9vh, 6rem);
 }
 
 .meridian-hero__portrait-halo {
@@ -1094,15 +1272,14 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   font-size: 0.875rem;
   font-weight: 400;
   white-space: nowrap;
-  --meridian-liquid-hover: var(--meridian-ink);
+  --meridian-liquid-hover: var(--meridian-accent);
   --meridian-liquid-rise: 12%;
-  transition: border-color 0.68s cubic-bezier(0.76, 0, 0.24, 1), color 0.68s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: color 0.68s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .meridian-capabilities__cta:hover .meridian-magnetic__surface,
 .meridian-capabilities__cta:focus-within .meridian-magnetic__surface {
-  border-color: var(--meridian-ink);
-  color: #fff;
+  color: var(--meridian-btn-hover-text, #ffffff);
 }
 
 /* ── Contact + footer (Dennis rounded-div curve) ── */
@@ -1314,12 +1491,21 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   padding: 1.35rem 1.65rem;
   border-radius: 999px;
   overflow: visible;
-  background: var(--meridian-accent);
-  color: #fff;
+  background: var(--meridian-btn-bg, #ffffff);
+  color: var(--meridian-btn-text, #0a0a0a);
   font-size: clamp(0.875rem, 1.1vw, 1.0625rem);
   font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
+  transition:
+    background 0.55s cubic-bezier(0.76, 0, 0.24, 1),
+    color 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.meridian-contact__cta:hover .meridian-contact__cta-ring,
+.meridian-contact__cta:focus-within .meridian-contact__cta-ring {
+  background: var(--meridian-accent);
+  color: var(--meridian-btn-hover-text, #ffffff);
 }
 
 .meridian-contact__cta-ring .meridian-magnetic__label {
@@ -1367,7 +1553,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-contact__pill:hover .meridian-magnetic__surface,
 .meridian-contact__pill:focus-within .meridian-magnetic__surface {
-  border-color: var(--meridian-accent);
+  border-color: rgba(255, 255, 255, 0.32);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1439,7 +1625,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 @media (max-width: 1023px) {
   .meridian-hero {
-    --meridian-hero-portrait-w: clamp(8.75rem, 40vw, 12rem);
+    --meridian-hero-portrait-w: clamp(10.5rem, 48vw, 14rem);
     --meridian-hero-portrait-fade-start: 70%;
   }
 
@@ -1466,7 +1652,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 @media (max-width: 480px) {
   .meridian-hero {
-    --meridian-hero-portrait-w: min(36vw, 10.5rem);
+    --meridian-hero-portrait-w: min(42vw, 12.5rem);
     --meridian-hero-portrait-fade-start: 68%;
   }
 
@@ -1480,7 +1666,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 @media (max-width: 767px) {
   .meridian-hero {
     display: block;
-    background: #7a7a7a;
+    background: var(--meridian-hero-bg);
   }
 
   .meridian-hero__spotlight {
@@ -1601,7 +1787,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 @media (min-width: 1440px) {
   .meridian-hero {
-    --meridian-hero-portrait-w: clamp(12rem, 16vw, 17rem);
+    --meridian-hero-portrait-w: clamp(14rem, 19vw, 20rem);
     --meridian-hero-portrait-fade-start: 74%;
   }
 

@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import '../styles/meridian-tailwind.css';
 import '../styles/video-cv-widget.css';
 
 import { useMeridianContent } from '../hooks/meridian/useMeridianContent.js';
 import { useMeridianPageAnimations } from '../hooks/meridian/useMeridianPageAnimations.js';
+import { MeridianColorThemeProvider } from '../meridian/context/MeridianColorThemeContext.jsx';
 
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import MeridianHeader from '../meridian/components/layout/MeridianHeader.jsx';
@@ -13,21 +14,9 @@ import MeridianAboutSection from '../meridian/components/about/MeridianAboutSect
 import MeridianCapabilitiesSection from '../meridian/components/capabilities/MeridianCapabilitiesSection.jsx';
 import MeridianContactSection from '../meridian/components/contact/MeridianContactSection.jsx';
 
-export default function MeridianCvPage() {
+function MeridianCvPageContent() {
   const { siteMeta, theme } = useMeridianContent();
   useMeridianPageAnimations();
-
-  useLayoutEffect(() => {
-    document.documentElement.classList.add('meridian-template');
-    document.body.classList.add('meridian-template');
-    document.documentElement.style.setProperty('--meridian-accent', theme.accent);
-
-    return () => {
-      document.documentElement.classList.remove('meridian-template');
-      document.body.classList.remove('meridian-template');
-      document.documentElement.style.removeProperty('--meridian-accent');
-    };
-  }, [theme.accent]);
 
   useEffect(() => {
     document.title = siteMeta.title;
@@ -45,5 +34,13 @@ export default function MeridianCvPage() {
       </main>
       <VideoCvWidget accentColor={theme.brand} position="bottom-right" />
     </>
+  );
+}
+
+export default function MeridianCvPage() {
+  return (
+    <MeridianColorThemeProvider>
+      <MeridianCvPageContent />
+    </MeridianColorThemeProvider>
   );
 }

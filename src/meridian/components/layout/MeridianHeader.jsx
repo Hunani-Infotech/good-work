@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.js';
 import { scrollMeridianToHash } from '../../../animations/meridianAnimations.js';
 import { getLenis, subscribeScroll } from '../../../animations/scrollRuntime.js';
+import MeridianColorPaletteSwitcher from './MeridianColorPaletteSwitcher.jsx';
 
 function MenuIcon() {
   return (
@@ -45,18 +46,32 @@ function NavLinks({ links, className, linkClassName, onNavigate, scrollToHash })
 }
 
 function MenuButton({ menuOpen, onHero, onToggle }) {
-  if (typeof document === 'undefined') return null;
-
-  return createPortal(
+  return (
     <button
       type="button"
-      className={`meridian-menu-btn ${menuOpen ? 'is-open' : ''} ${onHero ? 'meridian-menu-btn--on-hero' : ''}`}
+      className={`meridian-menu-btn meridian-liquid-fill meridian-magnetic ${menuOpen ? 'is-open' : ''} ${onHero ? 'meridian-menu-btn--on-hero' : ''}`}
+      data-magnetic-strength="0.38"
+      data-magnetic-label-strength="0"
       onClick={onToggle}
       aria-expanded={menuOpen}
       aria-label={menuOpen ? 'Close menu' : 'Open menu'}
     >
+      <span className="meridian-liquid-fill__wave" aria-hidden="true" />
       <MenuIcon />
-    </button>,
+    </button>
+  );
+}
+
+function HeaderActions({ menuOpen, onHero, onToggleMenu }) {
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <div className={`meridian-header__actions ${onHero ? 'meridian-header__actions--on-hero' : ''}`}>
+      {!menuOpen ? (
+        <MeridianColorPaletteSwitcher onHero={onHero} className="meridian-palette--header" />
+      ) : null}
+      <MenuButton menuOpen={menuOpen} onHero={onHero} onToggle={onToggleMenu} />
+    </div>,
     document.body,
   );
 }
@@ -165,7 +180,7 @@ export default function MeridianHeader() {
         </div>
       </header>
 
-      <MenuButton menuOpen={menuOpen} onHero={onHero} onToggle={toggleMenu} />
+      <HeaderActions menuOpen={menuOpen} onHero={onHero} onToggleMenu={toggleMenu} />
 
       <MenuDrawer
         open={menuOpen}
