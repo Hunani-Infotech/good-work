@@ -651,10 +651,22 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   letter-spacing: 0.03em;
   line-height: 1.08;
   min-width: 0;
+  overflow: visible;
   overflow-wrap: break-word;
   word-break: normal;
   hyphens: none;
   text-wrap: pretty;
+}
+
+.meridian-manifesto__heading .geroz-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.1em;
+  padding-right: 0.08em;
+  margin-right: -0.05em;
+}
+
+.meridian-manifesto__heading .geroz-line-mask--stacked + .geroz-line-mask--stacked {
+  margin-top: 0.06em;
 }
 
 .meridian-manifesto__body {
@@ -970,9 +982,9 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   --card-muted: rgba(28, 29, 32, 0.5);
 }
 .meridian-capabilities__card:nth-child(5n + 2) .meridian-capabilities__card-frame {
-  --card-bg: #1A1B1F;
-  --card-text: #FFFFFF;
-  --card-muted: rgba(255, 255, 255, 0.5);
+  --card-bg: #F8FAFC;
+  --card-text: #1C1D20;
+  --card-muted: rgba(28, 29, 32, 0.5);
 }
 .meridian-capabilities__card:nth-child(5n + 3) .meridian-capabilities__card-frame {
   --card-bg: #E2E8F0;

@@ -400,13 +400,23 @@ function initMeridianManifesto(prefersReduced) {
   }
 
   if (heading) {
-    gsap.fromTo(heading, { opacity: 0, y: 22 }, {
-      opacity: 1,
-      y: 0,
-      duration: 0.95,
-      ease: GEROZ_EASE,
-      scrollTrigger: meridianScroll(section, 'top 88%'),
-    });
+    const lines = splitLinesIntoMasks(heading, 3);
+    if (lines.length > 1) {
+      revealStaggerLines(lines, heading, {
+        start: isCompactManifesto ? 'top 90%' : 'top 86%',
+        stagger: isCompactManifesto ? 0.1 : 0.14,
+        duration: isCompactManifesto ? 0.95 : 1.08,
+        y: '115%',
+      });
+    } else {
+      const innerLine = wrapLineMask(heading);
+      gsap.fromTo(innerLine, { y: '115%' }, {
+        y: 0,
+        duration: 1.05,
+        ease: GEROZ_EASE_IO,
+        scrollTrigger: meridianScroll(heading, 'top 86%'),
+      });
+    }
   }
 
   if (body) {
