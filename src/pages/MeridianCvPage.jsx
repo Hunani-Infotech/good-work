@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import '../styles/meridian-tailwind.css';
-import '../styles/video-cv-widget.css';
 
 import { useMeridianContent } from '../hooks/meridian/useMeridianContent.js';
 import { useMeridianPageAnimations } from '../hooks/meridian/useMeridianPageAnimations.js';
 import { MeridianColorThemeProvider } from '../meridian/context/MeridianColorThemeContext.jsx';
 
-import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import MeridianHeader from '../meridian/components/layout/MeridianHeader.jsx';
 import MeridianHeroSection from '../meridian/components/hero/MeridianHeroSection.jsx';
 import MeridianManifestoSection from '../meridian/components/manifesto/MeridianManifestoSection.jsx';
@@ -15,7 +13,7 @@ import MeridianCapabilitiesSection from '../meridian/components/capabilities/Mer
 import MeridianContactSection from '../meridian/components/contact/MeridianContactSection.jsx';
 
 function MeridianCvPageContent() {
-  const { siteMeta, theme } = useMeridianContent();
+  const { siteMeta } = useMeridianContent();
   useMeridianPageAnimations();
 
   useEffect(() => {
@@ -32,7 +30,6 @@ function MeridianCvPageContent() {
         <MeridianCapabilitiesSection />
         <MeridianContactSection />
       </main>
-      <VideoCvWidget accentColor={theme.brand} position="bottom-right" />
     </>
   );
 }

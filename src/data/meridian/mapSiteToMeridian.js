@@ -88,6 +88,10 @@ export function mapSiteToMeridian(site) {
       image: narrative?.backgroundImage ?? '/images/landing/image1.png',
       imageAlt: `${displayName} — professional narrative`,
       imageObjectPosition: 'center 30%',
+      video: {
+        src: hero?.videoCv?.src ?? '',
+        poster: hero?.videoCv?.poster ?? narrative?.backgroundImage ?? '/images/landing/image1.png',
+      },
       eyebrow: narrative?.tag ?? 'Professional Narrative',
       heading: subtitle || `About ${firstName}`,
       paragraphs: paragraphs.length

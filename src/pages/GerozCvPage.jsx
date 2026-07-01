@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect } from 'react';
 import '../styles/geroz-tailwind.css';
-import '../styles/video-cv-widget.css';
 
 import {
   applyGerozImageCssVars,
@@ -10,9 +9,7 @@ import {
 import { useGerozContent } from '../hooks/geroz/useGerozContent.js';
 import { useGerozPageAnimations } from '../hooks/geroz/useGerozPageAnimations.js';
 import { GerozColorThemeProvider } from '../geroz/context/GerozColorThemeContext.jsx';
-import { useGerozColorTheme } from '../geroz/context/GerozColorThemeContext.jsx';
 
-import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import CustomCursor from '../components/ui/CustomCursor.jsx';
 import GerozCvHeader from '../components/geroz/GerozCvHeader.jsx';
 import GerozCvFooter from '../components/geroz/GerozCvFooter.jsx';
@@ -24,7 +21,6 @@ import CapabilitiesSection from '../geroz/components/capabilities/CapabilitiesSe
 
 function GerozCvPageContent() {
   const { siteMeta, images } = useGerozContent();
-  const { theme } = useGerozColorTheme();
   useGerozPageAnimations();
 
   useLayoutEffect(() => {
@@ -56,7 +52,6 @@ function GerozCvPageContent() {
         <CapabilitiesSection />
         <GerozCvFooter />
       </main>
-      <VideoCvWidget accentColor={theme.accent} position="bottom-right" />
     </>
   );
 }

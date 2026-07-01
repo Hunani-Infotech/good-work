@@ -32,9 +32,11 @@ function ExpertiseAuthor({ name, role, className = '' }) {
 }
 
 function ExpertisePortrait({ video, expert }) {
+  const videoSrc = video?.src?.trim() || '';
+  const hasVideoReel = Boolean(videoSrc);
   const imageSrc = video?.poster?.trim() || expert?.image || '';
 
-  if (!imageSrc) {
+  if (!imageSrc && !hasVideoReel) {
     return (
       <div
         className="h-[clamp(16rem,34vw,34rem)] w-full bg-stone-200"
@@ -50,14 +52,29 @@ function ExpertisePortrait({ video, expert }) {
         aria-hidden="true"
       />
       <div className="gz-expertise__portrait-frame relative z-[1] overflow-hidden bg-white shadow-[0_1.5rem_3rem_-1.25rem_rgba(28,25,23,0.18),0_0_0_1px_color-mix(in_srgb,var(--color-lawyer)_22%,#e7e5e4)]">
-        <img
-          className="gz-expertise__portrait-img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
-          src={imageSrc}
-          alt={expert?.authorName ?? ''}
-          width="670"
-          height="955"
-          loading="lazy"
-        />
+        {hasVideoReel ? (
+          <video
+            className="gz-expertise__portrait-img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
+            src={videoSrc}
+            poster={imageSrc || undefined}
+            aria-label={expert?.authorName ?? ''}
+            width="670"
+            height="955"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <img
+            className="gz-expertise__portrait-img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
+            src={imageSrc}
+            alt={expert?.authorName ?? ''}
+            width="670"
+            height="955"
+            loading="lazy"
+          />
+        )}
       </div>
     </div>
   );

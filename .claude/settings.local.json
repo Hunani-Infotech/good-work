@@ -13,7 +13,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5179/)",
       "Bash(curl -s http://localhost:5179/)",
       "PowerShell(node -e $script 2>&1)",
-      "Bash(npx playwright *)"
+      "Bash(npx playwright *)",
+      "Bash(npx eslint *)"
     ]
   }
 }

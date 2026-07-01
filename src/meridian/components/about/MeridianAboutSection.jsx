@@ -6,6 +6,7 @@ export default function MeridianAboutSection() {
   if (!about.paragraphs.length) return null;
 
   const sealInitial = hero.firstName?.charAt(0) ?? 'A';
+  const hasVideoReel = Boolean(about.video?.src);
 
   return (
     <section id="about" className="meridian-about">
@@ -13,14 +14,28 @@ export default function MeridianAboutSection() {
         <div className="meridian-about__grid">
           <div className="meridian-about__media">
             <div className="meridian-about__media-shell">
-              <img
-                className="meridian-about__photo"
-                src={about.image}
-                alt={about.imageAlt}
-                loading="lazy"
-                decoding="async"
-                style={{ objectPosition: about.imageObjectPosition }}
-              />
+              {hasVideoReel ? (
+                <video
+                  className="meridian-about__photo"
+                  src={about.video.src}
+                  poster={about.video.poster}
+                  aria-label={about.imageAlt}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{ objectPosition: about.imageObjectPosition }}
+                />
+              ) : (
+                <img
+                  className="meridian-about__photo"
+                  src={about.image}
+                  alt={about.imageAlt}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ objectPosition: about.imageObjectPosition }}
+                />
+              )}
             </div>
           </div>
 
