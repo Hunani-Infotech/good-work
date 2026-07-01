@@ -899,9 +899,9 @@ export function initMeridianAnimations() {
   return page.boot({
     onReady: initMeridianScrollAnimations,
     lenisOptions: {
-      lerp: 0.085,
-      duration: 1.25,
-      wheelMultiplier: 0.92,
+      lerp: 0.1,
+      duration: 1.15,
+      wheelMultiplier: 1.05,
     },
   });
 }

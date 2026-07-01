@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { getLenis } from './scrollRuntime.js';
 
 /** Direction-controlled infinite hero marquee. */
-const MARQUEE_SPEED = 60;
+const MARQUEE_SPEED = 75;
 const MARQUEE_COPIES = 2;
 
 function wrapMarqueePosition(position, halfWidth) {
