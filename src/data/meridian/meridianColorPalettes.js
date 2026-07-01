@@ -3,8 +3,8 @@
  */
 export const MERIDIAN_COLOR_PALETTES = [
   {
-    id: 'classic',
-    name: 'Classic',
+    id: 'white',
+    name: 'White',
     accent: '#455ce9',
     heroBg: '#ffffff',
     heroBgLight: '#fafafa',
@@ -15,6 +15,20 @@ export const MERIDIAN_COLOR_PALETTES = [
     btnText: '#0a0a0a',
     btnHoverText: '#ffffff',
     isLight: true,
+  },
+  {
+    id: 'classic',
+    name: 'Classic',
+    accent: '#455ce9',
+    heroBg: '#455ce9',
+    heroBgLight: '#5a6fd4',
+    heroBgDark: '#3548c4',
+    heroText: '#ffffff',
+    heroVignette: 0.28,
+    btnBg: '#ffffff',
+    btnText: '#0a0a0a',
+    btnHoverText: '#ffffff',
+    isLight: false,
   },
   {
     id: 'periwinkle',
@@ -169,6 +183,7 @@ export function applyMeridianPaletteCssVars(palette) {
     document.documentElement,
     document.body,
     document.getElementById('root'),
+    document.querySelector('.meridian-hero'),
   ].filter(Boolean);
 
   targets.forEach((el) => {
@@ -184,7 +199,7 @@ export function applyMeridianPaletteCssVars(palette) {
 export function clearMeridianPaletteCssVars() {
   if (typeof document === 'undefined') return;
 
-  const targets = [document.documentElement, document.body, document.getElementById('root')]
+  const targets = [document.documentElement, document.body, document.getElementById('root'), document.querySelector('.meridian-hero')]
     .filter(Boolean);
 
   targets.forEach((el) => {

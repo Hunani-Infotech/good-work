@@ -9,7 +9,10 @@ export default function MeridianColorPaletteSwitcher({ className = '', onHero = 
       role="group"
       aria-label="Colour palette"
     >
-      <span className="meridian-palette__label">Palette</span>
+      {/* <span className="meridian-palette__label">Palette</span> */}
+      <span className="meridian-palette__name" aria-live="polite">
+        {activePalette.name}
+      </span>
 
       <div className="meridian-palette__swatches">
         {palettes.map((palette, index) => (
@@ -29,9 +32,7 @@ export default function MeridianColorPaletteSwitcher({ className = '', onHero = 
         ))}
       </div>
 
-      <span className="meridian-palette__name" aria-live="polite">
-        {activePalette.name}
-      </span>
+     
     </div>
   );
 }
