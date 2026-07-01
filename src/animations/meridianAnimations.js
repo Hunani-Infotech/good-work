@@ -218,17 +218,22 @@ function initMeridianHero(prefersReduced) {
     });
 
     const marqueeItems = hero.querySelectorAll('.meridian-hero__marquee-item');
-    marqueeItems.forEach((item, index) => {
-      if (index > 0) return;
-      const chars = splitCharsIntoMasks(item);
-      gsap.set(chars, { y: '120%', opacity: 0 });
-      gsap.to(chars, {
+    marqueeItems.forEach((item) => {
+      const words = splitWordsIntoMasks(item);
+      gsap.set(words, { y: '115%', opacity: 0 });
+      gsap.to(words, {
         y: 0,
         opacity: 1,
         duration: 1.05,
-        stagger: 0.012,
+        stagger: 0.06,
         ease: GEROZ_EASE_IO,
         delay: 0.45,
+        onComplete: () => {
+          item.classList.add('is-marquee-revealed');
+          item.querySelectorAll('.geroz-word-mask').forEach((mask) => {
+            mask.style.overflow = 'visible';
+          });
+        },
       });
     });
   }

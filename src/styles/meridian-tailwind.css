@@ -672,10 +672,12 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   padding-right: clamp(1.75rem, 3.5vw, 3rem);
   font-size: clamp(4.5rem, 16vw, 11rem);
   font-weight: 400;
-  letter-spacing: -0.05em;
-  line-height: 1;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
   white-space: nowrap;
   color: color-mix(in srgb, var(--meridian-hero-text, #fff) 94%, transparent);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .meridian-hero__portrait-wrap {
@@ -1659,7 +1661,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
   .meridian-hero__marquee-item {
     font-size: clamp(9.5rem, 45vw, 16rem);
-    letter-spacing: -0.05em;
+    letter-spacing: -0.03em;
     text-transform: lowercase;
   }
 }
@@ -2023,9 +2025,30 @@ html.meridian-template body.meridian-template :where(
   will-change: transform;
 }
 
+.meridian-template .meridian-hero__marquee-item .geroz-word-mask {
+  padding-bottom: 0.1em;
+  margin-bottom: -0.04em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.meridian-template .meridian-hero__marquee-item.is-marquee-revealed .geroz-word-mask {
+  overflow: visible;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .meridian-template .meridian-hero__marquee-item .geroz-char-mask {
-  padding-bottom: 0.12em;
-  margin-bottom: -0.08em;
+  padding: 0.05em 0.04em 0.1em;
+  margin: 0 -0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.meridian-template .meridian-hero__marquee-item.is-marquee-revealed .geroz-char-mask {
+  overflow: visible;
+  margin: 0;
+  padding: 0;
 }
 
 .meridian-template .meridian-hero__marquee-item .geroz-char-mask:first-child {
