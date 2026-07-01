@@ -16,7 +16,6 @@ import {
 import {
   revealStaggerLines,
   revealStaggerWords,
-  scrubRevealLines,
 } from './meridianTextReveal.js';
 import { getLenis, refreshScrollTriggers, syncScrollLayout } from './scrollRuntime.js';
 import {
@@ -401,23 +400,13 @@ function initMeridianManifesto(prefersReduced) {
   }
 
   if (heading) {
-    if (isCompactManifesto) {
-      gsap.fromTo(heading, { opacity: 0, y: 22 }, {
-        opacity: 1,
-        y: 0,
-        duration: 0.95,
-        ease: GEROZ_EASE,
-        scrollTrigger: meridianScroll(section, 'top 88%'),
-      });
-    } else {
-      const lines = splitLinesIntoMasks(heading, 4);
-      scrubRevealLines(lines, section, {
-        start: 'top 88%',
-        end: 'top 48%',
-        scrub: 1.1,
-        fromY: '118%',
-      });
-    }
+    gsap.fromTo(heading, { opacity: 0, y: 22 }, {
+      opacity: 1,
+      y: 0,
+      duration: 0.95,
+      ease: GEROZ_EASE,
+      scrollTrigger: meridianScroll(section, 'top 88%'),
+    });
   }
 
   if (body) {
@@ -639,6 +628,7 @@ function initMeridianContactReveal(prefersReduced) {
   const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div');
   const footerLabels = section.querySelectorAll('.meridian-footer__label');
   const footerValues = section.querySelectorAll('.meridian-footer__value');
+  const isCompactContact = window.matchMedia('(max-width: 767px)').matches;
 
   if (prefersReduced) {
     setReducedState([avatar, arrow, headingWrap, ...pills, ...footerBlocks]);
@@ -683,23 +673,34 @@ function initMeridianContactReveal(prefersReduced) {
     }, 0.05);
   }
 
-  headingLineEls.forEach((lineEl, index) => {
-    const textTarget = lineEl.querySelector('span') || lineEl;
-    const lines = splitLinesIntoMasks(textTarget, 6);
-    if (lines.length > 1) {
-      gsap.set(lines, { y: '115%' });
-      tl.to(lines, {
+  if (isCompactContact) {
+    headingLineEls.forEach((lineEl, index) => {
+      tl.fromTo(lineEl, { opacity: 0, y: 18 }, {
+        opacity: 1,
         y: 0,
-        duration: 0.95,
-        stagger: 0.08,
-        ease: GEROZ_EASE_IO,
-      }, 0.1 + index * 0.12);
-    } else {
-      const inner = wrapLineMask(textTarget);
-      gsap.set(inner, { y: '108%' });
-      tl.to(inner, { y: 0, duration: 1, ease: GEROZ_EASE_IO }, 0.12 + index * 0.1);
-    }
-  });
+        duration: 0.85,
+        ease: GEROZ_EASE,
+      }, 0.1 + index * 0.1);
+    });
+  } else {
+    headingLineEls.forEach((lineEl, index) => {
+      const textTarget = lineEl.querySelector('span') || lineEl;
+      const lines = splitLinesIntoMasks(textTarget, 6);
+      if (lines.length > 1) {
+        gsap.set(lines, { y: '115%' });
+        tl.to(lines, {
+          y: 0,
+          duration: 0.95,
+          stagger: 0.08,
+          ease: GEROZ_EASE_IO,
+        }, 0.1 + index * 0.12);
+      } else {
+        const inner = wrapLineMask(textTarget);
+        gsap.set(inner, { y: '108%' });
+        tl.to(inner, { y: 0, duration: 1, ease: GEROZ_EASE_IO }, 0.12 + index * 0.1);
+      }
+    });
+  }
 
   footerLabels.forEach((label, index) => {
     const chars = splitCharsIntoMasks(label);

@@ -118,7 +118,6 @@ body.meridian-template :is(
 /* Display type — large headlines & marquee (Regular weight, tight tracking) */
 body.meridian-template :is(
   .meridian-hero__marquee-item,
-  .meridian-manifesto__heading,
   .meridian-contact__heading,
   .meridian-menu__link
 ) {
@@ -633,9 +632,12 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-manifesto__grid {
+  --meridian-manifesto-col-gap: clamp(1.25rem, 4vw, 2rem);
+  --meridian-manifesto-row-gap: clamp(1.25rem, 4vw, 2rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
-  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.55fr);
+  column-gap: var(--meridian-manifesto-col-gap);
+  row-gap: var(--meridian-manifesto-row-gap);
   align-items: start;
   width: 100%;
   min-width: 0;
@@ -643,26 +645,54 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-manifesto__heading {
   margin: 0;
-  font-size: clamp(2.5rem, 4.8vw, 4rem);
-  font-weight: 300;
-  letter-spacing: -0.05em;
-  line-height: 1.05;
-  min-width: 0;
-  text-wrap: balance;
-  padding-right: 1rem;
-}
-
-.meridian-manifesto__body {
-  margin: 0;
-  margin-top: clamp(2rem, 5vw, 4rem);
-  color: var(--meridian-muted);
-  font-size: clamp(1.1rem, 1.3vw, 1.25rem);
-  line-height: 1.65;
-  letter-spacing: -0.01em;
+  max-width: 100%;
+  font-size: clamp(1.8rem, 3.8vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.08;
   min-width: 0;
   overflow-wrap: break-word;
   word-break: normal;
   hyphens: none;
+  text-wrap: pretty;
+}
+
+.meridian-manifesto__body {
+  margin: 0;
+  padding-top: 0.35rem;
+  color: var(--meridian-muted);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.75;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+@media (min-width: 1024px) {
+  .meridian-manifesto__grid {
+    --meridian-manifesto-col-gap: clamp(1.5rem, 2.5vw, 2.75rem);
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  }
+
+  .meridian-manifesto__body {
+    justify-self: start;
+    max-width: min(22rem, 100%);
+  }
+}
+
+@media (min-width: 1280px) {
+  .meridian-manifesto__grid {
+    --meridian-manifesto-col-gap: clamp(2rem, 3vw, 3.25rem);
+  }
+}
+
+@media (min-width: 1536px) {
+  .meridian-manifesto__grid {
+    --meridian-manifesto-col-gap: clamp(2.25rem, 3.5vw, 4rem);
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.55fr);
+  }
 }
 
 .meridian-magnetic {
@@ -748,13 +778,16 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-about__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
-  gap: clamp(2rem, 5vw, 6rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 8vw, 8rem);
   align-items: start;
 }
 
 .meridian-about__media {
   position: relative;
+  margin-left: auto;
+  width: 100%;
+  max-width: max-content;
 }
 
 .meridian-about__media-shell {
@@ -926,7 +959,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-capabilities__card-shell {
-  height: auto;
+  height: 100%;
   padding: 0;
   background: transparent;
 }
@@ -959,7 +992,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-capabilities__card-frame {
   position: relative;
-  height: auto;
+  height: 100%;
   min-height: clamp(12rem, 20vw, 16rem);
   border-radius: 4px;
   background-color: var(--card-bg, #121212);
@@ -1581,7 +1614,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 @media (max-width: 1023px) {
   .meridian-manifesto__grid {
     grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
+    --meridian-manifesto-row-gap: clamp(1.5rem, 5vw, 2.25rem);
   }
 
   .meridian-manifesto__inner {
@@ -1595,6 +1628,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   }
 
   .meridian-manifesto__body {
+    padding-top: 0;
     overflow: visible;
   }
 
@@ -1615,6 +1649,65 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   .meridian-contact__cta-ring {
     width: clamp(7.5rem, 22vw, 10rem);
     height: clamp(7.5rem, 22vw, 10rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .meridian-contact__inner {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: clamp(1.25rem, 5vw, 1.75rem);
+    gap: clamp(1rem, 3vh, 1.5rem);
+  }
+
+  .meridian-contact__heading-wrap {
+    margin-top: clamp(1.25rem, 4vh, 1.75rem);
+    margin-bottom: 0.25rem;
+  }
+
+  .meridian-contact__heading {
+    max-width: 100%;
+    font-size: clamp(2.15rem, 10.5vw, 3.25rem);
+  }
+
+  .meridian-contact__avatar {
+    width: clamp(2.85rem, 13vw, 3.5rem);
+    height: clamp(2.85rem, 13vw, 3.5rem);
+  }
+
+  .meridian-contact__divider-row {
+    justify-content: center;
+    min-height: clamp(6.5rem, 20vw, 8.5rem);
+    margin: 0.25rem 0;
+  }
+
+  .meridian-contact__cta {
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .meridian-contact__cta-ring {
+    width: clamp(7rem, 20vw, 9rem);
+    height: clamp(7rem, 20vw, 9rem);
+    min-width: 0;
+    min-height: 0;
+    padding: 1.1rem 1.25rem;
+  }
+
+  .meridian-contact__pills {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .meridian-contact__pill {
+    max-width: 100%;
+  }
+
+  .meridian-contact__pill .meridian-magnetic__surface {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }
 
