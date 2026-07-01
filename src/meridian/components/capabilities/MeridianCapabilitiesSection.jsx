@@ -8,7 +8,7 @@ export default function MeridianCapabilitiesSection() {
   return (
     <section id="capabilities" className="meridian-capabilities">
       <div className="meridian-capabilities__inner">
-        <p className="meridian-capabilities__eyebrow">{capabilities.eyebrow}</p>
+        <h2 className="meridian-capabilities__eyebrow">{capabilities.eyebrow}</h2>
 
         <ul className="meridian-capabilities__grid">
           {capabilities.items.map((item) => (

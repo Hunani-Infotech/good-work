@@ -130,7 +130,8 @@ body.meridian-template :is(
 body.meridian-template :is(
   .meridian-hero__marquee-item,
   .meridian-contact__heading,
-  .meridian-menu__link
+  .meridian-menu__link,
+  .meridian-capabilities__eyebrow
 ) {
   font-family: var(--meridian-font);
   font-weight: 400;
@@ -142,7 +143,6 @@ body.meridian-template :is(
   .meridian-header__credit,
   .meridian-hero__role-copy,
   .meridian-menu__panel-label,
-  .meridian-capabilities__eyebrow,
   .meridian-capabilities__index,
   .meridian-footer__label,
   .meridian-contact__cta-ring
@@ -766,6 +766,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-hero__scroll-cue {
+  display: none;
   position: absolute;
   bottom: clamp(1.25rem, 3vh, 2rem);
   left: 50%;
@@ -1125,17 +1126,31 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-capabilities__inner {
   width: 100%;
   margin: 0 auto;
-  padding: clamp(2rem, 5vh, 3rem) clamp(1rem, 2vw, 2rem) clamp(4rem, 8vh, 6rem);
+  padding: clamp(3rem, 8vh, 5rem) clamp(1rem, 2vw, 2rem) clamp(4rem, 8vh, 6rem);
 }
 
 .meridian-capabilities__eyebrow {
-  margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
-  color: var(--meridian-muted);
-  font-size: 0.6875rem;
+  margin: 0 auto clamp(2.5rem, 6vw, 4rem);
+  max-width: min(100%, 22ch);
+  color: color-mix(in srgb, var(--meridian-ink) 88%, transparent);
+  font-size: clamp(2.75rem, 11vw, 5.25rem);
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.05em;
+  line-height: 1.02;
   text-transform: uppercase;
   text-align: center;
+  text-wrap: balance;
+}
+
+.meridian-capabilities__eyebrow .geroz-word-mask {
+  padding-bottom: 0.1em;
+  margin-bottom: -0.05em;
+}
+
+.meridian-capabilities__eyebrow.is-revealed .geroz-word-mask {
+  overflow: visible;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .meridian-capabilities__grid {
@@ -2026,16 +2041,12 @@ html.meridian-template body.meridian-template :where(
 }
 
 .meridian-template .meridian-hero__marquee-item .geroz-word-mask {
-  padding-bottom: 0.1em;
-  margin-bottom: -0.04em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .meridian-template .meridian-hero__marquee-item.is-marquee-revealed .geroz-word-mask {
   overflow: visible;
-  margin-bottom: 0;
-  padding-bottom: 0;
 }
 
 .meridian-template .meridian-hero__marquee-item .geroz-char-mask {

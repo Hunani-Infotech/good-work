@@ -23,11 +23,11 @@ import {
   GEROZ_EASE_IO,
   GEROZ_SCROLL_TOGGLE,
   refreshAfterImagesLoad,
-  revealEyebrowPill,
   scrubParallax,
   setReducedState,
   splitCharsIntoMasks,
   splitLinesIntoMasks,
+  splitMarqueeWordsIntoMasks,
   splitWordsIntoMasks,
   wrapLineMask,
 } from './gerozTextHelpers.js';
@@ -219,7 +219,7 @@ function initMeridianHero(prefersReduced) {
 
     const marqueeItems = hero.querySelectorAll('.meridian-hero__marquee-item');
     marqueeItems.forEach((item) => {
-      const words = splitWordsIntoMasks(item);
+      const words = splitMarqueeWordsIntoMasks(item);
       gsap.set(words, { y: '115%', opacity: 0 });
       gsap.to(words, {
         y: 0,
@@ -552,9 +552,19 @@ function initMeridianCapabilities(prefersReduced) {
   }
 
   if (eyebrow) {
-    revealEyebrowPill(eyebrow, section, prefersReduced, {
-      start: 'top 90%',
-      variant: 'slide',
+    const words = splitWordsIntoMasks(eyebrow);
+    const titleReveal = revealStaggerWords(words, eyebrow, {
+      start: 'top 88%',
+      stagger: 0.09,
+      duration: 1.05,
+      y: '112%',
+    });
+
+    titleReveal?.eventCallback('onComplete', () => {
+      eyebrow.classList.add('is-revealed');
+      eyebrow.querySelectorAll('.geroz-word-mask').forEach((mask) => {
+        mask.style.overflow = 'visible';
+      });
     });
   }
 

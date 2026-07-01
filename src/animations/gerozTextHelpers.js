@@ -114,6 +114,42 @@ export function splitWordsIntoMasks(el, wordClass = 'geroz-word') {
   return words;
 }
 
+/** Marquee split — keeps lone punctuation (e.g. em dashes) on the previous word. */
+export function splitMarqueeWordsIntoMasks(el, wordClass = 'geroz-word') {
+  if (!el) return [];
+  if (el.dataset.gerozWords) {
+    return Array.from(el.querySelectorAll(`.${wordClass}`));
+  }
+
+  const text = el.textContent.trim();
+  const rawParts = text.split(/\s+/).filter(Boolean);
+  const parts = [];
+
+  rawParts.forEach((part) => {
+    if (/^[\u2012\u2013\u2014\-–—.,!?;:]+$/.test(part) && parts.length) {
+      parts[parts.length - 1] = `${parts[parts.length - 1]} ${part}`;
+      return;
+    }
+    parts.push(part);
+  });
+
+  el.textContent = '';
+  el.dataset.gerozWords = '1';
+
+  return parts.map((word, index) => {
+    const mask = document.createElement('span');
+    mask.className = 'geroz-word-mask';
+    if (index < parts.length - 1) mask.style.marginRight = '0.28em';
+
+    const span = document.createElement('span');
+    span.className = wordClass;
+    span.textContent = word;
+    mask.appendChild(span);
+    el.appendChild(mask);
+    return span;
+  });
+}
+
 export function revealWords(words, trigger, {
   start = 'top 86%',
   stagger = 0.028,
