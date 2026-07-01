@@ -65,6 +65,12 @@
   }
 }
 
+@keyframes geroz-share-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes geroz-share-pop {
   0% {
     transform: scale(1);
@@ -383,34 +389,65 @@
 
   .geroz-cv-header__share {
     position: relative;
+    z-index: 0;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.35rem 1.05rem 0.35rem 0.35rem;
+    gap: 0.7rem;
+    padding: 0.4rem 1.35rem 0.4rem 0.4rem;
+    border: 0;
     border-radius: 9999px;
-    border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
-    background: rgba(255, 255, 255, 0.55);
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #44403c;
+    background: transparent;
+    font-family: var(--font-serif);
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: #f3ece0;
     cursor: pointer;
     transition:
-      border-color 0.35s ease,
-      background 0.35s ease,
-      color 0.35s ease,
-      box-shadow 0.35s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.4s ease;
+  }
+
+  .geroz-cv-header__share::before {
+    content: '';
+    position: absolute;
+    inset: -75%;
+    z-index: -2;
+    background: conic-gradient(
+      from 0deg,
+      color-mix(in srgb, var(--color-lawyer) 20%, transparent) 0%,
+      #f8dfa8 8%,
+      color-mix(in srgb, var(--color-lawyer) 92%, white 15%) 16%,
+      color-mix(in srgb, var(--color-lawyer) 18%, transparent) 32%,
+      color-mix(in srgb, var(--color-lawyer) 18%, transparent) 68%,
+      #f8dfa8 84%,
+      color-mix(in srgb, var(--color-lawyer) 92%, white 15%) 92%,
+      color-mix(in srgb, var(--color-lawyer) 20%, transparent) 100%
+    );
+    animation: geroz-share-ring-spin 6s linear infinite;
+  }
+
+  .geroz-cv-header__share::after {
+    content: '';
+    position: absolute;
+    inset: 1.4px;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      radial-gradient(120% 140% at 28% -10%, rgba(255, 255, 255, 0.1), transparent 55%),
+      linear-gradient(160deg, #211d1a 0%, #0a0908 100%);
   }
 
   .geroz-cv-header__share:hover {
-    border-color: color-mix(in srgb, var(--color-lawyer) 55%, transparent);
-    background: rgba(255, 255, 255, 0.92);
-    color: #1c1917;
     transform: translateY(-1px);
-    box-shadow: 0 10px 26px -16px color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+    filter: drop-shadow(0 10px 22px color-mix(in srgb, var(--color-lawyer) 45%, transparent));
+  }
+
+  .geroz-cv-header__share:hover::before {
+    animation-duration: 2.6s;
   }
 
   .geroz-cv-header__share:active {
@@ -418,8 +455,11 @@
   }
 
   .geroz-cv-header__share:has(.is-copied) {
-    border-color: color-mix(in srgb, var(--color-lawyer) 70%, transparent);
     animation: geroz-share-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .geroz-cv-header__share:has(.is-copied)::before {
+    animation-duration: 1s;
   }
 
   .geroz-cv-header__share-orb {
@@ -432,19 +472,28 @@
     height: 1.9rem;
     overflow: hidden;
     border-radius: 9999px;
-    background: color-mix(in srgb, var(--color-lawyer) 14%, white);
-    color: var(--color-lawyer);
-    transition: background 0.35s ease, color 0.35s ease;
+    background: radial-gradient(
+      120% 130% at 30% 22%,
+      #ffedc4 0%,
+      var(--color-lawyer) 55%,
+      color-mix(in srgb, var(--color-lawyer) 68%, #000) 100%
+    );
+    color: #1c1917;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.55),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .geroz-cv-header__share:hover .geroz-cv-header__share-orb {
-    background: var(--color-lawyer);
-    color: #fff;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.65),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 0 3px color-mix(in srgb, var(--color-lawyer) 22%, transparent);
   }
 
   .geroz-cv-header__share-orb.is-copied {
-    background: var(--color-lawyer);
-    color: #fff;
+    transform: scale(1.05);
   }
 
   .geroz-cv-header__share-icon {
