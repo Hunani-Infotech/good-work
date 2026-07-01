@@ -17,11 +17,6 @@ export default function MeridianContactSection() {
 
   return (
     <section id="contact" className="meridian-contact">
-      {/*
-        OVERLAY — sibling of panel, not inside it.
-        Sits at the capabilities → footer junction; z-index above panel content.
-        GSAP animates only curve-wrap height + ellipse (see meridianFooterCurve.js).
-      */}
       <div className="meridian-contact__curve-overlay" aria-hidden="true">
         <div className="meridian-contact__curve-wrap">
           <div className="meridian-contact__curve-ellipse" />

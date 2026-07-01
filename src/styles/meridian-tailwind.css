@@ -1099,22 +1099,15 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   z-index: 3;
   min-height: 80vh;
   min-height: 80svh;
+  overflow: visible;
 }
 
-/*
- * CURVE OVERLAY — direct child of #contact, above .meridian-contact__panel.
- * Must not live inside the panel (overflow:hidden would clip it).
- */
 .meridian-contact__curve-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 20;
-  display: block;
-  width: 100%;
-  height: 0;
-  overflow: visible;
   pointer-events: none;
 }
 
@@ -1123,32 +1116,10 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   top: 0;
   left: 50%;
   width: calc(100% + 4px);
-  height: var(--meridian-curve-max-height, 25vh);
+  height: 20svh;
   overflow: hidden;
   transform: translate3d(-50%, 0, 0);
-  --meridian-curve-shadow: 0;
   will-change: height;
-}
-
-
-/* Soft depth beneath the white cap (opacity driven by GSAP CSS variable) */
-.meridian-contact__curve-wrap::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3;
-  height: clamp(1.25rem, 3.5vh, 2.25rem);
-  pointer-events: none;
-  opacity: var(--meridian-curve-shadow);
-  background: radial-gradient(
-    ellipse 100% 100% at 50% 0%,
-    rgba(28, 29, 32, 0.2) 0%,
-    rgba(28, 29, 32, 0.06) 42%,
-    transparent 72%
-  );
-  transform: translate3d(0, 45%, 0);
 }
 
 .meridian-contact__curve-ellipse {
@@ -1162,7 +1133,6 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   background: var(--meridian-surface);
   transform: translate3d(-50%, -86.666%, 0);
   transform-origin: 50% 100%;
-  will-change: transform;
 }
 
 .meridian-contact__panel {
@@ -1684,7 +1654,6 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   .meridian-contact__cta {
     left: 50%;
     right: auto;
-    transform: translate(-50%, -50%);
   }
 
   .meridian-contact__cta-ring {
@@ -1712,10 +1681,6 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 @media (max-width: 720px) {
-  .meridian-contact__curve-wrap {
-    height: 15vh;
-  }
-
   .meridian-contact__inner {
     padding: clamp(1.25rem, 5vh, 2.5rem) clamp(1.25rem, 4vw, 2rem)
       clamp(0.75rem, 2vh, 1.25rem);
@@ -1740,7 +1705,6 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 @media (prefers-reduced-motion: reduce) {
   .meridian-contact__curve-wrap {
     height: 0 !important;
-    --meridian-curve-shadow: 0 !important;
   }
 
   .meridian-contact__panel {
