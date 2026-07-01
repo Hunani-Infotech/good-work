@@ -184,6 +184,14 @@ export default function AdminPage() {
       </section>
 
       <section className="admin-section">
+        <h2>Social links</h2>
+        <p className="admin-note">
+          Leave blank to hide the icon — Geroz and Meridian only show it once a URL is set.
+        </p>
+        <Field label="LinkedIn" value={site.site.contact.socialLinks?.linkedin} onChange={(v) => updateSite('site.contact.socialLinks.linkedin', v)} />
+      </section>
+
+      <section className="admin-section">
         <h2>Screen 1 — Profile</h2>
         <ImageField label="Profile photo" value={site.home.hero.profilePhoto} onChange={(v) => updateSite('home.hero.profilePhoto', v)} />
         <Field label="Professional title" value={site.home.hero.subtitle} onChange={(v) => updateSite('home.hero.subtitle', v)} />

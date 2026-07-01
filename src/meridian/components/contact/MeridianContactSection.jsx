@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.js';
+import SocialLinks from '../../../components/shared/SocialLinks.jsx';
 
 function formatLocalTime() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 export default function MeridianContactSection() {
-  const { contact, footer } = useMeridianContent();
+  const { contact, footer, social } = useMeridianContent();
   const [localTime, setLocalTime] = useState(formatLocalTime);
   const headingLines = contact.headingLines ?? [contact.heading];
 
@@ -114,6 +115,13 @@ export default function MeridianContactSection() {
               <p className="meridian-footer__value">{localTime}</p>
             </div>
           </div>
+
+          {social.length ? (
+            <div className="meridian-footer__socials">
+              <p className="meridian-footer__label">Social</p>
+              <SocialLinks links={social} className="meridian-footer__social-list" iconSize={18} />
+            </div>
+          ) : null}
           </footer>
         </div>
       </div>

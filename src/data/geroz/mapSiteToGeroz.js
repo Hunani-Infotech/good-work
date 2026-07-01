@@ -1,5 +1,6 @@
 import { GEROZ_TEMPLATE_IMAGES } from './constants.js';
 import { getGerozColorTheme } from './gerozColorThemes.js';
+import { buildSocialLinks } from '../../utils/socialLinks.js';
 
 function parseExperienceYears(...texts) {
   const joined = texts.filter(Boolean).join(' ');
@@ -74,6 +75,7 @@ export function mapSiteToGeroz(site) {
       mailto,
       ctaLabel,
     },
+    social: buildSocialLinks(contact?.socialLinks),
     images: {
       hero: hero?.profilePhoto ?? GEROZ_TEMPLATE_IMAGES.hero,
       heroBg: narrative?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.heroBg,

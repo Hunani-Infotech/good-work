@@ -544,6 +544,42 @@ html.meridian-template #contact {
   cursor: pointer;
 }
 
+.meridian-menu__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: auto 0 0;
+  padding-top: 2rem;
+  list-style: none;
+}
+
+.meridian-menu__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, #fff 22%, transparent);
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.75;
+  transition:
+    opacity 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meridian-menu__social-link:hover,
+.meridian-menu__social-link:focus-visible {
+  border-color: transparent;
+  background: #fff;
+  color: var(--meridian-dark, #111);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
 body.meridian-menu-open {
   overflow: hidden;
 }

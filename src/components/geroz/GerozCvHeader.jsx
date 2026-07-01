@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ShareButton from '../ui/ShareButton.jsx';
+import SocialLinks from '../shared/SocialLinks.jsx';
 import GerozColorPaletteSwitcher from './GerozColorPaletteSwitcher.jsx';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import { scrollGerozToHash } from '../../animations/gerozAnimations.js';
@@ -65,7 +66,7 @@ function NavLinks({ links, className, linkClassName, onNavigate }) {
   );
 }
 
-function MobileDrawer({ open, links, onClose }) {
+function MobileDrawer({ open, links, social, onClose }) {
   if (typeof document === 'undefined') return null;
 
   return createPortal(
@@ -104,6 +105,14 @@ function MobileDrawer({ open, links, onClose }) {
           linkClassName="geroz-cv-header__drawer-link"
           onNavigate={onClose}
         />
+
+        <SocialLinks
+          links={social}
+          className="geroz-cv-header__drawer-social"
+          itemClassName="geroz-cv-header__drawer-social-item"
+          linkClassName="geroz-cv-header__drawer-social-link"
+          iconSize={16}
+        />
       </aside>
     </div>,
     document.body,
@@ -111,7 +120,7 @@ function MobileDrawer({ open, links, onClose }) {
 }
 
 export default function GerozCvHeader() {
-  const { nav } = useGerozContent();
+  const { nav, social } = useGerozContent();
   const headerRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -187,13 +196,27 @@ export default function GerozCvHeader() {
         </nav>
 
         <div className="geroz-cv-header__actions">
-          <ShareButton className="geroz-cv-header__share group">
+          <SocialLinks
+            links={social}
+            className="geroz-cv-header__social hidden sm:flex"
+            linkClassName="geroz-cv-header__social-link"
+            iconSize={14}
+          />
+
+          <ShareButton className="geroz-cv-header__share">
             {({ copied }) => (
               <>
-                <span className="inline-flex leading-none" aria-hidden="true">
-                  {copied ? <CheckIcon /> : <ShareIcon />}
+                <span className={`geroz-cv-header__share-orb${copied ? ' is-copied' : ''}`} aria-hidden="true">
+                  <span className="geroz-cv-header__share-icon geroz-cv-header__share-icon--share">
+                    <ShareIcon />
+                  </span>
+                  <span className="geroz-cv-header__share-icon geroz-cv-header__share-icon--check">
+                    <CheckIcon />
+                  </span>
                 </span>
-                <span className="max-sm:hidden">{copied ? 'Copied' : 'Share'}</span>
+                <span className="geroz-cv-header__share-label max-sm:hidden">
+                  {copied ? 'Copied' : 'Share'}
+                </span>
               </>
             )}
           </ShareButton>
@@ -214,7 +237,7 @@ export default function GerozCvHeader() {
       </div>
 
       {isMobile ? (
-        <MobileDrawer open={menuOpen} links={nav.links} onClose={closeMenu} />
+        <MobileDrawer open={menuOpen} links={nav.links} social={social} onClose={closeMenu} />
       ) : null}
     </header>
   );

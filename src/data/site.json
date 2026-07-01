@@ -20,7 +20,10 @@
     },
     "contact": {
       "email": "Sanjay@goodwork.asia",
-      "mailtoSubjectNav": "Hey Sanjay!"
+      "mailtoSubjectNav": "Hey Sanjay!",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/sanjay-goodwork"
+      }
     }
   },
   "home": {

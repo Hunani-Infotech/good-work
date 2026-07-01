@@ -4,6 +4,7 @@ import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.j
 import { scrollMeridianToHash } from '../../../animations/meridianAnimations.js';
 import { getLenis, subscribeScroll } from '../../../animations/scrollRuntime.js';
 import MeridianColorPaletteSwitcher from './MeridianColorPaletteSwitcher.jsx';
+import SocialLinks from '../../../components/shared/SocialLinks.jsx';
 
 function MenuIcon() {
   return (
@@ -76,7 +77,7 @@ function HeaderActions({ menuOpen, onHero, onToggleMenu }) {
   );
 }
 
-function MenuDrawer({ open, links, onClose, scrollToHash }) {
+function MenuDrawer({ open, links, social, onClose, scrollToHash }) {
   if (typeof document === 'undefined') return null;
 
   return createPortal(
@@ -93,6 +94,14 @@ function MenuDrawer({ open, links, onClose, scrollToHash }) {
           onNavigate={onClose}
           scrollToHash={scrollToHash}
         />
+
+        <SocialLinks
+          links={social}
+          className="meridian-menu__social"
+          itemClassName="meridian-menu__social-item"
+          linkClassName="meridian-menu__social-link"
+          iconSize={16}
+        />
       </aside>
     </div>,
     document.body,
@@ -100,7 +109,7 @@ function MenuDrawer({ open, links, onClose, scrollToHash }) {
 }
 
 export default function MeridianHeader() {
-  const { nav, hero } = useMeridianContent();
+  const { nav, hero, social } = useMeridianContent();
   const headerRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [onHero, setOnHero] = useState(true);
@@ -185,6 +194,7 @@ export default function MeridianHeader() {
       <MenuDrawer
         open={menuOpen}
         links={nav.drawerLinks}
+        social={social}
         onClose={() => setMenuOpen(false)}
         scrollToHash={scrollMeridianToHash}
       />

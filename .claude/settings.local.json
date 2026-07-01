@@ -14,7 +14,8 @@
       "Bash(curl -s http://localhost:5179/)",
       "PowerShell(node -e $script 2>&1)",
       "Bash(npx playwright *)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(node -e ' *)"
     ]
   }
 }

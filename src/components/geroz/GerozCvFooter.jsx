@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import GerozLuxuryBackdrop from './GerozLuxuryBackdrop.jsx';
+import SocialLinks from '../shared/SocialLinks.jsx';
 
 function getFitWidth(band) {
   if (!band) return 0;
@@ -90,7 +91,7 @@ function FooterDisplayName({ text }) {
 }
 
 export default function GerozCvFooter() {
-  const { footer } = useGerozContent();
+  const { footer, social } = useGerozContent();
 
   return (
     <footer className="gz-footer relative overflow-hidden bg-black text-stone-300">
@@ -127,6 +128,13 @@ export default function GerozCvFooter() {
               {footer.email}
             </a>
           ) : null}
+
+          <SocialLinks
+            links={social}
+            className="gz-footer__social mt-5 flex items-center justify-center gap-3"
+            linkClassName="gz-footer__social-link"
+            iconSize={16}
+          />
 
           {footer.displayName ? (
             <div className="mt-[clamp(1.5rem,2.5vw,2rem)] w-full max-w-full border-t border-[color-mix(in_srgb,var(--color-lawyer)_20%,#2a2a2a)] pt-[clamp(1.25rem,2vw,1.75rem)]">

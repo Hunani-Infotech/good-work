@@ -1,3 +1,5 @@
+import { buildSocialLinks } from '../../utils/socialLinks.js';
+
 function buildMailto(email, subject) {
   if (!email) return '#contact';
   return `mailto:${email}?subject=${encodeURIComponent(subject ?? '')}`;
@@ -74,6 +76,7 @@ export function mapSiteToMeridian(site) {
         { label: 'Contact', href: '#contact', isHash: true },
       ],
     },
+    social: buildSocialLinks(contact?.socialLinks),
     manifesto: {
       heading:
         hero?.heading

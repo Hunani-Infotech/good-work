@@ -65,6 +65,36 @@
   }
 }
 
+@keyframes geroz-share-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.08);
+  }
+
+  60% {
+    transform: scale(0.96);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes geroz-social-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem) scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes gz-hero-side-slide {
   0% {
     opacity: 0;
@@ -352,29 +382,172 @@
   }
 
   .geroz-cv-header__share {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.45rem 0.85rem;
+    gap: 0.6rem;
+    padding: 0.35rem 1.05rem 0.35rem 0.35rem;
     border-radius: 9999px;
     border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
     background: rgba(255, 255, 255, 0.55);
     font-family: var(--font-sans);
     font-size: 0.6875rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #44403c;
+    cursor: pointer;
     transition:
-      border-color 0.3s ease,
-      background 0.3s ease,
-      color 0.3s ease;
+      border-color 0.35s ease,
+      background 0.35s ease,
+      color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .geroz-cv-header__share:hover {
-    border-color: color-mix(in srgb, var(--color-lawyer) 45%, transparent);
-    background: rgba(255, 255, 255, 0.9);
+    border-color: color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+    background: rgba(255, 255, 255, 0.92);
     color: #1c1917;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px -16px color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+  }
+
+  .geroz-cv-header__share:active {
+    transform: translateY(0) scale(0.96);
+  }
+
+  .geroz-cv-header__share:has(.is-copied) {
+    border-color: color-mix(in srgb, var(--color-lawyer) 70%, transparent);
+    animation: geroz-share-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .geroz-cv-header__share-orb {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-lawyer) 14%, white);
+    color: var(--color-lawyer);
+    transition: background 0.35s ease, color 0.35s ease;
+  }
+
+  .geroz-cv-header__share:hover .geroz-cv-header__share-orb {
+    background: var(--color-lawyer);
+    color: #fff;
+  }
+
+  .geroz-cv-header__share-orb.is-copied {
+    background: var(--color-lawyer);
+    color: #fff;
+  }
+
+  .geroz-cv-header__share-icon {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 0.3s ease;
+  }
+
+  .geroz-cv-header__share-icon--share {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  .geroz-cv-header__share-icon--check {
+    transform: translateY(8px) scale(0.4) rotate(-45deg);
+    opacity: 0;
+  }
+
+  .geroz-cv-header__share-orb.is-copied .geroz-cv-header__share-icon--share {
+    transform: translateY(-8px) scale(0.4) rotate(45deg);
+    opacity: 0;
+  }
+
+  .geroz-cv-header__share-orb.is-copied .geroz-cv-header__share-icon--check {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  .geroz-cv-header__social {
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .geroz-cv-header__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
+    background: rgba(255, 255, 255, 0.55);
+    color: #57534e;
+    text-decoration: none;
+    animation: geroz-social-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--social-index, 0) * 0.06s);
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      color 0.3s ease,
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .geroz-cv-header__social-link:hover,
+  .geroz-cv-header__social-link:focus-visible {
+    border-color: color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+    background: var(--color-lawyer);
+    color: #fff;
+    transform: translateY(-2px) scale(1.06);
+  }
+
+  .geroz-cv-header__drawer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0 0;
+    padding: 1.25rem 0 0;
+    border-top: 1px solid color-mix(in srgb, #1c1917 8%, transparent);
+    list-style: none;
+  }
+
+  .geroz-cv-header__drawer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, #1c1917 10%, transparent);
+    background: rgba(255, 255, 255, 0.7);
+    color: #44403c;
+    text-decoration: none;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .geroz-cv-header__drawer-social-link:hover,
+  .geroz-cv-header__drawer-social-link:focus-visible {
+    border-color: color-mix(in srgb, var(--color-lawyer) 55%, transparent);
+    background: var(--color-lawyer);
+    color: #fff;
+    transform: translateY(-2px);
   }
 
   .geroz-cv-header__menu-btn {
@@ -1199,6 +1372,31 @@ body.geroz-template .gz-back-to-top svg path {
 
 .gz-footer__gradient {
   background: linear-gradient(180deg, color-mix(in srgb, #000 94%, transparent), #000 98%) !important;
+}
+
+.gz-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+  color: color-mix(in srgb, #fff 78%, transparent);
+  text-decoration: none;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.gz-footer__social-link:hover,
+.gz-footer__social-link:focus-visible {
+  border-color: transparent;
+  background: var(--color-lawyer);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 /* Header palette demo switcher */
