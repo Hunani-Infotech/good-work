@@ -1667,7 +1667,28 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 @media (max-width: 767px) {
   .meridian-hero {
     display: block;
+    --meridian-hero-text: #ffffff;
+    color: #ffffff;
     background: var(--meridian-hero-bg);
+  }
+
+  .meridian-hero__marquee-item {
+    color: rgba(255, 255, 255, 0.94);
+  }
+
+  .meridian-header--on-hero .meridian-header__credit {
+    color: #ffffff;
+  }
+
+  .meridian-header--on-hero .meridian-menu-btn {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+
+  .meridian-header--on-hero .meridian-menu-btn:hover,
+  .meridian-header--on-hero .meridian-menu-btn:focus-visible {
+    color: #ffffff;
   }
 
   .meridian-hero__spotlight {
@@ -1751,7 +1772,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
     font-size: 1.15rem;
     line-height: 1;
     opacity: 1;
-    color: color-mix(in srgb, var(--meridian-hero-text, #fff) 96%, transparent);
+    color: rgba(255, 255, 255, 0.96);
     pointer-events: none;
     margin-bottom: 0.2rem;
   }
@@ -1760,7 +1781,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
     font-size: 1.15rem;
     letter-spacing: 0.1em;
     line-height: 1.45;
-    color: color-mix(in srgb, var(--meridian-hero-text, #fff) 82%, transparent);
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .meridian-hero__globe {
