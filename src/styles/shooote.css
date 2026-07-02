@@ -936,6 +936,82 @@ button.shooote-share-btn:hover .tooltip-text {
   visibility: visible;
 }
 
+/* Shooote social links (LinkedIn) — matches share button circle */
+body.shooote-template .shooote-nav__social,
+body.shooote-template .shooote-mobile-nav__social,
+body.shooote-template .shooote-site-footer__social {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.shooote-template .shooote-nav__social-link,
+body.shooote-template .shooote-site-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--shooote-ink) 18%, transparent);
+  background: transparent;
+  color: var(--shooote-ink);
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+body.shooote-template .shooote-nav__social-link:hover,
+body.shooote-template .shooote-nav__social-link:focus-visible,
+body.shooote-template .shooote-site-footer__social-link:hover,
+body.shooote-template .shooote-site-footer__social-link:focus-visible {
+  background-color: color-mix(in srgb, var(--shooote-accent) 12%, transparent);
+  color: var(--shooote-accent);
+  border-color: color-mix(in srgb, var(--shooote-accent) 45%, transparent);
+  transform: translateY(-1px);
+}
+
+body.shooote-template .shooote-mobile-nav__social {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.shooote-template .shooote-mobile-nav__social .shooote-nav__social-link {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+body.shooote-template .shooote-mobile-nav__social .shooote-nav__social-link:hover,
+body.shooote-template .shooote-mobile-nav__social .shooote-nav__social-link:focus-visible {
+  background-color: color-mix(in srgb, var(--shooote-accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--shooote-accent) 55%, transparent);
+  color: #fff;
+}
+
+body.shooote-template .shooote-site-footer__social {
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+body.shooote-template .shooote-site-footer__social-link {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+body.shooote-template .shooote-site-footer__social-link:hover,
+body.shooote-template .shooote-site-footer__social-link:focus-visible {
+  background-color: color-mix(in srgb, var(--shooote-accent) 18%, transparent);
+  border-color: color-mix(in srgb, var(--shooote-accent) 50%, transparent);
+  color: #fff;
+}
+
 /* Section titles — shared font; capabilities h2 sized separately below */
 .gw-section--shooote .wpo-section-title h2,
 .gw-section--shooote .wpo-section-title h3 {
@@ -1388,6 +1464,8 @@ body.shooote-template .shooote-nav__share {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
   }
 
   body.shooote-template .shooote-mobile-nav--open .shooote-mobile-nav__panel {

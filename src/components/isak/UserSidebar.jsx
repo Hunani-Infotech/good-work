@@ -69,10 +69,14 @@ export function UserSidebar() {
             height={40}
           />
         </div>
-        <ul className="tf-social-icon-2 user-social d-grid">
-          {profile.socials.map((s) => (
+        <ul className="tf-social-icon-2 user-social isak-sidebar-social">
+          {profile.sidebarSocials.map((s) => (
             <li key={s.label}>
-              <a href={s.href} aria-label={s.label}>
+              <a
+                href={s.href}
+                aria-label={s.label}
+                {...(s.external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+              >
                 <i className={`icon ${s.icon}`} />
               </a>
             </li>

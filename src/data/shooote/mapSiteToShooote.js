@@ -1,5 +1,6 @@
 import defaultSite from '../site.json';
 import { SHOOOTE_BASE } from './constants.js';
+import { buildSocialLinks } from '../../utils/socialLinks.js';
 
 function heroNameLines(brand) {
   const firstName = (brand.firstName || 'Sanjay').trim();
@@ -43,6 +44,7 @@ export function mapSiteToShooote(site = defaultSite) {
   return {
     SHOOOTE_BASE,
     navLinks,
+    social: buildSocialLinks(contact?.socialLinks),
     logoImage: hero.profilePhoto,
     logoText: firstName,
     theme: {

@@ -1,3 +1,5 @@
+import { buildSocialLinks } from './socialLinks.js';
+
 const A = '/assets/isak/images';
 
 const EDU_ICONS = [
@@ -16,6 +18,30 @@ function bulletTitle(bullet, max = 56) {
   const first = bullet.split(/[.!?]/)[0].trim();
   if (first.length <= max) return first;
   return `${first.slice(0, max - 1).trim()}…`;
+}
+
+function buildIsakSidebarSocials(contact) {
+  const items = [];
+
+  buildSocialLinks(contact?.socialLinks).forEach((link) => {
+    items.push({
+      icon: 'icon-linkin',
+      href: link.href,
+      label: link.label,
+      external: true,
+    });
+  });
+
+  if (contact?.email) {
+    items.push({
+      icon: 'icon-send',
+      href: `mailto:${contact.email}`,
+      label: 'Email',
+      external: false,
+    });
+  }
+
+  return items;
 }
 
 function buildIntroHeadline(heading) {
@@ -61,10 +87,9 @@ export function mapSiteToIsak(siteData) {
       profilePhoto: hero.profilePhoto ?? '/assets/isak/images/avatar/avatar-boy.png',
       sidebarPhoto: hero.profilePhoto ?? '/assets/isak/images/avatar/avatar.png',
       ctaLabel: hero.ctaLabel ?? "Let's talk",
-      socials: meta.contact?.email
-        ? [{ icon: 'icon-send', href: `mailto:${meta.contact.email}`, label: 'Email' }]
-        : [],
+      sidebarSocials: buildIsakSidebarSocials(meta.contact),
     },
+    social: buildSocialLinks(meta.contact?.socialLinks),
     meta: {
       title: meta.meta?.homeTitle ?? `${firstName} | Portfolio`,
       description: meta.meta?.description ?? '',
@@ -85,7 +110,7 @@ export function mapSiteToIsak(siteData) {
     education: buildCapabilitiesTimeline(bullets),
     footer: {
       // quote: hero.heroStatement ?? meta.meta?.description ?? '',
-      // name: firstName,
+      copyrightName: firstName,
       // subtitle,
       email: meta.contact?.email ?? '',
       mailtoSubject: meta.contact?.mailtoSubjectNav ?? `Hey ${firstName}!`,

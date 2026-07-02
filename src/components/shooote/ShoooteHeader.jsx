@@ -5,6 +5,7 @@ import { scrollToShoooteAnchor } from '../../animations/shoooteAnimations.js';
 import { useShoooteContent } from '../../hooks/shooote/useShoooteContent.js';
 import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 import ShareButton from '../ui/ShareButton.jsx';
+import SocialLinks from '../shared/SocialLinks.jsx';
 
 function NavMenu({ navLinks, onClose, onHashClick }) {
   return (
@@ -36,7 +37,7 @@ function NavMenu({ navLinks, onClose, onHashClick }) {
   );
 }
 
-function MobileNavOverlay({ open, navLinks, onClose, onHashClick }) {
+function MobileNavOverlay({ open, navLinks, social, onClose, onHashClick }) {
   return (
     <div
       id="shooote-mobile-nav"
@@ -74,13 +75,20 @@ function MobileNavOverlay({ open, navLinks, onClose, onHashClick }) {
             </li>
           ))}
         </ul>
+
+        <SocialLinks
+          links={social}
+          className="shooote-mobile-nav__social"
+          linkClassName="shooote-nav__social-link"
+          iconSize={16}
+        />
       </nav>
     </div>
   );
 }
 
 export default function ShoooteHeader() {
-  const { navLinks, SHOOOTE_BASE } = useShoooteContent();
+  const { navLinks, social, SHOOOTE_BASE } = useShoooteContent();
   const [menuOpen, setMenuOpen] = useState(false);
   const [togglerClass, setTogglerClass] = useState('');
   const [smallNav, setSmallNav] = useState(false);
@@ -185,6 +193,13 @@ export default function ShoooteHeader() {
             )}
 
             <div className="shooote-nav__right">
+              <SocialLinks
+                links={social}
+                className="shooote-nav__social"
+                linkClassName="shooote-nav__social-link"
+                iconSize={15}
+              />
+
               <ShareButton className="shooote-share-btn shooote-nav__share">
                 {({ copied }) => (
                   <>
@@ -203,6 +218,7 @@ export default function ShoooteHeader() {
           <MobileNavOverlay
             open={menuOpen}
             navLinks={navLinks}
+            social={social}
             onClose={closeMenu}
             onHashClick={handleHashClick}
           />,
