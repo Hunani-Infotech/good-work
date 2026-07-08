@@ -5,6 +5,35 @@ import { scrollMeridianToHash } from '../../../animations/meridianAnimations.js'
 import { getLenis, subscribeScroll } from '../../../animations/scrollRuntime.js';
 import MeridianColorPaletteSwitcher from './MeridianColorPaletteSwitcher.jsx';
 import SocialLinks from '../../../components/shared/SocialLinks.jsx';
+import ShareButton from '../../../components/ui/ShareButton.jsx';
+
+function ShareIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 16V4m0 0 4 4m-4-4-4 4M5 20h14"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M5 12.5 9.5 17 19 7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 function MenuIcon() {
   return (
@@ -63,6 +92,30 @@ function MenuButton({ menuOpen, onHero, onToggle }) {
   );
 }
 
+function ShareAction({ onHero }) {
+  return (
+    <ShareButton
+      className={`meridian-share-btn meridian-liquid-fill meridian-magnetic ${onHero ? 'meridian-share-btn--on-hero' : ''}`}
+      data-magnetic-strength="0.38"
+      data-magnetic-label-strength="0"
+    >
+      {({ copied }) => (
+        <>
+          <span className="meridian-liquid-fill__wave" aria-hidden="true" />
+          <span className={`meridian-share-btn__icon${copied ? ' is-copied' : ''}`} aria-hidden="true">
+            <span className="meridian-share-btn__glyph meridian-share-btn__glyph--share">
+              <ShareIcon />
+            </span>
+            <span className="meridian-share-btn__glyph meridian-share-btn__glyph--check">
+              <CheckIcon />
+            </span>
+          </span>
+        </>
+      )}
+    </ShareButton>
+  );
+}
+
 function HeaderActions({ menuOpen, onHero, onToggleMenu }) {
   if (typeof document === 'undefined') return null;
 
@@ -71,6 +124,7 @@ function HeaderActions({ menuOpen, onHero, onToggleMenu }) {
       {!menuOpen ? (
         <MeridianColorPaletteSwitcher onHero={onHero} className="meridian-palette--header" />
       ) : null}
+      <ShareAction onHero={onHero} />
       <MenuButton menuOpen={menuOpen} onHero={onHero} onToggle={onToggleMenu} />
     </div>,
     document.body,
