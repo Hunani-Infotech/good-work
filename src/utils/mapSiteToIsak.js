@@ -86,7 +86,7 @@ export function mapSiteToIsak(siteData) {
       rotatingNames: [firstName, subtitle],
       profilePhoto: hero.profilePhoto ?? '/assets/isak/images/avatar/avatar-boy.png',
       sidebarPhoto: hero.profilePhoto ?? '/assets/isak/images/avatar/avatar.png',
-      ctaLabel: hero.ctaLabel ?? "Let's talk",
+      ctaLabel: hero.ctaLabel ?? "Let's Connect",
       sidebarSocials: buildIsakSidebarSocials(meta.contact),
     },
     social: buildSocialLinks(meta.contact?.socialLinks),
@@ -98,12 +98,12 @@ export function mapSiteToIsak(siteData) {
     intro: {
       ...buildIntroHeadline(hero.heading ?? ''),
       headline: hero.heading ?? '',
-      ctaLabel: hero.ctaLabel ?? "Let's talk",
+      ctaLabel: hero.ctaLabel ?? "Let's Connect",
       experienceYears,
       awardsCount: bullets.length || 3,
     },
     about: {
-      tag: narrative.tag ?? 'About',
+      tag: narrative.tag ?? 'Narrative',
       title: hero.heading ?? narrative.paragraphs?.[0] ?? '',
       paragraphs,
     },
@@ -117,7 +117,7 @@ export function mapSiteToIsak(siteData) {
       // description: meta.meta?.description ?? '',
     },
     capabilities: {
-      tag: capabilities.tag ?? 'Capabilities & Skills',
+      tag: capabilities.tag ?? 'Skills',
     },
   };
 }

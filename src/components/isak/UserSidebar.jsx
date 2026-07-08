@@ -109,7 +109,9 @@ export function UserSidebar() {
               <span className="ic-wrap">
                 <i className="icon icon-arrow-right-top" />
               </span>
-              <span className="text text-body-3 letter-space--05 fw-medium">{profile.ctaLabel}</span>
+              <span className="text text-body-3 letter-space--05 fw-medium">
+                {profile.ctaLabel || "Let's Connect"}
+              </span>
               <span className="ic-wrap">
                 <i className="icon icon-arrow-right-top" />
               </span>

@@ -1524,8 +1524,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   gap: 0;
   width: 100%;
   margin-top: 2rem;
-  /* Reserve room for the circle overlapping below the line */
-  padding-bottom: clamp(4.75rem, 9vw, 7rem);
+  /* Half-circle overhang under the divider line */
+  padding-bottom: clamp(4.25rem, 8vw, 6.25rem);
 }
 
 .meridian-contact__heading-wrap {
@@ -1715,8 +1715,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   flex-shrink: 0;
   width: 100%;
   margin-top: 0;
-  padding: clamp(0.85rem, 2vh, 1.25rem) clamp(1.25rem, 4vw, 3rem)
-    clamp(1rem, 2.5vh, 1.5rem);
+  padding: 0.65rem clamp(1.25rem, 4vw, 3rem) 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--meridian-dark);
   pointer-events: none;
@@ -1730,9 +1729,9 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-footer__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(5.5rem, auto) minmax(5.5rem, auto);
-  align-items: end;
-  column-gap: clamp(2rem, 5vw, 3.5rem);
-  row-gap: 1.25rem;
+  align-items: center;
+  column-gap: clamp(1.5rem, 4vw, 3rem);
+  row-gap: 0.75rem;
   width: min(88rem, 100%);
   margin: 0 auto;
 }
@@ -1740,7 +1739,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-footer__brand {
   grid-column: 1;
   min-width: 0;
-  align-self: end;
+  align-self: center;
 }
 
 body.meridian-template .meridian-footer__brand.gw-footer-brand {
@@ -1748,7 +1747,7 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: 0.55rem;
+  gap: 0.3rem;
 }
 
 .meridian-footer__meta {
@@ -1758,7 +1757,7 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 .meridian-footer__meta > .meridian-footer__cell {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.2rem;
   min-width: 0;
 }
 
@@ -1770,7 +1769,7 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   grid-column: 3;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.2rem;
   min-width: 0;
   text-align: left;
 }
@@ -1779,8 +1778,12 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   margin: 0;
   color: rgba(255, 255, 255, 0.45);
   text-align: left;
-  font-size: clamp(0.75rem, 0.95vw, 0.8125rem);
-  line-height: 1.5;
+  font-size: clamp(0.6875rem, 0.9vw, 0.75rem);
+  line-height: 1.35;
+}
+
+.meridian-footer__brand.gw-footer-brand .gw-footer-brand__copyright {
+  margin-top: 0.1rem;
 }
 
 .meridian-footer__grid:not(:has(.meridian-footer__socials)) {
@@ -1788,30 +1791,30 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 }
 
 .meridian-footer__logo {
-  height: clamp(1.5rem, 3.5vw, 1.85rem);
+  height: clamp(1.2rem, 2.6vw, 1.45rem);
   opacity: 0.92;
 }
 
 .meridian-footer__label {
   margin: 0;
-  font-size: clamp(0.6875rem, 0.9vw, 0.75rem);
+  font-size: clamp(0.625rem, 0.8vw, 0.6875rem);
   font-weight: 400;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.45;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .meridian-footer__value {
   margin: 0;
-  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
-  line-height: 1.35;
+  font-size: clamp(0.8125rem, 1.05vw, 0.9375rem);
+  line-height: 1.25;
 }
 
 .meridian-footer__social-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.55rem;
   align-items: center;
   justify-content: flex-start;
   margin: 0;
@@ -1830,10 +1833,14 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 }
 
 @media (max-width: 1023px) {
+  .meridian-footer {
+    padding: 0.6rem clamp(1.25rem, 4vw, 2rem) 0.7rem;
+  }
+
   .meridian-footer__grid,
   .meridian-footer__grid:not(:has(.meridian-footer__socials)) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 1.5rem;
+    row-gap: 0.85rem;
   }
 
   .meridian-footer__brand {
@@ -2095,8 +2102,16 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 
   .meridian-contact__copy {
     margin-top: clamp(1.25rem, 4vh, 1.75rem);
-    /* Reserve room for the circle overlapping below the line */
-    padding-bottom: clamp(3.75rem, 12vw, 5rem);
+    padding-bottom: clamp(3.5rem, 11vw, 4.5rem);
+  }
+
+  .meridian-footer {
+    padding: 0.55rem clamp(1.25rem, 5vw, 1.75rem) 0.65rem;
+  }
+
+  .meridian-footer__grid,
+  .meridian-footer__grid:not(:has(.meridian-footer__socials)) {
+    row-gap: 0.75rem;
   }
 
   .meridian-contact__heading-wrap {

@@ -9,7 +9,7 @@ export default function TidalCopperExpertiseSection() {
   const ctaLabel = hero.ctaLabel || "Let's Connect";
 
   return (
-    <TidalCopperSection screenClass="cv-what-screen" label="02 — What I Do" poweredByDark>
+    <TidalCopperSection screenClass="cv-what-screen" label="02 — Hero" poweredByDark>
       <div className="cv-panel" id="whatPanel">
         <div className="cv-panel-body">
           <h2 className="cv-what-header" id="whatHeader">{hero.heading}</h2>

@@ -103,15 +103,15 @@ export function mapSiteToGeroz(site) {
       circleHref: mailto,
       ctaLabel,
     },
-    expertise: {
-      tag: 'Expertise',
+      expertise: {
+      tag: 'Hero',
       heading: hero?.heading ?? '',
       statement: hero?.heroStatement ?? '',
       ctaLabel: hero?.ctaLabel ?? "Let's Connect",
       ctaHref: contact?.email ? `mailto:${contact.email}` : '#',
     },
     about: {
-      eyebrow: narrative?.tag ?? 'About Me',
+      eyebrow: narrative?.tag ?? 'Narrative',
       heading: hero?.heading ?? paragraphs[0] ?? '',
       body: paragraphs[0] ?? hero?.heroStatement ?? '',
       extraParagraph: paragraphs[1] ?? '',
@@ -119,8 +119,8 @@ export function mapSiteToGeroz(site) {
       backgroundImage: narrative?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.heroBg,
     },
     capabilities: {
-      eyebrow: capabilities?.tag ?? 'Capabilities & Skills',
-      title: capabilities?.tag ?? 'Capabilities & Skills',
+      eyebrow: capabilities?.tag ?? 'Skills',
+      title: capabilities?.tag ?? 'Skills',
       backgroundImage:
         capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBg,
       items: bullets.map((bullet, index) => {
@@ -170,11 +170,11 @@ export function mapSiteToGeroz(site) {
     },
     nav: {
       links: [
-        { label: 'Profile', href: '#top', isHash: true },
-        { label: 'Expertise', href: '#expertise', isHash: true },
+        { label: 'Main', href: '#top', isHash: true },
+        { label: 'Hero', href: '#expertise', isHash: true },
         { label: 'Narrative', href: '#about', isHash: true },
         { label: 'Skills', href: '#capabilities', isHash: true },
-        { label: ctaLabel, href: mailto, isCta: true },
+        { label: "Let's Connect", href: mailto, isCta: true },
       ],
     },
   };

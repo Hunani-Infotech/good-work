@@ -19,7 +19,7 @@ export function mapSiteToMeridian(site) {
   const subtitle = hero?.subtitle ?? '';
   const mailtoSubject = contact?.mailtoSubjectNav ?? `Hey ${firstName}!`;
   const mailto = buildMailto(contact?.email, mailtoSubject);
-  const ctaLabel = hero?.ctaLabel ?? 'Get in touch';
+  const ctaLabel = hero?.ctaLabel ?? "Let's Connect";
   const bullets = capabilities?.bullets ?? [];
   const paragraphs = narrative?.paragraphs ?? [];
 
@@ -64,15 +64,18 @@ export function mapSiteToMeridian(site) {
     },
     nav: {
       links: [
-        { label: 'Capabilities', href: '#capabilities', isHash: true },
-        { label: 'About', href: '#about', isHash: true },
-        { label: 'Contact', href: '#contact', isHash: true },
+        { label: 'Main', href: '#top', isHash: true },
+        { label: 'Hero', href: '#manifesto', isHash: true },
+        { label: 'Narrative', href: '#about', isHash: true },
+        { label: 'Skills', href: '#capabilities', isHash: true },
+        { label: "Let's Connect", href: '#contact', isHash: true },
       ],
       drawerLinks: [
-        { label: 'Home', href: '#top', isHash: true },
-        { label: 'Capabilities', href: '#capabilities', isHash: true },
-        { label: 'About', href: '#about', isHash: true },
-        { label: 'Contact', href: '#contact', isHash: true },
+        { label: 'Main', href: '#top', isHash: true },
+        { label: 'Hero', href: '#manifesto', isHash: true },
+        { label: 'Narrative', href: '#about', isHash: true },
+        { label: 'Skills', href: '#capabilities', isHash: true },
+        { label: "Let's Connect", href: '#contact', isHash: true },
       ],
     },
     social: buildSocialLinks(contact?.socialLinks),
@@ -94,14 +97,14 @@ export function mapSiteToMeridian(site) {
         src: hero?.videoCv?.src ?? '',
         poster: hero?.videoCv?.poster ?? narrative?.backgroundImage ?? '/images/landing/image1.png',
       },
-      eyebrow: narrative?.tag ?? 'Professional Narrative',
+      eyebrow: narrative?.tag ?? 'Narrative',
       heading: subtitle || `About ${firstName}`,
       paragraphs: paragraphs.length
         ? paragraphs
         : [hero?.heroStatement ?? meta?.description ?? ''].filter(Boolean),
     },
     capabilities: {
-      eyebrow: capabilities?.tag ?? 'Capabilities & Skills',
+      eyebrow: capabilities?.tag ?? 'Skills',
       backgroundImage: capabilities?.backgroundImage ?? '/images/landing/imag2.png',
       items: bullets.map((text, index) => ({
         id: index + 1,

@@ -83,7 +83,7 @@ export default function MeridianContactSection() {
               {social.length ? (
                 <div className="meridian-footer__socials meridian-footer__cell">
                   <p className="meridian-footer__label">Social</p>
-                  <SocialLinks links={social} className="meridian-footer__social-list" iconSize={18} />
+                  <SocialLinks links={social} className="meridian-footer__social-list" iconSize={16} />
                 </div>
               ) : null}
             </div>

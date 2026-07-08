@@ -26,7 +26,7 @@ export function Intro() {
         </div>
       </header>
 
-      <h1 className="intro-title letter-space--2">
+      <h1 id="hero" className="intro-title letter-space--2">
         {intro.headline}
       </h1>
 

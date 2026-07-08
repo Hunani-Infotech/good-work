@@ -17,7 +17,7 @@ export default function TidalCopperHero() {
         <div className="orb orb-3" />
       </div>
 
-      <span className="hero-index">01 — Profile</span>
+      <span className="hero-index">01 — Main</span>
 
       <div className="hero-content">
         {hero.profilePhoto ? (

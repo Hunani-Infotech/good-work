@@ -10,7 +10,7 @@ export default function TidalCopperCapabilitiesSection() {
   return (
     <TidalCopperSection
       screenClass="cv-capabilities-screen"
-      label="04 — Capabilities"
+      label="04 — Skills"
       eyebrowId="capEyebrow"
       eyebrow={capabilities.tag}
       backgroundImage={capabilities.backgroundImage}

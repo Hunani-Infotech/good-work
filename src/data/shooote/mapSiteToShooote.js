@@ -34,11 +34,11 @@ export function mapSiteToShooote(site = defaultSite) {
   const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubjectNav || `Hey ${firstName}!`)}`;
 
   const navLinks = [
-    { label: 'Home', href: '#profile', isHash: true },
-    { label: 'About', href: '#expertise', isHash: true },
+    { label: 'Main', href: '#profile', isHash: true },
+    { label: 'Hero', href: '#expertise', isHash: true },
     { label: 'Narrative', href: '#narrative', isHash: true },
     { label: 'Skills', href: '#capabilities', isHash: true },
-    { label: ctaLabel, href: mailto, isHash: false, className: 'hire-me' },
+    { label: "Let's Connect", href: mailto, isHash: false, className: 'hire-me' },
   ];
 
   return {
@@ -65,10 +65,10 @@ export function mapSiteToShooote(site = defaultSite) {
       role: (hero.subtitle || '').trim(),
       tagline: heroTagline(hero),
       image: hero.profilePhoto,
-      sectionLabel: '01 — Home',
+      sectionLabel: '01 — Main',
     },
     expertise: {
-      sectionLabel: '02 — About',
+      sectionLabel: '02 — Hero',
       heading: hero.heading || '',
       statement: hero.heroStatement || '',
       ctaLabel: hero.ctaLabel || "Let's Connect",
