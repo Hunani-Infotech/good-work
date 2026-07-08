@@ -665,7 +665,7 @@ html.isak-template .logo-site img {
   transition: filter 0.3s ease;
 }
 
-html.isak-template .sidebar-user .user-logo:hover img,
+html.isak-template .sidebar-user img,
 html.isak-template .logo-site:hover img {
   filter: grayscale(0%) !important;
 }

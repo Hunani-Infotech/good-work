@@ -6,34 +6,6 @@ import GerozColorPaletteSwitcher from './GerozColorPaletteSwitcher.jsx';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import { scrollGerozToHash } from '../../animations/gerozAnimations.js';
 
-function ShareIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 16V4m0 0 4 4m-4-4-4 4M5 20h14"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5 12.5 9.5 17 19 7"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function CloseIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -203,20 +175,11 @@ export default function GerozCvHeader() {
             iconSize={14}
           />
 
-          <ShareButton className="geroz-cv-header__share">
+          <ShareButton className="geroz-share-btn geroz-cv-header__share">
             {({ copied }) => (
               <>
-                <span className={`geroz-cv-header__share-orb${copied ? ' is-copied' : ''}`} aria-hidden="true">
-                  <span className="geroz-cv-header__share-icon geroz-cv-header__share-icon--share">
-                    <ShareIcon />
-                  </span>
-                  <span className="geroz-cv-header__share-icon geroz-cv-header__share-icon--check">
-                    <CheckIcon />
-                  </span>
-                </span>
-                <span className="geroz-cv-header__share-label max-sm:hidden">
-                  {copied ? 'Copied' : 'Share'}
-                </span>
+                <i className={`ti-${copied ? 'check' : 'share'}`} style={{ fontSize: '15px' }} aria-hidden="true" />
+                <span className="tooltip-text">{copied ? 'Copied!' : 'Share'}</span>
               </>
             )}
           </ShareButton>

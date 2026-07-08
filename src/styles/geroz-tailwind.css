@@ -1,3 +1,5 @@
+@import url('/assets/shooote/css/themify-icons.css');
+
 @import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap');
 
 @import 'tailwindcss';
@@ -62,24 +64,6 @@
 
   100% {
     transform: translateX(340%) skewX(-22deg);
-  }
-}
-
-@keyframes geroz-share-pop {
-  0% {
-    transform: scale(1);
-  }
-
-  35% {
-    transform: scale(1.08);
-  }
-
-  60% {
-    transform: scale(0.96);
-  }
-
-  100% {
-    transform: scale(1);
   }
 }
 
@@ -382,107 +366,7 @@
   }
 
   .geroz-cv-header__share {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.4rem 1.2rem 0.4rem 0.4rem;
-    border-radius: 9999px;
-    border: 1.5px solid color-mix(in srgb, var(--color-lawyer) 45%, #d9b46a 35%);
-    background: rgba(255, 255, 255, 0.6);
-    font-family: var(--font-serif);
-    font-size: 0.875rem;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    color: #1c1917;
-    cursor: pointer;
-    transition:
-      border-color 0.35s ease,
-      background 0.35s ease,
-      box-shadow 0.35s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .geroz-cv-header__share:hover {
-    border-color: color-mix(in srgb, var(--color-lawyer) 70%, #f0cf8e 30%);
-    background: rgba(255, 255, 255, 0.92);
-    transform: translateY(-1px);
-    box-shadow: 0 12px 26px -18px color-mix(in srgb, var(--color-lawyer) 55%, #d9b46a 25%);
-  }
-
-  .geroz-cv-header__share:active {
-    transform: translateY(0) scale(0.96);
-  }
-
-  .geroz-cv-header__share:has(.is-copied) {
-    border-color: color-mix(in srgb, var(--color-lawyer) 80%, #f0cf8e 20%);
-    animation: geroz-share-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .geroz-cv-header__share-orb {
-    position: relative;
-    display: inline-flex;
     flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    width: 1.85rem;
-    height: 1.85rem;
-    overflow: hidden;
-    border-radius: 9999px;
-    background: linear-gradient(
-      150deg,
-      #f0cf8e 0%,
-      var(--color-lawyer) 68%,
-      color-mix(in srgb, var(--color-lawyer) 75%, #000) 100%
-    );
-    color: #fff;
-    box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.5),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.25);
-    transition: box-shadow 0.35s ease, transform 0.35s ease;
-  }
-
-  .geroz-cv-header__share:hover .geroz-cv-header__share-orb {
-    box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.6),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.25),
-      0 0 0 3px color-mix(in srgb, var(--color-lawyer) 20%, transparent);
-  }
-
-  .geroz-cv-header__share-orb.is-copied {
-    transform: scale(1.05);
-  }
-
-  .geroz-cv-header__share-icon {
-    position: absolute;
-    inset: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition:
-      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-      opacity 0.3s ease;
-  }
-
-  .geroz-cv-header__share-icon--share {
-    transform: translateY(0) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-
-  .geroz-cv-header__share-icon--check {
-    transform: translateY(8px) scale(0.4) rotate(-45deg);
-    opacity: 0;
-  }
-
-  .geroz-cv-header__share-orb.is-copied .geroz-cv-header__share-icon--share {
-    transform: translateY(-8px) scale(0.4) rotate(45deg);
-    opacity: 0;
-  }
-
-  .geroz-cv-header__share-orb.is-copied .geroz-cv-header__share-icon--check {
-    transform: translateY(0) scale(1) rotate(0deg);
-    opacity: 1;
   }
 
   .geroz-cv-header__social {
@@ -714,6 +598,71 @@
       letter-spacing: 0.2em;
     }
   }
+}
+
+/* Geroz header share — unlayered (matches Shooote circle + tooltip; beats global index.css) */
+body.geroz-template .geroz-cv-header__actions button.geroz-share-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, #1c1917 18%, transparent);
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  color: #1c1917;
+  font: inherit;
+  line-height: 1;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+}
+
+body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:hover,
+body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:focus-visible {
+  background-color: color-mix(in srgb, var(--color-lawyer) 12%, transparent);
+  color: var(--color-lawyer);
+  border-color: color-mix(in srgb, var(--color-lawyer) 45%, transparent);
+  transform: translateY(-1px);
+}
+
+body.geroz-template .geroz-cv-header__actions button.geroz-share-btn .tooltip-text {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  background-color: #2b2e33;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+
+body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:hover .tooltip-text,
+body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:focus-visible .tooltip-text {
+  opacity: 1;
+  visibility: visible;
 }
 
 html.geroz-template {
