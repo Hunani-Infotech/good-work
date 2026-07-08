@@ -109,7 +109,7 @@ function MenuDrawer({ open, links, social, onClose, scrollToHash }) {
 }
 
 export default function MeridianHeader() {
-  const { nav, hero, social } = useMeridianContent();
+  const { nav, social } = useMeridianContent();
   const headerRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [onHero, setOnHero] = useState(true);
@@ -173,20 +173,7 @@ export default function MeridianHeader() {
         ref={headerRef}
         className={`meridian-header ${onHero ? 'meridian-header--on-hero' : ''}`}
       >
-        <div className="meridian-header__inner">
-          {onHero ? (
-            <a
-              href="#top"
-              className="meridian-header__credit"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollMeridianToHash('#top');
-              }}
-            >
-              {hero.creditLabel}
-            </a>
-          ) : null}
-        </div>
+        <div className="meridian-header__inner" />
       </header>
 
       <HeaderActions menuOpen={menuOpen} onHero={onHero} onToggleMenu={toggleMenu} />

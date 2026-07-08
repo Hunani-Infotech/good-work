@@ -1,3 +1,6 @@
+/** GoodWork app — main landing page for logo links on individual CV pages */
+export const GOODWORK_APP_URL = 'https://app.goodwork.asia/';
+
 /** Stacked wordmark — purple + orange, transparent (light backgrounds) */
 export const GOODWORK_LOGO_ON_LIGHT = '/images/goodwork/goodwork-logo-full-colour-stacked.svg';
 

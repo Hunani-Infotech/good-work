@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import GerozLuxuryBackdrop from './GerozLuxuryBackdrop.jsx';
 import SocialLinks from '../shared/SocialLinks.jsx';
+import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
 
 function getFitWidth(band) {
   if (!band) return 0;
@@ -112,13 +113,15 @@ export default function GerozCvFooter() {
 
       <div className="geroz-container-wide relative z-[1]">
         <div className="flex flex-col items-center px-4 py-[clamp(2rem,3.5vw,2.75rem)] text-center sm:px-6 lg:px-8">
-          <img
-            src={footer.logoSrc}
-            alt="GoodWork"
-            width="151"
-            height="37"
-            className="gz-footer__logo block h-[clamp(1.5rem,3.5vw,1.875rem)] w-auto"
-          />
+          <a href={GOODWORK_APP_URL} className="inline-block">
+            <img
+              src={footer.logoSrc}
+              alt="GoodWork"
+              width="151"
+              height="37"
+              className="gz-footer__logo block h-[clamp(1.5rem,3.5vw,1.875rem)] w-auto"
+            />
+          </a>
 
           {footer.email ? (
             <a

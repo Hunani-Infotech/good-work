@@ -101,22 +101,11 @@ function initMeridianSmoothAnchors() {
 }
 
 function initMeridianHeader(prefersReduced) {
-  const header = document.querySelector('.meridian-header');
-  const credit = header?.querySelector('.meridian-header__credit');
   const menuBtn = document.querySelector('.meridian-menu-btn');
-  const hero = document.querySelector('.meridian-hero');
 
   if (prefersReduced) {
-    setReducedState([credit, menuBtn]);
+    setReducedState([menuBtn]);
     return;
-  }
-
-  if (credit && hero) {
-    gsap.fromTo(credit, { opacity: 0.92 }, {
-      opacity: 1,
-      ease: 'none',
-      scrollTrigger: meridianScrub(hero, 'top top', 'bottom top', 0.6),
-    });
   }
 
   if (menuBtn) {

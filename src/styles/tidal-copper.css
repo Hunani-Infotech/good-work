@@ -263,7 +263,13 @@ body.tidal-copper-template {
   align-items: center;
   gap: 0.35rem;
   text-align: center;
-  pointer-events: none;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.cv-powered-by:hover {
+  opacity: 0.92;
 }
 
 .cv-powered-by__logo {

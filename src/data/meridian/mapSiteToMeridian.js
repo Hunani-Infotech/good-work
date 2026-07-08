@@ -61,7 +61,6 @@ export function mapSiteToMeridian(site) {
       rotatingLines: rotatingLines.length ? rotatingLines : [firstName],
       marqueeText,
       portraitObjectPosition: hero?.portraitObjectPosition ?? 'center 20%',
-      creditLabel: `© CV by ${firstName}`,
     },
     nav: {
       links: [

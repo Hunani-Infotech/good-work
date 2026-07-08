@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { scrollToShoooteAnchor } from '../../animations/shoooteAnimations.js';
 import { useShoooteContent } from '../../hooks/shooote/useShoooteContent.js';
 import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
+import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
 import ShareButton from '../ui/ShareButton.jsx';
 import SocialLinks from '../shared/SocialLinks.jsx';
 
@@ -88,7 +89,7 @@ function MobileNavOverlay({ open, navLinks, social, onClose, onHashClick }) {
 }
 
 export default function ShoooteHeader() {
-  const { navLinks, social, SHOOOTE_BASE } = useShoooteContent();
+  const { navLinks, social } = useShoooteContent();
   const [menuOpen, setMenuOpen] = useState(false);
   const [togglerClass, setTogglerClass] = useState('');
   const [smallNav, setSmallNav] = useState(false);
@@ -180,9 +181,9 @@ export default function ShoooteHeader() {
               </div>
 
               <div className="navbar-header shooote-nav__brand-wrap">
-                <Link className="navbar-brand shooote-nav__brand" to={SHOOOTE_BASE}>
+                <a className="navbar-brand shooote-nav__brand" href={GOODWORK_APP_URL}>
                   <GoodWorkWordmark surface="light" className="shooote-nav__brand-logo" />
-                </Link>
+                </a>
               </div>
             </div>
 

@@ -140,7 +140,6 @@ body.meridian-template :is(
 
 /* UI labels — uppercase caps with tracked spacing */
 body.meridian-template :is(
-  .meridian-header__credit,
   .meridian-hero__role-copy,
   .meridian-menu__panel-label,
   .meridian-capabilities__index,
@@ -194,31 +193,6 @@ html.meridian-template #contact {
   justify-content: space-between;
   gap: 1.5rem;
   padding: 0.85rem clamp(1.25rem, 4vw, 3rem);
-}
-
-.meridian-header__credit {
-  pointer-events: auto;
-  color: var(--meridian-hero-text, #fff);
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  white-space: nowrap;
-}
-
-.meridian-header:not(.meridian-header--on-hero) .meridian-header__credit {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.meridian-header__credit:hover {
-  opacity: 0.55;
-}
-
-.meridian-header:not(.meridian-header--on-hero) .meridian-header__credit:hover {
-  opacity: 0;
 }
 
 /* ── Header actions (palette + menu) ── */
@@ -1727,10 +1701,6 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
   .meridian-hero__marquee-item {
     color: rgba(255, 255, 255, 0.94);
-  }
-
-  .meridian-header--on-hero .meridian-header__credit {
-    color: #ffffff;
   }
 
   .meridian-header--on-hero .meridian-menu-btn {
