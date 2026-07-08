@@ -113,7 +113,7 @@ export function mapSiteToMeridian(site) {
     },
     contact: {
       heading: "Let's work together",
-      headingLines: ["Let's work", 'together'],
+      headingLines: ["Let's work", 'together.'],
       profilePhoto: hero?.profilePhoto ?? '/images/profiles/sanjay.png',
       ctaLabel,
       email: contact?.email ?? '',

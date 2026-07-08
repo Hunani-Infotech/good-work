@@ -31,16 +31,7 @@ export default function MeridianContactSection() {
             <div className="meridian-contact__heading-wrap">
             <span className="meridian-contact__heading-arrow" aria-hidden="true">↙</span>
             <h2 className="meridian-contact__heading">
-              <span className="meridian-contact__heading-line">
-                <img
-                  className="meridian-contact__avatar"
-                  src={contact.profilePhoto}
-                  alt=""
-                  width="56"
-                  height="56"
-                />
-                <span>{headingLines[0]}</span>
-              </span>
+              <span className="meridian-contact__heading-line">{headingLines[0]}</span>
               {headingLines[1] ? (
                 <span className="meridian-contact__heading-line">{headingLines[1]}</span>
               ) : null}

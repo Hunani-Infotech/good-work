@@ -636,7 +636,6 @@ function initMeridianContactReveal(prefersReduced) {
 
   const headingWrap = section.querySelector('.meridian-contact__heading-wrap');
   const headingLineEls = section.querySelectorAll('.meridian-contact__heading-line');
-  const avatar = section.querySelector('.meridian-contact__avatar');
   const arrow = section.querySelector('.meridian-contact__heading-arrow');
   const pills = section.querySelectorAll('.meridian-contact__pill');
   const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div');
@@ -645,11 +644,11 @@ function initMeridianContactReveal(prefersReduced) {
   const isCompactContact = window.matchMedia('(max-width: 767px)').matches;
 
   if (prefersReduced) {
-    setReducedState([avatar, arrow, headingWrap, ...pills, ...footerBlocks]);
+    setReducedState([arrow, headingWrap, ...pills, ...footerBlocks]);
     return;
   }
 
-  const revealTargets = [avatar, ...footerBlocks].filter(Boolean);
+  const revealTargets = [...footerBlocks].filter(Boolean);
   gsap.set(revealTargets, { opacity: 0, y: 24 });
 
   if (pills.length) {
@@ -669,14 +668,6 @@ function initMeridianContactReveal(prefersReduced) {
     scrollTrigger: meridianScroll(section, 'top 78%'),
     defaults: { ease: GEROZ_EASE_IO },
   });
-
-  if (avatar) {
-    tl.fromTo(avatar, { scale: 0.82, opacity: 0 }, {
-      scale: 1,
-      opacity: 1,
-      duration: 0.85,
-    }, 0);
-  }
 
   if (arrow) {
     tl.fromTo(arrow, { rotation: 18, opacity: 0, y: 24 }, {
@@ -871,7 +862,7 @@ function initMeridianScrollAnimations(prefersReduced) {
   }
 
   refreshAfterImagesLoad(
-    ['.meridian-hero__portrait', '.meridian-contact__avatar'],
+    ['.meridian-hero__portrait'],
     () => {
       syncLayout();
       refreshScrollTriggers();
