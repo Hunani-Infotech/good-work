@@ -1,7 +1,6 @@
 import { useShoooteContent } from '../../hooks/shooote/useShoooteContent.js';
-import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
+import GoodWorkFooterBrand from '../shared/GoodWorkFooterBrand.jsx';
 import SocialLinks from '../shared/SocialLinks.jsx';
-import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
 
 export default function ShoooteFooter() {
   const { logoText, social } = useShoooteContent();
@@ -9,9 +8,12 @@ export default function ShoooteFooter() {
   return (
     <footer className="wpo-site-footer shooote-site-footer">
       <div className="container">
-        <a href={GOODWORK_APP_URL} className="shooote-site-footer__logo-link">
-          <GoodWorkWordmark surface="dark" className="shooote-site-footer__logo" />
-        </a>
+        <GoodWorkFooterBrand
+          surface="dark"
+          copyrightName={logoText}
+          className="shooote-site-footer__brand"
+          logoClassName="shooote-site-footer__logo"
+        />
 
         <SocialLinks
           links={social}
@@ -19,11 +21,6 @@ export default function ShoooteFooter() {
           linkClassName="shooote-site-footer__social-link"
           iconSize={16}
         />
-
-        <p className="shooote-site-footer__copy">
-          Powered by GoodWork
-          <br />© {new Date().getFullYear()} {logoText}
-        </p>
       </div>
     </footer>
   );

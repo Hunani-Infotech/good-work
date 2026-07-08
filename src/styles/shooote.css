@@ -1683,8 +1683,7 @@ body.shooote-template .shooote-site-footer.wpo-site-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-body.shooote-template .shooote-site-footer p,
-body.shooote-template .shooote-site-footer .shooote-site-footer__copy {
+body.shooote-template .shooote-site-footer .gw-footer-brand__copy {
   margin: 0;
   font-size: 0.875rem;
   font-family: "Poppins", sans-serif;
@@ -1694,11 +1693,8 @@ body.shooote-template .shooote-site-footer .shooote-site-footer__copy {
   line-height: 1.55;
 }
 
-.shooote-site-footer__logo-link {
-  display: block;
-  width: fit-content;
-  margin: 0 auto 1rem;
-  text-decoration: none;
+.shooote-site-footer__brand {
+  margin-bottom: 0.25rem;
 }
 
 .shooote-site-footer__logo {

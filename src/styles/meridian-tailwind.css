@@ -1608,6 +1608,20 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.meridian-footer__brand {
+  flex: 1 1 100%;
+  margin-bottom: clamp(0.25rem, 1.5vh, 0.75rem);
+}
+
+.meridian-footer__brand .gw-footer-brand__copy {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.meridian-footer__logo {
+  height: clamp(1.5rem, 3.5vw, 1.85rem);
+  opacity: 0.92;
+}
+
 .meridian-footer__meta {
   display: flex;
   gap: clamp(2rem, 5vw, 3.5rem);

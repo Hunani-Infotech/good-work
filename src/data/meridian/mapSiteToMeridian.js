@@ -123,6 +123,7 @@ export function mapSiteToMeridian(site) {
     },
     footer: {
       version: 'GoodWork CV',
+      copyrightName: firstName,
     },
   };
 }

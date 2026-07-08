@@ -565,12 +565,13 @@ function initGerozFooter(prefersReduced) {
   const gradient = footer.querySelector('.gz-footer__gradient');
   const wash = footer.querySelector('.gz-footer__backdrop-wash');
   const logo = footer.querySelector('.gz-footer__logo');
+  const brandCopy = footer.querySelector('.gw-footer-brand__copy');
   const email = footer.querySelector('.gz-footer__email');
   const nameBand = footer.querySelector('.gz-footer__name-band');
   const name = footer.querySelector('.gz-footer__name');
   const accentLines = footer.querySelectorAll('.gz-footer__accent-line');
   const accentDot = footer.querySelector('.gz-footer__accent-dot');
-  const copy = footer.querySelector('.gz-footer__copy');
+  const copy = brandCopy;
 
   if (prefersReduced) {
     setReducedState([bgImage, gradient, wash, logo, email, nameBand, name, copy]);

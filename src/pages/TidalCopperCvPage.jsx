@@ -4,6 +4,7 @@ import TidalCopperHero from '../components/tidal-copper/TidalCopperHero.jsx';
 import TidalCopperExpertiseSection from '../components/tidal-copper/TidalCopperExpertiseSection.jsx';
 import TidalCopperNarrativeSection from '../components/tidal-copper/TidalCopperNarrativeSection.jsx';
 import TidalCopperCapabilitiesSection from '../components/tidal-copper/TidalCopperCapabilitiesSection.jsx';
+import TidalCopperFooter from '../components/tidal-copper/TidalCopperFooter.jsx';
 import { useTidalCopperAnimations } from '../hooks/tidal-copper/useTidalCopperPageAnimations.js';
 import { useSite } from '../context/SiteContext.jsx';
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
@@ -28,6 +29,7 @@ export default function TidalCopperCvPage() {
           <TidalCopperNarrativeSection />
           <TidalCopperCapabilitiesSection />
         </main>
+        <TidalCopperFooter />
       </TidalCopperLayout>
       <VideoCvWidget accentColor="#510066" position="bottom-right" />
     </>

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import GerozLuxuryBackdrop from './GerozLuxuryBackdrop.jsx';
 import SocialLinks from '../shared/SocialLinks.jsx';
-import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
+import GoodWorkFooterBrand from '../shared/GoodWorkFooterBrand.jsx';
 
 function getFitWidth(band) {
   if (!band) return 0;
@@ -113,15 +113,12 @@ export default function GerozCvFooter() {
 
       <div className="geroz-container-wide relative z-[1]">
         <div className="flex flex-col items-center px-4 py-[clamp(2rem,3.5vw,2.75rem)] text-center sm:px-6 lg:px-8">
-          <a href={GOODWORK_APP_URL} className="inline-block">
-            <img
-              src={footer.logoSrc}
-              alt="GoodWork"
-              width="151"
-              height="37"
-              className="gz-footer__logo block h-[clamp(1.5rem,3.5vw,1.875rem)] w-auto"
-            />
-          </a>
+          <GoodWorkFooterBrand
+            surface="dark"
+            copyrightName={footer.copyrightName}
+            className="gz-footer__brand"
+            logoClassName="gz-footer__logo"
+          />
 
           {footer.email ? (
             <a
@@ -144,19 +141,6 @@ export default function GerozCvFooter() {
               <FooterDisplayName text={footer.displayName} />
             </div>
           ) : null}
-        </div>
-
-        <div className="border-t border-[color-mix(in_srgb,var(--color-lawyer)_18%,#2a2a2a)] px-4 py-3 sm:px-6 lg:px-8">
-          <p className="gz-footer__copy m-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center font-sans text-[0.8125rem] leading-relaxed text-stone-500">
-            <span>Powered by GoodWork</span>
-            <span
-              className="hidden size-[0.25rem] rounded-full bg-lawyer sm:inline-block"
-              aria-hidden="true"
-            />
-            <span>
-              © {new Date().getFullYear()} {footer.copyrightName}
-            </span>
-          </p>
         </div>
       </div>
     </footer>

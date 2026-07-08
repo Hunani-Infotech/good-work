@@ -1,5 +1,6 @@
 import { useIsakContent } from '../../../hooks/isak/useIsakContent.js';
 import { useIsakTheme } from '../IsakThemeProvider.jsx';
+import GoodWorkFooterBrand from '../../shared/GoodWorkFooterBrand.jsx';
 import GoodWorkWordmark from '../../ui/GoodWorkWordmark.jsx';
 import SocialLinks from '../../shared/SocialLinks.jsx';
 import { GOODWORK_APP_URL } from '../../../utils/brandLogos.js';
@@ -22,6 +23,7 @@ export function Footer() {
           <a
             href={GOODWORK_APP_URL}
             className={`f-logo effectFade fadeZoom isak-footer__logo-pill isak-footer__logo-pill--${resolvedTheme}`}
+            aria-label="GoodWork — visit app"
           >
             <div className="logo">
               <GoodWorkWordmark surface={logoSurface} className="isak-footer__logo" />
@@ -46,12 +48,10 @@ export function Footer() {
                 <br />
               </>
             ) : null}
-            Powered by GoodWork
-            {footer.copyrightName ? (
-              <>
-                <br />© {new Date().getFullYear()} {footer.copyrightName}
-              </>
-            ) : null}
+            <GoodWorkFooterBrand
+              part="copy"
+              copyrightName={footer.copyrightName}
+            />
           </p>
         </div>
       </div>

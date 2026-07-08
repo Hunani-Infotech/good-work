@@ -1381,6 +1381,16 @@ body.geroz-template .gz-back-to-top svg path {
   background: linear-gradient(180deg, color-mix(in srgb, #000 94%, transparent), #000 98%) !important;
 }
 
+.gz-footer__brand .gw-footer-brand__copy {
+  color: rgb(120 113 108);
+  font-size: 0.8125rem;
+}
+
+.gz-footer__logo {
+  height: clamp(1.5rem, 3.5vw, 1.875rem);
+  opacity: 0.92;
+}
+
 .gz-footer__social-link {
   display: inline-flex;
   align-items: center;

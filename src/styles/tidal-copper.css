@@ -540,3 +540,18 @@ body.tidal-copper-template {
 @media (prefers-reduced-motion: reduce) {
   .scroll-line { animation: none; }
 }
+
+/* ── Page footer ── */
+.tc-site-footer {
+  padding: clamp(2rem, 5vw, 3rem) var(--space-section-x);
+  background: var(--deep-teal, #0f1a1e);
+  border-top: 1px solid rgba(158, 240, 228, 0.08);
+}
+
+.tc-site-footer .gw-footer-brand__copy {
+  color: rgba(158, 240, 228, 0.45);
+}
+
+.tc-site-footer .gw-footer-brand__logo {
+  opacity: 0.9;
+}

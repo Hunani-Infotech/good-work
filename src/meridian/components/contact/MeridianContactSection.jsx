@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.js';
 import SocialLinks from '../../../components/shared/SocialLinks.jsx';
+import GoodWorkFooterBrand from '../../../components/shared/GoodWorkFooterBrand.jsx';
 
 function formatLocalTime() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -105,6 +106,13 @@ export default function MeridianContactSection() {
           </div>
 
           <footer className="meridian-footer">
+            <GoodWorkFooterBrand
+              surface="dark"
+              copyrightName={footer.copyrightName}
+              className="meridian-footer__brand"
+              logoClassName="meridian-footer__logo"
+            />
+
             <div className="meridian-footer__meta">
             <div>
               <p className="meridian-footer__label">Version</p>
