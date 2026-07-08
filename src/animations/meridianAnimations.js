@@ -637,23 +637,18 @@ function initMeridianContactReveal(prefersReduced) {
   const headingWrap = section.querySelector('.meridian-contact__heading-wrap');
   const headingLineEls = section.querySelectorAll('.meridian-contact__heading-line');
   const arrow = section.querySelector('.meridian-contact__heading-arrow');
-  const pills = section.querySelectorAll('.meridian-contact__pill');
   const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div');
   const footerLabels = section.querySelectorAll('.meridian-footer__label');
   const footerValues = section.querySelectorAll('.meridian-footer__value');
   const isCompactContact = window.matchMedia('(max-width: 767px)').matches;
 
   if (prefersReduced) {
-    setReducedState([arrow, headingWrap, ...pills, ...footerBlocks]);
+    setReducedState([arrow, headingWrap, ...footerBlocks]);
     return;
   }
 
   const revealTargets = [...footerBlocks].filter(Boolean);
   gsap.set(revealTargets, { opacity: 0, y: 24 });
-
-  if (pills.length) {
-    gsap.set(pills, { opacity: 0, y: 24, clearProps: 'clipPath' });
-  }
 
   if (headingWrap) {
     scrubParallax(headingWrap, section, {
@@ -728,16 +723,6 @@ function initMeridianContactReveal(prefersReduced) {
       ease: GEROZ_EASE_IO,
     }, 0.48 + index * 0.07);
   });
-
-  if (pills.length) {
-    tl.to(pills, {
-      opacity: 1,
-      y: 0,
-      duration: 0.85,
-      stagger: 0.08,
-      ease: GEROZ_EASE,
-    }, 0.35);
-  }
 
   if (footerBlocks.length) {
     tl.to(footerBlocks, {
