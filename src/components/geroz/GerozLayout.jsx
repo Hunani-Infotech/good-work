@@ -3,7 +3,6 @@ import GerozHeader from './GerozHeader.jsx';
 
 export default function GerozLayout({
   children,
-  logoSrc,
   homeLink,
   navLinks,
   className = '',
@@ -21,7 +20,6 @@ export default function GerozLayout({
   return (
     <div className={`min-h-screen bg-stone-950 text-stone-100${className ? ` ${className}` : ''}`}>
       <GerozHeader
-        logoSrc={logoSrc}
         homeLink={homeLink}
         navLinks={navLinks}
         mobileMenuOpen={mobileMenuOpen}

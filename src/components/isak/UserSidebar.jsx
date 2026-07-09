@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ImageSwitch } from './ImageSwitch.jsx';
+import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 import { useIsakContent } from '../../hooks/isak/useIsakContent.js';
 import { useSite } from '../../context/SiteContext.jsx';
 import ProfileVideoMuteIcon from './ProfileVideoMuteIcon.jsx';
@@ -61,13 +62,8 @@ export function UserSidebar() {
             </p>
           </div>
         </div>
-        <div className="user-logo d-none d-lg-block">
-          <ImageSwitch
-            light="/images/goodwork/symbol-on-dark.svg"
-            dark="/images/goodwork/symbol-on-dark.svg"
-            width={40}
-            height={40}
-          />
+        <div className="user-logo d-none d-lg-block isak-md-logo-badge">
+          <GoodWorkWordmark animated surface="dark" className="isak-sidebar__logo" />
         </div>
         <ul className="tf-social-icon-2 user-social isak-sidebar-social">
           {profile.sidebarSocials.map((s) => (

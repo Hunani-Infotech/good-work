@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GEROZ_TEMPLATE_IMAGES } from '../../data/geroz/constants.js';
+import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 
 const DEFAULT_NAV_LINKS = [
   { label: 'Home', to: '/' },
@@ -11,7 +11,6 @@ const DEFAULT_NAV_LINKS = [
 ];
 
 export default function GerozHeader({
-  logoSrc = GEROZ_TEMPLATE_IMAGES.logoWhite,
   homeLink = '/',
   navLinks = DEFAULT_NAV_LINKS,
   mobileMenuOpen = false,
@@ -55,7 +54,7 @@ export default function GerozHeader({
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:py-5">
           <Link to={homeLink} className="relative z-50 shrink-0">
-            <img src={logoSrc} alt="GoodWork" width={40} height={40} className="h-10 w-10" />
+            <GoodWorkWordmark animated surface="dark" className="geroz-header__logo" />
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">

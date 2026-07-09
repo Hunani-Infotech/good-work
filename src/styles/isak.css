@@ -659,15 +659,50 @@ html.isak-template .sidebar-user .user-image:hover::before {
 }
 
 /* Logo hover effect: grayscale by default, transition to full color on hover */
-html.isak-template .sidebar-user .user-logo img,
-html.isak-template .logo-site img {
+html.isak-template .sidebar-user .user-logo img:not(.goodwork-wordmark--animated),
+html.isak-template .logo-site img:not(.goodwork-wordmark--animated) {
   filter: grayscale(100%);
   transition: filter 0.3s ease;
 }
 
-html.isak-template .sidebar-user img,
-html.isak-template .logo-site:hover img {
+html.isak-template .sidebar-user img:not(.goodwork-wordmark--animated),
+html.isak-template .logo-site:hover img:not(.goodwork-wordmark--animated) {
   filter: grayscale(0%) !important;
+}
+
+/* Malaysia Digital animated logo — white badge matches GIF canvas on dark surfaces */
+html.isak-template .goodwork-wordmark--animated {
+  filter: none !important;
+  display: block;
+}
+
+html.isak-template .isak-md-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff !important;
+  border: none !important;
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+  line-height: 0;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.isak-template .isak-md-logo-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+}
+
+html.isak-template .logo-site.isak-md-logo-badge {
+  padding: 4px 8px;
+}
+
+html.isak-template .sidebar-user .user-logo.isak-md-logo-badge {
+  padding: 5px 9px;
 }
 
 /* Sidebar top-right — LinkedIn + share icons only (Isak) */
@@ -875,21 +910,26 @@ html.isak-template .isak-footer__brand {
   flex-shrink: 0;
 }
 
-html.isak-template .tf-footer .isak-footer__logo-pill {
-  width: auto;
-  padding: 0 24px;
-  border-radius: 999px;
+html.isak-template .tf-footer .isak-footer__logo-pill,
+html.isak-template body.dark-mode .tf-footer .f-logo.isak-footer__logo-pill {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0;
+  padding: 6px 12px !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  border: none !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14) !important;
+  backdrop-filter: none !important;
 }
 
-html.isak-template .tf-footer .isak-footer__logo-pill--light {
-  background: #fff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-}
-
-html.isak-template body.dark-mode .tf-footer .isak-footer__logo-pill--dark {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: none;
+html.isak-template .tf-footer .isak-footer__logo-pill--light,
+html.isak-template body.dark-mode .tf-footer .isak-footer__logo-pill--dark,
+html.isak-template body.dark-mode .tf-footer .f-logo.isak-md-logo-badge {
+  background: #fff !important;
+  border: none !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14) !important;
+  backdrop-filter: none !important;
 }
 
 html.isak-template .tf-footer .isak-footer__logo-pill .logo {
@@ -899,10 +939,24 @@ html.isak-template .tf-footer .isak-footer__logo-pill .logo {
   justify-content: center;
 }
 
+html.isak-template .isak-header__logo {
+  display: block;
+  width: auto;
+  height: clamp(1.45rem, 3.8vw, 1.75rem);
+  max-width: min(100%, 9.5rem);
+}
+
+html.isak-template .isak-sidebar__logo {
+  display: block;
+  width: auto;
+  height: clamp(1.55rem, 3.5vw, 1.85rem);
+  max-width: min(100%, 10rem);
+}
+
 html.isak-template .isak-footer__logo {
   width: auto;
-  height: 2rem;
-  max-width: 100%;
+  height: clamp(1.65rem, 4vw, 2rem);
+  max-width: min(100%, 12rem);
   display: block;
 }
 
@@ -971,8 +1025,8 @@ html.isak-template .isak-footer__social-link:focus-visible {
 
   html.isak-template .tf-footer .isak-footer__logo-pill {
     width: auto !important;
-    height: 40px !important;
-    padding: 0 16px !important;
+    height: auto !important;
+    padding: 5px 10px !important;
   }
 
   html.isak-template .tf-footer .isak-footer__logo-pill .logo {
@@ -981,7 +1035,8 @@ html.isak-template .isak-footer__social-link:focus-visible {
   }
 
   html.isak-template .isak-footer__logo {
-    height: 1.65rem !important;
+    height: clamp(1.45rem, 3.8vw, 1.75rem) !important;
+    max-width: min(100%, 10.5rem);
   }
 
   html.isak-template .tf-footer .isak-footer__meta {

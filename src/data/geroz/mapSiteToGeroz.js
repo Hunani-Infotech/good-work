@@ -161,7 +161,6 @@ export function mapSiteToGeroz(site) {
       email: contact?.email ?? '',
       emailHref: mailto,
       role: hero?.subtitle ?? '',
-      logoSrc: GEROZ_TEMPLATE_IMAGES.logoWhite,
       links: [
         { label: 'About Me', href: '#about' },
         { label: 'Capabilities', href: '#capabilities' },

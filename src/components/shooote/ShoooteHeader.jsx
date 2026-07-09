@@ -182,7 +182,7 @@ export default function ShoooteHeader() {
 
               <div className="navbar-header shooote-nav__brand-wrap">
                 <a className="navbar-brand shooote-nav__brand" href={GOODWORK_APP_URL}>
-                  <GoodWorkWordmark surface="light" className="shooote-nav__brand-logo" />
+                  <GoodWorkWordmark animated surface="light" className="shooote-nav__brand-logo" />
                 </a>
               </div>
             </div>

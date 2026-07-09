@@ -1,5 +1,4 @@
 import { useIsakContent } from '../../../hooks/isak/useIsakContent.js';
-import { useIsakTheme } from '../IsakThemeProvider.jsx';
 import GoodWorkFooterBrand from '../../shared/GoodWorkFooterBrand.jsx';
 import GoodWorkWordmark from '../../ui/GoodWorkWordmark.jsx';
 import SocialLinks from '../../shared/SocialLinks.jsx';
@@ -7,26 +6,22 @@ import { GOODWORK_APP_URL } from '../../../utils/brandLogos.js';
 
 export function Footer() {
   const { footer, social } = useIsakContent();
-  const { resolvedTheme } = useIsakTheme();
 
   const mailto = footer.email
     ? `mailto:${footer.email}?subject=${encodeURIComponent(footer.mailtoSubject)}`
     : null;
 
-  const logoSurface = resolvedTheme === 'dark' ? 'dark' : 'light';
-
-  return (
-    <div id="footer" className="tf-footer flat-spacing">
+  return (    <div id="footer" className="tf-footer flat-spacing">
       <div className="br-line" />
       <div className="foot-inner isak-footer__inner">
         <div className="isak-footer__brand">
           <a
             href={GOODWORK_APP_URL}
-            className={`f-logo effectFade fadeZoom isak-footer__logo-pill isak-footer__logo-pill--${resolvedTheme}`}
+            className="f-logo effectFade fadeZoom isak-footer__logo-pill isak-md-logo-badge"
             aria-label="GoodWork — visit app"
           >
             <div className="logo">
-              <GoodWorkWordmark surface={logoSurface} className="isak-footer__logo" />
+              <GoodWorkWordmark animated className="isak-footer__logo" />
             </div>
           </a>
 

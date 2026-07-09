@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from "react";
-import { GEROZ_TEMPLATE_IMAGES } from '../../../data/geroz/constants.js';
+import GoodWorkWordmark from '../../../components/ui/GoodWorkWordmark.jsx';
 
 const HeaderSection = ({
   style,
@@ -45,13 +45,11 @@ const HeaderSection = ({
               <div className="header-left">
                 <div className="logo">
                   <Link href="/" className="header-logo">
-                    <img src={
-                        whiteLogo
-                          ? GEROZ_TEMPLATE_IMAGES.logoWhite
-                          : GEROZ_TEMPLATE_IMAGES.logoBlack
-                      }
-                      alt="logo-img"
-                     width="149" height="37" />
+                    <GoodWorkWordmark
+                      animated
+                      surface={whiteLogo ? 'dark' : 'light'}
+                      className="geroz-header__logo"
+                    />
                   </Link>
                 </div>
               </div>

@@ -1,20 +1,24 @@
-import { resolveGoodworkWordmark } from '../../utils/brandLogos.js';
+import { resolveGoodworkAnimatedLogo, resolveGoodworkWordmark } from '../../utils/brandLogos.js';
 
 /**
- * GoodWork stacked wordmark — picks light or dark variant for the surface behind it.
- * @param {'light' | 'dark'} surface
+ * GoodWork brand mark — stacked wordmark or animated Malaysia Digital logo.
+ * @param {'light' | 'dark'} surface — background the logo sits on (wordmark variant only)
+ * @param {boolean} animated — use animated Malaysia Digital logo (individual CV pages)
  */
 export default function GoodWorkWordmark({
   surface = 'light',
+  animated = false,
   className = '',
-  alt = 'Good Work',
+  alt = animated ? 'GoodWork — Malaysia Digital' : 'Good Work',
   ...props
 }) {
   return (
     <img
-      src={resolveGoodworkWordmark(surface)}
+      src={animated ? resolveGoodworkAnimatedLogo() : resolveGoodworkWordmark(surface)}
       alt={alt}
-      className={className}
+      className={['goodwork-wordmark', animated ? 'goodwork-wordmark--animated' : '', className]
+        .filter(Boolean)
+        .join(' ')}
       decoding="async"
       {...props}
     />

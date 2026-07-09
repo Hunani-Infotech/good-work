@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GEROZ_TEMPLATE_IMAGES } from '../../data/geroz/constants.js';
+import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 
 const DEFAULT_LINKS = [
   { label: 'About Me', to: '/about' },
@@ -13,7 +13,6 @@ const DEFAULT_LINKS = [
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function GerozFooter({
-  logoSrc = GEROZ_TEMPLATE_IMAGES.logoWhite,
   newsletterTitle = 'Stay in Touch',
   newsletterHint = 'Get updated information and daily news & tips',
   linksTitle = 'Useful Links',
@@ -112,7 +111,7 @@ export default function GerozFooter({
           </div>
 
           <div>
-            <img src={logoSrc} alt="GoodWork" width={151} height={60} className="h-12 w-auto" />
+            <GoodWorkWordmark animated surface="dark" className="gz-footer__logo" />
             <h3 className="mt-6 text-lg font-semibold leading-snug text-stone-100">{ctaTitle}</h3>
             <div className="mt-6 flex flex-wrap gap-8">
               <div>

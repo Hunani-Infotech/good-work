@@ -29,7 +29,7 @@ export default function GoodWorkFooterBrand({
         className={`cv-powered-by${dark ? ' cv-powered-by--dark' : ''}${className ? ` ${className}` : ''}`}
         aria-label="Powered by GoodWork — visit GoodWork"
       >
-        <GoodWorkWordmark surface={badgeSurface} className="cv-powered-by__logo" />
+        <GoodWorkWordmark animated surface={badgeSurface} className="cv-powered-by__logo" />
         <span className="cv-powered-by__text">Powered by GoodWork</span>
       </a>
     );
@@ -43,6 +43,7 @@ export default function GoodWorkFooterBrand({
         aria-label="GoodWork — visit app"
       >
         <GoodWorkWordmark
+          animated
           surface={surface}
           className={`gw-footer-brand__logo${logoClassName ? ` ${logoClassName}` : ''}`}
         />
@@ -76,6 +77,7 @@ export default function GoodWorkFooterBrand({
         aria-label="GoodWork — visit app"
       >
         <GoodWorkWordmark
+          animated
           surface={surface}
           className={`gw-footer-brand__logo${logoClassName ? ` ${logoClassName}` : ''}`}
         />

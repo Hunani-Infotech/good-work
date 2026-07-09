@@ -1,16 +1,11 @@
-import { ImageSwitch } from './ImageSwitch.jsx';
+import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
 
 export function HeaderClock() {
   return (
     <div className="tf-header-wrap">
-      <a href={GOODWORK_APP_URL} className="logo-site d-lg-none">
-        <ImageSwitch
-          light="/images/goodwork/symbol-on-light.svg"
-          dark="/images/goodwork/symbol-on-dark.svg"
-          width={40}
-          height={40}
-        />
+      <a href={GOODWORK_APP_URL} className="logo-site d-lg-none isak-md-logo-badge">
+        <GoodWorkWordmark animated surface="light" className="isak-header__logo" />
       </a>
       <div className="left">
         <div className="time-local text-body-3">
