@@ -23,6 +23,16 @@ function ensurePlugins() {
   pluginsRegistered = true;
 }
 
+const ISAK_CTA_SCROLL_TOGGLE = 'play reverse play reverse';
+
+function isInIsakCta(el) {
+  return Boolean(el?.closest?.('.isak-cta'));
+}
+
+function scrollToggleFor(el) {
+  return isInIsakCta(el) ? ISAK_CTA_SCROLL_TOGGLE : 'play none none none';
+}
+
 export function initIsakAnimations() {
   ensurePlugins();
   initLenis({ lerp: 0.08 });
@@ -70,7 +80,7 @@ export function initIsakAnimations() {
           scrollTrigger: {
             trigger: target,
             start: 'top 86%',
-            toggleActions: 'play none none none',
+            toggleActions: scrollToggleFor(el),
           },
         },
       );
@@ -89,7 +99,7 @@ export function initIsakAnimations() {
       scrollTrigger: {
         trigger: target,
         start: 'top 86%',
-        toggleActions: 'play none none none',
+        toggleActions: scrollToggleFor(el),
       },
       duration: 0.9,
       stagger: 0.02,
@@ -137,7 +147,7 @@ export function initIsakAnimations() {
           scrollTrigger: {
             trigger: target,
             start: 'top 86%',
-            toggleActions: 'play none none none',
+            toggleActions: scrollToggleFor(el),
           },
         },
       );
@@ -238,7 +248,7 @@ export function initIsakAnimations() {
       scrollTrigger: {
         trigger: el,
         start: startPush,
-        toggleActions: 'play none none none',
+        toggleActions: scrollToggleFor(el),
       },
     });
 
@@ -363,6 +373,54 @@ export function initIsakAnimations() {
 
   const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 100);
   cleanups.push(() => clearTimeout(refreshTimer));
+
+  initIsakCtaReveal();
+}
+
+function initIsakCtaReveal() {
+  const section = document.querySelector('.isak-cta');
+  if (!section) return;
+
+  const kicker = section.querySelector('.isak-cta__kicker');
+  const copy = section.querySelector('.isak-cta__copy');
+  const circleShell = section.querySelector('.isak-cta__circle-shell');
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    gsap.set([kicker, copy, circleShell].filter(Boolean), {
+      clearProps: 'all',
+      opacity: 1,
+      y: 0,
+    });
+    return;
+  }
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 86%',
+      toggleActions: 'play none none none',
+    },
+  });
+
+  if (kicker) {
+    gsap.set(kicker, { opacity: 0, y: 14 });
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0);
+  }
+
+  if (copy) {
+    gsap.set(copy, { opacity: 0, y: 18 });
+    tl.to(copy, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' }, 0.14);
+  }
+
+  if (circleShell) {
+    gsap.set(circleShell, { opacity: 0, y: 28 });
+    tl.to(
+      circleShell,
+      { opacity: 1, y: 0, duration: 0.95, ease: 'power3.out', clearProps: 'transform' },
+      0.18,
+    );
+  }
 }
 
 export function destroyIsakAnimations() {

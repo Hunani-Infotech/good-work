@@ -114,19 +114,17 @@ export default function MeridianHeroSection() {
         </div>
       </div>
 
-      <div className="meridian-hero__scroll-cue" aria-hidden="true">
-        <span className="meridian-hero__scroll-line" />
-      </div>
-
       <a
         href="#manifesto"
-        className="meridian-hero__scroll-hint"
+        className="meridian-hero__scroll-cue"
         onClick={(e) => {
           e.preventDefault();
           scrollMeridianToHash('#manifesto');
         }}
         aria-label="Scroll to content"
-      />
+      >
+        <span className="meridian-hero__scroll-line" aria-hidden="true" />
+      </a>
     </section>
   );
 }

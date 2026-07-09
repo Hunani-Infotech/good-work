@@ -10,7 +10,7 @@ import {
   GEROZ_EASE,
   GEROZ_EASE_IO,
   GEROZ_EASE_LUX,
-  GEROZ_SCROLL_TOGGLE,
+  GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
   drawSvgStroke,
   initCapabilitiesShutterHover,
   revealBlurUp,
@@ -19,13 +19,11 @@ import {
   revealEyebrowPill,
   revealGoldAccent,
   revealLines,
-  revealWords,
   refreshAfterImagesLoad,
   scrubParallax,
   setReducedState,
   splitCharsIntoMasks,
   splitLinesIntoMasks,
-  splitWordsIntoMasks,
   wrapLineMask,
 } from './gerozTextHelpers.js';
 
@@ -38,7 +36,7 @@ function gzScroll(trigger, start = 'top 86%') {
   return {
     trigger,
     start,
-    toggleActions: GEROZ_SCROLL_TOGGLE,
+    toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
     invalidateOnRefresh: true,
   };
 }
@@ -391,7 +389,7 @@ function initGerozAbout(prefersReduced) {
       scale: 1,
       duration: 1.35,
       ease: GEROZ_EASE_IO,
-      scrollTrigger: { ...gzScroll(section, 'top 92%'), once: true },
+      scrollTrigger: { ...gzScroll(section, 'top 92%') },
     });
   }
 
@@ -432,33 +430,6 @@ function initGerozAbout(prefersReduced) {
     });
   }
   drawSvgStroke(arrowPath, section, { start: 'top 80%', duration: 1.8 });
-
-  if (leadPara) {
-    const words = splitWordsIntoMasks(leadPara, 'geroz-word geroz-word--lead');
-    revealWords(words, leadPara, {
-      start: 'top 88%',
-      stagger: 0.032,
-      duration: 0.95,
-      y: '115%',
-      toggleActions: 'play none none none',
-    });
-  }
-
-  bodyParas.forEach((para, index) => {
-    const inner = wrapLineMask(para);
-    gsap.fromTo(inner, { y: '110%', opacity: 0.5 }, {
-      y: 0,
-      opacity: 1,
-      duration: 0.95,
-      ease: GEROZ_EASE,
-      scrollTrigger: {
-        trigger: para,
-        start: 'top 92%',
-        toggleActions: 'play none none none',
-      },
-      delay: index * 0.06,
-    });
-  });
 }
 
 /* ── Capabilities: calm header reveal + batched list entrance ── */
@@ -485,7 +456,7 @@ function initGerozCapabilities(prefersReduced) {
 
   if (accentLines.length) {
     const accentTl = gsap.timeline({
-      scrollTrigger: { ...gzScroll(eyebrow || section, 'top 88%'), once: true },
+      scrollTrigger: gzScroll(eyebrow || section, 'top 88%'),
     });
     if (accentDot) {
       gsap.set(accentDot, { scale: 0, opacity: 0 });
@@ -503,7 +474,7 @@ function initGerozCapabilities(prefersReduced) {
       y: 0,
       duration: 1,
       ease: GEROZ_EASE,
-      scrollTrigger: { ...gzScroll(title, 'top 88%'), once: true },
+      scrollTrigger: gzScroll(title, 'top 88%'),
     });
   }
 
@@ -513,7 +484,7 @@ function initGerozCapabilities(prefersReduced) {
       y: 0,
       duration: 0.9,
       ease: GEROZ_EASE,
-      scrollTrigger: { ...gzScroll(description, 'top 90%'), once: true },
+      scrollTrigger: gzScroll(description, 'top 90%'),
     });
   }
 
@@ -524,7 +495,7 @@ function initGerozCapabilities(prefersReduced) {
     }
 
     const listTl = gsap.timeline({
-      scrollTrigger: { ...gzScroll(list, 'top 82%'), once: true },
+      scrollTrigger: gzScroll(list, 'top 82%'),
     });
 
     listTl.to(items, {
@@ -532,7 +503,6 @@ function initGerozCapabilities(prefersReduced) {
       duration: 0.75,
       stagger: 0.06,
       ease: GEROZ_EASE,
-      clearProps: 'transform',
     });
 
     if (dividers.length) {
@@ -584,7 +554,7 @@ function initGerozFooter(prefersReduced) {
       opacity: 0.14,
       duration: 1.4,
       ease: GEROZ_EASE_IO,
-      scrollTrigger: { trigger: footer, start: 'top 95%', toggleActions: GEROZ_SCROLL_TOGGLE },
+      scrollTrigger: { trigger: footer, start: 'top 95%', toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE },
     });
     scrubParallax(bgImage, footer, { y: 24, scrub: 1 });
   }
@@ -592,7 +562,7 @@ function initGerozFooter(prefersReduced) {
     gsap.fromTo(gradient, { opacity: 0.6 }, {
       opacity: 1,
       duration: 1,
-      scrollTrigger: { trigger: footer, start: 'top 95%', toggleActions: GEROZ_SCROLL_TOGGLE },
+      scrollTrigger: { trigger: footer, start: 'top 95%', toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE },
     });
   }
   if (wash) {
@@ -601,7 +571,7 @@ function initGerozFooter(prefersReduced) {
       y: 0,
       duration: 1.1,
       ease: GEROZ_EASE,
-      scrollTrigger: { trigger: footer, start: 'top 94%', toggleActions: GEROZ_SCROLL_TOGGLE },
+      scrollTrigger: { trigger: footer, start: 'top 94%', toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE },
     });
   }
 
@@ -636,6 +606,155 @@ function initGerozFooter(prefersReduced) {
   }
 }
 
+function initGerozCvCta(prefersReduced) {
+  const section = document.querySelector('.gz-cta');
+  if (!section) return;
+
+  const orbs = section.querySelectorAll('.gz-cta__orb');
+  const decorShapes = section.querySelectorAll('.gz-cta__decor-shape');
+  const watermark = section.querySelector('.gz-cta__watermark');
+  const sectionTag = section.querySelector('.gz-cta__section-tag');
+  const eyebrowWrap = section.querySelector('.gz-cta__eyebrow-wrap');
+  const accentLines = section.querySelectorAll('.gz-cta__accent-line');
+  const accentDot = section.querySelector('.gz-cta__accent-dot');
+  const content = section.querySelector('.gz-cta__content');
+  const lines = section.querySelectorAll('.gz-cta__line-inner');
+  const statement = section.querySelector('.gz-cta__statement');
+  const choices = section.querySelector('.gz-cta__choices');
+  const button = section.querySelector('.gz-cta__button');
+  const email = section.querySelector('.gz-cta__email');
+
+  if (prefersReduced) {
+    gsap.set(
+      [
+        watermark,
+        sectionTag,
+        eyebrowWrap,
+        content,
+        statement,
+        choices,
+        button,
+        email,
+        ...orbs,
+        ...decorShapes,
+        ...accentLines,
+        accentDot,
+        ...lines,
+      ].filter(Boolean),
+      { opacity: 1, y: 0, x: 0, scale: 1, clearProps: 'transform' },
+    );
+    lines.forEach((line) => {
+      line.style.transform = 'none';
+    });
+    return;
+  }
+
+  if (orbs.length) {
+    gsap.to(orbs, {
+      y: -36,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.8,
+      },
+    });
+  }
+
+  if (watermark) {
+    gsap.set(watermark, { opacity: 0, scale: 0.96 });
+    gsap.to(watermark, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.4,
+      ease: GEROZ_EASE,
+      scrollTrigger: { trigger: section, start: 'top 90%', toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE },
+    });
+    gsap.to(watermark, {
+      y: -40,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.65,
+      },
+    });
+  }
+
+  decorShapes.forEach((shape, index) => {
+    gsap.set(shape, { opacity: 0, scale: 0.82, y: 24 });
+    gsap.to(shape, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.9,
+      delay: index * 0.08,
+      ease: GEROZ_EASE_IO,
+      scrollTrigger: { trigger: section, start: 'top 88%', toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE },
+    });
+  });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 86%',
+      toggleActions: GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
+    },
+  });
+
+  if (sectionTag) {
+    gsap.set(sectionTag, { opacity: 0, y: 14 });
+    tl.to(sectionTag, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0);
+  }
+
+  if (eyebrowWrap) {
+    gsap.set(eyebrowWrap, { opacity: 0, y: 20 });
+    tl.to(eyebrowWrap, { opacity: 1, y: 0, duration: 0.8, ease: GEROZ_EASE }, 0.06);
+  }
+
+  accentLines.forEach((line, index) => {
+    gsap.set(line, { scaleX: 0, transformOrigin: index === 0 ? 'right center' : 'left center' });
+    tl.to(line, { scaleX: 1, duration: 0.75, ease: GEROZ_EASE_IO }, 0.12 + index * 0.06);
+  });
+
+  if (accentDot) {
+    gsap.set(accentDot, { scale: 0, opacity: 0 });
+    tl.to(accentDot, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.2);
+  }
+
+  if (content) {
+    gsap.set(content, { opacity: 0, y: 32 });
+    tl.to(content, { opacity: 1, y: 0, duration: 0.95, ease: GEROZ_EASE }, 0.18);
+  }
+
+  if (lines.length) {
+    gsap.set(lines, { y: '112%' });
+    tl.to(lines, { y: 0, duration: 0.9, stagger: 0.1, ease: GEROZ_EASE_IO }, 0.32);
+  }
+
+  if (statement) {
+    gsap.set(statement, { opacity: 0, y: 18 });
+    tl.to(statement, { opacity: 1, y: 0, duration: 0.8, ease: GEROZ_EASE }, 0.48);
+  }
+
+  if (choices) {
+    gsap.set(choices, { opacity: 0, y: 20 });
+    tl.to(choices, { opacity: 1, y: 0, duration: 0.8, ease: GEROZ_EASE }, 0.58);
+  }
+
+  if (button) {
+    gsap.set(button, { opacity: 0, y: 12 });
+    tl.to(button, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.64);
+  }
+
+  if (email) {
+    gsap.set(email, { opacity: 0, y: 12 });
+    tl.to(email, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.7);
+  }
+}
+
 function initGerozScrollAnimations(prefersReduced) {
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ overwrite: 'auto' });
@@ -646,6 +765,7 @@ function initGerozScrollAnimations(prefersReduced) {
   initGerozExpertise(prefersReduced);
   initGerozAbout(prefersReduced);
   initGerozCapabilities(prefersReduced);
+  initGerozCvCta(prefersReduced);
   initGerozFooter(prefersReduced);
 
   const syncLayout = () => refreshScrollTriggers();

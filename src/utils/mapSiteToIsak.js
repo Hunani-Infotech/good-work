@@ -33,9 +33,10 @@ function buildIsakSidebarSocials(contact) {
   });
 
   if (contact?.email) {
+    const subject = contact.mailtoSubjectNav ?? 'Hey there!';
     items.push({
       icon: 'icon-send',
-      href: `mailto:${contact.email}`,
+      href: `mailto:${contact.email}?subject=${encodeURIComponent(subject)}`,
       label: 'Email',
       external: false,
     });

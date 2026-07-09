@@ -120,15 +120,6 @@ export default function GerozCvFooter() {
             logoClassName="gz-footer__logo"
           />
 
-          {footer.email ? (
-            <a
-              href={footer.emailHref}
-              className="gz-footer__email mt-4 font-serif text-[clamp(1rem,1.5vw,1.1875rem)] leading-snug tracking-[-0.015em] text-white no-underline transition-colors hover:text-lawyer"
-            >
-              {footer.email}
-            </a>
-          ) : null}
-
           <SocialLinks
             links={social}
             className="gz-footer__social mt-5 flex items-center justify-center gap-3"

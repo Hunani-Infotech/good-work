@@ -7,15 +7,26 @@
   gap: 0.75rem;
 }
 
+/* Malaysia Digital animated logo — white badge (Isak uses its own footer pill) */
 .gw-footer-brand__logo-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   line-height: 0;
-  transition: opacity 0.2s ease;
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .gw-footer-brand__logo-link:hover {
-  opacity: 0.85;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
 }
 
 .goodwork-wordmark--animated,
@@ -24,6 +35,11 @@
   width: auto;
   height: clamp(2rem, 5vw, 2.75rem);
   max-width: min(100%, 17.5rem);
+  border: none;
+  filter: none;
+  opacity: 1;
+  object-fit: contain;
+  object-position: center;
 }
 
 .gw-footer-brand__logo {

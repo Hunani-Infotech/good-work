@@ -7,6 +7,7 @@ export const GEROZ_EASE = 'power4.out';
 export const GEROZ_EASE_IO = 'power3.inOut';
 export const GEROZ_EASE_LUX = 'expo.out';
 export const GEROZ_SCROLL_TOGGLE = 'play none none none';
+export const GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE = 'play reverse play reverse';
 
 export function wrapLineMask(el, innerClass = 'geroz-line-inner') {
   if (!el) return null;
@@ -157,7 +158,7 @@ export function revealWords(words, trigger, {
   y = '110%',
   x = 0,
   rotation = 0,
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!words.length) return null;
 
@@ -178,7 +179,7 @@ export function revealLines(lines, trigger, {
   stagger = 0.12,
   duration = 1,
   y = '115%',
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!lines.length) return null;
 
@@ -198,7 +199,7 @@ export function revealChars(chars, trigger, {
   duration = 0.9,
   y = '120%',
   rotationX = -42,
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!chars.length) return null;
 
@@ -219,7 +220,7 @@ export function revealBlurUp(el, trigger, {
   y = 28,
   blur = 10,
   duration = 1.05,
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!el) return null;
 
@@ -242,7 +243,7 @@ export function revealClipX(el, trigger, {
   from = 'inset(0 100% 0 0)',
   to = 'inset(0 0% 0 0)',
   duration = 1.1,
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!el) return null;
 
@@ -257,7 +258,7 @@ export function revealClipX(el, trigger, {
 
 export function revealGoldAccent(lineEl, dotEl, trigger, {
   start = 'top 86%',
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
   lineOrigin = 'left center',
 } = {}) {
   const tl = gsap.timeline({
@@ -281,7 +282,7 @@ export function revealGoldAccent(lineEl, dotEl, trigger, {
 export function drawSvgStroke(pathEl, trigger, {
   start = 'top 88%',
   duration = 1.65,
-  toggleActions = GEROZ_SCROLL_TOGGLE,
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!pathEl) return null;
 
@@ -299,6 +300,7 @@ export function drawSvgStroke(pathEl, trigger, {
 export function revealEyebrowPill(el, trigger, prefersReduced, {
   start = 'top 88%',
   variant = 'fade',
+  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
 } = {}) {
   if (!el) return;
 
@@ -328,7 +330,7 @@ export function revealEyebrowPill(el, trigger, prefersReduced, {
     scrollTrigger: {
       trigger: trigger || el,
       start,
-      toggleActions: GEROZ_SCROLL_TOGGLE,
+      toggleActions,
     },
   });
 }

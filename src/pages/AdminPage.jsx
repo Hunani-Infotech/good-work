@@ -211,7 +211,12 @@ export default function AdminPage() {
         <ImageField label="Video CV — poster (shown when no video file)" value={site.home.hero.videoCv?.poster} onChange={(v) => updateSite('home.hero.videoCv.poster', v)} />
         <Field label="Hero header" value={site.home.hero.heading} multiline onChange={(v) => updateSite('home.hero.heading', v)} />
         <Field label="Hero statement" value={site.home.hero.heroStatement} multiline onChange={(v) => updateSite('home.hero.heroStatement', v)} />
-        <Field label="CTA button label" value={site.home.hero.ctaLabel} onChange={(v) => updateSite('home.hero.ctaLabel', v)} />
+        <Field
+          label="Hero CTA button label"
+          value={site.home.hero.ctaLabel}
+          onChange={(v) => updateSite('home.hero.ctaLabel', v)}
+          hint="Used on Screen 2 hero sections only — not the footer CTA block"
+        />
       </section>
 
       <section className="admin-section">
@@ -252,6 +257,21 @@ export default function AdminPage() {
             onChange={(v) => updateBullet(index, v)}
           />
         ))}
+      </section>
+
+      <section className="admin-section">
+        <h2>CTA section — Connect (all templates except Meridian)</h2>
+        <Field label="Section tag" value={site.home.cta?.tag ?? ''} onChange={(v) => updateSite('home.cta.tag', v)} />
+        <Field label="Eyebrow" value={site.home.cta?.eyebrow ?? ''} onChange={(v) => updateSite('home.cta.eyebrow', v)} hint="Short line above the heading" />
+        <Field label="Heading" value={site.home.cta?.heading ?? ''} multiline onChange={(v) => updateSite('home.cta.heading', v)} />
+        <Field label="Supporting statement" value={site.home.cta?.statement ?? ''} multiline onChange={(v) => updateSite('home.cta.statement', v)} />
+        <Field label="CTA button label" value={site.home.cta?.ctaLabel ?? ''} onChange={(v) => updateSite('home.cta.ctaLabel', v)} />
+        <Field
+          label="Action kicker"
+          value={site.home.cta?.actionKicker ?? ''}
+          onChange={(v) => updateSite('home.cta.actionKicker', v)}
+          hint="Isak action bar only — e.g. Start a conversation"
+        />
       </section>
     </div>
     </>

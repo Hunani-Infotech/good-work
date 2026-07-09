@@ -1,17 +1,17 @@
 import { useId } from 'react';
 
 /**
- * Chrome glass boomerang — tip at (1.25, 1.25), wings to top-right + bottom-left.
- * Concave notch on the trailing edge (reference dd766401). 20×24 anchor = Meridian.
+ * Chrome glass pointer — Meridian-classic silhouette with smoothed notch + concave tail.
+ * Tip hotspot at (1.25, 1.25); left stem stays vertical so the shape reads as a cursor, not a triangle.
  */
-const BOOMERANG_OUTER =
-  'M 1.25 1.25 C 7 3.5, 12.5 4.75, 17 7.25 C 18.25 8.5, 17.5 10.5, 15.5 12.5 C 12.5 15.5, 8 17.5, 4.5 18.75 C 2.5 15, 1.5 8.5, 1.25 1.25 Z';
+const POINTER_OUTER =
+  'M 1.25 1.25 V 16.75 C 2.1 15.2, 3.6 13.6, 4.65 13.35 C 5.9 16.4, 6.7 18.9, 7.35 20.25 C 8.75 19.7, 9.85 18.4, 10.15 19.05 C 9.6 16.2, 8.6 13.4, 7.45 12.15 C 9.7 12, 11.6 12.05, 13.25 12.15 C 10.4 7.8, 5.8 3.2, 1.25 1.25 Z';
 
-const BOOMERANG_INNER =
-  'M 3.15 3.15 C 7.25 4.85, 11.25 6, 14.75 8.15 C 15.75 9.15, 15.15 10.65, 13.65 12 C 11.35 13.85, 7.85 15.35, 5.35 16.75 C 3.85 13.85, 3.35 9.35, 3.15 3.15 Z';
+const POINTER_INNER =
+  'M 3.45 3.45 V 15.15 C 3.85 14.1, 5.05 12.85, 5.85 12.55 C 6.75 14.55, 7.35 16.35, 7.75 17.45 C 8.65 17.1, 9.35 16.2, 9.55 16.55 C 9.15 14.75, 8.45 13.15, 7.75 12.15 C 9.35 12.05, 10.55 12.05, 11.45 12.15 C 9.35 8.65, 6.15 5.35, 3.45 3.45 Z';
 
-const BOOMERANG_SHINE =
-  'M 1.25 1.25 C 7 3.5, 12.5 4.75, 14.75 6.35';
+const POINTER_SHINE =
+  'M 1.25 1.25 C 5.2 2.55, 9.4 4.2, 11.8 6.4';
 
 export function GerozGlassArrowGraphic({ className = '' }) {
   const rawId = useId().replace(/:/g, '');
@@ -42,22 +42,24 @@ export function GerozGlassArrowGraphic({ className = '' }) {
           <stop offset="100%" stopColor="#7a8490" />
         </linearGradient>
         <linearGradient id={darkGradId} x1="8%" y1="4%" x2="92%" y2="96%">
-          <stop offset="0%" stopColor="rgba(42, 46, 52, 0.94)" />
-          <stop offset="100%" stopColor="rgba(10, 12, 16, 0.98)" />
+          <stop offset="0%" stopColor="#1a1d22" />
+          <stop offset="55%" stopColor="#0a0c10" />
+          <stop offset="100%" stopColor="#050608" />
         </linearGradient>
         <linearGradient id={shineGradId} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="rgba(255, 255, 255, 0.98)" />
           <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
         </linearGradient>
-        <filter id={shadowId} x="-80%" y="-80%" width="260%" height="260%">
-          <feDropShadow dx="0" dy="3" stdDeviation="3.5" floodColor="rgba(0, 0, 0, 0.38)" />
-          <feDropShadow dx="-0.5" dy="-0.5" stdDeviation="1" floodColor="rgba(255, 255, 255, 0.35)" />
+        <filter id={shadowId} x="-70%" y="-60%" width="240%" height="240%">
+          <feDropShadow dx="2.5" dy="4.5" stdDeviation="3.75" floodColor="rgba(0, 0, 0, 0.5)" />
         </filter>
       </defs>
 
       <g filter={`url(#${shadowId})`}>
+        {/* Thick chrome rim */}
         <path
-          d={BOOMERANG_OUTER}
+          className="gz-cursor-rim"
+          d={POINTER_OUTER}
           fill="none"
           stroke={`url(#${chromeEdgeId})`}
           strokeWidth="3.2"
@@ -65,24 +67,30 @@ export function GerozGlassArrowGraphic({ className = '' }) {
           strokeLinecap="round"
         />
 
+        {/* Chrome shell */}
         <path
-          d={BOOMERANG_OUTER}
+          className="gz-cursor-chrome"
+          d={POINTER_OUTER}
           fill={`url(#${chromeGradId})`}
           stroke="rgba(255, 255, 255, 0.88)"
           strokeWidth="0.55"
           strokeLinejoin="round"
         />
 
+        {/* Dark glass center */}
         <path
-          d={BOOMERANG_INNER}
+          className="gz-cursor-dark"
+          d={POINTER_INNER}
           fill={`url(#${darkGradId})`}
           stroke="rgba(255, 255, 255, 0.06)"
           strokeWidth="0.3"
           strokeLinejoin="round"
         />
 
+        {/* Specular highlight on leading edge */}
         <path
-          d={BOOMERANG_SHINE}
+          className="gz-cursor-shine"
+          d={POINTER_SHINE}
           fill="none"
           stroke={`url(#${shineGradId})`}
           strokeWidth="1.35"

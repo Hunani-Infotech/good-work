@@ -1,5 +1,5 @@
 /**
- * Meridian footer curve — scrub timeline for curve collapse + divider/CTA reveal.
+ * CV contact footer curve — scrub timeline for curve collapse + divider/CTA reveal.
  */
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -49,19 +49,23 @@ function setCompactCta(cta, { opacity, scale }) {
   });
 }
 
-export function initMeridianFooterCurve({ prefersReduced = false } = {}) {
-  destroyMeridianFooterCurve();
+export function initCvContactFooterCurve({
+  prefersReduced = false,
+  blurSectionsSelector = '',
+  headerSelector = '',
+} = {}) {
+  destroyCvContactFooterCurve();
 
   const root = document.querySelector('#contact');
   const curveWrap = root?.querySelector('.meridian-contact__curve-wrap');
   const dividerLine = root?.querySelector('.meridian-contact__line');
   const cta = root?.querySelector('.meridian-contact__cta');
   const panel = root?.querySelector('.meridian-contact__panel');
-  const header = document.querySelector('.meridian-header');
+  const header = headerSelector ? document.querySelector(headerSelector) : null;
   const isCompactCta = window.matchMedia('(max-width: 767px)').matches;
-  const pageSections = [
-    ...document.querySelectorAll('.meridian-cv-main > section:not(#contact):not(#capabilities)'),
-  ];
+  const pageSections = blurSectionsSelector
+    ? [...document.querySelectorAll(blurSectionsSelector)]
+    : [];
 
   if (!root || !panel || !curveWrap) return false;
 
@@ -162,12 +166,12 @@ export function initMeridianFooterCurve({ prefersReduced = false } = {}) {
     });
 
     panel?.querySelectorAll(
-      '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-contact__pill, .meridian-footer, .meridian-footer__meta > div',
+      '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-footer, .meridian-footer__meta > div',
     )?.forEach((el) => {
       gsap.set(el, { clearProps: 'transform,opacity,filter,clipPath' });
     });
 
-    document.querySelectorAll('.meridian-contact__pill, .meridian-capabilities__cta, .meridian-contact__cta').forEach((el) => {
+    document.querySelectorAll('.meridian-contact__cta').forEach((el) => {
       gsap.set(el, { clearProps: 'clipPath' });
     });
   };
@@ -176,8 +180,24 @@ export function initMeridianFooterCurve({ prefersReduced = false } = {}) {
   return true;
 }
 
-export function destroyMeridianFooterCurve() {
+export function destroyCvContactFooterCurve() {
   if (!cleanup) return;
   cleanup();
   cleanup = null;
+}
+
+/** @deprecated Use initCvContactFooterCurve */
+export function initMeridianFooterCurve(options = {}) {
+  return initCvContactFooterCurve({
+    ...options,
+    blurSectionsSelector:
+      options.blurSectionsSelector
+      ?? '.meridian-cv-main > section:not(#contact):not(#capabilities)',
+    headerSelector: options.headerSelector ?? '.meridian-header',
+  });
+}
+
+/** @deprecated Use destroyCvContactFooterCurve */
+export function destroyMeridianFooterCurve() {
+  destroyCvContactFooterCurve();
 }

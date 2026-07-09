@@ -58,11 +58,21 @@ const HOVER_SELECTORS = [
   '.admin-field input',
   '.admin-field textarea',
   '.shooote-nav__social-link',
+  '.isak-cta__circle',
+  '.isak-cta__circle-core',
+  '.isak-cta__circle-shell',
+  '.isak-cta__circle-hit',
   '.shooote-site-footer__social-link',
   '.shooote-mobile-nav__social a',
   '.wpo-site-header a',
   '.wpo-site-header button',
 ].join(', ');
+
+const ISAK_CONNECT_SELECTORS = '.isak-cta__circle, .isak-cta__circle-shell, .isak-cta__circle-core, .isak-cta__circle-hit';
+
+function matchesIsakConnectHover(target) {
+  return Boolean(target?.closest?.(ISAK_CONNECT_SELECTORS));
+}
 
 function lerp(a, b, t) {
   return a + (b - a) * t;
@@ -212,23 +222,40 @@ export default function CustomCursor({ variant = 'default' }) {
       return target && target.closest(HOVER_SELECTORS);
     }
 
-    function onHoverIn() {
+    function onHoverIn(target) {
       rootRef.current?.classList.add('is-hovering');
+      if (isIsak && matchesIsakConnectHover(target)) {
+        rootRef.current?.classList.add('is-hovering-isak-connect');
+      }
       if (config.hideDotOnHover) accent?.classList.add('is-hidden');
     }
 
     function onHoverOut() {
       rootRef.current?.classList.remove('is-hovering');
+      rootRef.current?.classList.remove('is-hovering-isak-connect');
       accent?.classList.remove('is-hidden');
     }
 
+    function syncIsakConnectHover(target) {
+      if (!isIsak || !rootRef.current) return;
+      rootRef.current.classList.toggle(
+        'is-hovering-isak-connect',
+        Boolean(target && matchesIsakConnectHover(target)),
+      );
+    }
+
     function onMouseOver(e) {
-      if (matchesHover(e.target)) onHoverIn();
+      if (!matchesHover(e.target)) return;
+      onHoverIn(e.target);
     }
 
     function onMouseOut(e) {
       if (!matchesHover(e.target)) return;
-      if (!matchesHover(e.relatedTarget)) onHoverOut();
+      if (!matchesHover(e.relatedTarget)) {
+        onHoverOut();
+        return;
+      }
+      syncIsakConnectHover(e.relatedTarget);
     }
 
     function onPointerDown() {

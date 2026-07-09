@@ -5,6 +5,7 @@ import ShoooteHero from '../components/shooote/ShoooteHero.jsx';
 import ShoooteExpertise from '../components/shooote/ShoooteExpertise.jsx';
 import ShoooteNarrative from '../components/shooote/ShoooteNarrative.jsx';
 import ShoooteCapabilities from '../components/shooote/ShoooteCapabilities.jsx';
+import ShoooteCtaSection from '../components/shooote/ShoooteCtaSection.jsx';
 import ShoooteFooter from '../components/shooote/ShoooteFooter.jsx';
 import { useShoooteAnimations } from '../hooks/shooote/useShoootePageAnimations.js';
 import { scrollToShoooteAnchor } from '../animations/shoooteAnimations.js';
@@ -59,10 +60,13 @@ export default function ShoooteCvPage() {
   return (
     <>
       <ShoooteLayout>
-        <ShoooteHero />
-        <ShoooteExpertise />
-        <ShoooteNarrative />
-        <ShoooteCapabilities />
+        <div className="cv-page-screens">
+          <ShoooteHero />
+          <ShoooteExpertise />
+          <ShoooteNarrative />
+          <ShoooteCapabilities />
+        </div>
+        <ShoooteCtaSection />
         <ShoooteFooter />
       </ShoooteLayout>
       <VideoCvWidget accentColor={theme?.accent ?? '#f25828'} position="bottom-right" />

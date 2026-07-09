@@ -22,6 +22,12 @@
   margin-top: -4px;
   border-radius: 50%;
   background: var(--brand-orange, #f25828);
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    margin 0.25s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .cursor-classic-ring {
@@ -36,7 +42,8 @@
     width 0.25s ease,
     height 0.25s ease,
     margin 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    background 0.2s ease;
 }
 
 .custom-cursor--isak.is-hovering .cursor-classic-ring,
@@ -320,7 +327,7 @@
   transform-origin: top left;
 }
 
-/* Geroz — chrome glass boomerang (20×24, tip at 1.25,1.25 — same anchor as Meridian) */
+/* Geroz — chrome glass pointer (20×24, tip at 1.25,1.25 — same anchor as Meridian) */
 .cursor-arrow--geroz {
   width: 20px;
   height: 24px;
@@ -332,20 +339,23 @@
   height: 24px;
   overflow: visible;
   transform: none;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.32));
 }
 
-.custom-cursor--geroz.is-hovering .cursor-pointer-svg path:nth-of-type(1) {
+.custom-cursor--geroz.is-hovering .gz-cursor-rim {
   stroke: color-mix(in srgb, var(--brand-orange, #f25828) 30%, white);
 }
 
-.custom-cursor--geroz.is-hovering .cursor-pointer-svg path:nth-of-type(2) {
+.custom-cursor--geroz.is-hovering .gz-cursor-chrome {
   fill: color-mix(in srgb, var(--brand-orange, #f25828) 18%, #eef3f9);
   stroke: color-mix(in srgb, var(--brand-orange, #f25828) 25%, white);
 }
 
-.custom-cursor--geroz.is-hovering .cursor-pointer-svg path:nth-of-type(3) {
+.custom-cursor--geroz.is-hovering .gz-cursor-dark {
   fill: color-mix(in srgb, var(--brand-orange, #f25828) 22%, rgba(10, 12, 16, 0.98));
+}
+
+.custom-cursor--geroz.is-hovering .gz-cursor-shine {
+  stroke: color-mix(in srgb, var(--brand-orange, #f25828) 12%, white);
 }
 
 .custom-cursor--geroz.is-clicking .cursor-pointer-svg {

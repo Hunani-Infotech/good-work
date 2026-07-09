@@ -26,9 +26,21 @@ function setByPath(obj, path, value) {
   const clone = structuredClone(obj);
   let current = clone;
   for (let i = 0; i < keys.length - 1; i += 1) {
+    if (current[keys[i]] == null || typeof current[keys[i]] !== 'object') {
+      current[keys[i]] = {};
+    }
     current = current[keys[i]];
   }
   current[keys[keys.length - 1]] = value;
+  return clone;
+}
+
+function ensureSiteDefaults(site) {
+  const clone = structuredClone(site);
+  if (!clone.home) clone.home = {};
+  if (!clone.home.cta && defaultSite.home?.cta) {
+    clone.home.cta = structuredClone(defaultSite.home.cta);
+  }
   return clone;
 }
 
@@ -63,7 +75,7 @@ export function SiteProvider({ children }) {
         if (cancelled) return;
 
         if (fromUrl) {
-          setSite(fromUrl.site);
+          setSite(ensureSiteDefaults(fromUrl.site));
           setShareMode(fromUrl.mode);
           setShareConfigUrl(fromUrl.configUrl || '');
           setLoading(false);
@@ -71,12 +83,12 @@ export function SiteProvider({ children }) {
         }
 
         const stored = readStoredSite();
-        setSite(stored || defaultSite);
+        setSite(ensureSiteDefaults(stored || defaultSite));
         setShareMode(null);
         setShareConfigUrl('');
       } catch (error) {
         console.error(error);
-        setSite(readStoredSite() || defaultSite);
+        setSite(ensureSiteDefaults(readStoredSite() || defaultSite));
         setShareMode(null);
       } finally {
         if (!cancelled) setLoading(false);

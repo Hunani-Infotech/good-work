@@ -12,7 +12,7 @@ import {
 import {
   destroyMeridianFooterCurve,
   initMeridianFooterCurve,
-} from './meridianFooterCurve.js';
+} from './cvContactFooterCurve.js';
 import {
   revealStaggerLines,
   revealStaggerWords,

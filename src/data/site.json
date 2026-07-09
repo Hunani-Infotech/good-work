@@ -2,7 +2,7 @@
   "site": {
     "brand": {
       "firstName": "Sanjay",
-      "lastName": "LastName"
+      "lastName": "lastName"
     },
     "theme": {
       "colorThemeIndex": 1,
@@ -57,6 +57,14 @@
         "Engineered a cross-platform dairy management application deployed on Play Store and App Store, eliminating manual entry by integrating Bluetooth sockets with external DPU hardware.",
         "Ensured zero data loss during network outages by designing an offline-first data storage system using SQLite, enabling seamless asynchronous cloud synchronization upon network restoration."
       ]
+    },
+    "cta": {
+      "tag": "Connect",
+      "eyebrow": "Open for conversation",
+      "heading": "Let's work together.",
+      "statement": "Have a project in mind or want to explore how we can collaborate? I'd love to hear from you.",
+      "ctaLabel": "Let's Connect",
+      "actionKicker": "Start a conversation"
     }
   }
 }

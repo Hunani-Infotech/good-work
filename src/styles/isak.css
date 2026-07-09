@@ -285,7 +285,61 @@ html.isak-template[data-theme='light'] .custom-cursor--isak.is-hovering .cursor-
   border-color: color-mix(in srgb, #1a1a1a 80%, transparent);
 }
 
-/* Gear trigger lives inside .tf-header-wrap (not fixed viewport) */
+/* Connect CTA — invert cursor over green button so dot + ring stay visible */
+html.isak-template .custom-cursor--isak.is-hovering.is-hovering-isak-connect .cursor-classic-dot {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    margin 0.25s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.isak-template .custom-cursor--isak.is-hovering.is-hovering-isak-connect .cursor-classic-ring {
+  width: 58px;
+  height: 58px;
+  margin-left: -29px;
+  margin-top: -29px;
+  border-width: 2px;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    margin 0.25s ease,
+    border-color 0.25s ease,
+    background 0.2s ease;
+}
+
+html.isak-template[data-theme='dark'] .custom-cursor--isak.is-hovering.is-hovering-isak-connect .cursor-classic-dot {
+  background: #06140e;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95);
+}
+
+html.isak-template[data-theme='dark'] .custom-cursor--isak.is-hovering.is-hovering-isak-connect .cursor-classic-ring {
+  border-color: rgba(255, 255, 255, 0.92);
+  background: color-mix(in srgb, #06140e 14%, transparent);
+}
+
+html.isak-template[data-theme='light'] .custom-cursor--isak.is-hovering.is-hovering-isak-connect .cursor-classic-dot {
+  background: #ffffff;
+  box-shadow: 0 0 0 2px #06140e;
+}
+
+html.isak-template[data-theme='light'] .custom-cursor--isak.is-hovering.is-hovering-isak-connect .cursor-classic-ring {
+  border-color: #06140e;
+  background: color-mix(in srgb, #ffffff 55%, transparent);
+}
+
+html.isak-template .custom-cursor--isak.is-hovering.is-hovering-isak-connect.is-clicking .cursor-classic-ring {
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+}
+
 html.isak-template .tf-header-wrap > .tf-left-bar {
   position: static;
   top: auto;
@@ -895,6 +949,270 @@ html.isak-template .sidebar-user .action-group .profile-video-mute svg {
     padding-left: 8px;
     padding-right: 8px;
     font-size: 0.625rem;
+  }
+}
+
+/* Isak connect CTA — outside wrap-container needs explicit pointer events */
+html.isak-template .main-content .isak-cta,
+html.isak-template .main-content .tf-footer {
+  pointer-events: auto;
+}
+
+/* Isak connect CTA — standard section rhythm with circular action */
+html.isak-template .isak-cta {
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+html.isak-template .isak-cta__layout {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  align-items: center;
+  overflow: visible;
+}
+
+html.isak-template .isak-cta__content {
+  min-width: 0;
+  overflow: visible;
+}
+
+html.isak-template .isak-cta__kicker {
+  margin: 0 0 1.15rem;
+  padding-top: 0.125rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--primary) 78%, var(--black-56));
+}
+
+html.isak-template body.dark-mode .isak-cta__kicker {
+  color: color-mix(in srgb, var(--primary) 72%, var(--white));
+}
+
+html.isak-template .isak-cta__title {
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  max-width: 15ch;
+  font-family: "Apfel Grotezk", system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  color: var(--black-72);
+}
+
+html.isak-template body.dark-mode .isak-cta__title,
+html.isak-template body.dark-mode .isak-cta__title .split-line {
+  color: var(--white);
+}
+
+html.isak-template .isak-cta__copy {
+  margin: 0;
+  max-width: 42ch;
+}
+
+html.isak-template .isak-cta__circle-shell {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-inline: auto;
+  position: relative;
+  z-index: 2;
+}
+
+html.isak-template .isak-cta__circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(8.5rem, 18vw, 10.5rem);
+  height: clamp(8.5rem, 18vw, 10.5rem);
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.isak-template .isak-cta__circle-decor,
+html.isak-template .isak-cta__circle-decor * {
+  pointer-events: none;
+}
+
+html.isak-template .isak-cta__circle-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+html.isak-template .isak-cta__circle-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 50%;
+}
+
+html.isak-template .isak-cta__circle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 12%, transparent);
+  transition: opacity 0.35s ease;
+}
+
+html.isak-template .isak-cta__circle.is-hovered::before,
+html.isak-template .isak-cta__circle:focus-visible::before {
+  opacity: 1;
+}
+
+html.isak-template .isak-cta__circle-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 1px dashed color-mix(in srgb, var(--primary) 38%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  animation: isak-cta-ring-spin 18s linear infinite;
+  transition:
+    border-color 0.35s ease;
+}
+
+html.isak-template .isak-cta__circle-rotate {
+  position: absolute;
+  inset: 0.4rem;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  animation: isak-cta-ring-spin 14s linear infinite reverse;
+}
+
+html.isak-template .isak-cta__circle-track {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+html.isak-template .isak-cta__circle-char {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  pointer-events: none;
+  transform-origin: 0 clamp(3.9rem, 8.5vw, 4.85rem);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--black-56) 88%, var(--primary));
+  transition: color 0.35s ease;
+}
+
+html.isak-template body.dark-mode .isak-cta__circle-char {
+  color: color-mix(in srgb, var(--white) 62%, var(--primary));
+}
+
+html.isak-template .isak-cta__circle-core {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(3rem, 7vw, 3.65rem);
+  height: clamp(3rem, 7vw, 3.65rem);
+  border-radius: 50%;
+  background: var(--primary);
+  color: #06140e;
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--primary) 28%, transparent);
+  pointer-events: none;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    background 0.35s ease;
+}
+
+html.isak-template .isak-cta__circle-core .icon {
+  font-size: 1.05rem;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.isak-template .isak-cta__circle.is-hovered,
+html.isak-template .isak-cta__circle:focus-visible {
+  transform: translateY(-6px);
+}
+
+html.isak-template .isak-cta__circle.is-hovered .isak-cta__circle-ring,
+html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-ring {
+  border-color: color-mix(in srgb, var(--primary) 72%, transparent);
+  animation-duration: 11s;
+}
+
+html.isak-template .isak-cta__circle.is-hovered .isak-cta__circle-rotate,
+html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-rotate {
+  animation-duration: 9s;
+}
+
+html.isak-template .isak-cta__circle.is-hovered .isak-cta__circle-char,
+html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-char {
+  color: color-mix(in srgb, var(--primary) 88%, var(--white));
+}
+
+html.isak-template .isak-cta__circle.is-hovered .isak-cta__circle-core,
+html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-core {
+  transform: scale(1.08);
+  box-shadow: 0 18px 42px color-mix(in srgb, var(--primary) 42%, transparent);
+}
+
+html.isak-template .isak-cta__circle.is-hovered .isak-cta__circle-core .icon,
+html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-core .icon {
+  transform: rotate(45deg) translate(1px, -1px);
+}
+
+@keyframes isak-cta-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  html.isak-template .isak-cta__layout {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  html.isak-template .isak-cta__circle-shell {
+    margin-inline: 0 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.isak-template .isak-cta__circle {
+    transition: none;
+  }
+
+  html.isak-template .isak-cta__circle::before {
+    transition: none;
+  }
+
+  html.isak-template .isak-cta__circle-ring,
+  html.isak-template .isak-cta__circle-rotate {
+    animation: none;
+  }
+
+  html.isak-template .isak-cta__circle-ring,
+  html.isak-template .isak-cta__circle-core,
+  html.isak-template .isak-cta__circle-core .icon {
+    transition: none;
   }
 }
 

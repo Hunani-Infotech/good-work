@@ -13,6 +13,7 @@ export default function ShoooteFooter() {
           copyrightName={logoText}
           className="shooote-site-footer__brand"
           logoClassName="shooote-site-footer__logo"
+          logoLinkClassName="shooote-md-logo-badge"
         />
 
         <SocialLinks

@@ -8,6 +8,7 @@ import { HeaderClock } from './HeaderClock.jsx';
 import { UserSidebar } from './UserSidebar.jsx';
 import { Intro } from './sections/Intro.jsx';
 import { About } from './sections/About.jsx';
+import { IsakCtaSection } from './sections/IsakCtaSection.jsx';
 import { Footer } from './sections/Footer.jsx';
 import { useClock } from '../../hooks/isak/useClock.js';
 import { useHeadlineRotate } from '../../hooks/isak/useHeadlineRotate.js';
@@ -52,11 +53,12 @@ function IsakShellInner({
           <div className="container">
             <div className="row">
               <div className="col-lg-7 col-xl-8 ms-auto">
-                <div className="wrap-container">
+                <div className="wrap-container cv-page-screens">
                   <Intro />
                   <About />
-                  <Footer />
+                  <IsakCtaSection />
                 </div>
+                <Footer />
               </div>
             </div>
           </div>

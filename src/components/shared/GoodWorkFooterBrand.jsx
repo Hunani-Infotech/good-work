@@ -16,6 +16,7 @@ export default function GoodWorkFooterBrand({
   part = 'full',
   className = '',
   logoClassName = '',
+  logoLinkClassName = '',
   showCopyright = true,
   dark = false,
 }) {
@@ -39,7 +40,7 @@ export default function GoodWorkFooterBrand({
     return (
       <a
         href={GOODWORK_APP_URL}
-        className={`gw-footer-brand__logo-link${className ? ` ${className}` : ''}`}
+        className={`gw-footer-brand__logo-link${logoLinkClassName ? ` ${logoLinkClassName}` : ''}${className ? ` ${className}` : ''}`}
         aria-label="GoodWork — visit app"
       >
         <GoodWorkWordmark
@@ -73,7 +74,7 @@ export default function GoodWorkFooterBrand({
     <div className={`gw-footer-brand${className ? ` ${className}` : ''}`}>
       <a
         href={GOODWORK_APP_URL}
-        className="gw-footer-brand__logo-link"
+        className={`gw-footer-brand__logo-link${logoLinkClassName ? ` ${logoLinkClassName}` : ''}`}
         aria-label="GoodWork — visit app"
       >
         <GoodWorkWordmark

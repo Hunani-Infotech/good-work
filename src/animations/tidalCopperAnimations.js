@@ -208,12 +208,81 @@ function initCvCapabilities(prefersReduced) {
   });
 }
 
+function initCvConnect(prefersReduced) {
+  const section = document.querySelector('.cv-connect-screen');
+  if (!section) return;
+
+  const panel = section.querySelector('#connectPanel');
+  const eyebrow = section.querySelector('#connectEyebrow');
+  const header = section.querySelector('#connectHeader');
+  const statement = section.querySelector('#connectStatement');
+  const cta = section.querySelector('#connectCta');
+
+  if (prefersReduced) {
+    if (panel) gsap.set(panel, { opacity: 1, y: 0 });
+    if (cta) gsap.set(cta, { opacity: 1, y: 0 });
+    return;
+  }
+
+  if (panel) {
+    gsap.to(panel, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: EASE,
+      scrollTrigger: { trigger: panel, start: 'top 88%', toggleActions: SCROLL_REVERSE },
+    });
+  }
+
+  if (eyebrow) {
+    gsap.fromTo(
+      eyebrow,
+      { opacity: 0, y: 12 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+        ease: EASE,
+        scrollTrigger: { trigger: eyebrow, start: 'top 90%', toggleActions: SCROLL_REVERSE },
+      },
+    );
+  }
+
+  if (header) {
+    const words = splitWordsSimple(header, 'word');
+    gsap.set(words, { y: '115%' });
+    gsap.to(words, {
+      y: 0,
+      stagger: 0.04,
+      duration: 0.75,
+      ease: EASE,
+      scrollTrigger: { trigger: header, start: 'top 85%', toggleActions: SCROLL_REVERSE },
+    });
+  }
+
+  if (statement) {
+    rollParagraphOnce(statement, statement, 'top 88%', prefersReduced);
+  }
+
+  if (cta) {
+    gsap.to(cta, {
+      opacity: 1,
+      y: 0,
+      duration: 0.65,
+      ease: EASE,
+      scrollTrigger: { trigger: cta, start: 'top 90%', toggleActions: SCROLL_REVERSE },
+    });
+  }
+}
+
 function initCvScrollAnimations(prefersReduced) {
   initCvScrollProgress();
   initCvIntro(prefersReduced);
   initCvWhat(prefersReduced);
   initCvNarrative(prefersReduced);
   initCvCapabilities(prefersReduced);
+  initCvConnect(prefersReduced);
+
   refreshScrollTriggers();
   if (document.fonts?.ready) {
     document.fonts.ready.then(refreshScrollTriggers);

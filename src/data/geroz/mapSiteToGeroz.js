@@ -34,7 +34,7 @@ function buildCircleText(label) {
  */
 export function mapSiteToGeroz(site) {
   const { brand, meta, contact, theme } = site?.site ?? {};
-  const { hero, narrative, capabilities } = site?.home ?? {};
+  const { hero, narrative, capabilities, cta: ctaSection } = site?.home ?? {};
 
   const firstName = brand?.firstName ?? 'Portfolio';
   const lastName = brand?.lastName ?? '';
@@ -149,9 +149,9 @@ export function mapSiteToGeroz(site) {
       signature: firstName,
     },
     cta: {
-      title: hero?.heading ?? "Let's build something great together",
+      title: ctaSection?.heading ?? "Let's work together.",
       href: mailto,
-      circleText: buildCircleText(ctaLabel),
+      circleText: buildCircleText(ctaSection?.ctaLabel ?? ctaLabel),
       shapeImage: GEROZ_TEMPLATE_IMAGES.ctaShape,
     },
     footer: {
@@ -173,7 +173,7 @@ export function mapSiteToGeroz(site) {
         { label: 'Hero', href: '#expertise', isHash: true },
         { label: 'Narrative', href: '#about', isHash: true },
         { label: 'Skills', href: '#capabilities', isHash: true },
-        { label: "Let's Connect", href: mailto, isCta: true },
+        { label: ctaSection?.ctaLabel ?? ctaLabel, href: mailto, isCta: true },
       ],
     },
   };
