@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import '../styles/meridian-tailwind.css';
 
+import CustomCursor from '../components/ui/CustomCursor.jsx';
 import { useMeridianContent } from '../hooks/meridian/useMeridianContent.js';
 import { useMeridianPageAnimations } from '../hooks/meridian/useMeridianPageAnimations.js';
 import { MeridianColorThemeProvider } from '../meridian/context/MeridianColorThemeContext.jsx';
@@ -22,6 +23,7 @@ function MeridianCvPageContent() {
 
   return (
     <>
+      <CustomCursor variant="meridian" />
       <MeridianHeader />
       <main className="meridian-cv-main">
         <MeridianHeroSection />

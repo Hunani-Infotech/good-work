@@ -33,7 +33,7 @@ export default function IsakLightCvPage() {
 
   return (
     <>
-      <CustomCursor />
+      <CustomCursor variant="isak" />
       <IsakShell forceMode="light" />
     </>
   );

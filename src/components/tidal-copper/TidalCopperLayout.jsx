@@ -33,7 +33,7 @@ export default function TidalCopperLayout({ children }) {
 
   return (
     <>
-      <CustomCursor />
+      <CustomCursor variant="tidal-copper" />
       <SharePreviewBanner />
       <TidalCopperTopBar />
       {children}

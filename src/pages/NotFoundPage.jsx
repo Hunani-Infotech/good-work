@@ -22,7 +22,7 @@ export default function NotFoundPage() {
 
   return (
     <>
-      <CustomCursor />
+      <CustomCursor variant="not-found" />
       <div className="not-found-page__shell">
         <header className="not-found-page__header">
           <Link to="/" className="not-found-page__logo" aria-label="Good Work home">

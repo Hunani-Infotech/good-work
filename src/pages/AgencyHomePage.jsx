@@ -21,7 +21,7 @@ export default function AgencyHomePage() {
 
   return (
     <>
-      <CustomCursor />
+      <CustomCursor variant="agency" />
       <AgencyNav />
       <main>
         <AgencyHero />

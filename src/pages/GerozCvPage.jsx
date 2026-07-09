@@ -42,7 +42,7 @@ function GerozCvPageContent() {
 
   return (
     <>
-      <CustomCursor />
+      <CustomCursor variant="geroz" />
       <GerozCvHeader />
       <GerozBackToTop />
       <main className="overflow-hidden geroz-cv-main">

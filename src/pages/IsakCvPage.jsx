@@ -33,7 +33,7 @@ export default function IsakCvPage() {
 
   return (
     <>
-      <CustomCursor />
+      <CustomCursor variant="isak" />
       <IsakShell />
     </>
   );

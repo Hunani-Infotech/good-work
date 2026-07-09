@@ -1,6 +1,7 @@
 @import './styles/site.css';
 @import './styles/loader.css';
 @import './styles/goodwork-footer-brand.css';
+@import './styles/cursor-variants.css';
 @import 'lenis/dist/lenis.css';
 
 /* GoodWork brand theme (overrides Webflow tokens from site.json) */

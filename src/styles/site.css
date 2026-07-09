@@ -5242,18 +5242,26 @@ html.site-ready main > section {
 
 /* ─── Custom cursor ─── */
 @media (hover: hover) and (pointer: fine) {
-  body:has(.cursor-dot),
+  body:has(.custom-cursor),
+  body:has(.cursor-classic-dot),
   body:has(.page-wrapper .cursor),
   body.tidal-copper-template,
   body.geroz-template,
-  body.agency-page {
+  body.agency-page,
+  body.meridian-template,
+  body.admin-page,
+  body.shooote-template {
     cursor: none;
   }
 
-  body:has(.cursor-dot) a,
-  body:has(.cursor-dot) button,
-  body:has(.cursor-dot) [role="button"],
-  body:has(.cursor-dot) label,
+  body:has(.custom-cursor) a,
+  body:has(.custom-cursor) button,
+  body:has(.custom-cursor) [role="button"],
+  body:has(.custom-cursor) label,
+  body:has(.cursor-classic-dot) a,
+  body:has(.cursor-classic-dot) button,
+  body:has(.cursor-classic-dot) [role="button"],
+  body:has(.cursor-classic-dot) label,
   body:has(.page-wrapper .cursor) a,
   body:has(.page-wrapper .cursor) button,
   body:has(.page-wrapper .cursor) [role="button"],
@@ -5269,7 +5277,21 @@ html.site-ready main > section {
   body.agency-page a,
   body.agency-page button,
   body.agency-page [role="button"],
-  body.agency-page label {
+  body.agency-page label,
+  body.meridian-template a,
+  body.meridian-template button,
+  body.meridian-template [role="button"],
+  body.meridian-template label,
+  body.admin-page a,
+  body.admin-page button,
+  body.admin-page [role="button"],
+  body.admin-page label,
+  body.admin-page input,
+  body.admin-page textarea,
+  body.shooote-template a,
+  body.shooote-template button,
+  body.shooote-template [role="button"],
+  body.shooote-template label {
     cursor: none;
   }
 
@@ -5281,6 +5303,8 @@ html.site-ready main > section {
     cursor: auto !important;
   }
 
+  body.shooote-template.vcv-modal-open .custom-cursor,
+  body.vcv-modal-open .custom-cursor,
   body.shooote-template.vcv-modal-open .cursor,
   body.shooote-template.vcv-modal-open .cursor2,
   body.vcv-modal-open .cursor,
@@ -5289,12 +5313,17 @@ html.site-ready main > section {
     visibility: hidden !important;
   }
 
-  /* Shooote custom cursor is desktop-only — restore native pointer on smaller screens */
+  /* Custom cursor is desktop-only — restore native pointer on smaller screens */
   @media (max-width: 991px) {
     html.is-loader-active body.shooote-template,
     html.is-loader-active body.shooote-template a,
     html.is-loader-active body.shooote-template button,
     html.is-loader-active body.shooote-template [role="button"],
+    body.shooote-template,
+    body.shooote-template a,
+    body.shooote-template button,
+    body.shooote-template [role="button"],
+    body.shooote-template .custom-cursor,
     body.geroz-template,
     body.geroz-template a,
     body.geroz-template button,
@@ -5304,51 +5333,8 @@ html.site-ready main > section {
   }
 }
 
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--brand-orange, #f25828);
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-100px, -100px);
-  will-change: transform;
-  margin-left: -4px;
-  margin-top: -4px;
-  mix-blend-mode: normal;
-}
-
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1.5px solid color-mix(in srgb, var(--brand-orange, #f25828) 55%, transparent);
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-100px, -100px);
-  will-change: transform;
-  margin-left: -17px;
-  margin-top: -17px;
-  transition: width 0.22s ease, height 0.22s ease, border-color 0.22s ease, opacity 0.22s ease;
-}
-
-.cursor-ring.is-hovering {
-  width: 52px;
-  height: 52px;
-  margin-left: -26px;
-  margin-top: -26px;
-  border-color: color-mix(in srgb, var(--brand-orange, #f25828) 80%, transparent);
-}
-
 @media (hover: none), (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring {
+  .custom-cursor {
     display: none;
   }
 }

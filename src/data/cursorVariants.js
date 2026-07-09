@@ -1,0 +1,67 @@
+/**
+ * Per-page cursor type + motion config.
+ * Types: classic | glass | spotlight | magnetic | arrow | morph
+ * Isak uses classic — styled in isak.css only.
+ */
+export const CURSOR_VARIANTS = {
+  agency: {
+    type: 'magnetic',
+    ringLerp: 0.12,
+    dotLerp: 0.35,
+    magneticRadius: 90,
+    magneticPull: 0.42,
+  },
+  'tidal-copper': {
+    type: 'glass',
+    ringLerp: 0.08,
+    dotLerp: 1,
+    hideDotOnHover: true,
+  },
+  geroz: {
+    type: 'arrow',
+    pointerStyle: 'classic',
+  },
+  meridian: {
+    type: 'arrow',
+    pointerStyle: 'classic',
+    arrowLerp: 0.55,
+  },
+  shooote: {
+    type: 'spotlight',
+    ringLerp: 0.05,
+    dotLerp: 1,
+    spotlightLerp: 0.04,
+  },
+  'not-found': {
+    type: 'morph',
+    ringLerp: 0.18,
+    dotLerp: 1,
+    playfulMorph: true,
+  },
+  admin: {
+    type: 'arrow',
+    ringLerp: 0.35,
+    dotLerp: 1,
+    arrowLerp: 0.4,
+  },
+  isak: {
+    type: 'classic',
+    ringLerp: 0.1,
+    dotLerp: 1,
+  },
+  default: {
+    type: 'classic',
+    ringLerp: 0.1,
+    dotLerp: 1,
+  },
+};
+
+export function getCursorVariantConfig(variant = 'default') {
+  const config = CURSOR_VARIANTS[variant] ?? CURSOR_VARIANTS.default;
+  const variantKey = config.styleVariant ?? variant;
+
+  return {
+    ...config,
+    variantKey,
+  };
+}

@@ -707,23 +707,7 @@ body.geroz-template {
     background 0.45s ease;
 }
 
-/* Geroz cursor — fixed dot + ring on every section/palette (no blend-mode color shifts) */
-body.geroz-template .cursor-dot {
-  background: #4b4b4b;
-  mix-blend-mode: normal;
-}
-
-body.geroz-template .cursor-ring {
-  border: 1.5px solid #4b4b4b;
-  mix-blend-mode: normal;
-  background: transparent;
-  box-shadow: 0 0 0 0.1px rgba(255, 255, 255, 0.88);
-}
-
-body.geroz-template .cursor-ring.is-hovering {
-  border-color: #4b4b4b;
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.92);
-}
+/* Geroz cursor visuals live in cursor-variants.css (variant="geroz") */
 
 /* Back to top — palette accent by default; white on accent-coloured section bands */
 body.geroz-template .gz-back-to-top {

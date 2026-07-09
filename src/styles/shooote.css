@@ -1569,7 +1569,8 @@ body.shooote-template .shooote-nav__share {
   }
 
   body.shooote-template .cursor,
-  body.shooote-template .cursor2 {
+  body.shooote-template .cursor2,
+  body.shooote-template .custom-cursor {
     display: none !important;
   }
 }
@@ -1703,4 +1704,3 @@ body.shooote-template .shooote-site-footer .gw-footer-brand__copy {
   height: clamp(1.75rem, 5vw, 2.1rem);
   opacity: 0.96;
 }
-

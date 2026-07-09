@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSite } from '../context/SiteContext';
 import { usePageReveal } from '../hooks/usePageReveal';
+import CustomCursor from '../components/ui/CustomCursor.jsx';
 import '../styles/admin.css';
 
 import { TIDAL_COPPER_CV_PATH } from '../data/cvTemplatePaths.js';
@@ -41,6 +42,11 @@ export function ImageField({ label, value, onChange, hint }) {
 
 export default function AdminPage() {
   usePageReveal();
+
+  useEffect(() => {
+    document.body.classList.add('admin-page');
+    return () => document.body.classList.remove('admin-page');
+  }, []);
 
   const {
     site,
@@ -129,7 +135,9 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="admin-page">
+    <>
+      <CustomCursor variant="admin" />
+      <div className="admin-page">
       <header className="admin-header">
         <h1>Individual landing page editor</h1>
         <div className="admin-actions">
@@ -246,5 +254,6 @@ export default function AdminPage() {
         ))}
       </section>
     </div>
+    </>
   );
 }

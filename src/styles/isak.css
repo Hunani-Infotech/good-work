@@ -260,28 +260,28 @@ html.isak-template #wrapper {
 }
 
 /* GoodWork custom cursor — Isak green accent (dark mode) */
-html.isak-template[data-theme='dark'] .cursor-dot {
+html.isak-template[data-theme='dark'] .cursor-classic-dot {
   background: #00de51;
 }
 
-html.isak-template[data-theme='dark'] .cursor-ring {
+html.isak-template[data-theme='dark'] .cursor-classic-ring {
   border-color: color-mix(in srgb, #00de51 55%, transparent);
 }
 
-html.isak-template[data-theme='dark'] .cursor-ring.is-hovering {
+html.isak-template[data-theme='dark'] .custom-cursor--isak.is-hovering .cursor-classic-ring {
   border-color: color-mix(in srgb, #00de51 85%, transparent);
 }
 
 /* Custom cursor — high contrast (light mode) */
-html.isak-template[data-theme='light'] .cursor-dot {
+html.isak-template[data-theme='light'] .cursor-classic-dot {
   background: #1a1a1a;
 }
 
-html.isak-template[data-theme='light'] .cursor-ring {
+html.isak-template[data-theme='light'] .cursor-classic-ring {
   border-color: color-mix(in srgb, #1a1a1a 40%, transparent);
 }
 
-html.isak-template[data-theme='light'] .cursor-ring.is-hovering {
+html.isak-template[data-theme='light'] .custom-cursor--isak.is-hovering .cursor-classic-ring {
   border-color: color-mix(in srgb, #1a1a1a 80%, transparent);
 }
 
