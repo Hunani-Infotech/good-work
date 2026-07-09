@@ -417,7 +417,13 @@ function initIsakCtaReveal() {
     gsap.set(circleShell, { opacity: 0, y: 28 });
     tl.to(
       circleShell,
-      { opacity: 1, y: 0, duration: 0.95, ease: 'power3.out', clearProps: 'transform' },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.95,
+        ease: 'power3.out',
+        onComplete: () => gsap.set(circleShell, { clearProps: 'transform' }),
+      },
       0.18,
     );
   }
