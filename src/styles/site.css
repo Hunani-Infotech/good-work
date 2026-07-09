@@ -5248,6 +5248,7 @@ html.site-ready main > section {
   body.tidal-copper-template,
   body.agency-page,
   body.meridian-template,
+  body.geroz-template,
   body.admin-page,
   body.shooote-template {
     cursor: none;
@@ -5277,6 +5278,10 @@ html.site-ready main > section {
   body.meridian-template button,
   body.meridian-template [role="button"],
   body.meridian-template label,
+  body.geroz-template a,
+  body.geroz-template button,
+  body.geroz-template [role="button"],
+  body.geroz-template label,
   body.admin-page a,
   body.admin-page button,
   body.admin-page [role="button"],

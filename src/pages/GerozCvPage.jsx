@@ -18,6 +18,7 @@ import HeroSection4 from '../geroz/components/hero/HeroSection4.jsx';
 import AboutSection4 from '../geroz/components/about/AboutSection4.jsx';
 import VideoSection from '../geroz/components/video/VideoSection.jsx';
 import CapabilitiesSection from '../geroz/components/capabilities/CapabilitiesSection.jsx';
+import CustomCursor from '../components/ui/CustomCursor.jsx';
 
 function GerozCvPageContent() {
   const { siteMeta, images } = useGerozContent();
@@ -42,6 +43,7 @@ function GerozCvPageContent() {
 
   return (
     <>
+      <CustomCursor variant="geroz" />
       <GerozCvHeader />
       <GerozBackToTop />
       <main className="overflow-hidden geroz-cv-main">

@@ -22,6 +22,11 @@ const CURSOR_VARIANTS = {
     pointerStyle: 'classic',
     arrowLerp: 0.55,
   },
+  geroz: {
+    type: 'arrow',
+    pointerStyle: 'classic',
+    arrowLerp: 0.55,
+  },
   shooote: {
     type: 'spotlight',
     ringLerp: 0.05,

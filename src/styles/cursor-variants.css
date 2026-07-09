@@ -323,6 +323,37 @@
   transform-origin: top left;
 }
 
+/* ══ ARROW — Geroz (Entis-style) ══ */
+.cursor-arrow--geroz {
+  margin-left: 0;
+  margin-top: 0;
+  transform-origin: 0 0;
+  transform: none;
+  width: 20px;
+  height: 24px;
+  transition: none;
+}
+
+.cursor-arrow--geroz .cursor-pointer-svg {
+  display: block;
+  width: 20px;
+  height: 24px;
+}
+
+.custom-cursor--geroz.is-hovering .gz-entis-rim {
+  stroke: color-mix(in srgb, var(--brand-orange, #f25828) 18%, #ffffff);
+}
+
+.custom-cursor--geroz.is-hovering .gz-entis-body {
+  fill: color-mix(in srgb, var(--brand-orange, #f25828) 12%, #1a1a1a);
+  stroke: color-mix(in srgb, var(--brand-orange, #f25828) 12%, #1a1a1a);
+}
+
+.custom-cursor--geroz.is-clicking .cursor-pointer-svg {
+  transform: scale(0.94);
+  transform-origin: top left;
+}
+
 @media (hover: none), (pointer: coarse) {
   .custom-cursor {
     display: none;
