@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { getCursorVariantConfig } from '../../data/cursorVariants.js';
-import { GerozGlassArrowGraphic } from './GerozGlassArrowGraphic.jsx';
 
 const HOVER_SELECTORS = [
   'a',
@@ -344,9 +343,6 @@ export default function CustomCursor({ variant = 'default' }) {
                 strokeLinejoin="round"
               />
             </svg>
-          )}
-          {variant === 'geroz' && (
-            <GerozGlassArrowGraphic className="cursor-pointer-svg" />
           )}
         </div>
       )}

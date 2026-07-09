@@ -17,10 +17,6 @@ const CURSOR_VARIANTS = {
     dotLerp: 1,
     hideDotOnHover: true,
   },
-  geroz: {
-    type: 'arrow',
-    pointerStyle: 'classic',
-  },
   meridian: {
     type: 'arrow',
     pointerStyle: 'classic',

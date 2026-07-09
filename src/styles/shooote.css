@@ -672,6 +672,21 @@ body.shooote-template {
     );
 }
 
+/* Screen 5 — Connect CTA (ink band, cream type) */
+.gw-section--shooote.wpo-connect-section {
+  --shooote-section-bg: var(--shooote-ink);
+  --shooote-section-ink: var(--shooote-cream);
+  --shooote-section-ink-muted: rgba(255, 252, 233, 0.72);
+  --shooote-section-label: rgba(255, 252, 233, 0.62);
+  --shooote-section-border: rgba(255, 252, 233, 0.18);
+  --shooote-section-divider: rgba(255, 252, 233, 0.1);
+  box-shadow: none;
+}
+
+.gw-section--shooote.wpo-connect-section::after {
+  display: none;
+}
+
 /* Shared background photo — narrative + capabilities */
 .gw-section--shooote.gw-section--photo-bg {
   position: relative;
@@ -832,6 +847,58 @@ body.shooote-template {
 
 .wpo-expertise-section .gw-section__statement {
   color: var(--shooote-section-ink-muted, var(--shooote-on-dark-muted));
+}
+
+/* Connect CTA — centered panel (standard CV pattern) */
+.gw-section--shooote.wpo-connect-section .shooote-cta__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 42rem;
+  margin: 0 auto;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.gw-section--shooote.wpo-connect-section .shooote-cta__eyebrow {
+  margin: 0;
+  font-size: var(--gw-section-label-size);
+  font-weight: var(--gw-section-label-weight);
+  letter-spacing: var(--gw-section-label-tracking);
+  text-transform: uppercase;
+  color: var(--shooote-section-label);
+}
+
+.gw-section--shooote.wpo-connect-section .shooote-cta__heading {
+  margin: 0;
+  font-family: var(--shooote-heading-font) !important;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--shooote-section-ink);
+}
+
+.gw-section--shooote.wpo-connect-section .shooote-cta__heading .poort-line {
+  display: block;
+  line-height: 1.12;
+}
+
+.gw-section--shooote.wpo-connect-section .shooote-cta__heading .poort-line + .poort-line {
+  margin-top: 0.08em;
+  color: color-mix(in srgb, var(--shooote-cream) 88%, transparent);
+}
+
+.gw-section--shooote.wpo-connect-section .shooote-cta__panel .gw-section__statement {
+  margin: 0;
+  max-width: 38ch;
+  font-size: var(--gw-section-prose-size);
+  line-height: 1.65;
+  color: var(--shooote-section-ink-muted);
+}
+
+.gw-section--shooote.wpo-connect-section .shooote-cta__actions {
+  margin-top: 0.25rem;
 }
 
 /* Scroll-driven description fade-in (GSAP sets initial state) */
@@ -1128,16 +1195,24 @@ body.shooote-template .shooote-site-footer__social-link:focus-visible {
 
   body.shooote-template .gw-section--shooote.wpo-about-section.section-padding,
   body.shooote-template .gw-section--shooote.wpo-expertise-section.section-padding,
-  body.shooote-template .gw-section--shooote.wpo-portfolio-section.section-padding {
+  body.shooote-template .gw-section--shooote.wpo-portfolio-section.section-padding,
+  body.shooote-template .gw-section--shooote.wpo-connect-section.section-padding {
     padding-top: 3.25rem;
     padding-bottom: 3rem;
   }
 
   body.shooote-template .gw-section--shooote.wpo-about-section,
   body.shooote-template .gw-section--shooote.wpo-expertise-section,
-  body.shooote-template .gw-section--shooote.wpo-portfolio-section {
+  body.shooote-template .gw-section--shooote.wpo-portfolio-section,
+  body.shooote-template .gw-section--shooote.wpo-connect-section {
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  .gw-section--shooote.wpo-connect-section .shooote-cta__heading {
+    font-size: clamp(1.45rem, 6.2vw, 1.95rem);
+    line-height: 1.14;
+    letter-spacing: -0.022em;
   }
 }
 
@@ -1740,58 +1815,26 @@ body.shooote-template .wpo-expertise-section .shooote-mailto-btn:hover .icon img
   filter: brightness(0) invert(1) !important;
 }
 
-/* Shooote connect CTA — ink band with stacked display type */
-body.shooote-template .shooote-connect-section {
-  padding: clamp(4rem, 10vw, 7rem) 0;
-  background: var(--shooote-ink, #1a1a1a);
-  color: var(--shooote-cream, #fffce9);
-  overflow: hidden;
+/* Connect CTA — charcoal pill on ink (orange hover) */
+body.shooote-template .wpo-connect-section .shooote-mailto-btn {
+  margin-top: 0 !important;
+  background-color: #2b2e33 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
 }
 
-body.shooote-template .shooote-connect-section__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: clamp(1.25rem, 3vw, 2rem);
+body.shooote-template .wpo-connect-section .shooote-mailto-btn:hover {
+  background-color: var(--shooote-accent) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(242, 88, 40, 0.25) !important;
 }
 
-body.shooote-template .shooote-connect-section__kicker {
-  margin: 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 252, 233, 0.62);
+body.shooote-template .wpo-connect-section .shooote-mailto-btn .link-text span {
+  color: #ffffff !important;
 }
 
-body.shooote-template .shooote-connect-section__title {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.05em;
-  font-family: "Playfair Display", serif;
-  font-size: clamp(3rem, 14vw, 8.5rem);
-  font-weight: 400;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-}
-
-body.shooote-template .shooote-connect-section__word {
-  display: block;
-}
-
-body.shooote-template .shooote-connect-section__copy {
-  margin: 0;
-  max-width: 38ch;
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 1.65;
-  color: rgba(255, 252, 233, 0.72);
-}
-
-body.shooote-template .shooote-connect-section__btn {
-  margin-top: 0.5rem;
+body.shooote-template .wpo-connect-section .shooote-mailto-btn .icon img {
+  filter: brightness(0) invert(1) !important;
 }
 
 /* Shooote footer — deepest contrast anchor */

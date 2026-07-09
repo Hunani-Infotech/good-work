@@ -1,33 +1,32 @@
+import GwSection from '../shared/GwSection.jsx';
 import { useCvCtaContent } from '../../hooks/useCvCtaContent.js';
 
 export default function ShoooteCtaSection() {
   const cta = useCvCtaContent();
-  const displayWords = cta.headingLines.length ? cta.headingLines : [cta.heading];
 
   return (
-    <section id="connect" className="shooote-connect-section" aria-labelledby="shooote-connect-title">
-      <div className="container">
-        <div className="shooote-connect-section__inner wow fadeInUp" data-wow-duration="1200ms">
-          {cta.eyebrow ? (
-            <p className="shooote-connect-section__kicker poort-text poort-in-right">
-              {cta.eyebrow}
-            </p>
-          ) : null}
+    <GwSection
+      theme="shooote"
+      id="connect"
+      className="wpo-connect-section"
+      sectionLabel={`05 — ${cta.tag}`}
+    >
+      <div className="shooote-cta__panel">
+        {cta.eyebrow ? (
+          <p className="shooote-cta__eyebrow">{cta.eyebrow}</p>
+        ) : null}
 
-          <h2 id="shooote-connect-title" className="shooote-connect-section__title" aria-label={cta.heading}>
-            {displayWords.map((word) => (
-              <span key={word} className="shooote-connect-section__word poort-text poort-in-right">
-                {word}
-              </span>
-            ))}
-          </h2>
+        <h2 className="shooote-cta__heading poort-text poort-in-right" aria-label={cta.heading}>
+          {cta.heading}
+        </h2>
 
-          {cta.statement ? (
-            <p className="shooote-connect-section__copy shooote-scroll-fade">{cta.statement}</p>
-          ) : null}
+        {cta.statement ? (
+          <p className="gw-section__statement shooote-scroll-fade">{cta.statement}</p>
+        ) : null}
 
-          {cta.mailto ? (
-            <a href={cta.mailto} className="theme-btn shooote-mailto-btn shooote-connect-section__btn">
+        {cta.mailto ? (
+          <div className="shooote-cta__actions">
+            <a href={cta.mailto} className="theme-btn shooote-mailto-btn">
               <i className="icon">
                 <img src="/assets/shooote/images/arrow-2.svg" alt="" />
               </i>
@@ -35,9 +34,9 @@ export default function ShoooteCtaSection() {
                 <span>{cta.ctaLabel}</span>
               </i>
             </a>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
-    </section>
+    </GwSection>
   );
 }

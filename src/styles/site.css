@@ -5246,7 +5246,6 @@ html.site-ready main > section {
   body:has(.cursor-classic-dot),
   body:has(.page-wrapper .cursor),
   body.tidal-copper-template,
-  body.geroz-template,
   body.agency-page,
   body.meridian-template,
   body.admin-page,
@@ -5270,10 +5269,6 @@ html.site-ready main > section {
   body.tidal-copper-template button,
   body.tidal-copper-template [role="button"],
   body.tidal-copper-template label,
-  body.geroz-template a,
-  body.geroz-template button,
-  body.geroz-template [role="button"],
-  body.geroz-template label,
   body.agency-page a,
   body.agency-page button,
   body.agency-page [role="button"],
@@ -5324,10 +5319,7 @@ html.site-ready main > section {
     body.shooote-template button,
     body.shooote-template [role="button"],
     body.shooote-template .custom-cursor,
-    body.geroz-template,
-    body.geroz-template a,
-    body.geroz-template button,
-    body.geroz-template [role="button"] {
+    body.shooote-template {
       cursor: auto !important;
     }
   }

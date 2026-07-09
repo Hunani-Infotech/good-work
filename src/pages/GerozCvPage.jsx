@@ -10,7 +10,6 @@ import { useGerozContent } from '../hooks/geroz/useGerozContent.js';
 import { useGerozPageAnimations } from '../hooks/geroz/useGerozPageAnimations.js';
 import { GerozColorThemeProvider } from '../geroz/context/GerozColorThemeContext.jsx';
 
-import CustomCursor from '../components/ui/CustomCursor.jsx';
 import GerozCvHeader from '../components/geroz/GerozCvHeader.jsx';
 import GerozCvCtaSection from '../components/geroz/GerozCvCtaSection.jsx';
 import GerozCvFooter from '../components/geroz/GerozCvFooter.jsx';
@@ -43,7 +42,6 @@ function GerozCvPageContent() {
 
   return (
     <>
-      <CustomCursor variant="geroz" />
       <GerozCvHeader />
       <GerozBackToTop />
       <main className="overflow-hidden geroz-cv-main">

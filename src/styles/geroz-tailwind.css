@@ -728,8 +728,6 @@ body.geroz-template {
     background 0.45s ease;
 }
 
-/* Geroz cursor visuals live in cursor-variants.css (variant="geroz") */
-
 /* Back to top — palette accent by default; white on accent-coloured section bands */
 body.geroz-template .gz-back-to-top {
   color: var(--brand-orange, #f25828);
