@@ -151,29 +151,6 @@ export function splitMarqueeWordsIntoMasks(el, wordClass = 'geroz-word') {
   });
 }
 
-export function revealWords(words, trigger, {
-  start = 'top 86%',
-  stagger = 0.028,
-  duration = 0.85,
-  y = '110%',
-  x = 0,
-  rotation = 0,
-  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
-} = {}) {
-  if (!words.length) return null;
-
-  gsap.set(words, { y, x, rotation, opacity: 1 });
-  return gsap.to(words, {
-    y: 0,
-    x: 0,
-    rotation: 0,
-    duration,
-    stagger,
-    ease: GEROZ_EASE,
-    scrollTrigger: { trigger, start, toggleActions },
-  });
-}
-
 export function revealLines(lines, trigger, {
   start = 'top 86%',
   stagger = 0.12,
@@ -191,51 +168,6 @@ export function revealLines(lines, trigger, {
     ease: GEROZ_EASE,
     scrollTrigger: { trigger, start, toggleActions },
   });
-}
-
-export function revealChars(chars, trigger, {
-  start = 'top 86%',
-  stagger = 0.02,
-  duration = 0.9,
-  y = '120%',
-  rotationX = -42,
-  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
-} = {}) {
-  if (!chars.length) return null;
-
-  gsap.set(chars, { y, rotationX, transformOrigin: '50% 100%', opacity: 0 });
-  return gsap.to(chars, {
-    y: 0,
-    rotationX: 0,
-    opacity: 1,
-    duration,
-    stagger,
-    ease: GEROZ_EASE_IO,
-    scrollTrigger: { trigger, start, toggleActions },
-  });
-}
-
-export function revealBlurUp(el, trigger, {
-  start = 'top 88%',
-  y = 28,
-  blur = 10,
-  duration = 1.05,
-  toggleActions = GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
-} = {}) {
-  if (!el) return null;
-
-  return gsap.fromTo(
-    el,
-    { opacity: 0, y, filter: `blur(${blur}px)` },
-    {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration,
-      ease: GEROZ_EASE,
-      scrollTrigger: { trigger: trigger || el, start, toggleActions },
-    },
-  );
 }
 
 export function revealClipX(el, trigger, {

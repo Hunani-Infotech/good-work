@@ -1,6 +1,5 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { initLenis, destroyLenis, getLenis, getScrollY, resetDocumentScrollState } from './scrollRuntime.js';
 
 let shoooteRunId = 0;
@@ -9,7 +8,7 @@ let menuLinkCleanups = [];
 let wowObserver = null;
 let wowScrollCleanup = null;
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 function getSplitText() {
   return typeof window !== 'undefined' ? window.SplitText : null;

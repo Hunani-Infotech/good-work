@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { useIsakTheme } from './IsakThemeProvider.jsx';
 import {
   COLOR_VARIANT_STORAGE_KEY,
@@ -9,14 +9,6 @@ import {
 } from '../../data/isak/colors.js';
 
 const SettingColorContext = createContext(null);
-
-function useSettingColor() {
-  const ctx = useContext(SettingColorContext);
-  if (!ctx) {
-    throw new Error('SettingColor components must be used within SettingColorProvider');
-  }
-  return ctx;
-}
 
 export function SettingColorProvider({ defaultMode = 'dark', forceMode, children }) {
   const [open, setOpen] = useState(false);
@@ -127,33 +119,5 @@ export function SettingColorProvider({ defaultMode = 'dark', forceMode, children
         />
       )}
     </SettingColorContext.Provider>
-  );
-}
-
-export function SettingColorTrigger() {
-  const { open, setOpen } = useSettingColor();
-
-  return (
-    <div className="tf-left-bar">
-      <button
-        type="button"
-        className="btn-setting-color tf-btn-icon style-2"
-        onClick={() => setOpen(true)}
-        aria-label="Open color settings"
-        aria-controls="settingColorMenu"
-        aria-expanded={open}
-      >
-        <i className="icon-gear" />
-      </button>
-    </div>
-  );
-}
-
-/** @deprecated Use SettingColorProvider + SettingColorTrigger */
-export function SettingColorMenu(props) {
-  return (
-    <SettingColorProvider {...props}>
-      <SettingColorTrigger />
-    </SettingColorProvider>
   );
 }

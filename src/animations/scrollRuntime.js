@@ -143,10 +143,6 @@ export function syncScrollLayout() {
   refreshScrollTriggers();
 }
 
-export function getScrollOffset() {
-  return -Math.round(window.innerHeight * 0.06);
-}
-
 export function getScrollY() {
   return lenis ? lenis.scroll : window.scrollY;
 }

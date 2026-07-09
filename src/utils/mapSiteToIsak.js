@@ -110,12 +110,9 @@ export function mapSiteToIsak(siteData) {
     },
     education: buildCapabilitiesTimeline(bullets),
     footer: {
-      // quote: hero.heroStatement ?? meta.meta?.description ?? '',
       copyrightName: firstName,
-      // subtitle,
       email: meta.contact?.email ?? '',
       mailtoSubject: meta.contact?.mailtoSubjectNav ?? `Hey ${firstName}!`,
-      // description: meta.meta?.description ?? '',
     },
     capabilities: {
       tag: capabilities.tag ?? 'Skills',

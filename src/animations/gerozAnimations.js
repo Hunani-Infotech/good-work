@@ -9,12 +9,9 @@ import { getLenis, refreshScrollTriggers } from './scrollRuntime.js';
 import {
   GEROZ_EASE,
   GEROZ_EASE_IO,
-  GEROZ_EASE_LUX,
   GEROZ_BIDIRECTIONAL_SCROLL_TOGGLE,
   drawSvgStroke,
   initCapabilitiesShutterHover,
-  revealBlurUp,
-  revealChars,
   revealClipX,
   revealEyebrowPill,
   revealGoldAccent,

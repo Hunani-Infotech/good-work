@@ -38,13 +38,6 @@ export function isLoaderSessionPending() {
   return Boolean(loaderSessionPromise && !loaderSessionComplete);
 }
 
-export function resetLoaderSession() {
-  loaderSessionComplete = false;
-  loaderSessionPromise = null;
-  siteReadyApplied = false;
-  loaderRunId += 1;
-}
-
 function hideLoaderEl() {
   document.documentElement.classList.remove('is-loader-active');
 

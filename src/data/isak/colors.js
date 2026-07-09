@@ -59,7 +59,7 @@ export function isColorBodyClass(className) {
     || className.startsWith('dark-v');
 }
 
-export function clearColorBodyClasses(body = document.body) {
+function clearColorBodyClasses(body = document.body) {
   body.classList.forEach((className) => {
     if (isColorBodyClass(className)) {
       body.classList.remove(className);
@@ -67,7 +67,7 @@ export function clearColorBodyClasses(body = document.body) {
   });
 }
 
-export function applyBodyModeClass(mode, body = document.body) {
+function applyBodyModeClass(mode, body = document.body) {
   body.classList.remove('dark-mode', 'light-mode');
   body.classList.add(mode === 'dark' ? 'dark-mode' : 'light-mode');
 }

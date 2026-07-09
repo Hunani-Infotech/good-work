@@ -10,8 +10,6 @@ export const GOODWORK_LOGO_ON_LIGHT = '/images/goodwork/goodwork-logo-full-colou
 /** Stacked wordmark — white + orange, transparent (dark backgrounds) */
 export const GOODWORK_LOGO_ON_DARK = '/images/goodwork/goodwork-logo-on-dark-stacked.svg';
 
-/** @deprecated Use resolveGoodworkWordmark('dark') — PNG has opaque black background */
-export const GOODWORK_LOGO_ORANGE = '/images/goodwork/goodwork-logo-orange.png';
 
 export const BRAND_LOGO_WHITE = {
   wordmark: GOODWORK_LOGO_ON_DARK,

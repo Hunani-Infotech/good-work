@@ -9,8 +9,6 @@ import {
 import defaultSite from '../data/site.json';
 import {
   buildShareUrl,
-  decodeSiteFromShare,
-  encodeSiteForShare,
   getPublishedUrl,
   isShareUrlTooLong,
   resolveSiteFromSearchParams,
@@ -161,8 +159,6 @@ export function SiteProvider({ children }) {
     importSharedPreview,
     createShareUrl,
     createConfigPreviewUrl,
-    encodeSiteForShare: () => encodeSiteForShare(site),
-    decodeSiteFromShare,
     isShareUrlTooLong,
     getPublishedUrl: () => getPublishedUrl(site),
   }), [

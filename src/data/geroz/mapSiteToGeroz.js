@@ -34,7 +34,8 @@ function buildCircleText(label) {
  */
 export function mapSiteToGeroz(site) {
   const { brand, meta, contact, theme } = site?.site ?? {};
-  const { hero, narrative, capabilities, cta: ctaSection } = site?.home ?? {};
+  const { hero, narrative, capabilities } = site?.home ?? {};
+  const ctaSection = site?.home?.cta;
 
   const firstName = brand?.firstName ?? 'Portfolio';
   const lastName = brand?.lastName ?? '';
@@ -83,7 +84,6 @@ export function mapSiteToGeroz(site) {
       video: narrative?.backgroundImage ?? capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.heroBg,
       footerBg: capabilities?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBg,
       footerBgAlt: narrative?.backgroundImage ?? GEROZ_TEMPLATE_IMAGES.footerBgAlt,
-      ctaShape: GEROZ_TEMPLATE_IMAGES.ctaShape,
       cases: caseImages.length ? caseImages : GEROZ_TEMPLATE_IMAGES.cases,
     },
     video: {
@@ -147,12 +147,6 @@ export function mapSiteToGeroz(site) {
       authorName: fullName || firstName,
       authorRole: hero?.subtitle ?? '',
       signature: firstName,
-    },
-    cta: {
-      title: ctaSection?.heading ?? "Let's work together.",
-      href: mailto,
-      circleText: buildCircleText(ctaSection?.ctaLabel ?? ctaLabel),
-      shapeImage: GEROZ_TEMPLATE_IMAGES.ctaShape,
     },
     footer: {
       displayName: fullName.toUpperCase(),

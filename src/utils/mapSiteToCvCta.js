@@ -2,7 +2,7 @@
  * Shared CTA section content for all CV templates except Meridian.
  * Uses home.cta only — never hero, narrative, or capabilities copy.
  */
-export function splitCvCtaHeadingLines(heading) {
+function splitCvCtaHeadingLines(heading) {
   const trimmed = (heading || '').trim();
   if (!trimmed) return [];
 
@@ -32,10 +32,7 @@ export function mapSiteToCvCta(siteData) {
     headingLines: splitCvCtaHeadingLines(heading),
     statement: cta.statement ?? '',
     ctaLabel: cta.ctaLabel ?? "Let's Connect",
-    actionKicker: cta.actionKicker ?? 'Start a conversation',
     email,
     mailto,
-    mailtoSubject,
-    copyrightName: firstName,
   };
 }

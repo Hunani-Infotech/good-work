@@ -1,6 +1,5 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { getLenis, initLenis, destroyLenis } from './scrollRuntime.js';
 
 function getSplitText() {
@@ -18,8 +17,8 @@ let splitInstances = [];
 function ensurePlugins() {
   if (pluginsRegistered) return;
   const SplitText = getSplitText();
-  if (SplitText) gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin);
-  else gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  if (SplitText) gsap.registerPlugin(ScrollTrigger, SplitText);
+  else gsap.registerPlugin(ScrollTrigger);
   pluginsRegistered = true;
 }
 

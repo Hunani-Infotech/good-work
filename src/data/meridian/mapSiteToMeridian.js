@@ -43,9 +43,6 @@ function heroNameLines(firstName, lastName, subtitle) {
   };
 }
 
-/** @internal Exported for layout verification. */
-export { heroNameLines, isPlaceholderLastName };
-
 /**
  * Meridian template — Dennis Snellenberg portfolio layout from site.json.
  */

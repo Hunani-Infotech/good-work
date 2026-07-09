@@ -39,7 +39,7 @@ export function isShareUrlTooLong(url) {
   return url.length > MAX_SHARE_URL_LENGTH;
 }
 
-export async function fetchSiteFromConfigUrl(configUrl) {
+async function fetchSiteFromConfigUrl(configUrl) {
   const response = await fetch(configUrl, { mode: 'cors' });
   if (!response.ok) {
     throw new Error(`Could not load config (${response.status})`);
@@ -49,7 +49,7 @@ export async function fetchSiteFromConfigUrl(configUrl) {
   return data;
 }
 
-export function parseShareSearchParams(search) {
+function parseShareSearchParams(search) {
   const params = new URLSearchParams(search);
   const shareParam = params.get('share');
   if (shareParam) {

@@ -3,7 +3,7 @@
  * Types: classic | glass | spotlight | magnetic | arrow | morph
  * Isak uses classic — styled in isak.css only.
  */
-export const CURSOR_VARIANTS = {
+const CURSOR_VARIANTS = {
   agency: {
     type: 'magnetic',
     ringLerp: 0.12,
