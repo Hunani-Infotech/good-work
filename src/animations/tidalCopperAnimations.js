@@ -4,7 +4,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createScrollPageController } from './scrollPageBoot.js';
-import { refreshScrollTriggers } from './scrollRuntime.js';
+import { getLenis, refreshScrollTriggers } from './scrollRuntime.js';
 import {
   SCROLL_REVERSE,
   initEyebrowClipReveal,
@@ -287,6 +287,19 @@ function initCvScrollAnimations(prefersReduced) {
   if (document.fonts?.ready) {
     document.fonts.ready.then(refreshScrollTriggers);
   }
+}
+
+export function scrollToTidalCopperConnect() {
+  const target = document.getElementById('connect');
+  if (!target) return;
+
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(target, { duration: 1.1 });
+    return;
+  }
+
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 export function destroyTidalCopperAnimations() {

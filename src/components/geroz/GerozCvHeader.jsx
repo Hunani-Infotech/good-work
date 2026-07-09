@@ -23,7 +23,7 @@ function NavLinks({ links, className, linkClassName, onNavigate }) {
             href={link.href}
             className={`${linkClassName}${link.isCta ? ' geroz-cv-header__cta' : ''}`}
             onClick={(e) => {
-              if (link.isHash) {
+              if (link.isHash || link.href?.startsWith('#')) {
                 e.preventDefault();
                 scrollGerozToHash(link.href);
               }

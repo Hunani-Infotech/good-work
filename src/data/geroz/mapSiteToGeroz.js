@@ -108,7 +108,7 @@ export function mapSiteToGeroz(site) {
       heading: hero?.heading ?? '',
       statement: hero?.heroStatement ?? '',
       ctaLabel: hero?.ctaLabel ?? "Let's Connect",
-      ctaHref: contact?.email ? `mailto:${contact.email}` : '#',
+      ctaHref: '#cta',
     },
     about: {
       eyebrow: narrative?.tag ?? 'Narrative',
@@ -167,7 +167,7 @@ export function mapSiteToGeroz(site) {
         { label: 'Hero', href: '#expertise', isHash: true },
         { label: 'Narrative', href: '#about', isHash: true },
         { label: 'Skills', href: '#capabilities', isHash: true },
-        { label: ctaSection?.ctaLabel ?? ctaLabel, href: mailto, isCta: true },
+        { label: ctaSection?.ctaLabel ?? ctaLabel, href: '#cta', isHash: true, isCta: true },
       ],
     },
   };

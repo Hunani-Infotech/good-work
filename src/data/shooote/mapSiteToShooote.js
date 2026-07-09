@@ -38,7 +38,7 @@ export function mapSiteToShooote(site = defaultSite) {
     { label: 'Hero', href: '#expertise', isHash: true },
     { label: 'Narrative', href: '#narrative', isHash: true },
     { label: 'Skills', href: '#capabilities', isHash: true },
-    { label: "Let's Connect", href: mailto, isHash: false, className: 'hire-me' },
+    { label: "Let's Connect", href: '#connect', isHash: true, className: 'hire-me' },
   ];
 
   return {

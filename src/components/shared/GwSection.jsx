@@ -62,6 +62,7 @@ export default function GwSection({
         className={`gw-section gw-section--shooote section-padding${backgroundImage ? ' gw-section--photo-bg' : ''}${className ? ` ${className}` : ''}`}
         style={sectionStyle}
       >
+        {beforeInner}
         <div className="container">
           {sectionLabel ? (
             <span className={`gw-section__label${wowClass}`} {...wowProps}>

@@ -1,12 +1,16 @@
+import { scrollToTidalCopperConnect } from '../../animations/tidalCopperAnimations.js';
 import { useSite } from '../../context/SiteContext';
 import TidalCopperSection from './TidalCopperSection.jsx';
 
 export default function TidalCopperExpertiseSection() {
   const { site } = useSite();
   const { hero } = site.home;
-  const { contact } = site.site;
-  const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubjectNav || '')}`;
   const ctaLabel = hero.ctaLabel || "Let's Connect";
+
+  const onConnectClick = (event) => {
+    event.preventDefault();
+    scrollToTidalCopperConnect();
+  };
 
   return (
     <TidalCopperSection screenClass="cv-what-screen" label="02 — Hero" poweredByDark>
@@ -18,7 +22,7 @@ export default function TidalCopperExpertiseSection() {
             <p className="cv-what-statement" id="whatStatement">{hero.heroStatement}</p>
           ) : null}
 
-          <a href={mailto} className="cta-btn" id="whatCta">
+          <a href="#connect" className="cta-btn" id="whatCta" onClick={onConnectClick}>
             {ctaLabel} →
           </a>
         </div>

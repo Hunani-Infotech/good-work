@@ -1,3 +1,4 @@
+import { scrollToShoooteAnchor } from '../../animations/shoooteAnimations.js';
 import GwSection from '../shared/GwSection.jsx';
 import { useShoooteContent } from '../../hooks/shooote/useShoooteContent.js';
 
@@ -24,6 +25,11 @@ export default function ShoooteExpertise() {
   const { expertise } = useShoooteContent();
   const headingLines = expertise.heading ? luxuryHeadingLines(expertise.heading) : [];
   const headingFitChars = headingLines.reduce((max, line) => Math.max(max, line.length), 0);
+
+  const onConnectClick = (e) => {
+    e.preventDefault();
+    scrollToShoooteAnchor('#connect');
+  };
 
   return (
     <GwSection
@@ -55,7 +61,7 @@ export default function ShoooteExpertise() {
           {expertise.statement ? (
             <p className="gw-section__statement shooote-scroll-fade">{expertise.statement}</p>
           ) : null}
-          <a href={expertise.mailto} className="theme-btn shooote-mailto-btn">
+          <a href="#connect" className="theme-btn shooote-mailto-btn" onClick={onConnectClick}>
             <i className="icon">
               <img src="/assets/shooote/images/arrow-2.svg" alt="" />
             </i>

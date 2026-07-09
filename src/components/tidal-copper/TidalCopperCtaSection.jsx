@@ -6,6 +6,7 @@ export default function TidalCopperCtaSection() {
 
   return (
     <TidalCopperSection
+      id="connect"
       screenClass="cv-connect-screen"
       label={`04 — ${cta.tag}`}
       poweredByDark
