@@ -4,11 +4,16 @@ import { MARQUEE_COPIES } from '../../../animations/meridianMarquee.js';
 
 export default function MeridianHeroSection() {
   const { hero } = useMeridianContent();
-  const rolePrimary = hero.roleLines?.[0] ?? hero.subtitle;
-  const roleSecondary = hero.roleLines?.slice(1).join(' & ') || '';
+  const roleInMarquee = hero.marqueeLayout === 'inline-paired';
+  const rolePrimary = roleInMarquee ? '' : (hero.roleLines?.[0] ?? hero.subtitle);
+  const roleSecondary = roleInMarquee ? '' : (hero.roleLines?.slice(1).join(' & ') || '');
+  const showRole = Boolean(rolePrimary || roleSecondary);
 
   return (
-    <section id="top" className="meridian-hero">
+    <section
+      id="top"
+      className={`meridian-hero${roleInMarquee ? ' meridian-hero--marquee-paired' : ''}${hero.marqueeLayout === 'inline-only' ? ' meridian-hero--marquee-single' : ''}`}
+    >
       <div className="meridian-hero__atmosphere" aria-hidden="true">
         <div className="meridian-hero__spotlight" />
         <div className="meridian-hero__vignette" />
@@ -19,13 +24,15 @@ export default function MeridianHeroSection() {
         {hero.firstName}
       </p>
 
-      <div className="meridian-hero__role">
-        <span className="meridian-hero__role-arrow" aria-hidden="true">↘</span>
-        <div className="meridian-hero__role-copy">
-          {rolePrimary ? <span>{rolePrimary}</span> : null}
-          {roleSecondary ? <span>{roleSecondary}</span> : null}
+      {showRole ? (
+        <div className="meridian-hero__role">
+          <span className="meridian-hero__role-arrow" aria-hidden="true">↘</span>
+          <div className="meridian-hero__role-copy">
+            {rolePrimary ? <span>{rolePrimary}</span> : null}
+            {roleSecondary ? <span>{roleSecondary}</span> : null}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <svg
         className="meridian-hero__globe"
@@ -63,11 +70,45 @@ export default function MeridianHeroSection() {
 
       <div className="meridian-hero__marquee" aria-hidden="true">
         <div className="meridian-hero__marquee-track">
-          {Array.from({ length: MARQUEE_COPIES }, (_, index) => (
-            <span key={index} className="meridian-hero__marquee-item">
-              {hero.marqueeText}
-            </span>
-          ))}
+          {Array.from({ length: MARQUEE_COPIES }, (_, index) => {
+            if (hero.marqueeLayout === 'inline-paired') {
+              return (
+                <span
+                  key={index}
+                  className="meridian-hero__marquee-item meridian-hero__marquee-item--inline meridian-hero__marquee-item--paired"
+                >
+                  <span className="meridian-hero__marquee-pair">
+                    <span className="meridian-hero__marquee-pair-name">{hero.nameLine1}</span>
+                    <span className="meridian-hero__marquee-pair-sep" aria-hidden="true"> — </span>
+                    <span className="meridian-hero__marquee-pair-title">{hero.nameLine2}</span>
+                  </span>
+                  <span className="meridian-hero__marquee-cycle-sep" aria-hidden="true"> |</span>
+                </span>
+              );
+            }
+
+            if (hero.marqueeLayout === 'inline-only') {
+              return (
+                <span key={index} className="meridian-hero__marquee-item meridian-hero__marquee-item--inline">
+                  {hero.nameLine1}
+                </span>
+              );
+            }
+
+            return (
+              <span key={index} className="meridian-hero__marquee-item">
+                <span className="meridian-hero__marquee-name">
+                  <span className="meridian-hero__marquee-line meridian-hero__marquee-line--first">
+                    {hero.nameLine1}
+                  </span>
+                  <span className="meridian-hero__marquee-line meridian-hero__marquee-line--second">
+                    {hero.nameLine2}
+                  </span>
+                </span>
+                <span className="meridian-hero__marquee-sep"> —</span>
+              </span>
+            );
+          })}
         </div>
       </div>
 

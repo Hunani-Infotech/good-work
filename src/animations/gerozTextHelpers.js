@@ -126,7 +126,7 @@ export function splitMarqueeWordsIntoMasks(el, wordClass = 'geroz-word') {
   const parts = [];
 
   rawParts.forEach((part) => {
-    if (/^[\u2012\u2013\u2014\-–—.,!?;:]+$/.test(part) && parts.length) {
+    if (/^[\u2012\u2013\u2014\-–—.,!?;:|]+$/.test(part) && parts.length) {
       parts[parts.length - 1] = `${parts[parts.length - 1]} ${part}`;
       return;
     }

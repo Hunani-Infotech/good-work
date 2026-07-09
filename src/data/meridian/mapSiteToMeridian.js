@@ -5,6 +5,45 @@ function buildMailto(email, subject) {
   return `mailto:${email}?subject=${encodeURIComponent(subject ?? '')}`;
 }
 
+function isPlaceholderLastName(lastName) {
+  const trimmed = (lastName ?? '').trim();
+  return !trimmed || /^last\s*name$/i.test(trimmed);
+}
+
+/** Hero marquee layouts: stacked surname, inline name—title, or first-name only. */
+function heroNameLines(firstName, lastName, subtitle) {
+  const hasLastName = !isPlaceholderLastName(lastName);
+  const effectiveLastName = hasLastName ? lastName.trim() : '';
+  const trimmedSubtitle = subtitle?.trim() ?? '';
+  const displayName = hasLastName
+    ? `${firstName} ${effectiveLastName}`.trim()
+    : firstName;
+
+  let marqueeLayout = 'inline-only';
+  let nameLine2 = null;
+  let marqueeText = `${firstName} `;
+
+  if (hasLastName) {
+    marqueeLayout = 'stacked-name';
+    nameLine2 = effectiveLastName;
+    marqueeText = `${displayName} — `;
+  } else if (trimmedSubtitle) {
+    marqueeLayout = 'inline-paired';
+    nameLine2 = trimmedSubtitle;
+    marqueeText = `${firstName} — ${trimmedSubtitle} | `;
+  }
+
+  return {
+    hasLastName,
+    marqueeLayout,
+    effectiveLastName,
+    displayName,
+    nameLine1: firstName,
+    nameLine2,
+    marqueeText,
+  };
+}
+
 /**
  * Meridian template — Dennis Snellenberg portfolio layout from site.json.
  */
@@ -14,24 +53,29 @@ export function mapSiteToMeridian(site) {
 
   const firstName = brand?.firstName ?? 'Portfolio';
   const lastName = brand?.lastName ?? '';
-  const fullName = [firstName, lastName].filter(Boolean).join(' ').trim();
-  const displayName = fullName || firstName;
   const subtitle = hero?.subtitle ?? '';
+  const nameLines = heroNameLines(firstName, lastName, subtitle);
+  const {
+    hasLastName,
+    marqueeLayout,
+    effectiveLastName,
+    displayName,
+    nameLine1,
+    nameLine2,
+    marqueeText,
+  } = nameLines;
   const mailtoSubject = contact?.mailtoSubjectNav ?? `Hey ${firstName}!`;
   const mailto = buildMailto(contact?.email, mailtoSubject);
   const ctaLabel = hero?.ctaLabel ?? "Let's Connect";
   const bullets = capabilities?.bullets ?? [];
   const paragraphs = narrative?.paragraphs ?? [];
 
-  const isPlaceholderLastName = !lastName || /^last\s*name$/i.test(lastName.trim());
   const rotatingLines = [
-    !isPlaceholderLastName && displayName !== firstName ? displayName : null,
+    hasLastName && displayName !== firstName ? displayName : null,
     firstName,
   ]
     .filter(Boolean)
     .filter((line, index, all) => all.indexOf(line) === index);
-
-  const marqueeText = `${displayName} — `;
 
   const roleLines = (() => {
     if (!subtitle) return ['Portfolio'];
@@ -52,8 +96,12 @@ export function mapSiteToMeridian(site) {
     },
     hero: {
       firstName,
-      lastName,
+      lastName: effectiveLastName,
+      hasLastName,
+      marqueeLayout,
       fullName: displayName,
+      nameLine1,
+      nameLine2,
       profilePhoto: hero?.profilePhoto ?? '/images/profiles/sanjay.png',
       portraitAlt: displayName,
       subtitle,

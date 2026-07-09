@@ -194,6 +194,13 @@ function initMeridianHero(prefersReduced) {
 
   if (prefersReduced) {
     setReducedState([role, scrollCue, ...roleLines]);
+    if (marquee) {
+      initMeridianHeroMarquee(marquee);
+      gsap.set(marquee.parentElement, { opacity: 1 });
+      hero.querySelectorAll('.meridian-hero__marquee-item').forEach((item) => {
+        item.classList.add('is-marquee-revealed');
+      });
+    }
     return;
   }
 
@@ -208,22 +215,107 @@ function initMeridianHero(prefersReduced) {
 
     const marqueeItems = hero.querySelectorAll('.meridian-hero__marquee-item');
     marqueeItems.forEach((item) => {
-      const words = splitMarqueeWordsIntoMasks(item);
-      gsap.set(words, { y: '115%', opacity: 0 });
-      gsap.to(words, {
-        y: 0,
-        opacity: 1,
-        duration: 1.05,
-        stagger: 0.06,
-        ease: GEROZ_EASE_IO,
-        delay: 0.45,
-        onComplete: () => {
-          item.classList.add('is-marquee-revealed');
-          item.querySelectorAll('.geroz-word-mask').forEach((mask) => {
-            mask.style.overflow = 'visible';
+      const isInline = item.classList.contains('meridian-hero__marquee-item--inline');
+
+      const finishReveal = () => {
+        item.classList.add('is-marquee-revealed');
+        item.querySelectorAll('.geroz-line-mask, .geroz-word-mask').forEach((mask) => {
+          mask.style.overflow = 'visible';
+        });
+      };
+
+      if (isInline) {
+        const isPaired = item.classList.contains('meridian-hero__marquee-item--paired');
+        const segments = isPaired
+          ? item.querySelectorAll(
+            '.meridian-hero__marquee-pair-name, .meridian-hero__marquee-pair-sep, .meridian-hero__marquee-pair-title, .meridian-hero__marquee-cycle-sep',
+          )
+          : null;
+
+        if (segments?.length) {
+          let completed = 0;
+          const onSegmentRevealed = () => {
+            completed += 1;
+            if (completed < segments.length) return;
+            finishReveal();
+          };
+
+          segments.forEach((segment, segmentIndex) => {
+            const words = splitMarqueeWordsIntoMasks(segment);
+            if (!words.length) {
+              onSegmentRevealed();
+              return;
+            }
+            gsap.set(words, { y: '115%', opacity: 0 });
+            gsap.to(words, {
+              y: 0,
+              opacity: 1,
+              duration: 1.05,
+              stagger: 0.06,
+              ease: GEROZ_EASE_IO,
+              delay: 0.45 + segmentIndex * 0.08,
+              onComplete: onSegmentRevealed,
+            });
           });
-        },
+          return;
+        }
+
+        const words = splitMarqueeWordsIntoMasks(item);
+        if (!words.length) {
+          finishReveal();
+          return;
+        }
+        gsap.set(words, { y: '115%', opacity: 0 });
+        gsap.to(words, {
+          y: 0,
+          opacity: 1,
+          duration: 1.05,
+          stagger: 0.06,
+          ease: GEROZ_EASE_IO,
+          delay: 0.45,
+          onComplete: finishReveal,
+        });
+        return;
+      }
+
+      const lines = item.querySelectorAll('.meridian-hero__marquee-line');
+      const sep = item.querySelector('.meridian-hero__marquee-sep');
+      const revealTargets = [...lines, sep].filter(Boolean);
+      let completed = 0;
+
+      const onLineRevealed = () => {
+        completed += 1;
+        if (completed < revealTargets.length) return;
+        finishReveal();
+      };
+
+      lines.forEach((line, lineIndex) => {
+        const words = splitMarqueeWordsIntoMasks(line);
+        gsap.set(words, { y: '115%', opacity: 0 });
+        gsap.to(words, {
+          y: 0,
+          opacity: 1,
+          duration: 1.05,
+          stagger: 0.06,
+          ease: GEROZ_EASE_IO,
+          delay: 0.45 + lineIndex * 0.1,
+          onComplete: onLineRevealed,
+        });
       });
+
+      if (sep) {
+        const words = splitMarqueeWordsIntoMasks(sep);
+        gsap.set(words, { y: '115%', opacity: 0 });
+        gsap.to(words, {
+          y: 0,
+          opacity: 1,
+          duration: 1.05,
+          stagger: 0.06,
+          ease: GEROZ_EASE_IO,
+          delay: 0.45 + lines.length * 0.1,
+          onComplete: onLineRevealed,
+        });
+      }
     });
   }
 

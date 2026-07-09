@@ -758,13 +758,14 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-hero__marquee {
   position: relative;
   grid-row: 2;
-  z-index: 3;
+  z-index: 5;
   overflow: hidden;
   pointer-events: none;
   align-self: end;
   box-sizing: border-box;
   padding-inline: clamp(1.25rem, 4vw, 3rem);
   padding-bottom: clamp(4rem, 9vh, 5.75rem);
+  isolation: isolate;
 }
 
 .meridian-hero__marquee-track {
@@ -774,16 +775,85 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-hero__marquee-item {
+  display: inline-flex;
   flex-shrink: 0;
+  align-items: flex-end;
+  gap: 0.08em;
   padding-right: clamp(1.75rem, 3.5vw, 3rem);
   font-size: clamp(4.5rem, 16vw, 11rem);
   font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 1.02;
   white-space: nowrap;
-  color: color-mix(in srgb, var(--meridian-hero-text, #fff) 94%, transparent);
+  color: color-mix(in srgb, var(--meridian-hero-text, #fff) 96%, transparent);
+  text-shadow: 0 0.04em 0.28em color-mix(in srgb, var(--meridian-hero-bg-dark, #000) 38%, transparent);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.meridian-hero__marquee-name {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 0.92;
+}
+
+.meridian-hero__marquee-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.meridian-hero__marquee-sep {
+  flex-shrink: 0;
+  align-self: flex-end;
+  padding-bottom: 0.04em;
+}
+
+.meridian-hero__marquee-item--inline {
+  display: inline-block;
+  align-items: unset;
+  gap: 0;
+  line-height: 1.02;
+}
+
+.meridian-hero__marquee-item--paired {
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+.meridian-hero__marquee-pair {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.1em;
+}
+
+.meridian-hero__marquee-pair-name {
+  flex-shrink: 0;
+}
+
+.meridian-hero__marquee-pair-sep {
+  flex-shrink: 0;
+  font-size: 0.52em;
+  opacity: 0.72;
+  letter-spacing: 0;
+}
+
+.meridian-hero__marquee-pair-title {
+  flex-shrink: 0;
+  font-size: 0.36em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  opacity: 0.86;
+}
+
+.meridian-hero__marquee-cycle-sep {
+  flex-shrink: 0;
+  margin-left: 0.22em;
+  font-size: 0.46em;
+  opacity: 0.5;
+  letter-spacing: 0;
 }
 
 .meridian-hero__portrait-wrap {
@@ -1880,6 +1950,17 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
     font-size: clamp(9.5rem, 45vw, 16rem);
     text-transform: lowercase;
   }
+
+  .meridian-hero__marquee-item--paired {
+    font-size: clamp(3rem, 10vw, 5rem);
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+  }
+
+  .meridian-hero__marquee-pair-title {
+    font-size: 0.38em;
+    letter-spacing: 0.06em;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1893,6 +1974,14 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
     letter-spacing: -0.03em;
     text-transform: lowercase;
   }
+
+  .meridian-hero__marquee-item--paired {
+    font-size: clamp(2.5rem, 8.5vw, 4.25rem);
+  }
+
+  .meridian-hero__marquee-pair-title {
+    font-size: 0.42em;
+  }
 }
 
 @media (max-width: 767px) {
@@ -1904,7 +1993,20 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-hero__marquee-item {
-    color: rgba(255, 255, 255, 0.94);
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow:
+      0 2px 20px rgba(0, 0, 0, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.35);
+  }
+
+  .meridian-hero__marquee-item--paired {
+    font-size: clamp(2.75rem, 9.5vw, 4.75rem);
+  }
+
+  .meridian-hero__marquee-pair-title {
+    font-size: 0.4em;
+    letter-spacing: 0.07em;
+    opacity: 0.88;
   }
 
   .meridian-header--on-hero .meridian-menu-btn,
@@ -1982,9 +2084,18 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
     left: 0;
     right: 0;
     top: 51%;
-    z-index: 5;
-    padding: 0;
+    z-index: 6;
+    width: 100%;
+    padding: 0 clamp(0.75rem, 3vw, 1.25rem);
     transform: translateY(-50%);
+  }
+
+  .meridian-hero--marquee-single .meridian-hero__marquee {
+    top: 53%;
+  }
+
+  .meridian-hero--marquee-paired .meridian-hero__marquee {
+    top: 54%;
   }
 
   .meridian-hero__role {
@@ -2221,6 +2332,13 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   .meridian-hero__marquee-track {
     transform: none !important;
   }
+
+  .meridian-template .meridian-hero__marquee-item .geroz-word,
+  .meridian-template .meridian-hero__marquee-item .geroz-word-mask {
+    opacity: 1 !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
 }
 
 /* Force Neue Montreal across the Meridian surface (beats global Goga / widget fonts) */
@@ -2280,6 +2398,16 @@ html.meridian-template body.meridian-template :where(
 .meridian-template .meridian-hero__marquee-item .geroz-word-mask {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.meridian-template .meridian-hero__marquee-item--paired .geroz-word-mask {
+  padding-bottom: 0.06em;
+}
+
+.meridian-template .meridian-hero__marquee-pair-title .geroz-word-mask {
+  padding-bottom: 0.1em;
 }
 
 .meridian-template .meridian-hero__marquee-item.is-marquee-revealed .geroz-word-mask {
