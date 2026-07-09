@@ -774,6 +774,10 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   will-change: transform;
 }
 
+.meridian-hero--marquee-paired .meridian-hero__marquee-track {
+  align-items: center;
+}
+
 .meridian-hero__marquee-item {
   display: inline-flex;
   flex-shrink: 0;
@@ -817,43 +821,78 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-hero__marquee-item--paired {
+  --pair-subtitle-ratio: 0.36;
+  --pair-sep-ratio: 0.5;
+  --pair-subtitle-drop: 0.17;
+  --pair-sep-lift: 0.05;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  vertical-align: middle;
   font-size: clamp(3.5rem, 9vw, 7rem);
   letter-spacing: -0.02em;
-  line-height: 1.06;
+  line-height: 1;
+  white-space: nowrap;
 }
 
-.meridian-hero__marquee-pair {
+.meridian-hero__marquee-pair-inner {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.1em;
+  align-items: center;
+  gap: 0.14em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .meridian-hero__marquee-pair-name {
   flex-shrink: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.meridian-hero__marquee-pair-meta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22em;
+  font-size: calc(var(--pair-subtitle-ratio) * 1em);
+  line-height: 1;
+  white-space: nowrap;
+  /* Match name cap-height band, then center dash + title inside it */
+  block-size: calc(1em / var(--pair-subtitle-ratio));
+  transform: translateY(
+    calc(var(--pair-subtitle-drop) / var(--pair-subtitle-ratio) * 1em)
+  );
 }
 
 .meridian-hero__marquee-pair-sep {
   flex-shrink: 0;
-  font-size: 0.52em;
+  font-size: calc(var(--pair-sep-ratio) / var(--pair-subtitle-ratio) * 1em);
+  font-weight: 400;
   opacity: 0.72;
   letter-spacing: 0;
+  line-height: 1;
+  transform: translateY(calc(-1 * var(--pair-sep-lift) / var(--pair-sep-ratio) * 1em));
 }
 
 .meridian-hero__marquee-pair-title {
   flex-shrink: 0;
-  font-size: 0.36em;
+  font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.05em;
-  line-height: 1.1;
+  line-height: 1;
   opacity: 0.86;
 }
 
-.meridian-hero__marquee-cycle-sep {
+.meridian-hero__marquee-item--paired::after {
+  content: '';
+  display: block;
   flex-shrink: 0;
-  margin-left: 0.22em;
-  font-size: 0.46em;
-  opacity: 0.5;
-  letter-spacing: 0;
+  width: 1.5px;
+  height: 0.4em;
+  margin-inline: 0.45em 0.1em;
+  background: currentColor;
+  opacity: 0.35;
 }
 
 .meridian-hero__portrait-wrap {
@@ -1952,14 +1991,11 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-hero__marquee-item--paired {
+    --pair-subtitle-ratio: 0.38;
+    --pair-subtitle-drop: 0.155;
     font-size: clamp(3rem, 10vw, 5rem);
     letter-spacing: -0.015em;
-    line-height: 1.08;
-  }
-
-  .meridian-hero__marquee-pair-title {
-    font-size: 0.38em;
-    letter-spacing: 0.06em;
+    line-height: 1;
   }
 }
 
@@ -1976,11 +2012,13 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-hero__marquee-item--paired {
+    --pair-subtitle-ratio: 0.42;
+    --pair-subtitle-drop: 0.15;
     font-size: clamp(2.5rem, 8.5vw, 4.25rem);
   }
 
   .meridian-hero__marquee-pair-title {
-    font-size: 0.42em;
+    letter-spacing: 0.06em;
   }
 }
 
@@ -2000,11 +2038,12 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-hero__marquee-item--paired {
+    --pair-subtitle-ratio: 0.4;
+    --pair-subtitle-drop: 0.155;
     font-size: clamp(2.75rem, 9.5vw, 4.75rem);
   }
 
   .meridian-hero__marquee-pair-title {
-    font-size: 0.4em;
     letter-spacing: 0.07em;
     opacity: 0.88;
   }
@@ -2400,14 +2439,6 @@ html.meridian-template body.meridian-template :where(
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
   vertical-align: top;
-}
-
-.meridian-template .meridian-hero__marquee-item--paired .geroz-word-mask {
-  padding-bottom: 0.06em;
-}
-
-.meridian-template .meridian-hero__marquee-pair-title .geroz-word-mask {
-  padding-bottom: 0.1em;
 }
 
 .meridian-template .meridian-hero__marquee-item.is-marquee-revealed .geroz-word-mask {

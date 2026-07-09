@@ -10,7 +10,7 @@ function isPlaceholderLastName(lastName) {
   return !trimmed || /^last\s*name$/i.test(trimmed);
 }
 
-/** Hero marquee layouts: stacked surname, inline name—title, or first-name only. */
+/** Hero marquee layouts: inline full name, inline name—title, or first-name only. */
 function heroNameLines(firstName, lastName, subtitle) {
   const hasLastName = !isPlaceholderLastName(lastName);
   const effectiveLastName = hasLastName ? lastName.trim() : '';
@@ -24,13 +24,12 @@ function heroNameLines(firstName, lastName, subtitle) {
   let marqueeText = `${firstName} `;
 
   if (hasLastName) {
-    marqueeLayout = 'stacked-name';
-    nameLine2 = effectiveLastName;
+    marqueeLayout = 'inline-full';
     marqueeText = `${displayName} — `;
   } else if (trimmedSubtitle) {
     marqueeLayout = 'inline-paired';
     nameLine2 = trimmedSubtitle;
-    marqueeText = `${firstName} — ${trimmedSubtitle} | `;
+    marqueeText = `${firstName} — ${trimmedSubtitle} `;
   }
 
   return {
@@ -43,6 +42,9 @@ function heroNameLines(firstName, lastName, subtitle) {
     marqueeText,
   };
 }
+
+/** @internal Exported for layout verification. */
+export { heroNameLines, isPlaceholderLastName };
 
 /**
  * Meridian template — Dennis Snellenberg portfolio layout from site.json.

@@ -197,9 +197,10 @@ function initMeridianHero(prefersReduced) {
     if (marquee) {
       initMeridianHeroMarquee(marquee);
       gsap.set(marquee.parentElement, { opacity: 1 });
-      hero.querySelectorAll('.meridian-hero__marquee-item').forEach((item) => {
+      hero.querySelectorAll('.meridian-hero__marquee-item:not([data-marquee-clone])').forEach((item) => {
         item.classList.add('is-marquee-revealed');
       });
+      requestAnimationFrame(() => remeasureMeridianHeroMarquee());
     }
     return;
   }
@@ -213,53 +214,49 @@ function initMeridianHero(prefersReduced) {
       delay: 0.35,
     });
 
-    const marqueeItems = hero.querySelectorAll('.meridian-hero__marquee-item');
+    const marqueeItems = hero.querySelectorAll('.meridian-hero__marquee-item:not([data-marquee-clone])');
+    let revealedCount = 0;
+
+    const remeasureWhenAllRevealed = () => {
+      revealedCount += 1;
+      if (revealedCount < marqueeItems.length) return;
+      requestAnimationFrame(() => remeasureMeridianHeroMarquee());
+    };
+
     marqueeItems.forEach((item) => {
-      const isInline = item.classList.contains('meridian-hero__marquee-item--inline');
+      const isPaired = item.classList.contains('meridian-hero__marquee-item--paired');
+      const isInline = item.classList.contains('meridian-hero__marquee-item--inline')
+        || item.classList.contains('meridian-hero__marquee-item--full');
 
       const finishReveal = () => {
         item.classList.add('is-marquee-revealed');
         item.querySelectorAll('.geroz-line-mask, .geroz-word-mask').forEach((mask) => {
           mask.style.overflow = 'visible';
         });
+        remeasureWhenAllRevealed();
       };
 
-      if (isInline) {
-        const isPaired = item.classList.contains('meridian-hero__marquee-item--paired');
-        const segments = isPaired
-          ? item.querySelectorAll(
-            '.meridian-hero__marquee-pair-name, .meridian-hero__marquee-pair-sep, .meridian-hero__marquee-pair-title, .meridian-hero__marquee-cycle-sep',
-          )
-          : null;
-
-        if (segments?.length) {
-          let completed = 0;
-          const onSegmentRevealed = () => {
-            completed += 1;
-            if (completed < segments.length) return;
-            finishReveal();
-          };
-
-          segments.forEach((segment, segmentIndex) => {
-            const words = splitMarqueeWordsIntoMasks(segment);
-            if (!words.length) {
-              onSegmentRevealed();
-              return;
-            }
-            gsap.set(words, { y: '115%', opacity: 0 });
-            gsap.to(words, {
-              y: 0,
-              opacity: 1,
-              duration: 1.05,
-              stagger: 0.06,
-              ease: GEROZ_EASE_IO,
-              delay: 0.45 + segmentIndex * 0.08,
-              onComplete: onSegmentRevealed,
-            });
-          });
+      if (isPaired) {
+        const inner = item.querySelector('.meridian-hero__marquee-pair-inner');
+        if (!inner) {
+          finishReveal();
           return;
         }
+        gsap.fromTo(inner, { y: '110%', opacity: 0 }, {
+          y: 0,
+          opacity: 1,
+          duration: 1.05,
+          ease: GEROZ_EASE_IO,
+          delay: 0.45,
+          onComplete: () => {
+            gsap.set(inner, { clearProps: 'transform' });
+            finishReveal();
+          },
+        });
+        return;
+      }
 
+      if (isInline) {
         const words = splitMarqueeWordsIntoMasks(item);
         if (!words.length) {
           finishReveal();
@@ -278,44 +275,7 @@ function initMeridianHero(prefersReduced) {
         return;
       }
 
-      const lines = item.querySelectorAll('.meridian-hero__marquee-line');
-      const sep = item.querySelector('.meridian-hero__marquee-sep');
-      const revealTargets = [...lines, sep].filter(Boolean);
-      let completed = 0;
-
-      const onLineRevealed = () => {
-        completed += 1;
-        if (completed < revealTargets.length) return;
-        finishReveal();
-      };
-
-      lines.forEach((line, lineIndex) => {
-        const words = splitMarqueeWordsIntoMasks(line);
-        gsap.set(words, { y: '115%', opacity: 0 });
-        gsap.to(words, {
-          y: 0,
-          opacity: 1,
-          duration: 1.05,
-          stagger: 0.06,
-          ease: GEROZ_EASE_IO,
-          delay: 0.45 + lineIndex * 0.1,
-          onComplete: onLineRevealed,
-        });
-      });
-
-      if (sep) {
-        const words = splitMarqueeWordsIntoMasks(sep);
-        gsap.set(words, { y: '115%', opacity: 0 });
-        gsap.to(words, {
-          y: 0,
-          opacity: 1,
-          duration: 1.05,
-          stagger: 0.06,
-          ease: GEROZ_EASE_IO,
-          delay: 0.45 + lines.length * 0.1,
-          onComplete: onLineRevealed,
-        });
-      }
+      finishReveal();
     });
   }
 
