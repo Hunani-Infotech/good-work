@@ -29,6 +29,16 @@ import {
   refreshGerozAboutAnimations,
   revealAllGerozAboutText,
 } from './gerozAboutAnimations.js';
+import {
+  collectPortraitTargets,
+  getPortraitLuxuryLayers,
+  initExpertisePortraitReveal,
+  initPortraitImgParallax,
+  playHeroPortraitEntrance,
+  primeHeroPortraitEntrance,
+  resetPortraitLuxuryLayers,
+  revealPortraitFrameOnScroll,
+} from './gerozPortraitAnimations.js';
 
 const page = createScrollPageController();
 let anchorCleanup = null;
@@ -159,15 +169,15 @@ function initGerozHero(prefersReduced) {
   const subtitle = hero.querySelector('.gz-hero__subtitle');
   const subtitleRule = hero.querySelector('.gz-hero__subtitle-rule');
   const portraitWrap = hero.querySelector('.gz-hero__portrait');
-  const portraitRule = hero.querySelector('.gz-hero__portrait-rule');
-  const portraitAura = hero.querySelector('.gz-hero__portrait-aura');
-  const portraitCard = hero.querySelector('.gz-hero__portrait-card');
-  const portraitImg = hero.querySelector('.gz-hero__portrait-img');
+  const portrait = hero.querySelector('.gz-portrait');
+  const portraitFrame = hero.querySelector('.gz-portrait__frame');
+  const portraitImg = hero.querySelector('.gz-portrait__img');
+  const portraitLuxury = getPortraitLuxuryLayers(portrait);
 
   const targets = [
     copy, firstName, lastName, accentLine, accentDot,
-    subtitle, subtitleRule, portraitWrap, portraitRule, portraitAura,
-    portraitCard, portraitImg,
+    subtitle, subtitleRule, portraitWrap,
+    ...collectPortraitTargets(portrait, portraitFrame, portraitImg, portraitLuxury),
   ];
   targets.forEach((el) => el && gsap.set(el, { visibility: 'visible' }));
 
@@ -175,9 +185,10 @@ function initGerozHero(prefersReduced) {
     setReducedState(targets);
     resetHeroNameChars(firstName);
     resetHeroNameChars(lastName);
-    if (portraitCard) gsap.set(portraitCard, { clipPath: 'inset(0% 0 0 0)', scale: 1, opacity: 1, y: 0 });
-    if (portraitAura) gsap.set(portraitAura, { scale: 1, opacity: 1 });
-    if (portraitRule) gsap.set(portraitRule, { scaleY: 1, opacity: 1 });
+    resetPortraitLuxuryLayers({
+      ...portraitLuxury,
+      frame: portraitFrame,
+    });
     return;
   }
 
@@ -194,11 +205,7 @@ function initGerozHero(prefersReduced) {
   if (accentDot) gsap.set(accentDot, { scale: 0, opacity: 0 });
   if (subtitleRule) gsap.set(subtitleRule, { scaleX: 0, transformOrigin: 'left center' });
   if (subtitleInner) gsap.set(subtitleInner, { y: '100%', letterSpacing: '0.35em' });
-  if (portraitWrap) gsap.set(portraitWrap, { opacity: 0, x: 36 });
-  if (portraitRule) gsap.set(portraitRule, { scaleY: 0, opacity: 0, transformOrigin: 'top center' });
-  if (portraitAura) gsap.set(portraitAura, { opacity: 0, scale: 0.88 });
-  if (portraitCard) gsap.set(portraitCard, { opacity: 0, y: 24, clipPath: 'inset(12% 0 0 0)' });
-  if (portraitImg) gsap.set(portraitImg, { scale: 1.07 });
+  primeHeroPortraitEntrance(portraitWrap, portraitLuxury, portraitFrame, portraitImg);
 
   const tl = gsap.timeline({ defaults: { ease: GEROZ_EASE }, delay: 0.1 });
 
@@ -208,13 +215,7 @@ function initGerozHero(prefersReduced) {
   if (subtitleInner) {
     tl.to(subtitleInner, { y: 0, letterSpacing: '0.2em', duration: 1.1, ease: GEROZ_EASE }, accentStart + 0.26);
   }
-  if (portraitWrap) tl.to(portraitWrap, { opacity: 1, x: 0, duration: 1.1, ease: GEROZ_EASE_IO }, 0.22);
-  if (portraitRule) tl.to(portraitRule, { scaleY: 1, opacity: 1, duration: 1.05, ease: GEROZ_EASE_IO }, 0.28);
-  if (portraitAura) tl.to(portraitAura, { opacity: 1, scale: 1, duration: 1.25, ease: GEROZ_EASE_IO }, 0.26);
-  if (portraitCard) {
-    tl.to(portraitCard, { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: GEROZ_EASE_IO }, 0.34);
-  }
-  if (portraitImg) tl.to(portraitImg, { scale: 1, duration: 1.45, ease: GEROZ_EASE_IO }, 0.4);
+  playHeroPortraitEntrance(tl, portraitWrap, portraitLuxury, portraitFrame, portraitImg);
 
   if (copy) {
     scrubParallax(copy, hero, { y: 24, start: 'top top', end: 'bottom top', scrub: 1 });
@@ -239,10 +240,10 @@ function initGerozExpertise(prefersReduced) {
   const authorLine = section.querySelector('.gz-expertise__author-line');
   const authorName = section.querySelector('.gz-expertise__author-name');
   const authorRole = section.querySelector('.gz-expertise__author-role');
-  const portrait = section.querySelector('.gz-expertise__portrait');
-  const portraitCorner = section.querySelector('.gz-expertise__portrait-corner');
-  const portraitFrame = section.querySelector('.gz-expertise__portrait-frame');
-  const portraitImg = section.querySelector('.gz-expertise__portrait-img');
+  const portrait = section.querySelector('.gz-portrait');
+  const portraitFrame = section.querySelector('.gz-portrait__frame');
+  const portraitImg = section.querySelector('.gz-portrait__img');
+  const portraitLuxury = getPortraitLuxuryLayers(portrait);
   const decor = section.querySelectorAll('.gz-expertise__decor');
 
   revealEyebrowPill(eyebrow, section, prefersReduced, { start: 'top 84%', variant: 'slide' });
@@ -250,7 +251,8 @@ function initGerozExpertise(prefersReduced) {
   if (prefersReduced) {
     setReducedState([
       panel, wash, noise, statement, cta, author, authorLine, authorName, authorRole,
-      portrait, portraitCorner, portraitFrame, portraitImg, ...decor,
+      ...collectPortraitTargets(portrait, portraitFrame, portraitImg, portraitLuxury),
+      ...decor,
     ]);
     return;
   }
@@ -298,34 +300,10 @@ function initGerozExpertise(prefersReduced) {
   }
 
   if (portrait) {
-    gsap.fromTo(portrait, { opacity: 0, x: -40 }, {
-      opacity: 1,
-      x: 0,
-      duration: 1.15,
-      ease: GEROZ_EASE_IO,
-      scrollTrigger: gzScroll(portrait, 'top 86%'),
-    });
-  }
-  if (portraitCorner) {
-    gsap.fromTo(portraitCorner, { opacity: 0, scale: 0.7, rotation: 12 }, {
-      opacity: 1,
-      scale: 1,
-      rotation: 0,
-      duration: 0.95,
-      ease: GEROZ_EASE,
-      scrollTrigger: gzScroll(portrait, 'top 86%'),
-    });
-  }
-  if (portraitFrame) {
-    gsap.fromTo(portraitFrame, { clipPath: 'inset(0 100% 0 0)' }, {
-      clipPath: 'inset(0 0% 0 0)',
-      duration: 1.25,
-      ease: GEROZ_EASE_IO,
-      scrollTrigger: gzScroll(portrait, 'top 86%'),
-    });
-  }
-  if (portraitImg) {
-    scrubParallax(portraitImg, portrait, { y: 16, scrub: 1 });
+    const portraitTrigger = gzScroll(portrait, 'top 86%');
+    initExpertisePortraitReveal(portrait, portraitLuxury, portraitTrigger);
+    revealPortraitFrameOnScroll(portraitFrame, portraitTrigger);
+    initPortraitImgParallax(portraitImg, portrait);
   }
 
   decor.forEach((el, index) => {
@@ -779,7 +757,7 @@ function initGerozScrollAnimations(prefersReduced) {
   };
 
   refreshAfterImagesLoad(
-    ['.gz-about__photo-bg', '.gz-hero__portrait-img', '.gz-expertise__portrait-img', '.gz-footer__bg'],
+    ['.gz-about__photo-bg', '.gz-portrait__img', '.gz-footer__bg'],
     syncLayout,
   );
 

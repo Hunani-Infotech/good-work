@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { syncScrollLayout } from './scrollRuntime.js';
+import { GEROZ_EASE_IO, scrubParallax } from './gerozTextHelpers.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,12 @@ const EXPERTISE_SCROLL = {
 const WORD_REVEAL = {
   duration: 0.09,
   stagger: 0.03,
+};
+
+const VIDEO_ENTRANCE = {
+  start: 'top 92%',
+  end: 'top 58%',
+  scrub: 0.8,
 };
 
 let expertiseCtx = null;
@@ -46,8 +53,20 @@ export function revealAllShoooteExpertiseElements(root = document) {
     gsap.set(el, { clipPath: CLIP_VISIBLE, clearProps: 'clipPath' });
   });
 
+  section.querySelectorAll('.shooote-expertise-editorial__media').forEach((el) => {
+    gsap.set(el, { opacity: 1, y: 0, scale: 1, clearProps: 'opacity,transform' });
+  });
+
   section.querySelectorAll('.shooote-expertise-editorial__video-frame').forEach((el) => {
-    gsap.set(el, { scaleY: 1, clearProps: 'transform' });
+    gsap.set(el, { scale: 1, clearProps: 'transform' });
+  });
+
+  section.querySelectorAll('.shooote-expertise-editorial__video-el').forEach((el) => {
+    gsap.set(el, { scale: 1, y: 0, clearProps: 'transform' });
+  });
+
+  section.querySelectorAll('.shooote-expertise-editorial__caption').forEach((el) => {
+    gsap.set(el, { opacity: 1, y: 0, clearProps: 'opacity,transform' });
   });
 
   const actions = section.querySelector('.shooote-expertise-editorial__actions');
@@ -59,6 +78,86 @@ export function revealAllShoooteExpertiseElements(root = document) {
 function syncExpertiseTimelineProgress(tl) {
   if (!tl?.scrollTrigger) return;
   tl.progress(tl.scrollTrigger.progress);
+}
+
+function initExpertiseVideoMotion(section) {
+  const videoMedia = section.querySelector('.shooote-expertise-editorial__media');
+  const videoFrame = section.querySelector('.shooote-expertise-editorial__video-frame');
+  const videoEl = section.querySelector('.shooote-expertise-editorial__video-el');
+  const videoCaption = section.querySelector('.shooote-expertise-editorial__caption');
+
+  if (!videoMedia || !videoFrame) return;
+
+  gsap.set(videoMedia, { opacity: 0, y: 36, force3D: true });
+  gsap.set(videoFrame, {
+    scale: 0.94,
+    transformOrigin: '50% 100%',
+    force3D: true,
+  });
+
+  if (videoEl) {
+    gsap.set(videoEl, {
+      scale: 1.05,
+      y: 16,
+      transformOrigin: '50% 100%',
+      force3D: true,
+    });
+  }
+
+  if (videoCaption) {
+    gsap.set(videoCaption, { opacity: 0, y: 14 });
+  }
+
+  const entranceTl = gsap.timeline({
+    defaults: { ease: GEROZ_EASE_IO },
+    scrollTrigger: {
+      trigger: videoMedia,
+      start: VIDEO_ENTRANCE.start,
+      end: VIDEO_ENTRANCE.end,
+      scrub: VIDEO_ENTRANCE.scrub,
+      invalidateOnRefresh: true,
+    },
+  });
+
+  entranceTl.to(videoMedia, {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    force3D: true,
+  }, 0);
+
+  entranceTl.to(videoFrame, {
+    scale: 1,
+    duration: 1.1,
+    force3D: true,
+  }, 0.04);
+
+  if (videoEl) {
+    entranceTl.to(videoEl, {
+      scale: 1,
+      y: 0,
+      duration: 1.15,
+      force3D: true,
+    }, 0.08);
+  }
+
+  if (videoCaption) {
+    entranceTl.to(videoCaption, {
+      opacity: 1,
+      y: 0,
+      duration: 0.55,
+      ease: 'power2.out',
+    }, 0.42);
+  }
+
+  if (videoEl) {
+    scrubParallax(videoEl, section, {
+      y: 12,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 0.9,
+    });
+  }
 }
 
 export function refreshShoooteExpertiseAnimations(root = document) {
@@ -83,9 +182,10 @@ export function initShoooteExpertiseAnimations(root = document, prefersReduced =
     }
 
     const stage = section.querySelector('.shooote-expertise-editorial__stage') || section;
-    const videoFrame = section.querySelector('.shooote-expertise-editorial__video-frame');
     const wordInkEls = getWordInkElements(section);
     const actions = section.querySelector('.shooote-expertise-editorial__actions');
+
+    initExpertiseVideoMotion(section);
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -99,20 +199,6 @@ export function initShoooteExpertiseAnimations(root = document, prefersReduced =
     });
 
     let at = 0;
-
-    if (videoFrame) {
-      gsap.set(videoFrame, {
-        scaleY: 0,
-        transformOrigin: '50% 0%',
-        force3D: true,
-      });
-      tl.to(videoFrame, {
-        scaleY: 1,
-        duration: 0.42,
-        force3D: true,
-      }, at);
-      at += 0.3;
-    }
 
     if (wordInkEls.length) {
       gsap.set(wordInkEls, { clipPath: CLIP_HIDDEN });

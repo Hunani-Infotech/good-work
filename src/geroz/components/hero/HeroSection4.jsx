@@ -1,3 +1,4 @@
+import GerozPortraitFrame from '../../../components/geroz/GerozPortraitFrame.jsx';
 import { useGerozContent } from '../../../hooks/geroz/useGerozContent.js';
 import HeroAnimatedName from './HeroAnimatedName.jsx';
 
@@ -64,19 +65,15 @@ export default function HeroSection4() {
             </div>
 
             <div className="gz-hero__portrait relative z-[2] col-start-2 row-start-1 w-full max-w-[clamp(16rem,26vw,26rem)] justify-self-end self-center max-xl:max-w-[clamp(14rem,24vw,22rem)] max-lg:order-3 max-lg:mx-auto max-lg:mt-0 max-lg:w-full max-lg:max-w-[min(20rem,88vw)]">
-              <div className="gz-hero__portrait-stage">
-                <span className="gz-hero__portrait-rule" aria-hidden="true" />
-                <div className="gz-hero__portrait-aura" aria-hidden="true" />
-                <div className="gz-hero__portrait-card">
-                  <img
-                    src={hero.profilePhoto}
-                    alt={hero.portraitAlt}
-                    width="734"
-                    height="991"
-                    className="gz-hero__portrait-img"
-                  />
-                </div>
-              </div>
+              <GerozPortraitFrame
+                src={hero.profilePhoto}
+                alt={hero.portraitAlt}
+                width={734}
+                height={991}
+                loading="eager"
+                size="hero"
+                className="lg:mx-0"
+              />
             </div>
           </div>
         </div>

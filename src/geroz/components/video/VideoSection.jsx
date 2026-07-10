@@ -1,87 +1,15 @@
-import { useGerozContent } from '../../../hooks/geroz/useGerozContent.js';
 import GerozDecorShapes from '../../../components/geroz/GerozDecorShapes.jsx';
+import GerozExpertiseAuthor from '../../../components/geroz/GerozExpertiseAuthor.jsx';
 import GerozEyebrow from '../../../components/geroz/GerozEyebrow.jsx';
-import GerozThemeButton from '../../../components/geroz/GerozThemeButton.jsx';
-
 import GerozLuxuryBackdrop from '../../../components/geroz/GerozLuxuryBackdrop.jsx';
-function ExpertiseAuthor({ name, role, className = '' }) {
-  if (!name && !role) return null;
-
-  return (
-    <footer className={`gz-expertise__author shrink-0 ${className}`.trim()}>
-      <div className="flex items-start gap-4">
-        <span
-          className="gz-expertise__author-line mt-2 block h-10 w-px shrink-0 bg-[linear-gradient(180deg,var(--color-lawyer),color-mix(in_srgb,var(--color-lawyer)_25%,transparent))]"
-          aria-hidden="true"
-        />
-        <div className="min-w-0">
-          {name ? (
-            <p className="gz-expertise__author-name m-0 font-sans text-[1.1875rem] font-bold leading-tight tracking-[-0.01em] text-stone-900">
-              {name}
-            </p>
-          ) : null}
-          {role ? (
-            <p className="gz-expertise__author-role mt-2 m-0 font-sans text-[0.6875rem] font-semibold uppercase leading-relaxed tracking-[0.18em] text-lawyer">
-              {role}
-            </p>
-          ) : null}
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function ExpertisePortrait({ video, expert }) {
-  const videoSrc = video?.src?.trim() || '';
-  const hasVideoReel = Boolean(videoSrc);
-  const imageSrc = video?.poster?.trim() || expert?.image || '';
-
-  if (!imageSrc && !hasVideoReel) {
-    return (
-      <div
-        className="h-[clamp(16rem,34vw,34rem)] w-full bg-stone-200"
-        aria-hidden="true"
-      />
-    );
-  }
-
-  return (
-    <div className="gz-expertise__portrait relative mx-auto w-full max-w-[min(100%,28rem)] p-[clamp(0.5rem,1vw,0.85rem)] lg:mx-0">
-      <span
-        className="gz-expertise__portrait-corner pointer-events-none absolute top-0 right-0 z-0 h-[58%] w-[40%] translate-x-2 -translate-y-2 border border-[color-mix(in_srgb,var(--color-lawyer)_45%,transparent)]"
-        aria-hidden="true"
-      />
-      <div className="gz-expertise__portrait-frame relative z-[1] overflow-hidden bg-white shadow-[0_1.5rem_3rem_-1.25rem_rgba(28,25,23,0.18),0_0_0_1px_color-mix(in_srgb,var(--color-lawyer)_22%,#e7e5e4)]">
-        {hasVideoReel ? (
-          <video
-            className="gz-expertise__portrait-img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
-            src={videoSrc}
-            poster={imageSrc || undefined}
-            aria-label={expert?.authorName ?? ''}
-            width="670"
-            height="955"
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        ) : (
-          <img
-            className="gz-expertise__portrait-img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]"
-            src={imageSrc}
-            alt={expert?.authorName ?? ''}
-            width="670"
-            height="955"
-            loading="lazy"
-          />
-        )}
-      </div>
-    </div>
-  );
-}
+import GerozPortraitFrame from '../../../components/geroz/GerozPortraitFrame.jsx';
+import GerozThemeButton from '../../../components/geroz/GerozThemeButton.jsx';
+import { useGerozContent } from '../../../hooks/geroz/useGerozContent.js';
 
 export default function VideoSection() {
   const { expertise, expert, video } = useGerozContent();
+  const videoSrc = video?.src?.trim() || '';
+  const portraitSrc = video?.poster?.trim() || expert?.image || '';
 
   return (
     <section id="expertise" className="gz-expertise relative overflow-hidden">
@@ -99,7 +27,13 @@ export default function VideoSection() {
             </div>
 
             <div className="flex items-end lg:col-span-5 xl:col-span-5">
-              <ExpertisePortrait video={video} expert={expert} />
+              <GerozPortraitFrame
+                src={portraitSrc}
+                alt={expert?.authorName ?? ''}
+                videoSrc={videoSrc}
+                poster={portraitSrc}
+                className="lg:mx-0"
+              />
             </div>
 
             <div className="flex min-h-[clamp(16rem,34vw,34rem)] w-full min-w-0 flex-col pb-[clamp(1.5rem,3vw,2.5rem)] lg:col-span-6 xl:col-span-6">
@@ -126,7 +60,7 @@ export default function VideoSection() {
                   </GerozThemeButton>
                 ) : null}
 
-                <ExpertiseAuthor
+                <GerozExpertiseAuthor
                   name={expert.authorName}
                   role={expert.authorRole}
                   className="mt-auto pt-[clamp(1.5rem,3vw,2.25rem)]"

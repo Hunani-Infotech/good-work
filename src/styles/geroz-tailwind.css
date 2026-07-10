@@ -926,7 +926,7 @@ body.geroz-template .gz-back-to-top svg path {
 
 .gz-about__photo-bg,
 .gz-hero__portrait,
-.gz-expertise__portrait-img {
+.gz-portrait__img {
   will-change: transform;
   backface-visibility: hidden;
 }
@@ -1069,97 +1069,138 @@ body.geroz-template .gz-back-to-top svg path {
   background-color: var(--gz-hero-text-gold) !important;
 }
 
-/* Hero portrait — floating editorial card + ambient aura */
+/* Hero portrait — luxury frame layout */
 .gz-hero__portrait {
   display: flex;
   justify-content: center;
 }
 
-.gz-hero__portrait-stage {
-  position: relative;
+.gz-hero__portrait .gz-portrait {
   width: 100%;
   max-width: clamp(14.5rem, 23vw, 23rem);
   margin-inline: auto;
-  padding-left: clamp(0.85rem, 1.8vw, 1.15rem);
 }
 
-.gz-hero__portrait-rule {
-  position: absolute;
-  top: 10%;
-  left: 0;
-  z-index: 2;
-  width: 1px;
-  height: 72%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    var(--gz-hero-text-gold, #f25828) 18%,
-    color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 55%, white) 82%,
-    transparent 100%
-  );
-  transform-origin: top center;
-  pointer-events: none;
+/* ── Luxury portrait frame (hero + expertise) ── */
+.gz-portrait {
+  padding: clamp(0.75rem, 1.4vw, 1.15rem);
 }
 
-.gz-hero__portrait-rule::after {
-  content: '';
+.gz-portrait__halo {
   position: absolute;
-  top: 46%;
-  left: 50%;
-  width: 0.34rem;
-  height: 0.34rem;
-  border-radius: 50%;
-  background: var(--gz-hero-text-gold, #f25828);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 18%, transparent);
-  transform: translate(-50%, -50%);
-}
-
-.gz-hero__portrait-aura {
-  position: absolute;
-  top: 50%;
-  left: 54%;
+  inset: -8%;
   z-index: 0;
-  width: 108%;
-  height: 94%;
-  border-radius: 50%;
   background: radial-gradient(
-    ellipse at center,
-    color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 22%, white) 0%,
-    color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 8%, #faf8f5) 42%,
-    transparent 72%
+    ellipse 82% 72% at 50% 36%,
+    color-mix(in srgb, var(--color-lawyer) 18%, transparent) 0%,
+    color-mix(in srgb, var(--color-lawyer) 7%, transparent) 44%,
+    transparent 74%
   );
-  filter: blur(18px);
-  transform: translate(-50%, -50%);
+  filter: blur(11px);
   pointer-events: none;
 }
 
-.gz-hero__portrait-card {
-  position: relative;
+.gz-portrait__mat {
+  position: absolute;
+  border: 1px solid;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gz-portrait__mat--outer {
+  inset: -10px;
+  border-color: color-mix(in srgb, var(--gz-hero-text-gold, var(--color-lawyer)) 36%, transparent);
+  transform: rotate(4deg);
+  opacity: 0.52;
+}
+
+.gz-portrait__mat--inner {
+  inset: -5px;
+  border-color: color-mix(in srgb, var(--color-lawyer) 22%, transparent);
+  transform: rotate(-2deg);
+  opacity: 0.68;
+}
+
+.gz-portrait__corner {
+  position: absolute;
+  width: clamp(1.05rem, 2.1vw, 1.4rem);
+  height: clamp(1.05rem, 2.1vw, 1.4rem);
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--color-lawyer) 50%, transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.gz-portrait__corner--tl {
+  top: clamp(0.15rem, 0.5vw, 0.3rem);
+  left: clamp(0.15rem, 0.5vw, 0.3rem);
+  border-width: 1px 0 0 1px;
+}
+
+.gz-portrait__corner--tr {
+  top: clamp(0.15rem, 0.5vw, 0.3rem);
+  right: clamp(0.15rem, 0.5vw, 0.3rem);
+  border-width: 1px 1px 0 0;
+}
+
+.gz-portrait__corner--bl {
+  bottom: clamp(0.15rem, 0.5vw, 0.3rem);
+  left: clamp(0.15rem, 0.5vw, 0.3rem);
+  border-width: 0 0 1px 1px;
+}
+
+.gz-portrait__corner--br {
+  bottom: clamp(0.15rem, 0.5vw, 0.3rem);
+  right: clamp(0.15rem, 0.5vw, 0.3rem);
+  border-width: 0 1px 1px 0;
+}
+
+.gz-portrait__ring {
+  position: absolute;
+  inset: clamp(0.28rem, 0.65vw, 0.48rem);
   z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 58%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--color-lawyer) 20%, #e7e5e4),
+    0 0 0 5px var(--brand-bg-warm, #faf8f5),
+    0 0 0 6px color-mix(in srgb, var(--color-lawyer) 14%, transparent);
+}
+
+.gz-portrait__frame {
+  position: relative;
+  z-index: 2;
   overflow: hidden;
-  border-radius: clamp(1.1rem, 2vw, 1.45rem);
   background: #fff;
   box-shadow:
-    0 26px 56px -20px rgba(28, 25, 23, 0.22),
-    0 0 0 1px color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 22%, rgba(255, 255, 255, 0.9));
+    0 0 0 1px color-mix(in srgb, var(--color-lawyer) 22%, #e7e5e4),
+    0 1.25rem 2.75rem -1.1rem rgba(28, 25, 23, 0.22),
+    0 2.25rem 5rem -1.75rem rgba(28, 25, 23, 0.14);
 }
 
-.gz-hero__portrait-card::after {
+.gz-portrait__frame::before {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--color-lawyer) 12%, transparent);
+  pointer-events: none;
+}
+
+.gz-portrait__fade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 34%;
   z-index: 1;
   background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 62%,
-    color-mix(in srgb, #faf8f5 55%, transparent) 86%,
-    color-mix(in srgb, var(--brand-bg-warm, #faf8f5) 88%, transparent) 100%
+    to top,
+    color-mix(in srgb, #fff 94%, transparent) 10%,
+    transparent 100%
   );
   pointer-events: none;
 }
 
-.gz-hero__portrait-img {
+.gz-portrait__img--hero {
   display: block;
   width: 100%;
   aspect-ratio: 734 / 991;
@@ -1167,7 +1208,7 @@ body.geroz-template .gz-back-to-top svg path {
   max-height: clamp(20rem, 42vw, 36rem);
   object-fit: cover;
   object-position: center 12%;
-  filter: contrast(1.03) saturate(0.94);
+  filter: contrast(1.03) saturate(0.92) brightness(1.02);
 }
 
 /* Full-bleed shifting gradient — GoodWork cream + orange palette */
@@ -1307,26 +1348,11 @@ body.geroz-template .gz-back-to-top svg path {
     width: 100%;
   }
 
-  .gz-hero__portrait-stage {
+  .gz-hero__portrait .gz-portrait {
     max-width: min(19rem, 86vw);
-    padding-left: 0.65rem;
   }
 
-  .gz-hero__portrait-rule {
-    height: 64%;
-    top: 14%;
-  }
-
-  .gz-hero__portrait-aura {
-    width: 112%;
-    filter: blur(14px);
-  }
-
-  .gz-hero__portrait-card {
-    border-radius: 1rem;
-  }
-
-  .gz-hero__portrait-img {
+  .gz-portrait__img--hero {
     max-height: none;
     object-position: center 16%;
   }
@@ -1438,14 +1464,43 @@ body.geroz-template .gz-back-to-top svg path {
   background: color-mix(in srgb, #fff 12%, transparent);
 }
 
-.gz-expertise .gz-expertise__portrait-corner {
-  border-color: color-mix(in srgb, #fff 42%, transparent) !important;
+.gz-expertise .gz-portrait__corner {
+  border-color: color-mix(in srgb, #fff 46%, transparent) !important;
 }
 
-.gz-expertise .gz-expertise__portrait-frame {
+.gz-expertise .gz-portrait__ring {
   box-shadow:
-    0 1.5rem 3rem -1.25rem rgba(0, 0, 0, 0.28),
-    0 0 0 1px color-mix(in srgb, #fff 28%, transparent) !important;
+    inset 0 1px 0 color-mix(in srgb, #fff 24%, transparent),
+    0 0 0 1px color-mix(in srgb, #fff 34%, transparent),
+    0 0 0 5px color-mix(in srgb, #fff 10%, transparent),
+    0 0 0 6px color-mix(in srgb, #fff 18%, transparent) !important;
+}
+
+.gz-expertise .gz-portrait__frame {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, #fff 30%, transparent),
+    0 1.5rem 3rem -1.25rem rgba(0, 0, 0, 0.34),
+    0 2.5rem 5.5rem -2rem rgba(0, 0, 0, 0.24) !important;
+}
+
+.gz-expertise .gz-portrait__frame::before {
+  border-color: color-mix(in srgb, #fff 18%, transparent) !important;
+}
+
+.gz-expertise .gz-portrait__halo {
+  background: radial-gradient(
+    ellipse 82% 72% at 50% 36%,
+    color-mix(in srgb, #fff 14%, transparent) 0%,
+    transparent 72%
+  ) !important;
+}
+
+.gz-expertise .gz-portrait__fade {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--brand-orange) 90%, #000) 12%,
+    transparent 100%
+  ) !important;
 }
 
 /* Capabilities — image + orange overlay */
