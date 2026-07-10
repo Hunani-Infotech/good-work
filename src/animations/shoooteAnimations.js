@@ -365,7 +365,12 @@ function animateHeroLineChars(el, options = {}) {
   });
 }
 
-function heroNameRevealDuration(root, topLine, bottomLine) {
+function heroNameRevealDuration(topLine, bottomLine, leftLine, rightLine) {
+  if (leftLine || rightLine) {
+    const totalLen = getHeroLineText(leftLine).length + getHeroLineText(rightLine).length;
+    return 0.5 + Math.max(totalLen - 1, 0) * 0.1;
+  }
+
   const topLen = topLine ? getHeroLineText(topLine).length : 0;
   const bottomLen = bottomLine ? getHeroLineText(bottomLine).length : 0;
   const letters = Math.max(topLen, bottomLen, 1);
@@ -380,6 +385,8 @@ function initHeroSplitAnimation(root = document) {
 
   const topLine = section.querySelector('.shooote-hero-line--top');
   const bottomLine = section.querySelector('.shooote-hero-line--bottom');
+  const leftLine = section.querySelector('.shooote-hero-line--left');
+  const rightLine = section.querySelector('.shooote-hero-line--right');
   const portrait = section.querySelector('.shooote-hero-portrait');
   const role = section.querySelector('.shooote-hero-role');
   const tagline = section.querySelector('.shooote-hero-tagline');
@@ -389,7 +396,7 @@ function initHeroSplitAnimation(root = document) {
   section.dataset.heroAnim = '1';
 
   if (prefersReduced) {
-    [topLine, bottomLine].forEach((line) => {
+    [topLine, bottomLine, leftLine, rightLine].forEach((line) => {
       if (!line) return;
       line.dataset.heroLineSplit = '1';
       gsap.set(line, { opacity: 1, visibility: 'visible', filter: 'none' });
@@ -401,7 +408,7 @@ function initHeroSplitAnimation(root = document) {
   }
 
   const nameStart = 0.08;
-  const nameDuration = heroNameRevealDuration(root, topLine, bottomLine);
+  const nameDuration = heroNameRevealDuration(topLine, bottomLine, leftLine, rightLine);
   const portraitDelay = nameStart + nameDuration + 0.12;
   const portraitDuration = 1.1;
 
@@ -415,6 +422,15 @@ function initHeroSplitAnimation(root = document) {
 
   if (bottomLine) {
     animateHeroLineChars(bottomLine, { delay: nameStart });
+  }
+
+  if (leftLine) {
+    animateHeroLineChars(leftLine, { delay: nameStart });
+  }
+
+  if (rightLine) {
+    const leftLen = leftLine ? getHeroLineText(leftLine).length : 0;
+    animateHeroLineChars(rightLine, { delay: nameStart + leftLen * 0.1 });
   }
 
   if (portrait) {

@@ -23,15 +23,34 @@ export default function ShoooteHero() {
       <GwSectionLabel center>{hero.sectionLabel}</GwSectionLabel>
 
       <div className="shooote-hero-stage">
-        <div className={`shooote-hero-name${hero.hasLastName ? '' : ' shooote-hero-name--no-last'}`}>
-          <h1 className="shooote-hero-line shooote-hero-line--top shooote-hero-blur-text">{hero.nameLine1}</h1>
-          <div className="shooote-hero-portrait">
-            <img src={hero.image} alt={hero.title} />
-          </div>
-          {hero.hasLastName ? (
+        {hero.hasLastName ? (
+          <div className="shooote-hero-name">
+            <h1 className="shooote-hero-line shooote-hero-line--top shooote-hero-blur-text">{hero.nameLine1}</h1>
+            <div className="shooote-hero-portrait">
+              <img src={hero.image} alt={hero.title} />
+            </div>
             <h1 className="shooote-hero-line shooote-hero-line--bottom shooote-hero-blur-text">{hero.nameLine2}</h1>
-          ) : null}
-        </div>
+          </div>
+        ) : (
+          <div
+            className="shooote-hero-name shooote-hero-name--no-last"
+            style={{ '--hero-name-chars': hero.nameCharCount }}
+          >
+            <h1 className="shooote-hero-inline-name">
+              <span className="shooote-hero-line shooote-hero-line--left shooote-hero-blur-text">
+                {hero.nameParts?.left}
+              </span>
+              <span className="shooote-hero-portrait">
+                <img src={hero.image} alt={hero.title} />
+              </span>
+              {hero.nameParts?.right ? (
+                <span className="shooote-hero-line shooote-hero-line--right shooote-hero-blur-text">
+                  {hero.nameParts.right}
+                </span>
+              ) : null}
+            </h1>
+          </div>
+        )}
 
         {hero.role ? (
           <p className="shooote-hero-role">{hero.role}</p>

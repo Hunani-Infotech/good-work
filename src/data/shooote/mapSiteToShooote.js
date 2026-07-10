@@ -14,6 +14,22 @@ function heroNameLines(brand) {
   };
 }
 
+/** Split a single first name so the portrait can sit inline between both halves. */
+function splitFirstNameAroundPortrait(firstName) {
+  const text = (firstName || '').trim().toUpperCase();
+  const len = text.length;
+
+  if (len <= 1) {
+    return { left: text, right: '' };
+  }
+
+  const splitAt = Math.ceil(len / 2);
+  return {
+    left: text.slice(0, splitAt),
+    right: text.slice(splitAt),
+  };
+}
+
 function expertiseHeadingLines(heading) {
   const trimmed = (heading || '').trim();
   if (!trimmed) return [];
@@ -80,6 +96,8 @@ export function mapSiteToShooote(site = defaultSite) {
       title: nameLines.fullName,
       nameLine1: nameLines.line1,
       nameLine2: nameLines.line2,
+      nameParts: nameLines.hasLastName ? null : splitFirstNameAroundPortrait(firstName),
+      nameCharCount: nameLines.line1.length,
       hasLastName: nameLines.hasLastName,
       role: (hero.subtitle || '').trim(),
       tagline: heroTagline(hero),

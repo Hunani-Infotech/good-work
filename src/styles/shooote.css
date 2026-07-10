@@ -359,12 +359,47 @@ body.shooote-template #root {
 }
 
 .shooote-hero-name--no-last {
-  --hero-portrait-w: clamp(5rem, 10vw, 8.5rem);
-  --hero-portrait-overlap: calc(var(--hero-portrait-w) * 0.35);
+  --hero-portrait-w: clamp(8rem, 15vw, 14rem);
+  width: 100%;
+  max-width: min(96vw, 64rem);
+  padding: 0;
+}
+
+.shooote-hero-inline-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: clamp(0.2rem, 1.1vw, 0.75rem);
+  margin: 0;
+  font: inherit;
+}
+
+.shooote-hero-name--no-last .shooote-hero-line--left,
+.shooote-hero-name--no-last .shooote-hero-line--right {
+  margin: 0;
+  color: var(--shooote-accent);
+  white-space: nowrap;
 }
 
 .shooote-hero-name--no-last .shooote-hero-portrait {
-  margin-bottom: 0;
+  margin: 0;
+  width: var(--hero-portrait-w);
+  aspect-ratio: 3 / 4.15;
+  border-radius: 999px;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--shooote-ink) 8%, transparent),
+    0 0 0 5px var(--shooote-cream),
+    0 18px 42px rgba(26, 26, 26, 0.12);
+}
+
+.shooote-hero-name--no-last + .shooote-hero-role {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.shooote-hero-inline-name .shooote-hero-line {
+  display: inline-block;
 }
 
 .shooote-hero-portrait img {
@@ -480,7 +515,52 @@ body.shooote-template #root {
   }
 
   .shooote-hero-name--no-last {
-    --hero-portrait-w: min(16rem, 72vw);
+    --hero-portrait-w: min(17.5rem, 78vw);
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .shooote-hero-inline-name {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    column-gap: 0;
+    row-gap: 0;
+  }
+
+  .shooote-hero-name--no-last .shooote-hero-portrait {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: center;
+    width: var(--hero-portrait-w);
+    max-width: 100%;
+    aspect-ratio: 4 / 4.75;
+    margin: 0;
+    z-index: 1;
+    border-radius: 2rem 2rem 0.65rem 0.65rem;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--shooote-hero-accent) 36%, transparent),
+      0 0 0 5px var(--shooote-hero-bg),
+      0 20px 48px rgba(0, 0, 0, 0.22);
+  }
+  .shooote-hero-name--no-last .shooote-hero-line--left {
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: end;
+    margin: calc(-1 * var(--hero-first-overlap)) 0 0;
+    z-index: 2;
+  }
+
+  .shooote-hero-name--no-last .shooote-hero-line--right {
+    grid-row: 2;
+    grid-column: 2;
+    justify-self: start;
+    margin: calc(-1 * var(--hero-first-overlap)) 0 0;
+    z-index: 2;
   }
 
   .shooote-hero-portrait {
@@ -546,8 +626,29 @@ body.shooote-template #root {
     z-index: 2;
   }
 
-  .shooote-hero-name--no-last .shooote-hero-line--top {
-    margin-bottom: 0;
+  .shooote-hero-name--no-last .shooote-hero-line--left,
+  .shooote-hero-name--no-last .shooote-hero-line--right {
+    width: auto;
+    max-width: none;
+    font-size: clamp(4.5rem, 16.5vw, 6.25rem);
+    line-height: 0.78;
+    letter-spacing: 0.06em;
+  }
+
+  .shooote-hero-name--no-last .shooote-hero-portrait::after {
+    height: 48%;
+    opacity: 1;
+    border-radius: inherit;
+    background: linear-gradient(
+      to top,
+      var(--shooote-hero-bg) 8%,
+      color-mix(in srgb, var(--shooote-hero-bg) 88%, transparent) 38%,
+      transparent 100%
+    );
+  }
+
+  .shooote-hero-name--no-last .shooote-hero-role {
+    margin-top: 1.25rem;
   }
 
   .shooote-hero-role {
