@@ -1,21 +1,16 @@
-import GwSection from '../shared/GwSection.jsx';
 import { useCvCtaContent } from '../../hooks/useCvCtaContent.js';
 
-function CtaAccent() {
-  return (
-    <div className="shooote-cta__accent" aria-hidden="true">
-      <span className="shooote-cta__accent-line" />
-      <span className="shooote-cta__accent-dot" />
-      <span className="shooote-cta__accent-line" />
-    </div>
-  );
-}
+const VIEWFINDER_CORNERS = ['tl', 'tr', 'bl', 'br'];
 
-function CtaDecor() {
+function ShoooteConnectBackdrop() {
   return (
-    <div className="shooote-cta__decor" aria-hidden="true">
-      <span className="shooote-cta__orb shooote-cta__orb--a" />
-      <span className="shooote-cta__orb shooote-cta__orb--b" />
+    <div className="shooote-connect__backdrop" aria-hidden="true">
+      <span className="shooote-connect__orb shooote-connect__orb--a" />
+      <span className="shooote-connect__orb shooote-connect__orb--b" />
+      <span className="shooote-connect__wash" />
+      <span className="shooote-connect__vignette" />
+      <span className="shooote-connect__grain" />
+      <span className="shooote-connect__watermark">05</span>
     </div>
   );
 }
@@ -25,49 +20,70 @@ export default function ShoooteCtaSection() {
   const headingLines = cta.headingLines.length ? cta.headingLines : [cta.heading];
 
   return (
-    <GwSection
-      theme="shooote"
-      id="connect"
-      className="wpo-connect-section"
-      sectionLabel={`05 — ${cta.tag}`}
-      beforeInner={<CtaDecor />}
-    >
-      <p className="shooote-cta__watermark" aria-hidden="true">
-        {cta.tag}
-      </p>
+    <section id="connect" className="shooote-connect" aria-labelledby="shooote-connect-heading">
+      <ShoooteConnectBackdrop />
 
-      <div className="shooote-cta__panel">
-        {cta.eyebrow ? (
-          <p className="shooote-cta__eyebrow">{cta.eyebrow}</p>
-        ) : null}
+      <div className="shooote-connect__filmstrip shooote-connect__filmstrip--top" aria-hidden="true" />
+      <div className="shooote-connect__filmstrip shooote-connect__filmstrip--bottom" aria-hidden="true" />
 
-        <CtaAccent />
-
-        <h2 className="shooote-cta__heading" aria-label={cta.heading}>
-          {headingLines.map((line) => (
-            <span key={line} className="shooote-cta__heading-line poort-text poort-in-right">
-              {line}
-            </span>
-          ))}
-        </h2>
-
-        {cta.statement ? (
-          <p className="gw-section__statement shooote-scroll-fade">{cta.statement}</p>
-        ) : null}
-
-        {cta.mailto ? (
-          <div className="shooote-cta__actions">
-            <a href={cta.mailto} className="theme-btn shooote-mailto-btn">
-              <i className="icon">
-                <img src="/assets/shooote/images/arrow-2.svg" alt="" />
-              </i>
-              <i className="link-text">
-                <span>{cta.ctaLabel}</span>
-              </i>
-            </a>
-          </div>
-        ) : null}
+      <div className="shooote-connect__viewfinder" aria-hidden="true">
+        {VIEWFINDER_CORNERS.map((corner) => (
+          <span key={corner} className={`shooote-connect__vf shooote-connect__vf--${corner}`} />
+        ))}
       </div>
-    </GwSection>
+
+      <div className="shooote-connect__panel">
+        <div className="container shooote-connect__container">
+          <div className="shooote-connect__grid">
+            {cta.eyebrow ? (
+              <div className="shooote-connect__eyebrow-row">
+                <span className="shooote-connect__eyebrow-mark" aria-hidden="true" />
+                <p className="shooote-connect__eyebrow">{cta.eyebrow}</p>
+              </div>
+            ) : null}
+
+            <div className="shooote-connect__divider" aria-hidden="true" />
+
+            <div className="shooote-connect__primary">
+              <div className="shooote-connect__heading-wrap">
+                <h2 id="shooote-connect-heading" className="shooote-connect__heading">
+                  {headingLines.map((line) => (
+                    <span key={line} className="shooote-connect__heading-line">
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+              </div>
+            </div>
+
+            <div className="shooote-connect__aside">
+              {cta.statement ? (
+                <p className="shooote-connect__statement">{cta.statement}</p>
+              ) : null}
+
+              {cta.mailto ? (
+                <div className="shooote-connect__actions">
+                  <a href={cta.mailto} className="shooote-connect__cta">
+                    <span className="shooote-connect__cta-label">{cta.ctaLabel}</span>
+                    <span className="shooote-connect__cta-arrow" aria-hidden="true">
+                      <span className="shooote-connect__cta-arrow-glyph">→</span>
+                    </span>
+                  </a>
+
+                  {cta.email ? (
+                    <>
+                      <span className="shooote-connect__actions-sep" aria-hidden="true" />
+                      <a href={cta.mailto} className="shooote-connect__email">
+                        {cta.email}
+                      </a>
+                    </>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

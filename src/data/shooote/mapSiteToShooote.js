@@ -14,6 +14,25 @@ function heroNameLines(brand) {
   };
 }
 
+function expertiseHeadingLines(heading) {
+  const trimmed = (heading || '').trim();
+  if (!trimmed) return [];
+
+  const nativeIdx = trimmed.search(/\s+Native\s+and\s+Cross-Platform/i);
+  if (nativeIdx !== -1) {
+    return [
+      trimmed.slice(0, nativeIdx).trim(),
+      trimmed.slice(nativeIdx + 1).trim(),
+    ];
+  }
+
+  const mid = Math.floor(trimmed.length / 2);
+  const spaceIdx = trimmed.indexOf(' ', mid);
+  if (spaceIdx === -1) return [trimmed];
+
+  return [trimmed.slice(0, spaceIdx).trim(), trimmed.slice(spaceIdx + 1).trim()];
+}
+
 function heroTagline(hero) {
   if (hero.heroStatement) {
     return hero.heroStatement.trim();
@@ -69,10 +88,17 @@ export function mapSiteToShooote(site = defaultSite) {
     },
     expertise: {
       sectionLabel: '02 — Hero',
+      eyebrow: 'Video introduction',
       heading: hero.heading || '',
+      headingLines: expertiseHeadingLines(hero.heading),
       statement: hero.heroStatement || '',
       ctaLabel: hero.ctaLabel || "Let's Connect",
       mailto,
+      authorName: nameLines.fullName,
+      video: {
+        src: hero?.videoCv?.src ?? '',
+        poster: hero?.videoCv?.poster ?? hero?.profilePhoto ?? '',
+      },
     },
     narrative: {
       sectionLabel: '03 — Narrative',

@@ -206,6 +206,14 @@
   );
 }
 
+body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam--shooote {
+  width: 180px;
+  height: 180px;
+  margin-left: -90px;
+  margin-top: -90px;
+  opacity: 0.72;
+}
+
 .cursor-spotlight-pin {
   z-index: 100002;
   width: 4px;

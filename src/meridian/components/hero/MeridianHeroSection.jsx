@@ -8,6 +8,7 @@ export default function MeridianHeroSection() {
   const rolePrimary = roleInMarquee ? '' : (hero.roleLines?.[0] ?? hero.subtitle);
   const roleSecondary = roleInMarquee ? '' : (hero.roleLines?.slice(1).join(' & ') || '');
   const showRole = Boolean(rolePrimary || roleSecondary);
+  const marqueeCharCount = Math.max(hero.marqueeText?.trim().length ?? hero.nameLine1?.length ?? 1, 1);
 
   return (
     <section
@@ -17,6 +18,7 @@ export default function MeridianHeroSection() {
       }${
         hero.marqueeLayout === 'inline-only' ? ' meridian-hero--marquee-single' : ''
       }`}
+      style={{ '--meridian-marquee-chars': marqueeCharCount }}
     >
       <div className="meridian-hero__atmosphere" aria-hidden="true">
         <div className="meridian-hero__spotlight" />

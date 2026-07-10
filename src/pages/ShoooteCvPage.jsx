@@ -10,9 +10,7 @@ import ShoooteFooter from '../components/shooote/ShoooteFooter.jsx';
 import { useShoooteAnimations } from '../hooks/shooote/useShoootePageAnimations.js';
 import { scrollToShoooteAnchor } from '../animations/shoooteAnimations.js';
 import { useShoooteContent } from '../hooks/shooote/useShoooteContent.js';
-import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';
 import '../styles/shooote.css';
-import '../styles/video-cv-widget.css';
 
 export default function ShoooteCvPage() {
   const location = useLocation();
@@ -58,19 +56,16 @@ export default function ShoooteCvPage() {
   }, [location.hash]);
 
   return (
-    <>
-      <ShoooteLayout>
-        <div className="cv-page-screens">
-          <ShoooteHero />
-          <ShoooteExpertise />
-          <ShoooteNarrative />
-          <ShoooteCapabilities />
-        </div>
-        <ShoooteCtaSection />
-        <ShoooteFooter />
-      </ShoooteLayout>
-      <VideoCvWidget accentColor={theme?.accent ?? '#f25828'} position="bottom-right" />
-    </>
+    <ShoooteLayout>
+      <div className="cv-page-screens">
+        <ShoooteHero />
+        <ShoooteExpertise />
+        <ShoooteNarrative />
+        <ShoooteCapabilities />
+      </div>
+      <ShoooteCtaSection />
+      <ShoooteFooter />
+    </ShoooteLayout>
   );
 }
 

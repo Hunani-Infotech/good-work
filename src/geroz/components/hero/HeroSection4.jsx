@@ -63,19 +63,17 @@ export default function HeroSection4() {
               </div>
             </div>
 
-            <div className="gz-hero__portrait relative z-[2] col-start-2 row-start-1 w-full max-w-[clamp(16rem,26vw,26rem)] justify-self-end self-center p-[clamp(0.65rem,1.2vw,1rem)] max-xl:max-w-[clamp(14rem,24vw,22rem)] max-lg:order-3 max-lg:mx-auto max-lg:mt-0 max-lg:w-full max-lg:max-w-[min(20rem,88vw)] max-lg:p-0">
-              <span
-                className="gz-hero__portrait-corner pointer-events-none absolute top-0 right-0 z-0 h-[62%] w-[42%] translate-x-[0.65rem] -translate-y-[0.65rem] border border-[color-mix(in_srgb,var(--color-lawyer)_50%,transparent)] max-lg:hidden"
-                aria-hidden="true"
-              />
+            <div className="gz-hero__portrait relative z-[2] col-start-2 row-start-1 w-full max-w-[clamp(16rem,26vw,26rem)] justify-self-end self-center max-xl:max-w-[clamp(14rem,24vw,22rem)] max-lg:order-3 max-lg:mx-auto max-lg:mt-0 max-lg:w-full max-lg:max-w-[min(20rem,88vw)]">
               <div className="gz-hero__portrait-stage">
-                <div className="gz-hero__portrait-frame relative z-[1] mx-auto w-full overflow-hidden bg-white leading-none shadow-[0_1.75rem_3.5rem_-1.25rem_rgba(28,25,23,0.22),0_0_0_1px_color-mix(in_srgb,var(--color-lawyer)_28%,#e7e5e4)]">
+                <span className="gz-hero__portrait-rule" aria-hidden="true" />
+                <div className="gz-hero__portrait-aura" aria-hidden="true" />
+                <div className="gz-hero__portrait-card">
                   <img
                     src={hero.profilePhoto}
                     alt={hero.portraitAlt}
                     width="734"
                     height="991"
-                    className="gz-hero__portrait-img block aspect-[734/991] h-auto w-full max-h-[clamp(20rem,42vw,36rem)] object-cover object-top contrast-[1.03] saturate-[0.92] max-lg:max-h-none max-lg:object-[center_18%]"
+                    className="gz-hero__portrait-img"
                   />
                 </div>
               </div>

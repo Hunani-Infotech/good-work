@@ -942,6 +942,107 @@ body.geroz-template .gz-back-to-top svg path {
   background-color: var(--gz-hero-text-gold) !important;
 }
 
+/* Hero portrait — floating editorial card + ambient aura */
+.gz-hero__portrait {
+  display: flex;
+  justify-content: center;
+}
+
+.gz-hero__portrait-stage {
+  position: relative;
+  width: 100%;
+  max-width: clamp(14.5rem, 23vw, 23rem);
+  margin-inline: auto;
+  padding-left: clamp(0.85rem, 1.8vw, 1.15rem);
+}
+
+.gz-hero__portrait-rule {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  z-index: 2;
+  width: 1px;
+  height: 72%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--gz-hero-text-gold, #f25828) 18%,
+    color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 55%, white) 82%,
+    transparent 100%
+  );
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.gz-hero__portrait-rule::after {
+  content: '';
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--gz-hero-text-gold, #f25828);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 18%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.gz-hero__portrait-aura {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  z-index: 0;
+  width: 108%;
+  height: 94%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 22%, white) 0%,
+    color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 8%, #faf8f5) 42%,
+    transparent 72%
+  );
+  filter: blur(18px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.gz-hero__portrait-card {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: clamp(1.1rem, 2vw, 1.45rem);
+  background: #fff;
+  box-shadow:
+    0 26px 56px -20px rgba(28, 25, 23, 0.22),
+    0 0 0 1px color-mix(in srgb, var(--gz-hero-text-gold, #f25828) 22%, rgba(255, 255, 255, 0.9));
+}
+
+.gz-hero__portrait-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 62%,
+    color-mix(in srgb, #faf8f5 55%, transparent) 86%,
+    color-mix(in srgb, var(--brand-bg-warm, #faf8f5) 88%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+.gz-hero__portrait-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 734 / 991;
+  height: auto;
+  max-height: clamp(20rem, 42vw, 36rem);
+  object-fit: cover;
+  object-position: center 12%;
+  filter: contrast(1.03) saturate(0.94);
+}
+
 /* Full-bleed shifting gradient — GoodWork cream + orange palette */
 .gz-hero__gradients {
   position: absolute;
@@ -1080,75 +1181,27 @@ body.geroz-template .gz-back-to-top svg path {
   }
 
   .gz-hero__portrait-stage {
-    position: relative;
-    width: 100%;
-    padding: clamp(0.55rem, 2.5vw, 0.75rem);
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.92) 0%, rgba(252, 248, 242, 0.78) 100%);
-    box-shadow:
-      0 28px 56px -28px rgba(0, 0, 0, 0.18),
-      0 12px 24px -16px color-mix(in srgb, var(--brand-orange, #f25828) 22%, transparent),
-      0 0 0 1px color-mix(in srgb, var(--gz-hero-text-gold) 26%, white);
+    max-width: min(19rem, 86vw);
+    padding-left: 0.65rem;
   }
 
-  .gz-hero__portrait-stage::before,
-  .gz-hero__portrait-stage::after {
-    content: '';
-    position: absolute;
-    width: 1.15rem;
-    height: 1.15rem;
-    border: 1px solid color-mix(in srgb, var(--gz-hero-text-gold) 72%, transparent);
-    pointer-events: none;
-    z-index: 2;
+  .gz-hero__portrait-rule {
+    height: 64%;
+    top: 14%;
   }
 
-  .gz-hero__portrait-stage::before {
-    top: 0.35rem;
-    left: 0.35rem;
-    border-right: 0;
-    border-bottom: 0;
+  .gz-hero__portrait-aura {
+    width: 112%;
+    filter: blur(14px);
   }
 
-  .gz-hero__portrait-stage::after {
-    right: 0.35rem;
-    bottom: 0.35rem;
-    border-top: 0;
-    border-left: 0;
-  }
-
-  .gz-hero__portrait-frame {
-    position: relative;
-    box-shadow:
-      inset 0 0 0 1px color-mix(in srgb, var(--gz-hero-text-gold) 22%, #e7e5e4),
-      0 0 0 1px rgba(255, 255, 255, 0.65);
-  }
-
-  .gz-hero__portrait-frame::before,
-  .gz-hero__portrait-frame::after {
-    content: '';
-    position: absolute;
-    width: 1.15rem;
-    height: 1.15rem;
-    border: 1px solid color-mix(in srgb, var(--gz-hero-text-gold) 72%, transparent);
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .gz-hero__portrait-frame::before {
-    top: 0.45rem;
-    right: 0.45rem;
-    border-left: 0;
-    border-bottom: 0;
-  }
-
-  .gz-hero__portrait-frame::after {
-    left: 0.45rem;
-    bottom: 0.45rem;
-    border-top: 0;
-    border-right: 0;
+  .gz-hero__portrait-card {
+    border-radius: 1rem;
   }
 
   .gz-hero__portrait-img {
-    display: block;
+    max-height: none;
+    object-position: center 16%;
   }
 }
 
@@ -1199,6 +1252,10 @@ body.geroz-template .gz-back-to-top svg path {
   .geroz-theme-btn::before {
     animation: none;
     opacity: 0;
+  }
+
+  .geroz-scroll-text-reveal__word .geroz-scroll-text-reveal__ink {
+    clip-path: inset(0 0% 0 0) !important;
   }
 
   .gz-hero__char {
@@ -1323,6 +1380,42 @@ body.geroz-template .gz-back-to-top svg path {
 /* About + footer accents */
 .gz-about {
   background-color: var(--brand-bg-warm, #faf8f5);
+}
+
+/* About — scroll text reveal (hidden until scroll highlights word-by-word) */
+.geroz-scroll-text-reveal {
+  display: block;
+}
+
+.geroz-scroll-text-reveal__word {
+  display: inline-block;
+  vertical-align: top;
+  margin-inline-end: 0.28em;
+}
+
+.geroz-scroll-text-reveal__word:last-child {
+  margin-inline-end: 0;
+}
+
+.geroz-scroll-text-reveal__word .geroz-scroll-text-reveal__ink {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  clip-path: inset(0 100% 0 0);
+}
+
+.geroz-scroll-text-reveal__ink-inner {
+  display: block;
+  white-space: nowrap;
+  color: var(--gz-reveal-ink, #1c1917);
+}
+
+.gz-about__text-reveal--lead .geroz-scroll-text-reveal__ink-inner {
+  --gz-reveal-ink: #1c1917;
+}
+
+.gz-about__text-reveal--body .geroz-scroll-text-reveal__ink-inner {
+  --gz-reveal-ink: #44403c;
 }
 
 .gz-footer {

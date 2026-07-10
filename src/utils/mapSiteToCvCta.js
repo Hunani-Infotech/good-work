@@ -32,6 +32,7 @@ export function mapSiteToCvCta(siteData) {
     headingLines: splitCvCtaHeadingLines(heading),
     statement: cta.statement ?? '',
     ctaLabel: cta.ctaLabel ?? "Let's Connect",
+    actionKicker: cta.actionKicker ?? '',
     email,
     mailto,
   };

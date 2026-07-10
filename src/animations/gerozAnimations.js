@@ -23,6 +23,12 @@ import {
   splitLinesIntoMasks,
   wrapLineMask,
 } from './gerozTextHelpers.js';
+import {
+  destroyGerozAboutAnimations,
+  initGerozAboutAnimations,
+  refreshGerozAboutAnimations,
+  revealAllGerozAboutText,
+} from './gerozAboutAnimations.js';
 
 const page = createScrollPageController();
 let anchorCleanup = null;
@@ -153,13 +159,15 @@ function initGerozHero(prefersReduced) {
   const subtitle = hero.querySelector('.gz-hero__subtitle');
   const subtitleRule = hero.querySelector('.gz-hero__subtitle-rule');
   const portraitWrap = hero.querySelector('.gz-hero__portrait');
-  const portraitFrame = hero.querySelector('.gz-hero__portrait-frame');
+  const portraitRule = hero.querySelector('.gz-hero__portrait-rule');
+  const portraitAura = hero.querySelector('.gz-hero__portrait-aura');
+  const portraitCard = hero.querySelector('.gz-hero__portrait-card');
   const portraitImg = hero.querySelector('.gz-hero__portrait-img');
-  const portraitCorner = hero.querySelector('.gz-hero__portrait-corner');
 
   const targets = [
     copy, firstName, lastName, accentLine, accentDot,
-    subtitle, subtitleRule, portraitWrap, portraitFrame, portraitImg, portraitCorner,
+    subtitle, subtitleRule, portraitWrap, portraitRule, portraitAura,
+    portraitCard, portraitImg,
   ];
   targets.forEach((el) => el && gsap.set(el, { visibility: 'visible' }));
 
@@ -167,7 +175,9 @@ function initGerozHero(prefersReduced) {
     setReducedState(targets);
     resetHeroNameChars(firstName);
     resetHeroNameChars(lastName);
-    if (portraitFrame) gsap.set(portraitFrame, { clipPath: 'inset(0% 0 0 0)' });
+    if (portraitCard) gsap.set(portraitCard, { clipPath: 'inset(0% 0 0 0)', scale: 1, opacity: 1, y: 0 });
+    if (portraitAura) gsap.set(portraitAura, { scale: 1, opacity: 1 });
+    if (portraitRule) gsap.set(portraitRule, { scaleY: 1, opacity: 1 });
     return;
   }
 
@@ -184,10 +194,11 @@ function initGerozHero(prefersReduced) {
   if (accentDot) gsap.set(accentDot, { scale: 0, opacity: 0 });
   if (subtitleRule) gsap.set(subtitleRule, { scaleX: 0, transformOrigin: 'left center' });
   if (subtitleInner) gsap.set(subtitleInner, { y: '100%', letterSpacing: '0.35em' });
-  if (portraitWrap) gsap.set(portraitWrap, { opacity: 0, x: 48, rotation: 2 });
-  if (portraitFrame) gsap.set(portraitFrame, { clipPath: 'inset(100% 0 0 0)' });
-  if (portraitImg) gsap.set(portraitImg, { scale: 1.14 });
-  if (portraitCorner) gsap.set(portraitCorner, { opacity: 0, scale: 0.85, rotation: -8 });
+  if (portraitWrap) gsap.set(portraitWrap, { opacity: 0, x: 36 });
+  if (portraitRule) gsap.set(portraitRule, { scaleY: 0, opacity: 0, transformOrigin: 'top center' });
+  if (portraitAura) gsap.set(portraitAura, { opacity: 0, scale: 0.88 });
+  if (portraitCard) gsap.set(portraitCard, { opacity: 0, y: 24, clipPath: 'inset(12% 0 0 0)' });
+  if (portraitImg) gsap.set(portraitImg, { scale: 1.07 });
 
   const tl = gsap.timeline({ defaults: { ease: GEROZ_EASE }, delay: 0.1 });
 
@@ -197,10 +208,13 @@ function initGerozHero(prefersReduced) {
   if (subtitleInner) {
     tl.to(subtitleInner, { y: 0, letterSpacing: '0.2em', duration: 1.1, ease: GEROZ_EASE }, accentStart + 0.26);
   }
-  if (portraitWrap) tl.to(portraitWrap, { opacity: 1, x: 0, rotation: 0, duration: 1.25, ease: GEROZ_EASE_IO }, 0.2);
-  if (portraitFrame) tl.to(portraitFrame, { clipPath: 'inset(0% 0 0 0)', duration: 1.45, ease: GEROZ_EASE_IO }, 0.28);
-  if (portraitImg) tl.to(portraitImg, { scale: 1, duration: 1.6, ease: GEROZ_EASE_IO }, 0.35);
-  if (portraitCorner) tl.to(portraitCorner, { opacity: 1, scale: 1, rotation: 0, duration: 0.9, ease: GEROZ_EASE }, 0.62);
+  if (portraitWrap) tl.to(portraitWrap, { opacity: 1, x: 0, duration: 1.1, ease: GEROZ_EASE_IO }, 0.22);
+  if (portraitRule) tl.to(portraitRule, { scaleY: 1, opacity: 1, duration: 1.05, ease: GEROZ_EASE_IO }, 0.28);
+  if (portraitAura) tl.to(portraitAura, { opacity: 1, scale: 1, duration: 1.25, ease: GEROZ_EASE_IO }, 0.26);
+  if (portraitCard) {
+    tl.to(portraitCard, { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: GEROZ_EASE_IO }, 0.34);
+  }
+  if (portraitImg) tl.to(portraitImg, { scale: 1, duration: 1.45, ease: GEROZ_EASE_IO }, 0.4);
 
   if (copy) {
     scrubParallax(copy, hero, { y: 24, start: 'top top', end: 'bottom top', scrub: 1 });
@@ -369,14 +383,13 @@ function initGerozAbout(prefersReduced) {
   const accentDot = section.querySelector('.gz-about__accent-dot');
   const arrowWrap = section.querySelector('.gz-about__arrow');
   const arrowPath = section.querySelector('.gz-about__arrow-path');
-  const leadPara = section.querySelector('.gz-about__para--lead');
-  const bodyParas = section.querySelectorAll('.gz-about__para--body');
 
   revealEyebrowPill(eyebrow, section, prefersReduced, { variant: 'scale' });
   revealGoldAccent(accentLine, accentDot, heading || section, { lineOrigin: 'left center' });
 
   if (prefersReduced) {
-    setReducedState([wash, photoBg, scrim, headerCol, bodyCol, heading, arrowWrap, leadPara, ...bodyParas]);
+    setReducedState([wash, photoBg, scrim, headerCol, bodyCol, heading, arrowWrap]);
+    revealAllGerozAboutText();
     if (arrowPath) gsap.set(arrowPath, { strokeDashoffset: 0 });
     return;
   }
@@ -402,13 +415,7 @@ function initGerozAbout(prefersReduced) {
     });
   }
   if (bodyCol) {
-    gsap.fromTo(bodyCol, { opacity: 0, x: 48 }, {
-      opacity: 1,
-      x: 0,
-      duration: 1.1,
-      ease: GEROZ_EASE_IO,
-      scrollTrigger: gzScroll(bodyCol, 'top 86%'),
-    });
+    gsap.set(bodyCol, { opacity: 1, x: 0 });
   }
 
   if (heading) {
@@ -761,11 +768,15 @@ function initGerozScrollAnimations(prefersReduced) {
   initGerozHero(prefersReduced);
   initGerozExpertise(prefersReduced);
   initGerozAbout(prefersReduced);
+  initGerozAboutAnimations(document, prefersReduced);
   initGerozCapabilities(prefersReduced);
   initGerozCvCta(prefersReduced);
   initGerozFooter(prefersReduced);
 
-  const syncLayout = () => refreshScrollTriggers();
+  const syncLayout = () => {
+    refreshScrollTriggers();
+    refreshGerozAboutAnimations();
+  };
 
   refreshAfterImagesLoad(
     ['.gz-about__photo-bg', '.gz-hero__portrait-img', '.gz-expertise__portrait-img', '.gz-footer__bg'],
@@ -781,6 +792,7 @@ function initGerozScrollAnimations(prefersReduced) {
 }
 
 export function destroyGerozAnimations() {
+  destroyGerozAboutAnimations();
   if (capabilitiesShutterCleanup) {
     capabilitiesShutterCleanup();
     capabilitiesShutterCleanup = null;

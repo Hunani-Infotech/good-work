@@ -1,6 +1,18 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { initLenis, destroyLenis, getLenis, getScrollY, resetDocumentScrollState } from './scrollRuntime.js';
+import { initLenis, destroyLenis, getLenis, resetDocumentScrollState } from './scrollRuntime.js';
+import {
+  destroyShoooteContactAnimations,
+  initShoooteContactAnimations,
+  revealAllShoooteContactElements,
+  clearShoootePageSectionFilters,
+} from './shoooteContactAnimations.js';
+import {
+  destroyShoooteExpertiseAnimations,
+  initShoooteExpertiseAnimations,
+  refreshShoooteExpertiseAnimations,
+  revealAllShoooteExpertiseElements,
+} from './shoooteExpertiseAnimations.js';
 
 let shoooteRunId = 0;
 let stickyScrollCleanup = null;
@@ -19,7 +31,6 @@ function manualCharSplit(el, linesClass = 'poort-line') {
   el.innerHTML = '';
   const flat =
     el.classList.contains('shooote-luxury-heading__row')
-    || el.classList.contains('shooote-cta__heading-line')
     || Boolean(el.closest('.wpo-portfolio-section .wpo-section-title'));
   const line = flat ? null : document.createElement('div');
   if (line) line.className = linesClass;
@@ -76,9 +87,13 @@ function resetShoooteRuntime() {
 
   document.querySelectorAll('[data-shooote-placeholder]').forEach((node) => node.remove());
 
-  document.querySelectorAll('[data-shooote-cta-reveal]').forEach((node) => {
-    delete node.dataset.shoooteCtaReveal;
+  document.querySelectorAll('[data-shooote-desc-reveal]').forEach((el) => {
+    delete el.dataset.shoooteDescReveal;
+    el.classList.remove('shooote-scroll-fade--pending');
   });
+
+  destroyShoooteContactAnimations();
+  destroyShoooteExpertiseAnimations();
 
   resetHeroSplitState(document);
 
@@ -194,131 +209,6 @@ function revealAllWowElements(root = document) {
 }
 
 const SHOOOTE_DESCRIPTION_SELECTOR = '.gw-section--shooote .shooote-scroll-fade';
-const SHOOOTE_CTA_SECTION_SELECTOR = '.gw-section--shooote.wpo-connect-section';
-const SHOOOTE_BIDIRECTIONAL_TOGGLE = 'play reverse play reverse';
-
-function getShoooteCtaSection(root = document) {
-  return root.querySelector(SHOOOTE_CTA_SECTION_SELECTOR) || root.querySelector('#connect');
-}
-
-function revealAllShoooteCtaElements(root = document) {
-  const section = getShoooteCtaSection(root);
-  if (!section) return;
-
-  const targets = [
-    section.querySelector('.shooote-cta__watermark'),
-    section.querySelector('.shooote-cta__panel'),
-    section.querySelector('.shooote-cta__eyebrow'),
-    section.querySelector('.shooote-cta__actions'),
-    section.querySelector('.shooote-cta__accent-dot'),
-    ...section.querySelectorAll('.shooote-cta__orb'),
-    ...section.querySelectorAll('.shooote-cta__accent-line'),
-  ].filter(Boolean);
-
-  gsap.set(targets, {
-    opacity: 1,
-    y: 0,
-    x: 0,
-    scale: 1,
-    scaleX: 1,
-    clearProps: 'transform',
-  });
-}
-
-function initShoooteCtaReveal(root = document) {
-  const section = getShoooteCtaSection(root);
-  if (!section || section.dataset.shoooteCtaReveal) return;
-  section.dataset.shoooteCtaReveal = '1';
-
-  const orbs = section.querySelectorAll('.shooote-cta__orb');
-  const watermark = section.querySelector('.shooote-cta__watermark');
-  const accentLines = section.querySelectorAll('.shooote-cta__accent-line');
-  const accentDot = section.querySelector('.shooote-cta__accent-dot');
-  const panel = section.querySelector('.shooote-cta__panel');
-  const eyebrow = section.querySelector('.shooote-cta__eyebrow');
-  const actions = section.querySelector('.shooote-cta__actions');
-
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
-    revealAllShoooteCtaElements(root);
-    return;
-  }
-
-  if (orbs.length) {
-    gsap.to(orbs, {
-      y: -36,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.8,
-      },
-    });
-  }
-
-  if (watermark) {
-    gsap.set(watermark, { opacity: 0, scale: 0.96 });
-    gsap.to(watermark, {
-      opacity: 1,
-      scale: 1,
-      duration: 1.4,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 90%',
-        toggleActions: SHOOOTE_BIDIRECTIONAL_TOGGLE,
-      },
-    });
-    gsap.to(watermark, {
-      y: -40,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.65,
-      },
-    });
-  }
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top 86%',
-      toggleActions: SHOOOTE_BIDIRECTIONAL_TOGGLE,
-    },
-  });
-
-  accentLines.forEach((line, index) => {
-    gsap.set(line, { scaleX: 0, transformOrigin: index === 0 ? 'right center' : 'left center' });
-    tl.to(line, { scaleX: 1, duration: 0.75, ease: 'power3.inOut' }, 0.12 + index * 0.06);
-  });
-
-  if (accentDot) {
-    gsap.set(accentDot, { scale: 0, opacity: 0 });
-    tl.to(accentDot, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.2);
-  }
-
-  if (panel) {
-    gsap.set(panel, { opacity: 0, y: 32 });
-    tl.to(panel, { opacity: 1, y: 0, duration: 0.95, ease: 'power2.out' }, 0.18);
-  }
-
-  if (eyebrow) {
-    gsap.set(eyebrow, { opacity: 0, y: 14 });
-    tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.28);
-  }
-
-  if (actions) {
-    gsap.set(actions, { opacity: 0, y: 20 });
-    tl.to(actions, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.48);
-  }
-
-  if (ScrollTrigger.isInViewport(section, 0.08)) {
-    tl.progress(1);
-  }
-}
 
 function revealAllDescriptionElements(root = document) {
   root.querySelectorAll(SHOOOTE_DESCRIPTION_SELECTOR).forEach((el) => {
@@ -332,6 +222,7 @@ function initShoooteDescriptionReveals(root = document) {
   if (!elements.length) return;
 
   elements.forEach((el) => {
+    if (el.closest('.wpo-expertise-section')) return;
     if (el.dataset.shoooteDescReveal) return;
     el.dataset.shoooteDescReveal = '1';
     el.classList.add('shooote-scroll-fade--pending');
@@ -459,7 +350,6 @@ function prepareHeroLine(el) {
   return chars;
 }
 
-/** Blur + slide-in per letter — matches portfolio-hero BlurText (ALEX / KANE). */
 function animateHeroLineChars(el, options = {}) {
   const chars = prepareHeroLine(el);
   if (!chars?.length) return null;
@@ -601,7 +491,7 @@ function initMenuLinkScroll(root = document) {
 function revealAllShoooteContent(root = document) {
   revealAllWowElements(root);
   revealAllDescriptionElements(root);
-  revealAllShoooteCtaElements(root);
+  revealAllShoooteContactElements(root);
   root.querySelectorAll('.poort-text[data-shooote-split] .poort-char').forEach((char) => {
     gsap.set(char, { opacity: 1, x: 0, y: 0, clearProps: 'transform,filter' });
   });
@@ -612,6 +502,7 @@ function revealAllShoooteContent(root = document) {
       gsap.set(el, { opacity: 1, visibility: 'visible', x: 0, y: 0, scale: 1, filter: 'none', clearProps: 'transform' });
     });
   }
+  revealAllShoooteExpertiseElements(root);
 }
 
 function isShoooteMobileViewport() {
@@ -634,6 +525,7 @@ export function initShoooteAnimations(root = document) {
     window.clearTimeout(safetyTimer);
     revealAllShoooteContent(root);
     initHeroSplitAnimation(root);
+    initShoooteExpertiseAnimations(root, prefersReduced);
     initStickyHeader();
     initMenuLinkScroll(root);
     return;
@@ -641,17 +533,21 @@ export function initShoooteAnimations(root = document) {
 
   requestAnimationFrame(() => {
     if (id !== shoooteRunId) return;
+    clearShoootePageSectionFilters(root);
     initWowReveals(root);
     initShoooteDescriptionReveals(root);
     initHeroSplitAnimation(root);
     initPoortTextAnimations(root);
-    initShoooteCtaReveal(root);
+    initShoooteContactAnimations(root, prefersReduced);
     initStickyHeader();
     initMenuLinkScroll(root);
+    initShoooteExpertiseAnimations(root, prefersReduced);
     ScrollTrigger.refresh();
+    refreshShoooteExpertiseAnimations(root);
     window.setTimeout(() => {
       if (id !== shoooteRunId) return;
       ScrollTrigger.refresh();
+      refreshShoooteExpertiseAnimations(root);
       revealWowInViewport(root);
       window.clearTimeout(safetyTimer);
     }, 500);

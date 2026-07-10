@@ -1,6 +1,7 @@
 import { useGerozContent } from '../../../hooks/geroz/useGerozContent.js';
 import GerozEyebrow from '../../../components/geroz/GerozEyebrow.jsx';
 import GerozLuxuryBackdrop from '../../../components/geroz/GerozLuxuryBackdrop.jsx';
+import GerozScrollTextReveal from '../../../components/geroz/GerozScrollTextReveal.jsx';
 
 function AboutDecorativeArrow() {
   return (
@@ -28,19 +29,21 @@ function AboutDecorativeArrow() {
   );
 }
 
-function NarrativeParagraph({ children, lead = false }) {
-  if (!children) return null;
+function NarrativeParagraph({ text, lead = false }) {
+  if (!text) return null;
 
   return (
-    <p
-      className={`gz-about__para ${lead ? 'gz-about__para--lead' : 'gz-about__para--body'} ${
+    <GerozScrollTextReveal
+      as="p"
+      text={text}
+      className={`gz-about__para gz-about__text-reveal ${
+        lead ? 'gz-about__para--lead gz-about__text-reveal--lead' : 'gz-about__para--body gz-about__text-reveal--body'
+      } ${
         lead
-          ? 'm-0 font-serif text-[clamp(1.125rem,1.65vw,1.4375rem)] leading-[1.55] tracking-[-0.015em] text-stone-900'
-          : 'm-0 font-sans text-[clamp(1rem,1.3vw,1.125rem)] leading-[1.85] text-stone-600'
+          ? 'm-0 font-serif text-[clamp(1.125rem,1.65vw,1.4375rem)] leading-[1.55] tracking-[-0.015em]'
+          : 'm-0 font-sans text-[clamp(1rem,1.3vw,1.125rem)] leading-[1.85]'
       }`}
-    >
-      {children}
-    </p>
+    />
   );
 }
 
@@ -101,9 +104,9 @@ export default function AboutSection4() {
 
             <div className="gz-about__body-col lg:col-span-5 lg:col-start-8">
               <div className="flex max-w-[36rem] flex-col gap-[clamp(1.25rem,2.2vw,1.65rem)]">
-                <NarrativeParagraph lead>{about.body}</NarrativeParagraph>
-                <NarrativeParagraph>{about.extraParagraph}</NarrativeParagraph>
-                <NarrativeParagraph>{about.thirdParagraph}</NarrativeParagraph>
+                <NarrativeParagraph lead text={about.body} />
+                <NarrativeParagraph text={about.extraParagraph} />
+                <NarrativeParagraph text={about.thirdParagraph} />
               </div>
             </div>
           </div>
