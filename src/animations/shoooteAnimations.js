@@ -456,8 +456,19 @@ function initHeroSplitAnimation(root = document) {
   }
 }
 
+function scrollToElementWithOffset(target, offset = 80) {
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(target, { offset: -offset, duration: 1 });
+    return;
+  }
+
+  const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
 function initMenuLinkScroll(root = document) {
-  const menuLinks = root.querySelectorAll('.menu-link');
+  const menuLinks = root.querySelectorAll('#navbar .menu-link');
   if (!menuLinks.length) return;
 
   menuLinks.forEach((link) => {
@@ -469,18 +480,7 @@ function initMenuLinkScroll(root = document) {
       if (!target) return;
 
       e.preventDefault();
-
-      const lenis = getLenis();
-      if (lenis) {
-        lenis.scrollTo(target, { offset: -80, duration: 1 });
-        return;
-      }
-
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: { y: target, offsetY: 80 },
-        ease: 'power2.out',
-      });
+      scrollToElementWithOffset(target, 80);
     };
 
     link.addEventListener('click', handler);
@@ -554,19 +554,11 @@ export function initShoooteAnimations(root = document) {
   });
 }
 
-export function scrollToShoooteAnchor(hash, offset = 80) {
+export function scrollToShoooteAnchor(hash, offset) {
   const target = document.querySelector(hash);
   if (!target) return;
 
-  const lenis = getLenis();
-  if (lenis) {
-    lenis.scrollTo(target, { offset: -offset, duration: 1 });
-    return;
-  }
-
-  gsap.to(window, {
-    duration: 1,
-    scrollTo: { y: target, offsetY: offset },
-    ease: 'power2.out',
-  });
+  const header = document.getElementById('header');
+  const resolvedOffset = offset ?? (header?.offsetHeight ? header.offsetHeight + 12 : 80);
+  scrollToElementWithOffset(target, resolvedOffset);
 }

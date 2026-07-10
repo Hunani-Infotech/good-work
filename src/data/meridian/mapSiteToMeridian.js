@@ -10,7 +10,7 @@ function isPlaceholderLastName(lastName) {
   return !trimmed || /^last\s*name$/i.test(trimmed);
 }
 
-/** Hero marquee layouts: inline full name, inline name—title, or first-name only. */
+/** Hero marquee layouts: first name only, full name, or name — role (paired). */
 function heroNameLines(firstName, lastName, subtitle) {
   const hasLastName = !isPlaceholderLastName(lastName);
   const effectiveLastName = hasLastName ? lastName.trim() : '';
@@ -23,7 +23,11 @@ function heroNameLines(firstName, lastName, subtitle) {
   let nameLine2 = null;
   let marqueeText = `${firstName} `;
 
-  if (hasLastName) {
+  if (hasLastName && trimmedSubtitle) {
+    marqueeLayout = 'inline-paired';
+    nameLine2 = trimmedSubtitle;
+    marqueeText = `${displayName} — ${trimmedSubtitle} `;
+  } else if (hasLastName) {
     marqueeLayout = 'inline-full';
     marqueeText = `${displayName} — `;
   } else if (trimmedSubtitle) {
@@ -37,7 +41,7 @@ function heroNameLines(firstName, lastName, subtitle) {
     marqueeLayout,
     effectiveLastName,
     displayName,
-    nameLine1: firstName,
+    nameLine1: hasLastName && trimmedSubtitle ? displayName : firstName,
     nameLine2,
     marqueeText,
   };

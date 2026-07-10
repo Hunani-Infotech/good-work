@@ -5,10 +5,11 @@ import { MARQUEE_COPIES } from '../../../animations/meridianMarquee.js';
 export default function MeridianHeroSection() {
   const { hero } = useMeridianContent();
   const roleInMarquee = hero.marqueeLayout === 'inline-paired';
-  const rolePrimary = roleInMarquee ? '' : (hero.roleLines?.[0] ?? hero.subtitle);
+  const rolePrimary = hero.roleLines?.[0] ?? hero.subtitle ?? '';
   const roleSecondary = roleInMarquee ? '' : (hero.roleLines?.slice(1).join(' & ') || '');
   const showRole = Boolean(rolePrimary || roleSecondary);
   const marqueeCharCount = Math.max(hero.marqueeText?.trim().length ?? hero.nameLine1?.length ?? 1, 1);
+  const marqueeRoleCharCount = Math.max(hero.nameLine2?.trim().length ?? 1, 1);
 
   return (
     <section
@@ -18,7 +19,10 @@ export default function MeridianHeroSection() {
       }${
         hero.marqueeLayout === 'inline-only' ? ' meridian-hero--marquee-single' : ''
       }`}
-      style={{ '--meridian-marquee-chars': marqueeCharCount }}
+      style={{
+        '--meridian-marquee-chars': marqueeCharCount,
+        '--meridian-marquee-role-chars': marqueeRoleCharCount,
+      }}
     >
       <div className="meridian-hero__atmosphere" aria-hidden="true">
         <div className="meridian-hero__spotlight" />

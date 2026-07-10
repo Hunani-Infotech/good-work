@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ShareButton from '../ui/ShareButton.jsx';
 import SocialLinks from '../shared/SocialLinks.jsx';
+import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 import GerozColorPaletteSwitcher from './GerozColorPaletteSwitcher.jsx';
 import { useGerozContent } from '../../hooks/geroz/useGerozContent.js';
 import { scrollGerozToHash } from '../../animations/gerozAnimations.js';
+import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
 
 function CloseIcon() {
   return (
@@ -155,8 +157,31 @@ export default function GerozCvHeader() {
       className={`geroz-cv-header pointer-events-none fixed inset-x-0 top-0 z-[300] ${scrolled ? 'is-scrolled' : ''}`}
     >
       <div className="geroz-cv-header__inner pointer-events-auto">
-        <div className="geroz-cv-header__palette hidden sm:flex">
-          <GerozColorPaletteSwitcher />
+        <div className="geroz-cv-header__start">
+          <button
+            type="button"
+            className={`geroz-cv-header__menu-btn lg:hidden ${menuOpen ? 'is-open' : ''}`}
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="geroz-mobile-nav"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <a
+            href={GOODWORK_APP_URL}
+            className="geroz-cv-header__brand lg:hidden"
+            aria-label="GoodWork — visit app"
+          >
+            <GoodWorkWordmark animated surface="light" className="geroz-cv-header__logo" />
+          </a>
+
+          <div className="geroz-cv-header__palette hidden sm:flex">
+            <GerozColorPaletteSwitcher />
+          </div>
         </div>
 
         <nav className="geroz-cv-header__nav hidden lg:block" aria-label="Main">
@@ -170,32 +195,19 @@ export default function GerozCvHeader() {
         <div className="geroz-cv-header__actions">
           <SocialLinks
             links={social}
-            className="geroz-cv-header__social hidden sm:flex"
+            className="geroz-cv-header__social"
             linkClassName="geroz-cv-header__social-link"
-            iconSize={14}
+            iconSize={16}
           />
 
           <ShareButton className="geroz-share-btn geroz-cv-header__share">
             {({ copied }) => (
               <>
-                <i className={`ti-${copied ? 'check' : 'share'}`} style={{ fontSize: '15px' }} aria-hidden="true" />
+                <i className={`ti-${copied ? 'check' : 'share'}`} style={{ fontSize: '16px' }} aria-hidden="true" />
                 <span className="tooltip-text">{copied ? 'Copied!' : 'Share'}</span>
               </>
             )}
           </ShareButton>
-
-          <button
-            type="button"
-            className={`geroz-cv-header__menu-btn lg:hidden ${menuOpen ? 'is-open' : ''}`}
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-expanded={menuOpen}
-            aria-controls="geroz-mobile-nav"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
         </div>
       </div>
 

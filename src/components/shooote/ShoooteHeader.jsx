@@ -59,7 +59,7 @@ function MobileNavOverlay({ open, navLinks, social, onClose, onHashClick }) {
               {link.isHash ? (
                 <a
                   href={link.href}
-                  className={`shooote-mobile-nav__link menu-link${link.className ? ` ${link.className}` : ''}`}
+                  className={`shooote-mobile-nav__link${link.className ? ` ${link.className}` : ''}`}
                   onClick={(e) => onHashClick(e, link.href)}
                 >
                   {link.label}
@@ -144,8 +144,11 @@ export default function ShoooteHeader() {
   const handleHashClick = (e, href) => {
     if (!href.startsWith('#')) return;
     e.preventDefault();
+    e.stopPropagation();
     closeMenu();
-    scrollToShoooteAnchor(href);
+    window.setTimeout(() => {
+      scrollToShoooteAnchor(href);
+    }, 120);
   };
 
   const menu = (
@@ -202,13 +205,13 @@ export default function ShoooteHeader() {
                 links={social}
                 className="shooote-nav__social"
                 linkClassName="shooote-nav__social-link"
-                iconSize={15}
+                iconSize={16}
               />
 
               <ShareButton className="shooote-share-btn shooote-nav__share">
                 {({ copied }) => (
                   <>
-                    <i className={`ti-${copied ? 'check' : 'share'}`} style={{ fontSize: '15px' }} />
+                    <i className={`ti-${copied ? 'check' : 'share'}`} style={{ fontSize: '16px' }} />
                     <span className="tooltip-text">{copied ? 'Copied!' : 'Share'}</span>
                   </>
                 )}

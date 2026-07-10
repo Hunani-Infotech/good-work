@@ -1,8 +1,7 @@
 {
   "site": {
     "brand": {
-      "firstName": "Sanjay",
-      "lastName": "LastName"
+      "firstName": "Sanjay"
     },
     "theme": {
       "colorThemeIndex": 1,
