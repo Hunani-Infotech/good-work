@@ -11,16 +11,13 @@ import { GOODWORK_APP_URL } from '../../utils/brandLogos.js';
  */
 export default function GoodWorkFooterBrand({
   surface = 'dark',
-  copyrightName = '',
   variant = 'default',
   part = 'full',
   className = '',
   logoClassName = '',
   logoLinkClassName = '',
-  showCopyright = true,
   dark = false,
 }) {
-  const year = new Date().getFullYear();
   const badgeSurface = dark ? 'light' : 'dark';
 
   if (variant === 'badge') {
@@ -58,14 +55,6 @@ export default function GoodWorkFooterBrand({
         <span className={`gw-footer-brand__powered${className ? ` ${className}` : ''}`}>
           Powered by GoodWork
         </span>
-        {showCopyright && copyrightName ? (
-          <>
-            <br />
-            <span className="gw-footer-brand__copyright">
-              © {year} {copyrightName}
-            </span>
-          </>
-        ) : null}
       </>
     );
   }
@@ -85,11 +74,6 @@ export default function GoodWorkFooterBrand({
       </a>
       <p className="gw-footer-brand__copy">
         <span className="gw-footer-brand__powered">Powered by GoodWork</span>
-        {showCopyright && copyrightName ? (
-          <span className="gw-footer-brand__copyright">
-            © {year} {copyrightName}
-          </span>
-        ) : null}
       </p>
     </div>
   );
