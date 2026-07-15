@@ -1,6 +1,7 @@
 import { useMeridianContent } from '../../../hooks/meridian/useMeridianContent.js';
 import { scrollMeridianToHash } from '../../../animations/meridianAnimations.js';
 import { MARQUEE_COPIES } from '../../../animations/meridianMarquee.js';
+import ParticleWaves from './backgrounds/ParticleWaves.jsx';
 
 export default function MeridianHeroSection() {
   const { hero } = useMeridianContent();
@@ -24,11 +25,7 @@ export default function MeridianHeroSection() {
         '--meridian-marquee-role-chars': marqueeRoleCharCount,
       }}
     >
-      <div className="meridian-hero__atmosphere" aria-hidden="true">
-        <div className="meridian-hero__spotlight" />
-        <div className="meridian-hero__vignette" />
-        <div className="meridian-hero__grain" />
-      </div>
+      <ParticleWaves />
 
       <p className="meridian-hero__mobile-name" aria-hidden="true">
         {hero.firstName}
@@ -43,20 +40,6 @@ export default function MeridianHeroSection() {
           </div>
         </div>
       ) : null}
-
-      <svg
-        className="meridian-hero__globe"
-        viewBox="0 0 64 64"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <circle cx="32" cy="32" r="27.5" stroke="currentColor" strokeWidth="1.25" />
-        <ellipse cx="32" cy="32" rx="27.5" ry="10.5" stroke="currentColor" strokeWidth="1.25" />
-        <ellipse cx="32" cy="32" rx="10.5" ry="27.5" stroke="currentColor" strokeWidth="1.25" />
-        <path d="M4.5 32h55" stroke="currentColor" strokeWidth="1.25" />
-        <path d="M32 4.5v55" stroke="currentColor" strokeWidth="1.25" />
-      </svg>
 
       <div className="meridian-hero__portrait-wrap">
         <div className="meridian-hero__portrait-stage">

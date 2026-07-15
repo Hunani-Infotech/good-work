@@ -771,7 +771,77 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   opacity: 0.14;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
   background-size: 180px 180px;
-  mix-blend-mode: overlay;
+}
+
+/* ── Flowing Background (Replaces Globe) ── */
+.meridian-flowing-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.meridian-waves-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  mix-blend-mode: screen;
+  animation: meridian-wave-slide 30s linear infinite;
+}
+
+@keyframes meridian-wave-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.meridian-wave-path {
+  /* You can add extra specific styling here if needed */
+}
+
+.meridian-flowing-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.6;
+  animation: meridian-orb-float 20s infinite ease-in-out alternate;
+}
+
+.meridian-flowing-orb--1 {
+  width: min(50vw, 40rem);
+  height: min(50vw, 40rem);
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, transparent 70%);
+  animation-delay: 0s;
+}
+
+.meridian-flowing-orb--2 {
+  width: min(60vw, 50rem);
+  height: min(60vw, 50rem);
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(196, 181, 253, 0.35) 0%, transparent 70%);
+  animation-delay: -5s;
+}
+
+.meridian-flowing-orb--3 {
+  width: min(45vw, 35rem);
+  height: min(45vw, 35rem);
+  top: 30%;
+  left: 35%;
+  background: radial-gradient(circle, rgba(134, 239, 172, 0.25) 0%, transparent 70%);
+  animation-delay: -10s;
+}
+
+.meridian-flowing-orb--4 {
+  width: min(40vw, 30rem);
+  height: min(40vw, 30rem);
+  bottom: 10%;
+  left: -5%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.3) 0%, transparent 70%);
+  animation-delay: -15s;
 }
 
 .meridian-hero__role {
@@ -997,13 +1067,14 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 
 .meridian-hero__portrait-ring {
   position: absolute;
-  inset: 0;
-  z-index: 0;
+  inset: -16px;
+  z-index: 2;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 16px solid rgba(255, 255, 255, 0.15);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-    0 24px 64px -36px rgba(0, 0, 0, 0.5);
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 24px 64px -24px rgba(0, 0, 0, 0.6);
   pointer-events: none;
 }
 
@@ -1017,20 +1088,6 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   flex-shrink: 0;
   pointer-events: auto;
   transform-origin: center center;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 var(--meridian-hero-portrait-fade-start),
-    rgba(0, 0, 0, 0.35) calc(var(--meridian-hero-portrait-fade-start) + 18%),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 var(--meridian-hero-portrait-fade-start),
-    rgba(0, 0, 0, 0.35) calc(var(--meridian-hero-portrait-fade-start) + 18%),
-    transparent 100%
-  );
 }
 
 .meridian-hero__portrait {
@@ -1065,8 +1122,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-hero__mobile-name,
-.meridian-hero__mobile-arrow,
-.meridian-hero__globe {
+.meridian-hero__mobile-arrow {
   display: none;
 }
 
