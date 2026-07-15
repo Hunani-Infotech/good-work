@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { ImageSwitch } from './ImageSwitch.jsx';
-import GoodWorkWordmark from '../ui/GoodWorkWordmark.jsx';
 import { useIsakContent } from '../../hooks/isak/useIsakContent.js';
 import { useSite } from '../../context/SiteContext.jsx';
 import ProfileVideoMuteIcon from './ProfileVideoMuteIcon.jsx';
@@ -46,25 +44,8 @@ export function UserSidebar() {
               />
             )}
           </div>
+        </div>
 
-          <div className="meta-left d-none d-sm-block">
-            <div className="bg-item-svg">
-              <ImageSwitch
-                light="/assets/isak/images/item/vector-user.svg"
-                dark="/assets/isak/images/item/vector-user_dark.svg"
-                width={32}
-                height={227}
-              />
-            </div>
-            <p className="avaiable-dot vertical text-body-3 text-black-72 fw-medium">
-              <span className="text-vertical">Available for Work</span>
-              <span className="dot" />
-            </p>
-          </div>
-        </div>
-        <div className="user-logo d-none d-lg-block isak-md-logo-badge">
-          <GoodWorkWordmark animated surface="dark" className="isak-sidebar__logo" />
-        </div>
         <ul className="tf-social-icon-2 user-social isak-sidebar-social">
           {profile.sidebarSocials.map((s) => (
             <li key={s.label}>
@@ -79,10 +60,6 @@ export function UserSidebar() {
           ))}
         </ul>
         <div className="user-info">
-          <p className="avaiable-dot text-body-3 fw-medium d-sm-none">
-            <span className="dot" />
-            <span>Available for Work</span>
-          </p>
           <h6 className="greeting letter-space--2 text-white animationtext clip">
             Hey, I&apos;m{' '}
             <span className="cd-words-wrapper">
