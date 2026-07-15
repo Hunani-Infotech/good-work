@@ -1,4 +1,4 @@
-﻿/* Shooote template â€” single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
+/* Shooote template â€” single entry CSS (like tidal-copper.css). Vendor + GoodWork overrides only. */
 
 /* Shooote template â€” GoodWork brand palette (cream / orange / black) */
 html.shooote-template,
@@ -2242,8 +2242,8 @@ body.shooote-template .shooote-nav__brand-logo.goodwork-wordmark--animated,
 body.shooote-template .shooote-nav__brand .goodwork-wordmark--animated {
   display: block;
   width: auto;
-  height: clamp(1.65rem, 4vw, 2rem);
-  max-width: min(100%, 10.5rem);
+  height: clamp(2rem, 4vw, 2.5rem);
+  max-width: min(100%, 14rem);
   object-fit: contain;
   object-position: center;
 }
@@ -2252,8 +2252,8 @@ body.shooote-template .shooote-site-footer__logo.goodwork-wordmark--animated,
 body.shooote-template .shooote-site-footer__brand .goodwork-wordmark--animated {
   display: block;
   width: auto;
-  height: clamp(1.85rem, 4.5vw, 2.35rem);
-  max-width: min(100%, 12.5rem);
+  height: clamp(3rem, 5.5vw, 4rem);
+  max-width: min(100%, 20rem);
   object-fit: contain;
   object-position: center;
 }
@@ -2543,8 +2543,8 @@ body.shooote-template .shooote-nav__share {
 
   body.shooote-template .shooote-nav__brand-logo.goodwork-wordmark--animated,
   body.shooote-template .shooote-nav__brand .goodwork-wordmark--animated {
-    height: clamp(1.5rem, 4.5vw, 1.85rem);
-    max-width: min(100%, 9.5rem);
+    height: clamp(1.75rem, 4vw, 2.25rem);
+    max-width: min(100%, 12rem);
     object-position: left center;
   }
 

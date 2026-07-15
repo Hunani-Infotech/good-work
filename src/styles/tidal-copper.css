@@ -275,8 +275,8 @@ body.tidal-copper-template {
 .cv-powered-by__logo {
   display: block;
   width: auto;
-  height: clamp(1.85rem, 4.5vw, 2.35rem);
-  max-width: min(100%, 14rem);
+  height: clamp(3rem, 5.5vw, 4rem);
+  max-width: min(100%, 20rem);
   opacity: 0.88;
 }
 
