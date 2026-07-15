@@ -57,6 +57,7 @@ const HOVER_SELECTORS = [
   '.admin-actions button',
   '.admin-field input',
   '.admin-field textarea',
+  '.meridian-hero__portrait',
   '.shooote-connect__cta',
   '.shooote-shutter-btn',
   '.shooote-connect__email',
@@ -100,13 +101,12 @@ function getMagneticPoint(x, y, radius) {
   return best;
 }
 
-function setPos(el, x, y, rotateDeg) {
+function setPos(el, x, y, rotateDeg, stretch = 1) {
   if (!el) return;
-  if (rotateDeg != null) {
-    el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotateDeg}deg)`;
-  } else {
-    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-  }
+  let transform = `translate3d(${x}px, ${y}px, 0)`;
+  if (rotateDeg != null) transform += ` rotate(${rotateDeg}deg)`;
+  if (stretch !== 1) transform += ` scaleY(${stretch}) scaleX(${1 / Math.max(0.5, Math.sqrt(stretch))})`;
+  el.style.transform = transform;
 }
 
 export default function CustomCursor({ variant = 'default' }) {
@@ -129,10 +129,8 @@ export default function CustomCursor({ variant = 'default' }) {
     if (!rootRef.current) return undefined;
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
 
-    if (!isIsak) {
-      document.body.dataset.cursorVariant = styleVariant;
-      document.body.dataset.cursorType = type;
-    }
+    document.body.dataset.cursorVariant = styleVariant;
+    document.body.dataset.cursorType = type;
 
     let mouseX = -200;
     let mouseY = -200;
@@ -147,9 +145,24 @@ export default function CustomCursor({ variant = 'default' }) {
     let angle = -45;
     let raf;
 
+    let prevTarget = null;
+
     function onMove(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
+
+      if (variant === 'meridian') {
+        const target = e.target;
+        if (target && target !== prevTarget) {
+          prevTarget = target;
+          const isDark = target.closest('.meridian-contact, .meridian-footer, [data-theme="dark"], .bg-dark');
+          if (isDark) {
+            rootRef.current?.classList.add('is-over-dark-bg');
+          } else {
+            rootRef.current?.classList.remove('is-over-dark-bg');
+          }
+        }
+      }
 
       if (type === 'arrow') {
         if (config.pointerStyle === 'classic') {
@@ -158,11 +171,8 @@ export default function CustomCursor({ variant = 'default' }) {
           const dx = mouseX - prevX;
           const dy = mouseY - prevY;
           if (Math.hypot(dx, dy) > 0.75) {
-            angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            angle = Math.atan2(dy, dx) * (180 / Math.PI) - 90;
           }
-          arrowX = lerp(arrowX, mouseX, config.arrowLerp ?? 0.3);
-          arrowY = lerp(arrowY, mouseY, config.arrowLerp ?? 0.3);
-          setPos(arrow, arrowX, arrowY, angle);
         }
       } else if (type === 'classic') {
         setPos(accent, mouseX, mouseY);
@@ -211,6 +221,17 @@ export default function CustomCursor({ variant = 'default' }) {
         setPos(follower, followerX, followerY);
       }
 
+      if (type === 'arrow' && config.pointerStyle !== 'classic' && arrow) {
+        arrowX = lerp(arrowX, mouseX, config.arrowLerp ?? 0.3);
+        arrowY = lerp(arrowY, mouseY, config.arrowLerp ?? 0.3);
+
+        if (variant === 'meridian') {
+          setPos(arrow, arrowX, arrowY);
+        } else {
+          setPos(arrow, arrowX, arrowY, angle);
+        }
+      }
+
       if (type === 'spotlight' && beam) {
         beamX = lerp(beamX, mouseX, config.spotlightLerp ?? 0.04);
         beamY = lerp(beamY, mouseY, config.spotlightLerp ?? 0.04);
@@ -229,12 +250,16 @@ export default function CustomCursor({ variant = 'default' }) {
       if (isIsak && matchesIsakConnectHover(target)) {
         rootRef.current?.classList.add('is-hovering-isak-connect');
       }
+      if (variant === 'meridian' && target.closest('.meridian-hero__portrait')) {
+        rootRef.current?.classList.add('is-hovering-meridian-portrait');
+      }
       if (config.hideDotOnHover) accent?.classList.add('is-hidden');
     }
 
     function onHoverOut() {
       rootRef.current?.classList.remove('is-hovering');
       rootRef.current?.classList.remove('is-hovering-isak-connect');
+      rootRef.current?.classList.remove('is-hovering-meridian-portrait');
       accent?.classList.remove('is-hidden');
     }
 
@@ -243,6 +268,14 @@ export default function CustomCursor({ variant = 'default' }) {
       rootRef.current.classList.toggle(
         'is-hovering-isak-connect',
         Boolean(target && matchesIsakConnectHover(target)),
+      );
+    }
+
+    function syncMeridianPortraitHover(target) {
+      if (variant !== 'meridian' || !rootRef.current) return;
+      rootRef.current.classList.toggle(
+        'is-hovering-meridian-portrait',
+        Boolean(target && target.closest('.meridian-hero__portrait')),
       );
     }
 
@@ -258,6 +291,7 @@ export default function CustomCursor({ variant = 'default' }) {
         return;
       }
       syncIsakConnectHover(e.relatedTarget);
+      syncMeridianPortraitHover(e.relatedTarget);
     }
 
     function onPointerDown() {
@@ -276,10 +310,8 @@ export default function CustomCursor({ variant = 'default' }) {
     raf = requestAnimationFrame(tick);
 
     return () => {
-      if (!isIsak) {
-        delete document.body.dataset.cursorVariant;
-        delete document.body.dataset.cursorType;
-      }
+      delete document.body.dataset.cursorVariant;
+      delete document.body.dataset.cursorType;
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('pointerup', onPointerUp);
@@ -332,18 +364,28 @@ export default function CustomCursor({ variant = 'default' }) {
         <div ref={arrowRef} className={`cursor-arrow cursor-arrow--${variant}`}>
           {variant === 'meridian' && (
             <svg
-              className="cursor-pointer-svg"
-              viewBox="0 0 20 24"
-              width="20"
+              className="cursor-pointer-svg meridian-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 128 128"
+              width="24"
               height="24"
-              aria-hidden="true"
             >
+              <defs>
+                <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow
+                    dx="0"
+                    dy="2"
+                    stdDeviation="3"
+                    floodColor="#ffffff"
+                    floodOpacity="0.9"
+                  />
+                </filter>
+              </defs>
               <path
-                d="M1.25 1.25V16.75L4.65 13.35L7.35 20.25L10.15 19.05L7.45 12.15L13.25 12.15L1.25 1.25Z"
-                fill="currentColor"
-                stroke="#ffffff"
-                strokeWidth="1.25"
-                strokeLinejoin="round"
+                filter="url(#shadow)"
+                fill="#000"
+                style={{ transition: 'fill 0.25s ease' }}
+                d="M29 14 C24 14 22 18 22 23 L22 102 C22 109 30 112 35 107 L55 86 C57 84 60 83 63 83 L94 86 C103 87 108 77 101 71 L38 18 C35 15 32 14 29 14 Z"
               />
             </svg>
           )}

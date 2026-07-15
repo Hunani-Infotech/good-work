@@ -94,22 +94,11 @@ function MenuButton({ menuOpen, onHero, onToggle }) {
 
 function ShareAction({ onHero }) {
   return (
-    <ShareButton
-      className={`meridian-share-btn meridian-liquid-fill meridian-magnetic ${onHero ? 'meridian-share-btn--on-hero' : ''}`}
-      data-magnetic-strength="0.38"
-      data-magnetic-label-strength="0"
-    >
+    <ShareButton className="meridian-alt-share-btn">
       {({ copied }) => (
         <>
-          <span className="meridian-liquid-fill__wave" aria-hidden="true" />
-          <span className={`meridian-share-btn__icon${copied ? ' is-copied' : ''}`} aria-hidden="true">
-            <span className="meridian-share-btn__glyph meridian-share-btn__glyph--share">
-              <ShareIcon />
-            </span>
-            <span className="meridian-share-btn__glyph meridian-share-btn__glyph--check">
-              <CheckIcon />
-            </span>
-          </span>
+          <i className={`ti-${copied ? 'check' : 'share'}`} style={{ fontSize: '16px' }} />
+          <span className="tooltip-text">{copied ? 'Copied!' : 'Share'}</span>
         </>
       )}
     </ShareButton>

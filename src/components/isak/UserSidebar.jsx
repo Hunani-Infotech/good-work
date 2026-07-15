@@ -60,7 +60,7 @@ export function UserSidebar() {
           ))}
         </ul>
         <div className="user-info">
-          <h6 className="greeting letter-space--2 text-white animationtext clip">
+          <h6 className="greeting letter-space--2 text-white animationtext clip" style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>
             Hey, I&apos;m{' '}
             <span className="cd-words-wrapper">
               {profile.rotatingNames.map((name, i) => (
@@ -73,7 +73,7 @@ export function UserSidebar() {
               ))}
             </span>
           </h6>
-          <p className="introduce text-white-56 letter-space--05 text-body-3">
+          <p className="introduce text-white-56 letter-space--05" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
             {profile.introBio}
           </p>
           <div className="br-line" />

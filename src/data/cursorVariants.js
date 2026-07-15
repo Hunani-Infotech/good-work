@@ -19,8 +19,8 @@ const CURSOR_VARIANTS = {
   },
   meridian: {
     type: 'arrow',
-    pointerStyle: 'classic',
-    arrowLerp: 0.55,
+    pointerStyle: 'meridian-custom',
+    arrowLerp: 0.35,
   },
   geroz: {
     type: 'arrow',

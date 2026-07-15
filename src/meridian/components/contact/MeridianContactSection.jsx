@@ -66,12 +66,15 @@ export default function MeridianContactSection() {
 
           <footer className="meridian-footer">
             <div className="meridian-footer__grid">
-              <GoodWorkFooterBrand
-                surface="dark"
-                copyrightName={footer.copyrightName}
-                className="meridian-footer__brand"
-                logoClassName="meridian-footer__logo"
-              />
+              <div style={{ filter: 'grayscale(100%) brightness(200%)' }}>
+                <GoodWorkFooterBrand
+                  surface="dark"
+                  animated={false}
+                  copyrightName={footer.copyrightName}
+                  className="meridian-footer__brand"
+                  logoClassName="meridian-footer__logo"
+                />
+              </div>
 
               <div className="meridian-footer__meta">
                 <div className="meridian-footer__cell">

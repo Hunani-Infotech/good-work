@@ -24,6 +24,11 @@ function MeridianCvPageContent() {
   return (
     <>
       <CustomCursor variant="meridian" />
+      <div className="meridian-page-atmosphere" aria-hidden="true">
+        <div className="meridian-page-orb meridian-page-orb--1" />
+        <div className="meridian-page-orb meridian-page-orb--2" />
+        <div className="meridian-page-orb meridian-page-orb--3" />
+      </div>
       <MeridianHeader />
       <main className="meridian-cv-main">
         <MeridianHeroSection />
