@@ -60,9 +60,9 @@ export function UserSidebar() {
           ))}
         </ul>
         <div className="user-info">
-          <h6 className="greeting letter-space--2 text-white animationtext clip" style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>
-            Hey, I&apos;m{' '}
-            <span className="cd-words-wrapper">
+          <h6 className="greeting letter-space--2 text-white animationtext clip" style={{ fontSize: '1.75rem', marginBottom: '1rem', display: 'flex', flexWrap: 'wrap', columnGap: '0.4rem' }}>
+            <span style={{ whiteSpace: 'nowrap' }}>Hey, I&apos;m</span>
+            <span className="cd-words-wrapper" style={{ maxWidth: '100%' }}>
               {profile.rotatingNames.map((name, i) => (
                 <span
                   key={name}
@@ -73,7 +73,7 @@ export function UserSidebar() {
               ))}
             </span>
           </h6>
-          <p className="introduce text-white-56 letter-space--05" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
+          <p className="introduce text-white-56 letter-space--05" style={{ fontSize: 'clamp(0.85rem, 2.5vw, 1.1rem)', lineHeight: '1.6' }}>
             {profile.introBio}
           </p>
           <div className="br-line" />

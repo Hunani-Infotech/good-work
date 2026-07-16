@@ -1783,11 +1783,18 @@ body.geroz-template .gz-back-to-top svg path {
 
 .gz-cta__choices {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(0.75rem, 2vw, 1rem);
   margin-top: clamp(1.35rem, 3vw, 1.85rem);
+}
+
+@media (min-width: 640px) {
+  .gz-cta__choices {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .gz-cta__or {
