@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import TidalCopperLayout from '../components/tidal-copper/TidalCopperLayout.jsx';
-import TidalCopperHero from '../components/tidal-copper/TidalCopperHero.jsx';
-import TidalCopperExpertiseSection from '../components/tidal-copper/TidalCopperExpertiseSection.jsx';
-import TidalCopperNarrativeSection from '../components/tidal-copper/TidalCopperNarrativeSection.jsx';
-import TidalCopperCapabilitiesSection from '../components/tidal-copper/TidalCopperCapabilitiesSection.jsx';
-import TidalCopperCtaSection from '../components/tidal-copper/TidalCopperCtaSection.jsx';
-import TidalCopperFooter from '../components/tidal-copper/TidalCopperFooter.jsx';
+import TidalCopperLayout from '../templates/tidal-copper/components/TidalCopperLayout.jsx';
+import TidalCopperHero from '../templates/tidal-copper/components/TidalCopperHero.jsx';
+import TidalCopperExpertiseSection from '../templates/tidal-copper/components/TidalCopperExpertiseSection.jsx';
+import TidalCopperNarrativeSection from '../templates/tidal-copper/components/TidalCopperNarrativeSection.jsx';
+import TidalCopperCapabilitiesSection from '../templates/tidal-copper/components/TidalCopperCapabilitiesSection.jsx';
+import TidalCopperCtaSection from '../templates/tidal-copper/components/TidalCopperCtaSection.jsx';
+import TidalCopperFooter from '../templates/tidal-copper/components/TidalCopperFooter.jsx';
 import { useTidalCopperAnimations } from '../hooks/tidal-copper/useTidalCopperPageAnimations.js';
 import { useSite } from '../context/SiteContext.jsx';
 import VideoCvWidget from '../components/ui/VideoCvWidget.jsx';

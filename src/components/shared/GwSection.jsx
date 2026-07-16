@@ -1,5 +1,5 @@
-import TidalCopperPoweredBy from '../tidal-copper/TidalCopperPoweredBy.jsx';
-import { TidalCopperSectionEyebrow, TidalCopperSectionLabel } from '../tidal-copper/TidalCopperSectionChrome.jsx';
+import TidalCopperPoweredBy from '../../templates/tidal-copper/components/TidalCopperPoweredBy.jsx';
+import { TidalCopperSectionEyebrow, TidalCopperSectionLabel } from '../../templates/tidal-copper/components/TidalCopperSectionChrome.jsx';
 
 /**
  * Shared GoodWork 4-screen section shell — one markup/CSS flow per template theme.

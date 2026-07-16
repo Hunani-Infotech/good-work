@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useIsakTheme } from '../../components/isak/IsakThemeProvider.jsx';
+import { useIsakTheme } from '../../templates/isak/components/IsakThemeProvider.jsx';
 
 export function useBodyThemeClass({ defaultMode = 'dark' } = {}) {
   const { resolvedTheme } = useIsakTheme();

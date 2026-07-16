@@ -8,16 +8,16 @@ import {
 } from '../data/geroz/constants.js';
 import { useGerozContent } from '../hooks/geroz/useGerozContent.js';
 import { useGerozPageAnimations } from '../hooks/geroz/useGerozPageAnimations.js';
-import { GerozColorThemeProvider } from '../geroz/context/GerozColorThemeContext.jsx';
+import { GerozColorThemeProvider } from '../templates/geroz/context/GerozColorThemeContext.jsx';
 
-import GerozCvHeader from '../components/geroz/GerozCvHeader.jsx';
-import GerozCvCtaSection from '../components/geroz/GerozCvCtaSection.jsx';
-import GerozCvFooter from '../components/geroz/GerozCvFooter.jsx';
-import GerozBackToTop from '../geroz/components/utils/BackToTopBtn.jsx';
-import HeroSection4 from '../geroz/components/hero/HeroSection4.jsx';
-import AboutSection4 from '../geroz/components/about/AboutSection4.jsx';
-import VideoSection from '../geroz/components/video/VideoSection.jsx';
-import CapabilitiesSection from '../geroz/components/capabilities/CapabilitiesSection.jsx';
+import GerozCvHeader from '../templates/geroz/components/GerozCvHeader.jsx';
+import GerozCvCtaSection from '../templates/geroz/components/GerozCvCtaSection.jsx';
+import GerozCvFooter from '../templates/geroz/components/GerozCvFooter.jsx';
+import GerozBackToTop from '../templates/geroz/components/utils/BackToTopBtn.jsx';
+import HeroSection4 from '../templates/geroz/components/hero/HeroSection4.jsx';
+import AboutSection4 from '../templates/geroz/components/about/AboutSection4.jsx';
+import VideoSection from '../templates/geroz/components/video/VideoSection.jsx';
+import CapabilitiesSection from '../templates/geroz/components/capabilities/CapabilitiesSection.jsx';
 import CustomCursor from '../components/ui/CustomCursor.jsx';
 
 function GerozCvPageContent() {

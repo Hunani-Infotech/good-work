@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import '../styles/agency.css';
 import { useAgencyAnimations } from '../hooks/useScrollPageAnimations';
-import AgencyNav from '../components/agency/AgencyNav';
-import AgencyHero from '../components/agency/AgencyHero';
-import AgencyTicker from '../components/agency/AgencyTicker';
-import HowItWorks from '../components/agency/HowItWorks';
-import TemplateShowcase from '../components/agency/TemplateShowcase';
-import AgencyFeatures from '../components/agency/AgencyFeatures';
-import AgencyCta from '../components/agency/AgencyCta';
+import AgencyNav from '../templates/agency/components/AgencyNav';
+import AgencyHero from '../templates/agency/components/AgencyHero';
+import AgencyTicker from '../templates/agency/components/AgencyTicker';
+import HowItWorks from '../templates/agency/components/HowItWorks';
+import TemplateShowcase from '../templates/agency/components/TemplateShowcase';
+import AgencyFeatures from '../templates/agency/components/AgencyFeatures';
+import AgencyCta from '../templates/agency/components/AgencyCta';
 import CustomCursor from '../components/ui/CustomCursor';
 import GoodWorkWordmark from '../components/ui/GoodWorkWordmark.jsx';
 

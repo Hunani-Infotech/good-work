@@ -1,0 +1,101 @@
+import { useGerozContent } from '../../../../hooks/geroz/useGerozContent.js';
+import GerozEyebrow from '../GerozEyebrow.jsx';
+import GerozLuxuryBackdrop, { GEROZ_AMBIENT_BG } from '../GerozLuxuryBackdrop.jsx';
+
+function SectionTitleAccent({ children }) {
+  return (
+    <div className="flex flex-col items-center text-center">
+      <div className="gz-capabilities__eyebrow">
+        <GerozEyebrow className="mx-auto">{children}</GerozEyebrow>
+      </div>
+
+      <div className="mt-[clamp(1.5rem,3vw,2.25rem)] flex w-full max-w-[48rem] items-center justify-center gap-[clamp(1rem,3vw,2rem)]">
+        <span
+          className="gz-capabilities__accent-line h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(90deg,transparent,var(--color-lawyer))]"
+          aria-hidden="true"
+        />
+        <span
+          className="gz-capabilities__accent-dot block size-[0.35rem] shrink-0 rounded-full bg-lawyer"
+          aria-hidden="true"
+        />
+        <span
+          className="gz-capabilities__accent-line h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(270deg,transparent,var(--color-lawyer))]"
+          aria-hidden="true"
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function CapabilitiesSection() {
+  const { capabilities } = useGerozContent();
+  const hasImage = Boolean(capabilities.backgroundImage);
+
+  return (
+    <section
+      id="capabilities"
+      className={`gz-capabilities relative isolate overflow-hidden ${hasImage ? 'gz-capabilities--imaged' : 'bg-[var(--brand-bg-warm,#faf8f5)]'}`}
+    >
+      {hasImage ? (
+        <>
+          <div
+            className="gz-capabilities__photo-bg pointer-events-none"
+            style={{ backgroundImage: `url(${capabilities.backgroundImage})` }}
+            aria-hidden="true"
+          />
+          <div className="gz-capabilities__overlay pointer-events-none" aria-hidden="true" />
+        </>
+      ) : null}
+
+      {!hasImage ? (
+        <GerozLuxuryBackdrop
+          variant="cream"
+          washClass="gz-capabilities__backdrop-wash"
+          noiseClass="gz-capabilities__backdrop-noise"
+        />
+      ) : null}
+
+      <div className="geroz-container-wide relative z-[1] px-4 py-[clamp(4rem,7vw,6rem)] sm:px-6 lg:px-11">
+        <div className="mx-auto max-w-[52rem]">
+          <SectionTitleAccent>{capabilities.eyebrow}</SectionTitleAccent>
+
+          <h2 className="gz-capabilities__title mt-[clamp(1rem,2.2vw,1.75rem)] text-center font-serif text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.08] tracking-[-0.03em] text-stone-900">
+            {capabilities.title}
+          </h2>
+        </div>
+
+        <div className="gz-capabilities__list mx-auto mt-[clamp(2.25rem,4.5vw,3.5rem)] flex w-full max-w-[56rem] flex-col">
+          {capabilities.items.map((item, index) => (
+            <article
+              key={item.id}
+              className="gz-capabilities__item relative py-[clamp(1.5rem,3vw,2.25rem)] px-3"
+            >
+              <div
+                className="gz-capabilities__hover-bg pointer-events-none absolute inset-0"
+                aria-hidden="true"
+                style={{ backgroundImage: GEROZ_AMBIENT_BG }}
+              />
+
+              <div className="gz-capabilities__item-inner relative grid grid-cols-[clamp(3.5rem,8vw,5rem)_minmax(0,1fr)] items-start gap-[clamp(1.25rem,3vw,2.5rem)]">
+                <span className="gz-capabilities__number font-serif text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-[-0.04em] text-lawyer">
+                  {item.number}
+                </span>
+                <p className="gz-capabilities__text m-0 min-w-0 pt-[0.35rem] font-sans text-[clamp(1.0625rem,1.55vw,1.25rem)] leading-[1.85] text-stone-800">
+                  {item.title}
+                  {item.titleBreak ? ` ${item.titleBreak}` : ''}
+                </p>
+              </div>
+
+              {index < capabilities.items.length - 1 ? (
+                <span
+                  className="gz-capabilities__divider absolute right-0 bottom-0 left-[clamp(3.5rem,8vw,5rem)] z-[3] h-px origin-left bg-[color-mix(in_srgb,var(--color-lawyer)_18%,#e7e5e4)]"
+                  aria-hidden="true"
+                />
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

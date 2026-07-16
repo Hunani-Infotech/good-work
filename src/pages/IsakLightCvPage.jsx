@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import CustomCursor from '../components/ui/CustomCursor';
-import IsakShell from '../components/isak/IsakShell.jsx';
+import IsakShell from '../templates/isak/components/IsakShell.jsx';
 import { useIsakAnimations } from '../hooks/isak/useIsakPageAnimations.js';
 import { useIsakContent } from '../hooks/isak/useIsakContent.js';
 import '../styles/isak.css';
