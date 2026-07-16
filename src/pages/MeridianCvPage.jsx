@@ -2,20 +2,20 @@ import { useEffect } from 'react';
 import '../styles/meridian-tailwind.css';
 
 import CustomCursor from '../components/ui/CustomCursor.jsx';
-import { useMeridianContent } from '../hooks/meridian/useMeridianContent.js';
-import { useMeridianPageAnimations } from '../hooks/meridian/useMeridianPageAnimations.js';
-import { MeridianColorThemeProvider } from '../templates/meridian/context/MeridianColorThemeContext.jsx';
+import { useContent } from '../hooks/meridian/useContent.js';
+import { usePageAnimations } from '../hooks/meridian/usePageAnimations.js';
+import { MeridianColorThemeProvider } from '../templates/meridian/context/ColorThemeContext.jsx';
 
-import MeridianHeader from '../templates/meridian/components/layout/MeridianHeader.jsx';
-import MeridianHeroSection from '../templates/meridian/components/hero/MeridianHeroSection.jsx';
-import MeridianManifestoSection from '../templates/meridian/components/manifesto/MeridianManifestoSection.jsx';
-import MeridianAboutSection from '../templates/meridian/components/about/MeridianAboutSection.jsx';
-import MeridianCapabilitiesSection from '../templates/meridian/components/capabilities/MeridianCapabilitiesSection.jsx';
-import MeridianContactSection from '../templates/meridian/components/contact/MeridianContactSection.jsx';
+import Header from '../templates/meridian/components/layout/Header.jsx';
+import HeroSection from '../templates/meridian/components/hero/HeroSection.jsx';
+import ManifestoSection from '../templates/meridian/components/manifesto/ManifestoSection.jsx';
+import AboutSection from '../templates/meridian/components/about/AboutSection.jsx';
+import CapabilitiesSection from '../templates/meridian/components/capabilities/CapabilitiesSection.jsx';
+import ContactSection from '../templates/meridian/components/contact/ContactSection.jsx';
 
 function MeridianCvPageContent() {
-  const { siteMeta } = useMeridianContent();
-  useMeridianPageAnimations();
+  const { siteMeta } = useContent();
+  usePageAnimations();
 
   useEffect(() => {
     document.title = siteMeta.title;
@@ -29,13 +29,13 @@ function MeridianCvPageContent() {
         <div className="meridian-page-orb meridian-page-orb--2" />
         <div className="meridian-page-orb meridian-page-orb--3" />
       </div>
-      <MeridianHeader />
+      <Header />
       <main className="meridian-cv-main">
-        <MeridianHeroSection />
-        <MeridianManifestoSection />
-        <MeridianAboutSection />
-        <MeridianCapabilitiesSection />
-        <MeridianContactSection />
+        <HeroSection />
+        <ManifestoSection />
+        <AboutSection />
+        <CapabilitiesSection />
+        <ContactSection />
       </main>
     </>
   );

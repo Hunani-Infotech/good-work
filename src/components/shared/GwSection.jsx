@@ -1,5 +1,5 @@
-import TidalCopperPoweredBy from '../../templates/tidal-copper/components/TidalCopperPoweredBy.jsx';
-import { TidalCopperSectionEyebrow, TidalCopperSectionLabel } from '../../templates/tidal-copper/components/TidalCopperSectionChrome.jsx';
+import PoweredBy from '../../templates/tidal-copper/components/PoweredBy.jsx';
+import { TidalCopperSectionEyebrow, TidalCopperSectionLabel } from '../../templates/tidal-copper/components/SectionChrome.jsx';
 
 /**
  * Shared GoodWork 4-screen section shell — one markup/CSS flow per template theme.
@@ -45,7 +45,7 @@ export default function GwSection({
           ) : null}
           {children}
         </div>
-        <TidalCopperPoweredBy dark={poweredByDark} />      </section>
+        <PoweredBy dark={poweredByDark} />      </section>
     );
   }
 

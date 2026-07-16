@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useIsakContent } from '../../../hooks/isak/useIsakContent.js';
+import { useContent } from '../../../hooks/isak/useContent.js';
 import { useSite } from '../../../context/SiteContext.jsx';
 import ProfileVideoMuteIcon from './ProfileVideoMuteIcon.jsx';
 import { ProfileVideoLoop } from './ProfileVideoLoop.jsx';
@@ -9,7 +9,7 @@ const AVATAR_FALLBACK =
   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop';
 
 export function UserSidebar() {
-  const { profile } = useIsakContent();
+  const { profile } = useContent();
   const { site } = useSite();
   const videoCv = site?.home?.hero?.videoCv;
   const [muted, setMuted] = useState(true);

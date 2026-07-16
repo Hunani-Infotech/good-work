@@ -28,7 +28,7 @@ export const GEROZ_DECOR_SHAPES = {
   starLarge: '/assets/geroz/shapes/shape-3.png',
   /** 16-point sunburst — shape-16.png (42×42) */
   sunburst: '/assets/geroz/shapes/shape-16.png',
-  // Legacy aliases used by GerozDecorShapes (.shape-1 / .shape-2 / .shape-3)
+  // Legacy aliases used by DecorShapes (.shape-1 / .shape-2 / .shape-3)
   small: '/assets/geroz/shapes/shape-1.png',
   large: '/assets/geroz/shapes/shape-3.png',
   medium: '/assets/geroz/shapes/shape-16.png',

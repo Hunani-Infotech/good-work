@@ -6,13 +6,13 @@ import {
   clearGerozImageCssVars,
   clearGerozThemeCssVars,
 } from '../data/geroz/constants.js';
-import { useGerozContent } from '../hooks/geroz/useGerozContent.js';
-import { useGerozPageAnimations } from '../hooks/geroz/useGerozPageAnimations.js';
-import { GerozColorThemeProvider } from '../templates/geroz/context/GerozColorThemeContext.jsx';
+import { useContent } from '../hooks/geroz/useContent.js';
+import { usePageAnimations } from '../hooks/geroz/usePageAnimations.js';
+import { GerozColorThemeProvider } from '../templates/geroz/context/ColorThemeContext.jsx';
 
-import GerozCvHeader from '../templates/geroz/components/GerozCvHeader.jsx';
-import GerozCvCtaSection from '../templates/geroz/components/GerozCvCtaSection.jsx';
-import GerozCvFooter from '../templates/geroz/components/GerozCvFooter.jsx';
+import CvHeader from '../templates/geroz/components/CvHeader.jsx';
+import CvCtaSection from '../templates/geroz/components/CvCtaSection.jsx';
+import CvFooter from '../templates/geroz/components/CvFooter.jsx';
 import GerozBackToTop from '../templates/geroz/components/utils/BackToTopBtn.jsx';
 import HeroSection4 from '../templates/geroz/components/hero/HeroSection4.jsx';
 import AboutSection4 from '../templates/geroz/components/about/AboutSection4.jsx';
@@ -21,8 +21,8 @@ import CapabilitiesSection from '../templates/geroz/components/capabilities/Capa
 import CustomCursor from '../components/ui/CustomCursor.jsx';
 
 function GerozCvPageContent() {
-  const { siteMeta, images } = useGerozContent();
-  useGerozPageAnimations();
+  const { siteMeta, images } = useContent();
+  usePageAnimations();
 
   useLayoutEffect(() => {
     document.documentElement.classList.add('geroz-template');
@@ -44,7 +44,7 @@ function GerozCvPageContent() {
   return (
     <>
       <CustomCursor variant="geroz" />
-      <GerozCvHeader />
+      <CvHeader />
       <GerozBackToTop />
       <main className="overflow-hidden geroz-cv-main">
         <div className="cv-page-screens">
@@ -53,15 +53,15 @@ function GerozCvPageContent() {
           <AboutSection4 />
           <CapabilitiesSection />
         </div>
-        <GerozCvCtaSection />
-        <GerozCvFooter />
+        <CvCtaSection />
+        <CvFooter />
       </main>
     </>
   );
 }
 
 export default function GerozCvPage() {
-  const { theme: initialTheme } = useGerozContent();
+  const { theme: initialTheme } = useContent();
 
   return (
     <GerozColorThemeProvider initialIndex={initialTheme.colorThemeIndex ?? 0}>

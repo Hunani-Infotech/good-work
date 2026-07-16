@@ -1,5 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { useIsakTheme } from './IsakThemeProvider.jsx';
+import { useIsakTheme } from './ThemeProvider.jsx';
 import {
   COLOR_VARIANT_STORAGE_KEY,
   applyColorVariant,

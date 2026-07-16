@@ -1,11 +1,11 @@
-import { useIsakContent } from '../../../../hooks/isak/useIsakContent.js';
+import { useContent } from '../../../../hooks/isak/useContent.js';
 import GoodWorkFooterBrand from '../../../../components/shared/GoodWorkFooterBrand.jsx';
 import GoodWorkWordmark from '../../../../components/ui/GoodWorkWordmark.jsx';
 import SocialLinks from '../../../../components/shared/SocialLinks.jsx';
 import { GOODWORK_APP_URL } from '../../../../utils/brandLogos.js';
 
 export function Footer() {
-  const { footer, social } = useIsakContent();
+  const { footer, social } = useContent();
 
   const mailto = footer.email
     ? `mailto:${footer.email}?subject=${encodeURIComponent(footer.mailtoSubject)}`

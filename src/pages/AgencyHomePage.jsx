@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import '../styles/agency.css';
 import { useAgencyAnimations } from '../hooks/useScrollPageAnimations';
-import AgencyNav from '../templates/agency/components/AgencyNav';
-import AgencyHero from '../templates/agency/components/AgencyHero';
-import AgencyTicker from '../templates/agency/components/AgencyTicker';
+import Nav from '../templates/agency/components/Nav';
+import Hero from '../templates/agency/components/Hero';
+import Ticker from '../templates/agency/components/Ticker';
 import HowItWorks from '../templates/agency/components/HowItWorks';
 import TemplateShowcase from '../templates/agency/components/TemplateShowcase';
-import AgencyFeatures from '../templates/agency/components/AgencyFeatures';
-import AgencyCta from '../templates/agency/components/AgencyCta';
+import Features from '../templates/agency/components/Features';
+import Cta from '../templates/agency/components/Cta';
 import CustomCursor from '../components/ui/CustomCursor';
 import GoodWorkWordmark from '../components/ui/GoodWorkWordmark.jsx';
 
@@ -22,14 +22,14 @@ export default function AgencyHomePage() {
   return (
     <>
       <CustomCursor variant="agency" />
-      <AgencyNav />
+      <Nav />
       <main>
-        <AgencyHero />
-        <AgencyTicker />
+        <Hero />
+        <Ticker />
         <HowItWorks />
         <TemplateShowcase />
-        <AgencyFeatures />
-        <AgencyCta />
+        <Features />
+        <Cta />
         <footer className="agency-footer agency-footer--editorial">
           <div className="agency-footer__inner">
             <div className="agency-footer__brand">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useIsakTheme } from './IsakThemeProvider.jsx';
+import { useIsakTheme } from './ThemeProvider.jsx';
 
 export function ImageSwitch({
   light,

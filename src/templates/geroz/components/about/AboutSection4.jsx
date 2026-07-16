@@ -1,7 +1,7 @@
-import { useGerozContent } from '../../../../hooks/geroz/useGerozContent.js';
-import GerozEyebrow from '../GerozEyebrow.jsx';
-import GerozLuxuryBackdrop from '../GerozLuxuryBackdrop.jsx';
-import GerozScrollTextReveal from '../GerozScrollTextReveal.jsx';
+import { useContent } from '../../../../hooks/geroz/useContent.js';
+import Eyebrow from '../Eyebrow.jsx';
+import LuxuryBackdrop from '../LuxuryBackdrop.jsx';
+import ScrollTextReveal from '../ScrollTextReveal.jsx';
 
 function AboutDecorativeArrow() {
   return (
@@ -33,7 +33,7 @@ function NarrativeParagraph({ text, lead = false }) {
   if (!text) return null;
 
   return (
-    <GerozScrollTextReveal
+    <ScrollTextReveal
       as="p"
       text={text}
       className={`gz-about__para gz-about__text-reveal ${
@@ -48,7 +48,7 @@ function NarrativeParagraph({ text, lead = false }) {
 }
 
 export default function AboutSection4() {
-  const { about } = useGerozContent();
+  const { about } = useContent();
 
   return (
     <section id="about" className="gz-about relative overflow-hidden">
@@ -66,7 +66,7 @@ export default function AboutSection4() {
         </>
       ) : null}
 
-      <GerozLuxuryBackdrop
+      <LuxuryBackdrop
         variant="white"
         washClass="gz-about__backdrop-wash"
         noiseClass="gz-about__backdrop-noise"
@@ -76,7 +76,7 @@ export default function AboutSection4() {
         <div className="mx-auto w-full max-w-[72rem]">
           {about.eyebrow ? (
             <div className="gz-about__eyebrow mb-[clamp(1.5rem,3vw,2.25rem)]">
-              <GerozEyebrow>{about.eyebrow}</GerozEyebrow>
+              <Eyebrow>{about.eyebrow}</Eyebrow>
             </div>
           ) : null}
 

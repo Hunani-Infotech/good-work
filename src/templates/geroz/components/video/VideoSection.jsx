@@ -1,20 +1,20 @@
-import GerozDecorShapes from '../GerozDecorShapes.jsx';
-import GerozExpertiseAuthor from '../GerozExpertiseAuthor.jsx';
-import GerozEyebrow from '../GerozEyebrow.jsx';
-import GerozLuxuryBackdrop from '../GerozLuxuryBackdrop.jsx';
-import GerozPortraitFrame from '../GerozPortraitFrame.jsx';
-import GerozThemeButton from '../GerozThemeButton.jsx';
-import { useGerozContent } from '../../../../hooks/geroz/useGerozContent.js';
+import DecorShapes from '../DecorShapes.jsx';
+import ExpertiseAuthor from '../ExpertiseAuthor.jsx';
+import Eyebrow from '../Eyebrow.jsx';
+import LuxuryBackdrop from '../LuxuryBackdrop.jsx';
+import PortraitFrame from '../PortraitFrame.jsx';
+import ThemeButton from '../ThemeButton.jsx';
+import { useContent } from '../../../../hooks/geroz/useContent.js';
 
 export default function VideoSection() {
-  const { expertise, expert, video } = useGerozContent();
+  const { expertise, expert, video } = useContent();
   const videoSrc = video?.src?.trim() || '';
   const portraitSrc = video?.poster?.trim() || expert?.image || '';
 
   return (
     <section id="expertise" className="gz-expertise relative overflow-hidden">
       <div className="gz-expertise__panel relative pt-[clamp(4rem,7vw,6rem)] pb-[clamp(2rem,3.5vw,3rem)]">
-        <GerozLuxuryBackdrop
+        <LuxuryBackdrop
           variant="dark"
           washClass="gz-expertise__backdrop-wash"
           noiseClass="gz-expertise__backdrop-noise"
@@ -23,11 +23,11 @@ export default function VideoSection() {
         <div className="geroz-container-wide relative z-[1]">
           <div className="grid w-full grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-x-[clamp(1.5rem,4vw,3.5rem)]">
             <div className="relative hidden min-h-[clamp(16rem,34vw,34rem)] lg:col-span-1 lg:block">
-              <GerozDecorShapes className="h-full min-h-0" />
+              <DecorShapes className="h-full min-h-0" />
             </div>
 
             <div className="flex items-end lg:col-span-5 xl:col-span-5">
-              <GerozPortraitFrame
+              <PortraitFrame
                 src={portraitSrc}
                 alt={expert?.authorName ?? ''}
                 videoSrc={videoSrc}
@@ -39,7 +39,7 @@ export default function VideoSection() {
             <div className="flex min-h-[clamp(16rem,34vw,34rem)] w-full min-w-0 flex-col pb-[clamp(1.5rem,3vw,2.5rem)] lg:col-span-6 xl:col-span-6">
               {expertise.tag ? (
                 <div className="gz-expertise__eyebrow shrink-0">
-                  <GerozEyebrow>{expertise.tag}</GerozEyebrow>
+                  <Eyebrow>{expertise.tag}</Eyebrow>
                 </div>
               ) : null}
 
@@ -51,16 +51,16 @@ export default function VideoSection() {
                 ) : null}
 
                 {expertise.ctaLabel && expertise.ctaHref ? (
-                  <GerozThemeButton
+                  <ThemeButton
                     href={expertise.ctaHref}
                     variant="light"
                     className="gz-expertise__cta mt-[clamp(1.5rem,2.8vw,2rem)] self-start"
                   >
                     {expertise.ctaLabel}
-                  </GerozThemeButton>
+                  </ThemeButton>
                 ) : null}
 
-                <GerozExpertiseAuthor
+                <ExpertiseAuthor
                   name={expert.authorName}
                   role={expert.authorRole}
                   className="mt-auto pt-[clamp(1.5rem,3vw,2.25rem)]"

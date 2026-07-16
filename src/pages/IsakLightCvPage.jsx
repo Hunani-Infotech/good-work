@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import CustomCursor from '../components/ui/CustomCursor';
-import IsakShell from '../templates/isak/components/IsakShell.jsx';
-import { useIsakAnimations } from '../hooks/isak/useIsakPageAnimations.js';
-import { useIsakContent } from '../hooks/isak/useIsakContent.js';
+import Shell from '../templates/isak/components/Shell.jsx';
+import { useIsakAnimations } from '../hooks/isak/usePageAnimations.js';
+import { useContent } from '../hooks/isak/useContent.js';
 import '../styles/isak.css';
 
 export default function IsakLightCvPage() {
   useIsakAnimations();
-  const { meta } = useIsakContent();
+  const { meta } = useContent();
 
   useEffect(() => {
     document.documentElement.classList.add('isak-template');
@@ -34,7 +34,7 @@ export default function IsakLightCvPage() {
   return (
     <>
       <CustomCursor variant="isak" />
-      <IsakShell forceMode="light" />
+      <Shell forceMode="light" />
     </>
   );
 }

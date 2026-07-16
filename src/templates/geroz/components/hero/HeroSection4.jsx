@@ -1,9 +1,9 @@
-import GerozPortraitFrame from '../GerozPortraitFrame.jsx';
-import { useGerozContent } from '../../../../hooks/geroz/useGerozContent.js';
+import PortraitFrame from '../PortraitFrame.jsx';
+import { useContent } from '../../../../hooks/geroz/useContent.js';
 import HeroAnimatedName from './HeroAnimatedName.jsx';
 
 export default function HeroSection4() {
-  const { hero } = useGerozContent();
+  const { hero } = useContent();
   const firstNameChars = hero.firstName?.length || 1;
   const lastNameChars = hero.lastName?.length || firstNameChars;
 
@@ -65,7 +65,7 @@ export default function HeroSection4() {
             </div>
 
             <div className="gz-hero__portrait relative z-[2] col-start-2 row-start-1 w-full max-w-[clamp(16rem,26vw,26rem)] justify-self-end self-center max-xl:max-w-[clamp(14rem,24vw,22rem)] max-lg:order-3 max-lg:mx-auto max-lg:mt-0 max-lg:w-full max-lg:max-w-[min(20rem,88vw)]">
-              <GerozPortraitFrame
+              <PortraitFrame
                 src={hero.profilePhoto}
                 alt={hero.portraitAlt}
                 width={734}

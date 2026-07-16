@@ -1,9 +1,9 @@
-import { useIsakContent } from '../../../../hooks/isak/useIsakContent.js';
-import { useIsakTheme } from '../IsakThemeProvider.jsx';
+import { useContent } from '../../../../hooks/isak/useContent.js';
+import { useIsakTheme } from '../ThemeProvider.jsx';
 import ShaderBackground from '../../../../components/ui/ShaderBackground.jsx';
 
 export function Intro() {
-  const { profile, intro } = useIsakContent();
+  const { profile, intro } = useContent();
   const { resolvedTheme } = useIsakTheme();
 
   return (

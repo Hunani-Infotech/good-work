@@ -1,14 +1,14 @@
 import GwSection from '../../../../components/shared/GwSection.jsx';
-import IsakSectionHeading from '../IsakSectionHeading.jsx';
-import { useIsakContent } from '../../../../hooks/isak/useIsakContent.js';
+import SectionHeading from '../SectionHeading.jsx';
+import { useContent } from '../../../../hooks/isak/useContent.js';
 
 export function About() {
-  const { about, education, capabilities } = useIsakContent();
+  const { about, education, capabilities } = useContent();
 
   return (
     <>
       <GwSection theme="isak" id="about" className="section-about">
-        <IsakSectionHeading tag={about.tag} sectionIndex="01" />
+        <SectionHeading tag={about.tag} sectionIndex="01" />
         <p className="s-desc text-black-56 scrolling-effect effectTop">
           {about.paragraphs.map((paragraph) => (
             <span key={paragraph.slice(0, 32)}>
@@ -22,7 +22,7 @@ export function About() {
 
       {education.length > 0 ? (
         <GwSection theme="isak" id="education" className="section-education-experience">
-          <IsakSectionHeading tag={capabilities.tag} sectionIndex="02" singleLine />
+          <SectionHeading tag={capabilities.tag} sectionIndex="02" singleLine />
           <div className="timeline scroll-down">
             <div className="timeline-line">
               <div className="prg-line" />

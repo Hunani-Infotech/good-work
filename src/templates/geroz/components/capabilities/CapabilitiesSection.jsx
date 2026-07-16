@@ -1,12 +1,12 @@
-import { useGerozContent } from '../../../../hooks/geroz/useGerozContent.js';
-import GerozEyebrow from '../GerozEyebrow.jsx';
-import GerozLuxuryBackdrop, { GEROZ_AMBIENT_BG } from '../GerozLuxuryBackdrop.jsx';
+import { useContent } from '../../../../hooks/geroz/useContent.js';
+import Eyebrow from '../Eyebrow.jsx';
+import LuxuryBackdrop, { GEROZ_AMBIENT_BG } from '../LuxuryBackdrop.jsx';
 
 function SectionTitleAccent({ children }) {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="gz-capabilities__eyebrow">
-        <GerozEyebrow className="mx-auto">{children}</GerozEyebrow>
+        <Eyebrow className="mx-auto">{children}</Eyebrow>
       </div>
 
       <div className="mt-[clamp(1.5rem,3vw,2.25rem)] flex w-full max-w-[48rem] items-center justify-center gap-[clamp(1rem,3vw,2rem)]">
@@ -28,7 +28,7 @@ function SectionTitleAccent({ children }) {
 }
 
 export default function CapabilitiesSection() {
-  const { capabilities } = useGerozContent();
+  const { capabilities } = useContent();
   const hasImage = Boolean(capabilities.backgroundImage);
 
   return (
@@ -48,7 +48,7 @@ export default function CapabilitiesSection() {
       ) : null}
 
       {!hasImage ? (
-        <GerozLuxuryBackdrop
+        <LuxuryBackdrop
           variant="cream"
           washClass="gz-capabilities__backdrop-wash"
           noiseClass="gz-capabilities__backdrop-noise"

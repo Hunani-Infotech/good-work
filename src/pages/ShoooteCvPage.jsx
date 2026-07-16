@@ -1,20 +1,20 @@
 import { useEffect, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ShoooteLayout from '../templates/shooote/components/ShoooteLayout.jsx';
-import ShoooteHero from '../templates/shooote/components/ShoooteHero.jsx';
-import ShoooteExpertise from '../templates/shooote/components/ShoooteExpertise.jsx';
-import ShoooteNarrative from '../templates/shooote/components/ShoooteNarrative.jsx';
-import ShoooteCapabilities from '../templates/shooote/components/ShoooteCapabilities.jsx';
-import ShoooteCtaSection from '../templates/shooote/components/ShoooteCtaSection.jsx';
-import ShoooteFooter from '../templates/shooote/components/ShoooteFooter.jsx';
-import { useShoooteAnimations } from '../hooks/shooote/useShoootePageAnimations.js';
+import Layout from '../templates/shooote/components/Layout.jsx';
+import Hero from '../templates/shooote/components/Hero.jsx';
+import Expertise from '../templates/shooote/components/Expertise.jsx';
+import Narrative from '../templates/shooote/components/Narrative.jsx';
+import Capabilities from '../templates/shooote/components/Capabilities.jsx';
+import CtaSection from '../templates/shooote/components/CtaSection.jsx';
+import Footer from '../templates/shooote/components/Footer.jsx';
+import { useShoooteAnimations } from '../hooks/shooote/usePageAnimations.js';
 import { scrollToShoooteAnchor } from '../animations/shoooteAnimations.js';
-import { useShoooteContent } from '../hooks/shooote/useShoooteContent.js';
+import { useContent } from '../hooks/shooote/useContent.js';
 import '../styles/shooote.css';
 
 export default function ShoooteCvPage() {
   const location = useLocation();
-  const { siteMeta, theme } = useShoooteContent();
+  const { siteMeta, theme } = useContent();
   useShoooteAnimations();
 
   useLayoutEffect(() => {
@@ -56,16 +56,16 @@ export default function ShoooteCvPage() {
   }, [location.hash]);
 
   return (
-    <ShoooteLayout>
+    <Layout>
       <div className="cv-page-screens">
-        <ShoooteHero />
-        <ShoooteExpertise />
-        <ShoooteNarrative />
-        <ShoooteCapabilities />
+        <Hero />
+        <Expertise />
+        <Narrative />
+        <Capabilities />
       </div>
-      <ShoooteCtaSection />
-      <ShoooteFooter />
-    </ShoooteLayout>
+      <CtaSection />
+      <Footer />
+    </Layout>
   );
 }
 
