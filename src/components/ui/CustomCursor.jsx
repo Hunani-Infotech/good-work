@@ -376,15 +376,14 @@ export default function CustomCursor({ variant = 'default' }) {
                     dx="0"
                     dy="2"
                     stdDeviation="3"
-                    floodColor="#ffffff"
+                    floodColor="var(--meridian-cursor-shadow, #ffffff)"
                     floodOpacity="0.9"
                   />
                 </filter>
               </defs>
               <path
                 filter="url(#shadow)"
-                fill="#000"
-                style={{ transition: 'fill 0.25s ease' }}
+                style={{ fill: 'var(--meridian-cursor-fill, #000000)', transition: 'fill 0.25s ease' }}
                 d="M29 14 C24 14 22 18 22 23 L22 102 C22 109 30 112 35 107 L55 86 C57 84 60 83 63 83 L94 86 C103 87 108 77 101 71 L38 18 C35 15 32 14 29 14 Z"
               />
             </svg>
