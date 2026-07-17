@@ -3,8 +3,6 @@ import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { scrollToShoooteAnchor } from '../../../animations/shoooteAnimations.js';
 import { useContent } from '../../../hooks/shooote/useContent.js';
-import GoodWorkWordmark from '../../../components/ui/GoodWorkWordmark.jsx';
-import { GOODWORK_APP_URL } from '../../../utils/brandLogos.js';
 import ShareButton from '../../../components/ui/ShareButton.jsx';
 import SocialLinks from '../../../components/shared/SocialLinks.jsx';
 
@@ -181,16 +179,6 @@ export default function Header() {
                   <span className="icon-bar middle-angle" />
                   <span className="icon-bar last-angle" />
                 </button>
-              </div>
-
-              <div className="navbar-header shooote-nav__brand-wrap">
-                <a
-                  className="navbar-brand shooote-nav__brand shooote-md-logo-badge"
-                  href={GOODWORK_APP_URL}
-                  aria-label="GoodWork — visit app"
-                >
-                  <GoodWorkWordmark animated surface="light" className="shooote-nav__brand-logo" />
-                </a>
               </div>
             </div>
 

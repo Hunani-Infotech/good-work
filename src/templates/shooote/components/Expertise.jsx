@@ -5,7 +5,7 @@ import { useContent } from '../../../hooks/shooote/useContent.js';
 import { useVideoPlayback } from '../../../hooks/useVideoPlayback.js';
 import ScrollTextReveal from './ScrollTextReveal.jsx';
 
-function ShoooteExpertiseVideo({ video, authorName, caption }) {
+function ShoooteExpertiseVideo({ video, authorName }) {
   const videoSrc = video?.src?.trim() || '';
   const posterSrc = video?.poster?.trim() || '';
   const hasVideo = Boolean(videoSrc);
@@ -43,9 +43,6 @@ function ShoooteExpertiseVideo({ video, authorName, caption }) {
           )}
         </div>
       </div>
-      {caption ? (
-        <figcaption className="shooote-expertise-editorial__caption">{caption}</figcaption>
-      ) : null}
     </figure>
   );
 }
@@ -74,7 +71,6 @@ export default function Expertise() {
           <ShoooteExpertiseVideo
             video={expertise.video}
             authorName={expertise.authorName}
-            caption={expertise.eyebrow}
           />
         ) : null}
 
@@ -83,12 +79,6 @@ export default function Expertise() {
         ) : null}
 
         <div className="shooote-expertise-editorial__copy">
-          {expertise.eyebrow ? (
-            <p className="shooote-expertise-editorial__eyebrow">
-              <ScrollTextReveal text={expertise.eyebrow} />
-            </p>
-          ) : null}
-
           {headingLines.length ? (
             <h2 className="shooote-expertise-editorial__heading" aria-label={expertise.heading}>
               {headingLines.map((line) => (

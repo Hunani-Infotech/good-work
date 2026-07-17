@@ -1,5 +1,4 @@
 import { scrollToShoooteAnchor } from '../../../animations/shoooteAnimations.js';
-import { GwSectionLabel } from '../../../components/shared/GwSection.jsx';
 import { useContent } from '../../../hooks/shooote/useContent.js';
 
 export default function Hero() {
@@ -19,8 +18,6 @@ export default function Hero() {
         <span className="shooote-hero-petal shooote-hero-petal--d" />
       </div>
       <div className="shooote-hero-grain" aria-hidden="true" />
-
-      <GwSectionLabel center>{hero.sectionLabel}</GwSectionLabel>
 
       <div className="shooote-hero-stage">
         {hero.hasLastName ? (

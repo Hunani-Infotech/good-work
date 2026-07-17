@@ -10,7 +10,6 @@ function ShoooteConnectBackdrop() {
       <span className="shooote-connect__wash" />
       <span className="shooote-connect__vignette" />
       <span className="shooote-connect__grain" />
-      <span className="shooote-connect__watermark">05</span>
     </div>
   );
 }
@@ -34,17 +33,10 @@ export default function CtaSection() {
 
       <div className="shooote-connect__panel">
         <div className="container shooote-connect__container">
-          <div className="shooote-connect__grid">
-            {cta.eyebrow ? (
-              <div className="shooote-connect__eyebrow-row">
-                <span className="shooote-connect__eyebrow-mark" aria-hidden="true" />
-                <p className="shooote-connect__eyebrow">{cta.eyebrow}</p>
-              </div>
-            ) : null}
+          <div className="shooote-connect__content">
+            <span className="shooote-connect__index" aria-hidden="true">05</span>
 
-            <div className="shooote-connect__divider" aria-hidden="true" />
-
-            <div className="shooote-connect__primary">
+            <div className="shooote-connect__main">
               <div className="shooote-connect__heading-wrap">
                 <h2 id="shooote-connect-heading" className="shooote-connect__heading">
                   {headingLines.map((line) => (
@@ -53,13 +45,8 @@ export default function CtaSection() {
                     </span>
                   ))}
                 </h2>
+                <span className="shooote-connect__rule" aria-hidden="true" />
               </div>
-            </div>
-
-            <div className="shooote-connect__aside">
-              {cta.statement ? (
-                <p className="shooote-connect__statement">{cta.statement}</p>
-              ) : null}
 
               {cta.mailto ? (
                 <div className="shooote-connect__actions">

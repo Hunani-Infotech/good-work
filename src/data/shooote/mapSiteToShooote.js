@@ -102,11 +102,11 @@ export function mapSiteToShooote(site = defaultSite) {
       role: (hero.subtitle || '').trim(),
       tagline: heroTagline(hero),
       image: hero.profilePhoto,
-      sectionLabel: '01 — Main',
+      sectionLabel: '',
     },
     expertise: {
       sectionLabel: '02 — Hero',
-      eyebrow: 'Video introduction',
+      eyebrow: '',
       heading: hero.heading || '',
       headingLines: expertiseHeadingLines(hero.heading),
       statement: hero.heroStatement || '',

@@ -45,6 +45,7 @@ function initShoooteContactReveal(root = document, prefersReduced = false) {
   const headingWrap = section.querySelector('.shooote-connect__heading-wrap');
   const headingLineEls = section.querySelectorAll('.shooote-connect__heading-line');
   const statement = section.querySelector('.shooote-connect__statement');
+  const indexEl = section.querySelector('.shooote-connect__index');
   const cta = section.querySelector('.shooote-connect__cta');
   const email = section.querySelector('.shooote-connect__email');
   const viewfinderCorners = section.querySelectorAll('.shooote-connect__vf');
@@ -57,6 +58,7 @@ function initShoooteContactReveal(root = document, prefersReduced = false) {
       eyebrowMark,
       headingWrap,
       statement,
+      indexEl,
       cta,
       email,
       ...viewfinderCorners,
@@ -103,6 +105,11 @@ function initShoooteContactReveal(root = document, prefersReduced = false) {
     },
     defaults: { ease: GEROZ_EASE_IO },
   });
+
+  if (indexEl) {
+    gsap.set(indexEl, { opacity: 0, x: -28 });
+    tl.to(indexEl, { opacity: 1, x: 0, duration: 1, ease: GEROZ_EASE }, 0);
+  }
 
   if (eyebrowMark) {
     gsap.set(eyebrowMark, { scaleX: 0, transformOrigin: 'left center' });
