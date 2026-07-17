@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useIsakTheme } from './ThemeProvider.jsx';
 import {
   COLOR_VARIANT_STORAGE_KEY,
@@ -8,12 +8,18 @@ import {
   getDefaultColorBodyClass,
 } from '../../../data/isak/colors.js';
 
-const SettingColorContext = createContext(null);
+const SettingColorContext = createContext({
+  open: false,
+  setOpen: () => {},
+  active: null,
+  applyVariant: () => {},
+  toggleMode: () => {},
+});
 
-export function SettingColorProvider({ defaultMode = 'dark', forceMode, children }) {
+export function SettingColorProvider({ defaultMode = 'dark', children }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(null);
-  const { setTheme } = useIsakTheme();
+  const { theme, setTheme } = useIsakTheme();
 
   const applyVariant = useCallback((bodyClass) => {
     const swatch = applyColorVariant(bodyClass);
@@ -24,15 +30,12 @@ export function SettingColorProvider({ defaultMode = 'dark', forceMode, children
     localStorage.setItem(COLOR_VARIANT_STORAGE_KEY, swatch.bodyClass);
   }, [setTheme]);
 
-  useEffect(() => {
-    if (forceMode) {
-      const fallbackClass = getDefaultColorBodyClass(forceMode);
-      applyColorVariant(fallbackClass);
-      setActive(fallbackClass);
-      setTheme(forceMode);
-      return;
-    }
+  const toggleMode = useCallback(() => {
+    const nextMode = theme === 'dark' ? 'light' : 'dark';
+    applyVariant(getDefaultColorBodyClass(nextMode));
+  }, [theme, applyVariant]);
 
+  useEffect(() => {
     const saved = localStorage.getItem(COLOR_VARIANT_STORAGE_KEY);
     const savedSwatch = getColorSwatch(saved);
 
@@ -48,7 +51,7 @@ export function SettingColorProvider({ defaultMode = 'dark', forceMode, children
     setActive(fallbackClass);
     setTheme(defaultMode);
     localStorage.setItem(COLOR_VARIANT_STORAGE_KEY, fallbackClass);
-  }, [defaultMode, forceMode, setTheme]); // eslint-disable-line react-hooks/exhaustive-deps -- init once per page mode
+  }, [defaultMode, setTheme]); // eslint-disable-line react-hooks/exhaustive-deps -- init once per page mode
 
   useEffect(() => {
     if (!open) return undefined;
@@ -67,7 +70,7 @@ export function SettingColorProvider({ defaultMode = 'dark', forceMode, children
   }, [open]);
 
   return (
-    <SettingColorContext.Provider value={{ open, setOpen, active, applyVariant }}>
+    <SettingColorContext.Provider value={{ open, setOpen, active, applyVariant, toggleMode }}>
       {children}
 
       <div
@@ -120,4 +123,8 @@ export function SettingColorProvider({ defaultMode = 'dark', forceMode, children
       )}
     </SettingColorContext.Provider>
   );
+}
+
+export function useSettingColor() {
+  return useContext(SettingColorContext);
 }

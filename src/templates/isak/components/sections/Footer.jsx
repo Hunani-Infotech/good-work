@@ -1,8 +1,8 @@
 import { useContent } from '../../../../hooks/isak/useContent.js';
-import GoodWorkFooterBrand from '../../../../components/shared/GoodWorkFooterBrand.jsx';
 import GoodWorkWordmark from '../../../../components/ui/GoodWorkWordmark.jsx';
 import SocialLinks from '../../../../components/shared/SocialLinks.jsx';
 import { GOODWORK_APP_URL } from '../../../../utils/brandLogos.js';
+import FooterLineLottie from '../FooterLineLottie.jsx';
 
 export function Footer() {
   const { footer, social } = useContent();
@@ -11,8 +11,10 @@ export function Footer() {
     ? `mailto:${footer.email}?subject=${encodeURIComponent(footer.mailtoSubject)}`
     : null;
 
-  return (    <div id="footer" className="tf-footer flat-spacing">
-      <div className="br-line" />
+  return (
+    <footer id="footer" className="tf-footer isak-footer flat-spacing">
+      <FooterLineLottie />
+
       <div className="foot-inner isak-footer__inner">
         <div className="isak-footer__brand">
           <a
@@ -33,23 +35,16 @@ export function Footer() {
           />
         </div>
 
-        <div className="foot-bottom isak-footer__meta">
-          <p className="text-nocopy text-black-56 effectFade fadeUp no-div isak-footer__copy">
-            {footer.email ? (
-              <>
-                <a href={mailto} className="link text-black-72">
-                  {footer.email}
-                </a>
-                <br />
-              </>
-            ) : null}
-            <GoodWorkFooterBrand
-              part="copy"
-              copyrightName={footer.copyrightName}
-            />
-          </p>
-        </div>
+        {footer.email ? (
+          <div className="foot-bottom isak-footer__meta">
+            <p className="text-nocopy text-black-56 effectFade fadeUp no-div isak-footer__copy">
+              <a href={mailto} className="link text-black-72">
+                {footer.email}
+              </a>
+            </p>
+          </div>
+        ) : null}
       </div>
-    </div>
+    </footer>
   );
 }

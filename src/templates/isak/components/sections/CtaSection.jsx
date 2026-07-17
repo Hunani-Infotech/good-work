@@ -53,17 +53,9 @@ export function CtaSection() {
 
       <div className="isak-cta__layout">
         <div className="isak-cta__content">
-          {cta.eyebrow ? (
-            <p className="isak-cta__kicker">{cta.eyebrow}</p>
-          ) : null}
-
           <h2 id="isak-cta-heading" className="isak-cta__title split-text effect-blur-fade">
             {cta.heading}
           </h2>
-
-          {cta.statement ? (
-            <p className="isak-cta__copy s-desc text-black-56">{cta.statement}</p>
-          ) : null}
         </div>
 
         {cta.mailto ? (

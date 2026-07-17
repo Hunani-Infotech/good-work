@@ -1,5 +1,6 @@
 import { navItems } from '../../../data/isak/nav.js';
 import { getLenis } from '../../../animations/scrollRuntime.js';
+import { ThemeModeToggle } from './ThemeModeToggle.jsx';
 
 export function DesktopSidebar({ positionClass = 'pst-v1' }) {
   const scrollToSection = (e, href) => {
@@ -26,6 +27,9 @@ export function DesktopSidebar({ positionClass = 'pst-v1' }) {
 
   return (
     <div className={`sidebar-tools ${positionClass}`}>
+      <div className="nav-top">
+        <ThemeModeToggle />
+      </div>
       <ul className="nav-list">
         {navItems.map((item, i) => (
           <li key={item.href + i} className="nav-item">

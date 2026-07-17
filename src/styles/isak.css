@@ -349,6 +349,24 @@ html.isak-template .tf-header-wrap > .tf-left-bar {
   flex-shrink: 0;
 }
 
+/* Light / dark mode toggle in sidebar tools */
+html.isak-template .sidebar-tools .nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.isak-template .sidebar-tools .toggle-switch-mode {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+html.isak-template body.dark-mode .sidebar-tools .toggle-switch-mode .icon-light {
+  color: var(--primary);
+}
+
 /* Color settings offcanvas (no Bootstrap JS) */
 html.isak-template .offcanvas-color.offcanvas-end {
   position: fixed;
@@ -967,7 +985,7 @@ html.isak-template .isak-cta {
 
 html.isak-template .isak-cta__layout {
   display: grid;
-  gap: clamp(1.75rem, 4vw, 2.5rem);
+  gap: clamp(2rem, 4.5vw, 3rem);
   align-items: center;
   overflow: visible;
 }
@@ -977,27 +995,12 @@ html.isak-template .isak-cta__content {
   overflow: visible;
 }
 
-html.isak-template .isak-cta__kicker {
-  margin: 0 0 1.15rem;
-  padding-top: 0.125rem;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--primary) 78%, var(--black-56));
-}
-
-html.isak-template body.dark-mode .isak-cta__kicker {
-  color: color-mix(in srgb, var(--primary) 72%, var(--white));
-}
-
 html.isak-template .isak-cta__title {
-  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
-  max-width: 15ch;
+  margin: 0;
+  max-width: 14ch;
   font-family: "Apfel Grotezk", system-ui, sans-serif;
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  /* Match hero intro-title (h1) scale so the CTA anchors the section after copy removal */
+  font-size: clamp(2.5rem, 5vw + 8px, 3.75rem);
   font-weight: 500;
   line-height: 1.06;
   letter-spacing: -0.04em;
@@ -1007,11 +1010,6 @@ html.isak-template .isak-cta__title {
 html.isak-template body.dark-mode .isak-cta__title,
 html.isak-template body.dark-mode .isak-cta__title .split-line {
   color: var(--white);
-}
-
-html.isak-template .isak-cta__copy {
-  margin: 0;
-  max-width: 42ch;
 }
 
 html.isak-template .isak-cta__circle-shell {
@@ -1186,7 +1184,7 @@ html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-core .icon 
 @media (min-width: 768px) {
   html.isak-template .isak-cta__layout {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: clamp(2rem, 5vw, 3.5rem);
+    gap: clamp(2.5rem, 6vw, 4rem);
     align-items: center;
   }
 
@@ -1217,14 +1215,125 @@ html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-core .icon 
 }
 
 /* Isak footer — native two-column layout: brand left, meta right */
+html.isak-template .tf-footer.isak-footer {
+  position: relative;
+}
+
 html.isak-template .tf-footer .isak-footer__inner {
   align-items: center;
+  margin-top: 0;
+}
+
+/*
+ * Footer walker — standard full-bleed rail:
+ * character stage sits above a hairline; fades mask enter/exit.
+ * Aspect ~1206×465 from the ANSA Lottie, cropped to a walk band.
+ */
+html.isak-template .isak-footer-walker {
+  --isak-walker-height: clamp(5.5rem, 14vw, 8.75rem);
+  --isak-walker-fade: clamp(1.5rem, 6vw, 4rem);
+  --isak-walker-rule: var(--black-6);
+  width: 100%;
+  margin: clamp(2.75rem, 6vw, 4.25rem) 0;
+  display: grid;
+  grid-template-rows: var(--isak-walker-height) auto;
+  gap: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+html.isak-template body.dark-mode .isak-footer-walker {
+  --isak-walker-rule: rgba(255, 255, 255, 0.14);
+}
+
+html.isak-template .isak-footer-walker__stage {
+  position: relative;
+  width: 100%;
+  height: var(--isak-walker-height);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+html.isak-template .isak-footer-walker__lottie {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  line-height: 0;
+}
+
+html.isak-template .isak-footer-walker__lottie svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+html.isak-template .isak-footer-walker__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: var(--isak-walker-fade);
+  pointer-events: none;
+}
+
+html.isak-template .isak-footer-walker__fade--start {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--isak-light-page-bg) 0%,
+    color-mix(in srgb, var(--isak-light-page-bg) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+html.isak-template .isak-footer-walker__fade--end {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--isak-light-page-bg) 0%,
+    color-mix(in srgb, var(--isak-light-page-bg) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+html.isak-template body.dark-mode .isak-footer-walker__fade--start {
+  background: linear-gradient(
+    to right,
+    var(--isak-dark-page-bg) 0%,
+    color-mix(in srgb, var(--isak-dark-page-bg) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+html.isak-template body.dark-mode .isak-footer-walker__fade--end {
+  background: linear-gradient(
+    to left,
+    var(--isak-dark-page-bg) 0%,
+    color-mix(in srgb, var(--isak-dark-page-bg) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+html.isak-template .isak-footer-walker__rail {
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  background-color: var(--isak-walker-rule);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 575px) {
+  html.isak-template .isak-footer-walker {
+    --isak-walker-height: clamp(4.25rem, 22vw, 5.75rem);
+    --isak-walker-fade: 1.25rem;
+    margin: 2.25rem 0 2.5rem;
+  }
 }
 
 html.isak-template .isak-footer__brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.15rem;
   flex-shrink: 0;
 }
 
@@ -1233,8 +1342,8 @@ html.isak-template body.dark-mode .tf-footer .f-logo.isak-footer__logo-pill {
   width: auto !important;
   height: auto !important;
   min-width: 0;
-  padding: 6px 12px !important;
-  border-radius: 10px !important;
+  padding: 10px 18px !important;
+  border-radius: 12px !important;
   background: #fff !important;
   border: none !important;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14) !important;
@@ -1273,8 +1382,8 @@ html.isak-template .isak-sidebar__logo {
 
 html.isak-template .isak-footer__logo {
   width: auto;
-  height: clamp(3rem, 5.5vw, 4rem);
-  max-width: min(100%, 20rem);
+  height: clamp(4.25rem, 8vw, 5.75rem);
+  max-width: min(100%, 28rem);
   display: block;
 }
 
@@ -1290,6 +1399,7 @@ html.isak-template .tf-footer .isak-footer__meta {
 html.isak-template .isak-footer__copy {
   margin: 0;
   text-align: right;
+  font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
   line-height: 1.55;
 }
 
@@ -1306,8 +1416,8 @@ html.isak-template .isak-footer__social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
   background: var(--white);
@@ -1349,7 +1459,7 @@ html.isak-template .isak-footer__social-link:focus-visible {
   html.isak-template .tf-footer .isak-footer__logo-pill {
     width: auto !important;
     height: auto !important;
-    padding: 5px 10px !important;
+    padding: 8px 14px !important;
   }
 
   html.isak-template .tf-footer .isak-footer__logo-pill .logo {
@@ -1358,8 +1468,8 @@ html.isak-template .isak-footer__social-link:focus-visible {
   }
 
   html.isak-template .isak-footer__logo {
-    height: clamp(3rem, 5.5vw, 4rem) !important;
-    max-width: min(100%, 20rem);
+    height: clamp(3.75rem, 14vw, 5rem) !important;
+    max-width: min(100%, 24rem);
   }
 
   html.isak-template .tf-footer .isak-footer__meta {

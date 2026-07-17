@@ -380,17 +380,17 @@ function initIsakCtaReveal() {
   const section = document.querySelector('.isak-cta');
   if (!section) return;
 
-  const kicker = section.querySelector('.isak-cta__kicker');
-  const copy = section.querySelector('.isak-cta__copy');
   const circleShell = section.querySelector('.isak-cta__circle-shell');
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) {
-    gsap.set([kicker, copy, circleShell].filter(Boolean), {
-      clearProps: 'all',
-      opacity: 1,
-      y: 0,
-    });
+    if (circleShell) {
+      gsap.set(circleShell, {
+        clearProps: 'all',
+        opacity: 1,
+        y: 0,
+      });
+    }
     return;
   }
 
@@ -401,16 +401,6 @@ function initIsakCtaReveal() {
       toggleActions: 'play none none none',
     },
   });
-
-  if (kicker) {
-    gsap.set(kicker, { opacity: 0, y: 14 });
-    tl.to(kicker, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0);
-  }
-
-  if (copy) {
-    gsap.set(copy, { opacity: 0, y: 18 });
-    tl.to(copy, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' }, 0.14);
-  }
 
   if (circleShell) {
     gsap.set(circleShell, { opacity: 0, y: 28 });
@@ -423,7 +413,7 @@ function initIsakCtaReveal() {
         ease: 'power3.out',
         onComplete: () => gsap.set(circleShell, { clearProps: 'transform' }),
       },
-      0.18,
+      0.12,
     );
   }
 }

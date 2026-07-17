@@ -23,14 +23,8 @@ function readStoredTheme(defaultTheme) {
   return defaultTheme;
 }
 
-export function ThemeProvider({ children, defaultTheme = 'dark', forceTheme }) {
-  const [theme, setThemeState] = useState(() => forceTheme || readStoredTheme(defaultTheme));
-
-  useEffect(() => {
-    if (forceTheme) {
-      setThemeState(forceTheme);
-    }
-  }, [forceTheme]);
+export function ThemeProvider({ children, defaultTheme = 'dark' }) {
+  const [theme, setThemeState] = useState(() => readStoredTheme(defaultTheme));
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

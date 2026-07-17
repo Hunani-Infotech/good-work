@@ -4,7 +4,6 @@ import { useSiteLoader } from './hooks/useSiteLoader';
 import AgencyHomePage from './pages/AgencyHomePage';
 import TidalCopperCvPage from './pages/TidalCopperCvPage';
 import IsakCvPage from './pages/IsakCvPage';
-import IsakLightCvPage from './pages/IsakLightCvPage';
 import ShoooteCvPage from './pages/ShoooteCvPage';
 import GerozCvPage from './pages/GerozCvPage';
 import MeridianCvPage from './pages/MeridianCvPage';
@@ -29,7 +28,6 @@ export default function App() {
         <Route path={TIDAL_COPPER_CV_PATH} element={<TidalCopperCvPage />} />
         <Route path="/cv/sanjay" element={<Navigate to={TIDAL_COPPER_CV_PATH} replace />} />
         <Route path={ISAK_CV_PATH} element={<IsakCvPage />} />
-        <Route path="/cv/isak-light" element={<IsakLightCvPage />} />
         <Route path={`${ISAK_CV_PATH}/*`} element={<Navigate to={ISAK_CV_PATH} replace />} />
         <Route path={SHOOOTE_CV_PATH} element={<ShoooteCvPage />} />
         <Route path={`${SHOOOTE_CV_PATH}/*`} element={<Navigate to={SHOOOTE_CV_PATH} replace />} />
