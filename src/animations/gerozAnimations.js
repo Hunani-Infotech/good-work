@@ -508,7 +508,7 @@ function initGerozCapabilities(prefersReduced) {
   capabilitiesShutterCleanup = initCapabilitiesShutterHover(items, { prefersReduced });
 }
 
-/* ── Footer: layered depth, blur logo, clip email, signature bloom ── */
+/* ── Footer: layered depth + logo reveal ── */
 function initGerozFooter(prefersReduced) {
   const footer = document.querySelector('.gz-footer');
   if (!footer) return;
@@ -517,16 +517,10 @@ function initGerozFooter(prefersReduced) {
   const gradient = footer.querySelector('.gz-footer__gradient');
   const wash = footer.querySelector('.gz-footer__backdrop-wash');
   const logo = footer.querySelector('.gz-footer__logo');
-  const brandCopy = footer.querySelector('.gw-footer-brand__copy');
-  const email = footer.querySelector('.gz-footer__email');
-  const nameBand = footer.querySelector('.gz-footer__name-band');
-  const name = footer.querySelector('.gz-footer__name');
-  const accentLines = footer.querySelectorAll('.gz-footer__accent-line');
-  const accentDot = footer.querySelector('.gz-footer__accent-dot');
-  const copy = brandCopy;
+  const walker = footer.querySelector('.gz-footer-walker');
 
   if (prefersReduced) {
-    setReducedState([bgImage, gradient, wash, logo, email, nameBand, name, copy]);
+    setReducedState([bgImage, gradient, wash, logo, walker]);
     return;
   }
 
@@ -559,32 +553,13 @@ function initGerozFooter(prefersReduced) {
 
   const enterTl = gsap.timeline({ scrollTrigger: gzScroll(footer, 'top 92%') });
 
+  if (walker) {
+    gsap.set(walker, { opacity: 0, y: 16 });
+    enterTl.to(walker, { opacity: 1, y: 0, duration: 0.9, ease: GEROZ_EASE }, 0);
+  }
   if (logo) {
     gsap.set(logo, { opacity: 0, y: 20, filter: 'blur(8px)' });
-    enterTl.to(logo, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: GEROZ_EASE }, 0);
-  }
-  if (email) {
-    gsap.set(email, { clipPath: 'inset(0 100% 0 0)' });
-    enterTl.to(email, { clipPath: 'inset(0 0% 0 0)', duration: 1, ease: GEROZ_EASE_IO }, 0.12);
-  }
-  if (copy) {
-    gsap.set(copy, { opacity: 0, y: 12 });
-    enterTl.to(copy, { opacity: 1, y: 0, duration: 0.75, ease: GEROZ_EASE }, 0.28);
-  }
-
-  if (nameBand && name) {
-    gsap.set(nameBand, { opacity: 0 });
-    gsap.set(name, { opacity: 0, scale: 0.96, filter: 'blur(6px)' });
-    if (accentDot) gsap.set(accentDot, { scale: 0, opacity: 0 });
-    accentLines.forEach((line) => gsap.set(line, { scaleX: 0, transformOrigin: 'center center' }));
-
-    const nameTl = gsap.timeline({ scrollTrigger: gzScroll(nameBand, 'top 90%') });
-
-    nameTl.to(nameBand, { opacity: 1, duration: 0.35 }, 0);
-    if (accentLines[0]) nameTl.to(accentLines[0], { scaleX: 1, duration: 0.85, ease: GEROZ_EASE_IO }, 0.08);
-    if (accentDot) nameTl.to(accentDot, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.18);
-    if (accentLines[1]) nameTl.to(accentLines[1], { scaleX: 1, duration: 0.85, ease: GEROZ_EASE_IO }, 0.18);
-    nameTl.to(name, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: GEROZ_EASE_IO }, 0.3);
+    enterTl.to(logo, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: GEROZ_EASE }, 0.12);
   }
 }
 
@@ -596,12 +571,11 @@ function initGerozCvCta(prefersReduced) {
   const decorShapes = section.querySelectorAll('.gz-cta__decor-shape');
   const watermark = section.querySelector('.gz-cta__watermark');
   const sectionTag = section.querySelector('.gz-cta__section-tag');
-  const eyebrowWrap = section.querySelector('.gz-cta__eyebrow-wrap');
   const accentLines = section.querySelectorAll('.gz-cta__accent-line');
   const accentDot = section.querySelector('.gz-cta__accent-dot');
   const content = section.querySelector('.gz-cta__content');
+  const panel = section.querySelector('.gz-cta__panel');
   const lines = section.querySelectorAll('.gz-cta__line-inner');
-  const statement = section.querySelector('.gz-cta__statement');
   const choices = section.querySelector('.gz-cta__choices');
   const button = section.querySelector('.gz-cta__button');
   const email = section.querySelector('.gz-cta__email');
@@ -611,9 +585,8 @@ function initGerozCvCta(prefersReduced) {
       [
         watermark,
         sectionTag,
-        eyebrowWrap,
         content,
-        statement,
+        panel,
         choices,
         button,
         email,
@@ -688,52 +661,47 @@ function initGerozCvCta(prefersReduced) {
 
   if (sectionTag) {
     gsap.set(sectionTag, { opacity: 0, y: 14 });
-    tl.to(sectionTag, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0);
-  }
-
-  if (eyebrowWrap) {
-    gsap.set(eyebrowWrap, { opacity: 0, y: 20 });
-    tl.to(eyebrowWrap, { opacity: 1, y: 0, duration: 0.8, ease: GEROZ_EASE }, 0.06);
+    tl.to(sectionTag, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.2);
   }
 
   accentLines.forEach((line, index) => {
     gsap.set(line, { scaleX: 0, transformOrigin: index === 0 ? 'right center' : 'left center' });
-    tl.to(line, { scaleX: 1, duration: 0.75, ease: GEROZ_EASE_IO }, 0.12 + index * 0.06);
+    tl.to(line, { scaleX: 1, duration: 0.75, ease: GEROZ_EASE_IO }, 0.28 + index * 0.06);
   });
 
   if (accentDot) {
     gsap.set(accentDot, { scale: 0, opacity: 0 });
-    tl.to(accentDot, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.2);
+    tl.to(accentDot, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.34);
   }
 
   if (content) {
-    gsap.set(content, { opacity: 0, y: 32 });
-    tl.to(content, { opacity: 1, y: 0, duration: 0.95, ease: GEROZ_EASE }, 0.18);
+    gsap.set(content, { opacity: 0, y: 28 });
+    tl.to(content, { opacity: 1, y: 0, duration: 0.95, ease: GEROZ_EASE }, 0);
   }
 
   if (lines.length) {
     gsap.set(lines, { y: '112%' });
-    tl.to(lines, { y: 0, duration: 0.9, stagger: 0.1, ease: GEROZ_EASE_IO }, 0.32);
+    tl.to(lines, { y: 0, duration: 0.9, stagger: 0.1, ease: GEROZ_EASE_IO }, 0.12);
   }
 
-  if (statement) {
-    gsap.set(statement, { opacity: 0, y: 18 });
-    tl.to(statement, { opacity: 1, y: 0, duration: 0.8, ease: GEROZ_EASE }, 0.48);
+  if (panel) {
+    gsap.set(panel, { opacity: 0, y: 22 });
+    tl.to(panel, { opacity: 1, y: 0, duration: 0.85, ease: GEROZ_EASE }, 0.22);
   }
 
   if (choices) {
-    gsap.set(choices, { opacity: 0, y: 20 });
-    tl.to(choices, { opacity: 1, y: 0, duration: 0.8, ease: GEROZ_EASE }, 0.58);
+    gsap.set(choices, { opacity: 0, y: 16 });
+    tl.to(choices, { opacity: 1, y: 0, duration: 0.75, ease: GEROZ_EASE }, 0.4);
   }
 
   if (button) {
     gsap.set(button, { opacity: 0, y: 12 });
-    tl.to(button, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.64);
+    tl.to(button, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.46);
   }
 
   if (email) {
     gsap.set(email, { opacity: 0, y: 12 });
-    tl.to(email, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.7);
+    tl.to(email, { opacity: 1, y: 0, duration: 0.7, ease: GEROZ_EASE }, 0.52);
   }
 }
 

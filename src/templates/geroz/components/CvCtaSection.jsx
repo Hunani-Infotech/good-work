@@ -1,24 +1,14 @@
 import { useCvCtaContent } from '../../../hooks/useCvCtaContent.js';
 import { GEROZ_DECOR_SHAPES } from '../../../data/geroz/constants.js';
-import Eyebrow from './Eyebrow.jsx';
 import LuxuryBackdrop from './LuxuryBackdrop.jsx';
 import ThemeButton from './ThemeButton.jsx';
 
-function CtaHeaderAccent() {
+function CtaConnectAccent() {
   return (
-    <div className="gz-cta__accent mt-[clamp(0.75rem,2vw,1.25rem)] flex w-full max-w-[48rem] items-center justify-center gap-[clamp(1rem,3vw,2rem)]">
-      <span
-        className="gz-cta__accent-line h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(90deg,transparent,var(--color-lawyer))]"
-        aria-hidden="true"
-      />
-      <span
-        className="gz-cta__accent-dot block size-[0.35rem] shrink-0 rounded-full bg-lawyer shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-lawyer)_18%,transparent)]"
-        aria-hidden="true"
-      />
-      <span
-        className="gz-cta__accent-line h-px flex-1 max-w-[5.5rem] bg-[linear-gradient(270deg,transparent,var(--color-lawyer))]"
-        aria-hidden="true"
-      />
+    <div className="gz-cta__accent" aria-hidden="true">
+      <span className="gz-cta__accent-line" />
+      <span className="gz-cta__accent-dot" />
+      <span className="gz-cta__accent-line" />
     </div>
   );
 }
@@ -62,49 +52,37 @@ export default function CvCtaSection() {
       </p>
 
       <div className="geroz-container-wide gz-cta__container relative z-[1] px-4 sm:px-6 lg:px-11">
-        <header className="gz-cta__masthead mx-auto flex max-w-[52rem] flex-col items-center text-center">
-          <p className="gz-cta__section-tag">Connect</p>
+        <div className="gz-cta__content">
+          <div className="gz-cta__split">
+            <h2 className="gz-cta__heading" aria-label={cta.heading}>
+              {headingLines.map((line) => (
+                <span key={line} className="gz-cta__line">
+                  <span className="gz-cta__line-inner">{line}</span>
+                </span>
+              ))}
+            </h2>
 
-          {cta.eyebrow ? (
-            <div className="gz-cta__eyebrow-wrap mt-3">
-              <Eyebrow className="mx-auto">{cta.eyebrow}</Eyebrow>
-            </div>
-          ) : null}
+            <div className="gz-cta__panel">
+              <header className="gz-cta__panel-head">
+                <p className="gz-cta__section-tag">Connect</p>
+                <CtaConnectAccent />
+              </header>
 
-          <CtaHeaderAccent />
-        </header>
+              {cta.mailto ? (
+                <div className="gz-cta__choices">
+                  <ThemeButton href={cta.mailto} className="gz-cta__button">
+                    {cta.ctaLabel}
+                  </ThemeButton>
 
-        <div className="gz-cta__content mx-auto max-w-[46rem] text-center">
-          <h2 className="gz-cta__heading" aria-label={cta.heading}>
-            {headingLines.map((line) => (
-              <span key={line} className="gz-cta__line">
-                <span className="gz-cta__line-inner">{line}</span>
-              </span>
-            ))}
-          </h2>
-
-          {cta.statement ? (
-            <p className="gz-cta__statement">{cta.statement}</p>
-          ) : null}
-
-          {cta.mailto ? (
-            <div className="gz-cta__choices">
-              <ThemeButton href={cta.mailto} className="gz-cta__button">
-                {cta.ctaLabel}
-              </ThemeButton>
-
-              {cta.email ? (
-                <>
-                  <span className="gz-cta__or" aria-hidden="true">
-                    or
-                  </span>
-                  <a href={cta.mailto} className="gz-cta__email">
-                    {cta.email}
-                  </a>
-                </>
+                  {cta.email ? (
+                    <a href={cta.mailto} className="gz-cta__email">
+                      {cta.email}
+                    </a>
+                  ) : null}
+                </div>
               ) : null}
             </div>
-          ) : null}
+          </div>
         </div>
       </div>
     </section>
