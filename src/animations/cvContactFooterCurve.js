@@ -1,5 +1,9 @@
 /**
  * CV contact footer curve — scrub timeline for curve collapse + divider/CTA reveal.
+ *
+ * - Curve collapses via scaleY (compositor), never height.
+ * - Immediate scrub finishes at the divider — before the footer —
+ *   so Lenis deceleration at the page end has nothing left to catch up.
  */
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,9 +13,9 @@ import { syncScrollLayout } from './scrollRuntime.js';
 gsap.registerPlugin(ScrollTrigger);
 
 const CURVE_HEIGHT_RATIO = 0.2;
-const CTA_LINE_AT = 0.55;
+const CTA_LINE_AT = 0.52;
 const CTA_LINE_DURATION = 0.18;
-const CTA_SLIDE_AT = 0.64;
+const CTA_SLIDE_AT = 0.6;
 const CTA_SLIDE_DURATION = 0.24;
 
 let cleanup = null;
@@ -49,6 +53,16 @@ function setCompactCta(cta, { opacity, scale }) {
   });
 }
 
+function setCurveWrap(curveWrap, { scaleY, height }) {
+  gsap.set(curveWrap, {
+    height,
+    xPercent: -50,
+    scaleY,
+    transformOrigin: '50% 0%',
+    force3D: true,
+  });
+}
+
 export function initCvContactFooterCurve({
   prefersReduced = false,
   blurSectionsSelector = '',
@@ -57,10 +71,13 @@ export function initCvContactFooterCurve({
   destroyCvContactFooterCurve();
 
   const root = document.querySelector('#contact');
+  const curveOverlay = root?.querySelector('.meridian-contact__curve-overlay');
   const curveWrap = root?.querySelector('.meridian-contact__curve-wrap');
   const dividerLine = root?.querySelector('.meridian-contact__line');
+  const dividerRow = root?.querySelector('.meridian-contact__divider-row');
   const cta = root?.querySelector('.meridian-contact__cta');
   const panel = root?.querySelector('.meridian-contact__panel');
+  const footer = root?.querySelector('.meridian-footer');
   const header = headerSelector ? document.querySelector(headerSelector) : null;
   const isCompactCta = window.matchMedia('(max-width: 767px)').matches;
   const pageSections = blurSectionsSelector
@@ -72,7 +89,8 @@ export function initCvContactFooterCurve({
   const animatedEls = [curveWrap, dividerLine, cta, header, ...pageSections].filter(Boolean);
 
   if (prefersReduced) {
-    gsap.set(curveWrap, { height: 0 });
+    setCurveWrap(curveWrap, { scaleY: 0, height: getCurveHeightPx() });
+    if (curveOverlay) gsap.set(curveOverlay, { autoAlpha: 0 });
     if (dividerLine) gsap.set(dividerLine, { scaleX: 1 });
     if (cta) {
       if (isCompactCta) {
@@ -86,7 +104,10 @@ export function initCvContactFooterCurve({
   }
 
   const maxH = getCurveHeightPx();
-  gsap.set(curveWrap, { height: maxH });
+  const ctaTravel = cta ? getCtaTravel(cta) : -120;
+
+  setCurveWrap(curveWrap, { scaleY: 1, height: maxH });
+  if (curveOverlay) gsap.set(curveOverlay, { autoAlpha: 1 });
 
   if (dividerLine) {
     gsap.set(dividerLine, { scaleX: 0, transformOrigin: 'left center', force3D: true });
@@ -96,38 +117,77 @@ export function initCvContactFooterCurve({
     if (isCompactCta) {
       setCompactCta(cta, { opacity: 0, scale: 0.88 });
     } else {
-      setDesktopCta(cta, { x: getCtaTravel(cta), opacity: 0, scale: 0.88 });
+      setDesktopCta(cta, { x: ctaTravel, opacity: 0, scale: 0.88 });
     }
   }
 
+  const endTarget = dividerRow || footer || root;
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: root,
       start: 'top bottom',
-      end: 'bottom bottom',
+      endTrigger: endTarget,
+      end: dividerRow ? 'bottom 70%' : 'top bottom',
       scrub: true,
       invalidateOnRefresh: true,
+      fastScrollEnd: true,
+      onLeave: () => {
+        if (curveOverlay) gsap.set(curveOverlay, { autoAlpha: 0 });
+        curveWrap.style.willChange = 'auto';
+        if (cta) cta.style.willChange = 'auto';
+        if (dividerLine) dividerLine.style.willChange = 'auto';
+      },
+      onEnterBack: () => {
+        if (curveOverlay) gsap.set(curveOverlay, { autoAlpha: 1 });
+        curveWrap.style.willChange = 'transform';
+        if (cta) cta.style.willChange = 'transform, opacity';
+        if (dividerLine) dividerLine.style.willChange = 'transform';
+      },
     },
   });
 
   tl.fromTo(
     curveWrap,
-    { height: () => getCurveHeightPx() },
-    { height: 0, ease: 'none' },
+    { scaleY: 1 },
+    { scaleY: 0, ease: 'none', force3D: true },
     0,
   );
 
-  pageSections.forEach((section) => {
-    tl.fromTo(
-      section,
-      { opacity: 1, filter: 'blur(0px)' },
-      { opacity: 0.42, filter: 'blur(3px)', ease: 'none' },
-      0,
-    );
-  });
-
+  // Avoid scrubbing many large section opacities into the footer (hitch source).
+  const fadeTweens = [];
   if (header) {
-    tl.fromTo(header, { opacity: 1 }, { opacity: 0.72, ease: 'none' }, 0);
+    fadeTweens.push(
+      gsap.to(header, {
+        opacity: 0.72,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: root,
+          start: 'top 92%',
+          end: 'top 60%',
+          scrub: true,
+          fastScrollEnd: true,
+        },
+      }),
+    );
+  }
+  if (pageSections.length) {
+    fadeTweens.push(
+      gsap.fromTo(
+        pageSections,
+        { opacity: 1 },
+        {
+          opacity: 0.42,
+          duration: 0.45,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: root,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse',
+            fastScrollEnd: true,
+          },
+        },
+      ),
+    );
   }
 
   if (dividerLine) {
@@ -150,7 +210,7 @@ export function initCvContactFooterCurve({
     } else {
       tl.fromTo(
         cta,
-        { x: () => getCtaTravel(cta), opacity: 0, scale: 0.88 },
+        { x: ctaTravel, opacity: 0, scale: 0.88 },
         { x: 0, opacity: 1, scale: 1, ease: 'none', duration: CTA_SLIDE_DURATION },
         CTA_SLIDE_AT,
       );
@@ -158,11 +218,16 @@ export function initCvContactFooterCurve({
   }
 
   cleanup = () => {
+    fadeTweens.forEach((tween) => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    });
     tl.scrollTrigger?.kill();
     tl.kill();
-    gsap.set(curveWrap, { clearProps: 'height' });
+    gsap.set(curveWrap, { clearProps: 'height,transform,willChange' });
+    if (curveOverlay) gsap.set(curveOverlay, { clearProps: 'opacity,visibility' });
     animatedEls.forEach((el) => {
-      gsap.set(el, { clearProps: 'transform,opacity,filter,left,right' });
+      gsap.set(el, { clearProps: 'transform,opacity,filter,left,right,willChange' });
     });
 
     panel?.querySelectorAll(
@@ -172,7 +237,7 @@ export function initCvContactFooterCurve({
     });
 
     document.querySelectorAll('.meridian-contact__cta').forEach((el) => {
-      gsap.set(el, { clearProps: 'clipPath' });
+      gsap.set(el, { clearProps: 'clipPath,willChange' });
     });
   };
 

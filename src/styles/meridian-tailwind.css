@@ -86,8 +86,7 @@ html.meridian-template p {
 body.meridian-template .meridian-cv-main,
 body.meridian-template .meridian-header,
 body.meridian-template .meridian-menu__root,
-body.meridian-template .vcv-widget,
-body.meridian-template .site-loader {
+body.meridian-template .vcv-widget {
   font-family: var(--meridian-font);
   font-synthesis: none;
 }
@@ -1281,7 +1280,11 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-contact__cta .meridian-liquid-fill:hover > .meridian-liquid-fill__wave,
 .meridian-contact__cta .meridian-liquid-fill:focus-visible > .meridian-liquid-fill__wave,
 .meridian-contact__cta:hover .meridian-liquid-fill__wave,
-.meridian-contact__cta:focus-within .meridian-liquid-fill__wave {
+.meridian-contact__cta:focus-within .meridian-liquid-fill__wave,
+.meridian-contact__email .meridian-liquid-fill:hover > .meridian-liquid-fill__wave,
+.meridian-contact__email .meridian-liquid-fill:focus-visible > .meridian-liquid-fill__wave,
+.meridian-contact__email:hover .meridian-liquid-fill__wave,
+.meridian-contact__email:focus-within .meridian-liquid-fill__wave {
   transform: translate3d(-50%, var(--meridian-liquid-rise, 16%), 0);
 }
 
@@ -1658,8 +1661,12 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   width: calc(100% + 4px);
   height: 20svh;
   overflow: hidden;
+  /* GSAP owns xPercent + scaleY collapse (compositor-friendly). */
   transform: translate3d(-50%, 0, 0);
-  will-change: height;
+  transform-origin: 50% 0%;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: paint;
 }
 
 .meridian-contact__curve-ellipse {
@@ -1673,6 +1680,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   background: var(--meridian-surface);
   transform: translate3d(-50%, -86.666%, 0);
   transform-origin: 50% 100%;
+  backface-visibility: hidden;
 }
 
 .meridian-contact__panel {
@@ -1717,6 +1725,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-contact__heading,
 .meridian-contact__heading-line,
 .meridian-contact__pill,
+.meridian-contact__email,
 .meridian-footer,
 .meridian-footer__meta > div,
 .meridian-footer__social-list a {
@@ -1738,6 +1747,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-contact__copy {
+  --meridian-cta-size: clamp(8.5rem, 16vw, 12.5rem);
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1746,6 +1757,74 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   margin-top: 0;
   /* Half-circle overhang under the divider line */
   padding-bottom: clamp(4.25rem, 8vw, 6.25rem);
+}
+
+/* Same liquid + magnetic treatment as Let's Connect (pill for longer email text) */
+.meridian-contact__email {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  overflow: visible;
+  clip-path: none;
+  pointer-events: auto;
+  transform: translate3d(-50%, 0, 0);
+}
+
+.meridian-contact__email-surface {
+  position: relative;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 3rem;
+  max-width: min(100vw - 2.5rem, 22rem);
+  padding: 0.75rem 1.45rem;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--meridian-btn-bg, #ffffff);
+  color: var(--meridian-btn-text, #0a0a0a);
+  font-size: clamp(0.8125rem, 1.05vw, 0.975rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  white-space: nowrap;
+  --meridian-liquid-hover: var(--meridian-accent);
+  --meridian-liquid-rise: 14%;
+  transition: color 0.68s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.meridian-contact__email:hover .meridian-contact__email-surface,
+.meridian-contact__email:focus-within .meridian-contact__email-surface {
+  color: var(--meridian-btn-hover-text, #ffffff);
+}
+
+.meridian-contact__email-surface > .meridian-liquid-fill__wave {
+  z-index: 0;
+}
+
+.meridian-contact__email-surface .meridian-magnetic__label {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meridian-contact__email:hover .meridian-contact__email-surface,
+  .meridian-contact__email:focus-within .meridian-contact__email-surface {
+    background: var(--meridian-accent);
+  }
 }
 
 .meridian-contact__heading-wrap {
@@ -1836,8 +1915,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: clamp(8.5rem, 16vw, 12.5rem);
-  min-height: clamp(8.5rem, 16vw, 12.5rem);
+  min-width: var(--meridian-cta-size, clamp(8.5rem, 16vw, 12.5rem));
+  min-height: var(--meridian-cta-size, clamp(8.5rem, 16vw, 12.5rem));
   width: max-content;
   height: max-content;
   padding: 1.35rem 1.65rem;
@@ -1860,11 +1939,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   color: var(--meridian-btn-hover-text, #ffffff);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .meridian-contact__cta:hover .meridian-contact__cta-ring,
-  .meridian-contact__cta:focus-within .meridian-contact__cta-ring {
-    background: var(--meridian-accent);
-  }
+.meridian-contact__cta-ring > .meridian-liquid-fill__wave {
+  z-index: 0;
 }
 
 .meridian-contact__cta-ring .meridian-magnetic__label {
@@ -1873,6 +1949,13 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   max-width: none;
   line-height: 1.35;
   white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meridian-contact__cta:hover .meridian-contact__cta-ring,
+  .meridian-contact__cta:focus-within .meridian-contact__cta-ring {
+    background: var(--meridian-accent);
+  }
 }
 
 .meridian-contact__line {
@@ -1935,8 +2018,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   flex-shrink: 0;
   width: 100%;
   margin-top: 0;
-  padding: 0.65rem clamp(1.25rem, 4vw, 3rem) 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.25rem, 4vw, 3rem) clamp(1.75rem, 4vw, 2.75rem);
+  border-top: 0;
   background: var(--meridian-dark);
   pointer-events: none;
 }
@@ -1944,6 +2027,83 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 .meridian-footer a,
 .meridian-footer button {
   pointer-events: auto;
+}
+
+.meridian-footer__walker {
+  margin-bottom: clamp(0.65rem, 1.5vw, 1rem);
+}
+
+.meridian-footer-walker {
+  --meridian-footer-walker-height: clamp(3.25rem, 7vw, 4.75rem);
+  --meridian-footer-walker-fade: clamp(1.25rem, 5vw, 3.5rem);
+  --meridian-footer-walker-fade-bg: var(--meridian-dark);
+  --meridian-footer-walker-rule: rgba(255, 255, 255, 0.16);
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-rows: var(--meridian-footer-walker-height) auto;
+  gap: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.meridian-footer-walker__stage {
+  position: relative;
+  width: 100%;
+  height: var(--meridian-footer-walker-height);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.meridian-footer-walker__lottie {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  contain: strict;
+}
+
+.meridian-footer-walker__lottie svg,
+.meridian-footer-walker__lottie canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.meridian-footer-walker__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--meridian-footer-walker-fade);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.meridian-footer-walker__fade--start {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--meridian-footer-walker-fade-bg) 0%,
+    color-mix(in srgb, var(--meridian-footer-walker-fade-bg) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+.meridian-footer-walker__fade--end {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--meridian-footer-walker-fade-bg) 0%,
+    color-mix(in srgb, var(--meridian-footer-walker-fade-bg) 70%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+.meridian-footer-walker__rail {
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  background-color: var(--meridian-footer-walker-rule);
+  transform: translateY(-1px);
 }
 
 .meridian-footer__grid {
@@ -1967,7 +2127,7 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: 0.3rem;
+  gap: 0.45rem;
 }
 
 .meridian-footer__meta {
@@ -1977,11 +2137,9 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 .meridian-footer__meta > .meridian-footer__cell {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.2rem;
   min-width: 0;
-}
-
-.meridian-footer__meta > .meridian-footer__cell {
   grid-column: 2;
 }
 
@@ -1989,6 +2147,7 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   grid-column: 3;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.2rem;
   min-width: 0;
   text-align: left;
@@ -2011,8 +2170,8 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 }
 
 .meridian-footer__logo {
-  height: clamp(2rem, 4.5vw, 2.5rem);
-  max-width: min(100%, 16rem);
+  height: clamp(3.25rem, 8vw, 4.75rem);
+  max-width: min(100%, 22rem);
 }
 
 .meridian-footer__label {
@@ -2433,8 +2592,31 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
     padding-bottom: clamp(2.5rem, 8vw, 3.5rem);
   }
 
+  .meridian-contact__email {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0 0 1rem;
+    transform: none;
+  }
+
+  .meridian-contact__email-surface {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
   .meridian-footer {
-    padding: 0.55rem clamp(1.25rem, 5vw, 1.75rem) 0.65rem;
+    padding: clamp(1.25rem, 5vw, 1.75rem) clamp(1.25rem, 5vw, 1.75rem) 1.25rem;
+  }
+
+  .meridian-footer-walker {
+    --meridian-footer-walker-height: clamp(2.75rem, 14vw, 3.75rem);
+    --meridian-footer-walker-fade: 1.25rem;
   }
 
   .meridian-footer__grid,
@@ -2655,9 +2837,7 @@ html.meridian-template body.meridian-template :where(
   .meridian-menu__root,
   .meridian-menu__root *,
   .vcv-widget,
-  .vcv-widget *,
-  .site-loader,
-  .site-loader *
+  .vcv-widget *
 ) {
   font-family: var(--meridian-font);
   font-synthesis: none;

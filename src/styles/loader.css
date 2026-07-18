@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap');
-
+/* Shared GoodWork loader — identical on every template (never inherit template fonts) */
 html.is-loader-active,
 html.is-loader-active body {
   overflow: hidden;
   touch-action: none;
   overscroll-behavior: none;
+}
+
+html body .container-loader.site-loader,
+html body .container-loader.site-loader :where(p, span, div, img) {
+  font-family: Goga, Arial, sans-serif;
 }
 
 .container-loader.site-loader {
@@ -22,6 +26,8 @@ html.is-loader-active body {
   align-items: center;
   justify-content: center;
   background: var(--brand-bg-warm, #faf8f5);
+  color: var(--brand-purple, #510066);
+  font-family: Goga, Arial, sans-serif;
   overflow: hidden;
   padding:
     max(16px, env(safe-area-inset-top))
@@ -41,8 +47,8 @@ html.is-loader-active body {
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(26, 10, 46, 0.022) 28px, rgba(26, 10, 46, 0.022) 29px),
-    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(26, 10, 46, 0.016) 28px, rgba(26, 10, 46, 0.016) 29px);
+    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(81, 0, 102, 0.022) 28px, rgba(81, 0, 102, 0.022) 29px),
+    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(81, 0, 102, 0.016) 28px, rgba(81, 0, 102, 0.016) 29px);
   pointer-events: none;
   z-index: 0;
 }
@@ -51,7 +57,7 @@ html.is-loader-active body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(26, 10, 46, 0.09) 100%);
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(81, 0, 102, 0.08) 100%);
   pointer-events: none;
   z-index: 0;
 }
@@ -75,7 +81,7 @@ html.is-loader-active body {
   position: absolute;
   width: 22px;
   height: 22px;
-  border-color: rgba(26, 10, 46, 0.1);
+  border-color: rgba(81, 0, 102, 0.12);
   border-style: solid;
   z-index: 6;
   transition: border-color 0.6s ease;
@@ -106,7 +112,7 @@ html.is-loader-active body {
 }
 
 .site-loader .loader-corner.is-locked {
-  border-color: rgba(242, 88, 40, 0.5);
+  border-color: rgba(242, 88, 40, 0.55);
 }
 
 .site-loader .loader-stage {
@@ -114,101 +120,84 @@ html.is-loader-active body {
   z-index: 5;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   width: min(100%, 420px);
   max-width: 100%;
+  text-align: center;
 }
 
-.site-loader .loader-eyebrow {
-  font-family: Inter, Goga, Arial, sans-serif;
-  font-weight: 500;
-  font-size: clamp(10px, 1.4vw, 12px);
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: rgba(26, 10, 46, 0.72);
-  margin-bottom: 10px;
-  opacity: 0;
-  transform: translateY(6px);
-  max-width: 100%;
-}
-
-.site-loader .loader-row {
+.site-loader .loader-logo-wrap {
+  position: relative;
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
-  font-family: 'Bebas Neue', Goga, Arial, sans-serif;
-  line-height: 0.88;
-  letter-spacing: 0.01em;
-  max-width: 100%;
-}
-
-.site-loader .loader-row--good,
-.site-loader .loader-row--work {
-  font-size: clamp(72px, 14vw, 128px);
-}
-
-.site-loader .loader-char {
-  display: inline-block;
-  color: #1a0a2e;
-  opacity: 0;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.site-loader .loader-row--work .loader-char {
-  color: var(--brand-purple, #510066);
-}
-
-.site-loader .loader-char--circle {
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
+  width: min(100%, 280px);
   opacity: 0;
+  transform: translateY(10px) scale(0.96);
+}
+
+.site-loader .loader-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .site-loader .loader-dot {
-  width: 0.76em;
-  height: 0.76em;
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 10px;
+  height: 10px;
+  margin: 0;
   border-radius: 50%;
   background: var(--brand-orange, #f25828);
-  display: inline-block;
-  flex-shrink: 0;
-  margin: 0 0.01em;
-  position: relative;
-  top: -0.02em;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-loader .loader-tagline {
+  margin: 1.35rem 0 0;
+  max-width: 22rem;
+  font-family: Goga, Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--brand-purple, #510066);
+  opacity: 0;
+  transform: translateY(8px);
 }
 
 .site-loader .loader-rule {
   width: 0;
   height: 0.5px;
-  opacity: 1;
   max-width: 100%;
-}
-
-.site-loader .loader-rule--top {
-  background: rgba(26, 10, 46, 0.1);
-  margin-bottom: 6px;
+  opacity: 1;
 }
 
 .site-loader .loader-rule--bottom {
+  align-self: stretch;
   background: linear-gradient(90deg, var(--brand-orange, #f25828), var(--brand-purple, #510066));
-  margin-top: 14px;
-  opacity: 0.5;
+  margin-top: 1.35rem;
+  opacity: 0.55;
 }
 
 .site-loader .loader-hud {
-  margin-top: 18px;
+  margin-top: 1.1rem;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
   opacity: 0;
+  font-family: Goga, Arial, sans-serif;
 }
 
 .site-loader .loader-counter-wrap {
-  font-family: 'Cormorant Garamond', Goga, serif;
-  font-weight: 500;
+  font-family: Goga, Arial, sans-serif;
+  font-weight: 600;
   display: flex;
   align-items: baseline;
   gap: 3px;
@@ -216,7 +205,7 @@ html.is-loader-active body {
 }
 
 .site-loader .loader-counter-num {
-  font-size: clamp(36px, 6vw, 52px);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   color: var(--brand-orange, #f25828);
   line-height: 1;
   min-width: 3ch;
@@ -224,19 +213,17 @@ html.is-loader-active body {
 }
 
 .site-loader .loader-counter-pct {
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: clamp(0.8rem, 2vw, 1rem);
   color: rgba(242, 88, 40, 0.85);
-  font-style: italic;
   font-weight: 500;
 }
 
 .site-loader .loader-status-text {
-  font-family: 'Cormorant Garamond', Goga, serif;
-  font-style: italic;
+  font-family: Goga, Arial, sans-serif;
   font-weight: 500;
-  font-size: clamp(12px, 1.9vw, 15px);
-  color: rgba(26, 10, 46, 0.78);
-  letter-spacing: 0.06em;
+  font-size: clamp(0.75rem, 1.9vw, 0.9rem);
+  color: var(--brand-grey, #96908c);
+  letter-spacing: 0.04em;
   align-self: flex-end;
   padding-bottom: 4px;
   text-align: right;
@@ -252,35 +239,18 @@ html.is-loader-active body {
       max(20px, env(safe-area-inset-left));
   }
 
-  .site-loader .loader-stage {
-    width: 100%;
-    align-items: flex-start;
+  .site-loader .loader-logo-wrap {
+    width: min(100%, 220px);
   }
 
-  .site-loader .loader-row--good,
-  .site-loader .loader-row--work {
-    font-size: clamp(52px, 15.5vw, 88px);
-  }
-
-  .site-loader .loader-eyebrow {
-    font-size: clamp(9px, 2.5vw, 11px);
-    letter-spacing: 0.28em;
-    line-height: 1.5;
-    color: rgba(26, 10, 46, 0.68);
+  .site-loader .loader-tagline {
+    font-size: clamp(0.88rem, 3.6vw, 1.05rem);
+    max-width: 18.5rem;
   }
 
   .site-loader .loader-hud {
-    margin-top: 14px;
+    margin-top: 0.95rem;
     gap: 8px;
-  }
-
-  .site-loader .loader-counter-num {
-    font-size: clamp(32px, 9vw, 44px);
-  }
-
-  .site-loader .loader-status-text {
-    font-size: clamp(10px, 2.8vw, 13px);
-    max-width: 52%;
   }
 
   .site-loader .loader-corner {
@@ -290,13 +260,8 @@ html.is-loader-active body {
 }
 
 @media (max-width: 380px) {
-  .site-loader .loader-row--good,
-  .site-loader .loader-row--work {
-    font-size: clamp(46px, 14.5vw, 72px);
-  }
-
-  .site-loader .loader-eyebrow {
-    letter-spacing: 0.22em;
+  .site-loader .loader-logo-wrap {
+    width: min(100%, 190px);
   }
 
   .site-loader .loader-hud {

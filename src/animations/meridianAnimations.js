@@ -649,21 +649,24 @@ function initMeridianCapabilities(prefersReduced) {
       }
     });
 
+    // Soft scrub here used to keep catching up while scrolling into the footer.
     if (window.innerWidth >= 720) {
       cards.forEach((card, i) => {
         const isTopRow = i < 4;
-        gsap.fromTo(card, 
-          { x: isTopRow ? 150 : -150 },
+        gsap.fromTo(card,
+          { x: isTopRow ? 80 : -80 },
           {
-            x: isTopRow ? -150 : 150,
+            x: isTopRow ? -80 : 80,
             ease: 'none',
+            force3D: true,
             scrollTrigger: {
               trigger: section,
               start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.5,
+              end: 'bottom center',
+              scrub: true,
+              fastScrollEnd: true,
             },
-          }
+          },
         );
       });
     }
@@ -689,25 +692,28 @@ function initMeridianContactReveal(prefersReduced) {
   const headingWrap = section.querySelector('.meridian-contact__heading-wrap');
   const headingLineEls = section.querySelectorAll('.meridian-contact__heading-line');
   const arrow = section.querySelector('.meridian-contact__heading-arrow');
-  const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div');
-  const footerLabels = section.querySelectorAll('.meridian-footer__label');
-  const footerValues = section.querySelectorAll('.meridian-footer__value');
+  const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div, .meridian-footer__socials');
+  const contactEmail = section.querySelector('.meridian-contact__email');
+  const footerLogo = section.querySelector('.meridian-footer__logo');
+  const footerWalker = section.querySelector('.meridian-footer-walker');
   const isCompactContact = window.matchMedia('(max-width: 767px)').matches;
 
   if (prefersReduced) {
-    setReducedState([arrow, headingWrap, ...footerBlocks]);
+    setReducedState([arrow, headingWrap, contactEmail, footerLogo, footerWalker, ...footerBlocks]);
     return;
   }
 
   const revealTargets = [...footerBlocks].filter(Boolean);
-  gsap.set(revealTargets, { opacity: 0, y: 24 });
+  gsap.set(revealTargets, { opacity: 0 });
+  if (contactEmail) gsap.set(contactEmail, { opacity: 0 });
 
   if (headingWrap) {
+    // End heading parallax before the footer so it doesn't coast with Lenis.
     scrubParallax(headingWrap, section, {
-      y: 12,
+      y: 10,
       start: 'top bottom',
-      end: 'center center',
-      scrub: 0.8,
+      end: 'top 35%',
+      scrub: true,
     });
   }
 
@@ -754,36 +760,36 @@ function initMeridianContactReveal(prefersReduced) {
     });
   }
 
-  footerLabels.forEach((label, index) => {
-    const chars = splitCharsIntoMasks(label);
-    gsap.set(chars, { y: '110%', opacity: 0 });
-    tl.to(chars, {
-      y: 0,
-      opacity: 1,
-      duration: 0.65,
-      stagger: 0.012,
-      ease: GEROZ_EASE,
-    }, 0.42 + index * 0.06);
-  });
+  if (contactEmail) {
+    tl.to(contactEmail, { opacity: 1, duration: 0.75, ease: GEROZ_EASE }, 0.36);
+  }
 
-  footerValues.forEach((value, index) => {
-    const inner = wrapLineMask(value);
-    gsap.set(inner, { y: '108%' });
-    tl.to(inner, {
-      y: 0,
-      duration: 0.85,
-      ease: GEROZ_EASE_IO,
-    }, 0.48 + index * 0.07);
-  });
+  // Lightweight footer reveal — opacity only (no y) so it doesn't fight Lottie.
+  const footer = section.querySelector('.meridian-footer');
+  if (footer && (footerWalker || footerLogo || footerBlocks.length)) {
+    const footerTl = gsap.timeline({
+      scrollTrigger: meridianScroll(footer, 'top 88%'),
+      defaults: { ease: 'power2.out' },
+    });
 
-  if (footerBlocks.length) {
-    tl.to(footerBlocks, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.07,
-      ease: GEROZ_EASE,
-    }, 0.52);
+    if (footerWalker) {
+      gsap.set(footerWalker, { opacity: 0 });
+      footerTl.to(footerWalker, { opacity: 1, duration: 0.45 }, 0);
+    }
+
+    if (footerLogo) {
+      gsap.set(footerLogo, { opacity: 0 });
+      footerTl.to(footerLogo, { opacity: 1, duration: 0.5 }, 0.05);
+    }
+
+    if (footerBlocks.length) {
+      gsap.set(footerBlocks, { opacity: 0, y: 0 });
+      footerTl.to(footerBlocks, {
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.04,
+      }, 0.08);
+    }
   }
 }
 

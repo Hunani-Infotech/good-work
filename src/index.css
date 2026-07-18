@@ -47,12 +47,6 @@
   width: auto;
 }
 
-.loader-lottie {
-  width: clamp(3.5rem, 10vw, 5.5rem);
-  height: clamp(3.5rem, 10vw, 5.5rem);
-  margin-top: 0;
-}
-
 /* Profile photo — legacy layouts only (hero-goodwork uses site.css) */
 .wrapper-hero:not(.hero-goodwork) .hero-profile-photo {
   width: min(40vw, 12rem);

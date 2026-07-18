@@ -1,3 +1,7 @@
+import { GOODWORK_LOADER_LOGO } from '../../utils/brandLogos.js';
+
+const TAGLINE = 'Everyone has a unique talent. What’s yours?';
+
 export default function SiteLoader() {
   return (
     <>
@@ -9,24 +13,20 @@ export default function SiteLoader() {
         <div className="loader-corner loader-corner--br" />
 
         <div className="loader-stage">
-          <div className="loader-eyebrow">Est. in craft · Built with purpose</div>
-          <div className="loader-rule loader-rule--top" />
-
-          <div className="loader-row loader-row--good">
-            <span className="loader-char" data-loader-char="G">G</span>
-            <span className="loader-char loader-char--circle">
-              <span className="loader-dot" data-loader-dot />
-            </span>
-            <span className="loader-char" data-loader-char="O2">O</span>
-            <span className="loader-char" data-loader-char="D">D</span>
+          <div className="loader-logo-wrap" data-loader-logo-wrap>
+            <img
+              className="loader-logo"
+              data-loader-logo
+              src={GOODWORK_LOADER_LOGO}
+              alt="GoodWork"
+              width={420}
+              height={206}
+              decoding="async"
+            />
+            <span className="loader-dot" data-loader-dot aria-hidden="true" />
           </div>
 
-          <div className="loader-row loader-row--work">
-            <span className="loader-char" data-loader-char="W">W</span>
-            <span className="loader-char" data-loader-char="O3">O</span>
-            <span className="loader-char" data-loader-char="R">R</span>
-            <span className="loader-char" data-loader-char="K">K</span>
-          </div>
+          <p className="loader-tagline" data-loader-tagline>{TAGLINE}</p>
 
           <div className="loader-rule loader-rule--bottom" />
 

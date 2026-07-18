@@ -1,7 +1,8 @@
 const LOADER_MSGS = ['Loading…', 'Crafting…', 'Polishing…', 'Ready'];
 const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const EASE_SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
 const EASE_CURTAIN = 'cubic-bezier(0.76, 0, 0.24, 1)';
+/** Full cycle length of `goodwork-logo.gif` (125 × 40ms). */
+const LOADER_GIF_MS = 5000;
 
 let loaderRunId = 0;
 let loaderSessionComplete = false;
@@ -67,41 +68,19 @@ export function revealSiteContent() {
   applySiteReady();
 }
 
-function revealChar(el, delay) {
+function fadeIn(el, duration = 700, transformFrom = 'translateY(10px)') {
+  if (!el) return Promise.resolve();
   return new Promise((resolve) => {
-    setTimeout(() => {
-      const anim = el.animate([
-        { opacity: 0, transform: 'translateY(14px) scaleY(0.85)', filter: 'blur(4px)' },
-        { opacity: 1, transform: 'translateY(0) scaleY(1)', filter: 'blur(0px)' },
-      ], { duration: 650, fill: 'forwards', easing: EASE_OUT });
-      anim.onfinish = resolve;
-    }, delay);
-  });
-}
-
-function dotEntrance(circleWrap, dot) {
-  return new Promise((resolve) => {
-    const anim = circleWrap.animate([
-      { opacity: 0, transform: 'scale(0.4)' },
-      { opacity: 1, transform: 'scale(1.08)' },
-      { opacity: 1, transform: 'scale(1)' },
-    ], { duration: 800, fill: 'forwards', easing: EASE_SPRING });
-    dot.animate([
-      { background: '#ffffff' },
-      { background: 'var(--brand-orange, #f25828)' },
-    ], { duration: 900, fill: 'forwards', easing: 'ease-out' });
+    const anim = el.animate([
+      { opacity: 0, transform: transformFrom },
+      { opacity: 1, transform: 'translateY(0) scale(1)' },
+    ], { duration, fill: 'forwards', easing: EASE_OUT });
     anim.onfinish = resolve;
   });
 }
 
-function showEyebrow(el) {
-  el.animate([
-    { opacity: 0, transform: 'translateY(6px)' },
-    { opacity: 1, transform: 'translateY(0)' },
-  ], { duration: 700, fill: 'forwards', easing: 'ease-out' });
-}
-
 function expandRule(rule, width, duration) {
+  if (!rule) return Promise.resolve();
   const t0 = performance.now();
   return new Promise((resolve) => {
     function tick(now) {
@@ -130,9 +109,9 @@ function animateCounter(counterEl, statusEl, target, duration, startVal) {
   });
 }
 
-function curtainReveal(dot, reveal, loader) {
+function curtainReveal(anchor, reveal, loader) {
   return new Promise((resolve) => {
-    const rect = dot.getBoundingClientRect();
+    const rect = anchor.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     const radius = Math.hypot(window.innerWidth, window.innerHeight);
@@ -182,68 +161,70 @@ function curtainReveal(dot, reveal, loader) {
   });
 }
 
-async function runLuxuryLoader(loader, isStale) {
+function restartGif(img) {
+  if (!img || !img.src) return;
+  const { src } = img;
+  img.src = '';
+  img.src = src;
+}
+
+async function runBrandLoader(loader, isStale) {
   const reveal = document.querySelector('.loader-curtain-reveal');
   const stage = loader.querySelector('.loader-stage');
-  const eyebrow = loader.querySelector('.loader-eyebrow');
-  const ruleTop = loader.querySelector('.loader-rule--top');
+  const logoWrap = loader.querySelector('[data-loader-logo-wrap]');
+  const tagline = loader.querySelector('[data-loader-tagline]');
   const ruleBottom = loader.querySelector('.loader-rule--bottom');
-  const circleWrap = loader.querySelector('.loader-char--circle');
   const dot = loader.querySelector('[data-loader-dot]');
   const hud = loader.querySelector('.loader-hud');
   const counterEl = loader.querySelector('[data-loader-counter]');
   const statusEl = loader.querySelector('[data-loader-status]');
   const corners = loader.querySelectorAll('.loader-corner');
-  const chars = loader.querySelectorAll('[data-loader-char]');
+  const logo = loader.querySelector('[data-loader-logo]');
 
-  if (!reveal || !stage || !dot || !circleWrap) {
+  if (!reveal || !stage || !logoWrap || !dot) {
     hideLoaderEl();
     return;
   }
 
-  chars.forEach((el) => { el.style.opacity = '0'; });
-  circleWrap.style.opacity = '0';
-
   const stageW = stage.offsetWidth || 420;
 
-  await sleep(250);
-  if (isStale()) return;
-
-  showEyebrow(eyebrow);
-  expandRule(ruleTop, stageW, 500);
-
-  await sleep(320);
-  if (isStale()) return;
-
-  dotEntrance(circleWrap, dot);
-  await sleep(150);
-  if (isStale()) return;
-
-  await Promise.all(Array.from(chars).map((el, i) => revealChar(el, i * 65)));
   await sleep(200);
+  if (isStale()) return;
+
+  // Restart so the full 5s logo cycle plays from frame 0 while visible.
+  restartGif(logo);
+  const gifStartedAt = performance.now();
+
+  await fadeIn(logoWrap, 750, 'translateY(12px) scale(0.96)');
+  if (isStale()) return;
+
+  await fadeIn(tagline, 650, 'translateY(8px)');
   if (isStale()) return;
 
   hud.style.opacity = '1';
   hud.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, fill: 'forwards' });
 
-  let countVal = 0;
+  const elapsedBeforeHud = performance.now() - gifStartedAt;
+  const holdMs = Math.max(1800, LOADER_GIF_MS - elapsedBeforeHud);
+
   await Promise.all([
-    animateCounter(counterEl, statusEl, 100, 1100, countVal).then((v) => { countVal = v; }),
-    expandRule(ruleBottom, stageW, 900),
-    sleep(600).then(() => {
+    animateCounter(counterEl, statusEl, 100, holdMs, 0),
+    expandRule(ruleBottom, stageW, Math.min(1200, holdMs)),
+    sleep(Math.min(900, holdMs * 0.45)).then(() => {
       corners.forEach((c) => c.classList.add('is-locked'));
-      dot.animate([
-        { transform: 'scale(1)' },
-        { transform: 'scale(1.09)' },
-        { transform: 'scale(1)' },
-      ], { duration: 500, easing: 'ease-in-out' });
     }),
   ]);
 
-  await sleep(380);
+  const remainingGif = LOADER_GIF_MS - (performance.now() - gifStartedAt);
+  if (remainingGif > 0) {
+    await sleep(remainingGif);
+  }
+
+  await sleep(280);
   if (isStale()) return;
 
-  await curtainReveal(dot, reveal, loader);
+  const curtainAnchor = logo || logoWrap;
+  await curtainReveal(curtainAnchor, reveal, loader);
 }
 
 export function bootSiteLoader(options) {
@@ -255,7 +236,7 @@ export function whenSiteLoaderReady(options) {
 }
 
 /**
- * Luxury GoodWork loader with orange dot curtain reveal.
+ * Shared GoodWork brand loader (logo GIF + tagline + orange curtain).
  * @param {{ prefersReduced?: boolean, isStale?: () => boolean }} options
  */
 export function initSiteLoader(options) {
@@ -305,7 +286,7 @@ export function initSiteLoader(options) {
     .then(() => sleep(100))
     .then(() => {
       if (staleCheck()) return;
-      return runLuxuryLoader(loader, staleCheck);
+      return runBrandLoader(loader, staleCheck);
     })
     .catch(() => {})
     .finally(() => {

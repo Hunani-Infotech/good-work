@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { useContent } from '../../../../hooks/meridian/useContent.js';
 import SocialLinks from '../../../../components/shared/SocialLinks.jsx';
 import GoodWorkFooterBrand from '../../../../components/shared/GoodWorkFooterBrand.jsx';
+import FooterWalkerLottie from './FooterWalkerLottie.jsx';
 
 function formatLocalTime() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 export default function ContactSection() {
-  const { contact, footer, social } = useContent();
+  const { contact, social } = useContent();
   const [localTime, setLocalTime] = useState(formatLocalTime);
   const headingLines = contact.headingLines ?? [contact.heading];
 
@@ -29,15 +30,32 @@ export default function ContactSection() {
         <div className="meridian-contact__content">
           <div className="meridian-contact__inner">
             <div className="meridian-contact__copy">
+              {contact.email ? (
+                <a
+                  href={contact.emailHref}
+                  className="meridian-contact__email meridian-magnetic"
+                  data-magnetic-strength="0.35"
+                  data-magnetic-label-strength="0.11"
+                  data-magnetic-wobble
+                >
+                  <span className="meridian-magnetic__inner" data-magnetic-inner>
+                    <span className="meridian-contact__email-surface meridian-liquid-fill">
+                      <span className="meridian-liquid-fill__wave" aria-hidden="true" />
+                      <span className="meridian-magnetic__label" data-magnetic-text>
+                        {contact.email}
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              ) : null}
+
               <div className="meridian-contact__heading-wrap">
-                <span className="meridian-contact__heading-arrow" aria-hidden="true">
-                  ↙
-                </span>
                 <h2 className="meridian-contact__heading">
-                  <span className="meridian-contact__heading-line">{headingLines[0]}</span>
-                  {headingLines[1] ? (
-                    <span className="meridian-contact__heading-line">{headingLines[1]}</span>
-                  ) : null}
+                  {headingLines.map((line) => (
+                    <span key={line} className="meridian-contact__heading-line">
+                      {line}
+                    </span>
+                  ))}
                 </h2>
               </div>
 
@@ -65,24 +83,25 @@ export default function ContactSection() {
           </div>
 
           <footer className="meridian-footer">
+            <FooterWalkerLottie className="meridian-footer__walker" />
+
             <div className="meridian-footer__grid">
-              <GoodWorkFooterBrand
-                surface="dark"
-                copyrightName={footer.copyrightName}
-                className="meridian-footer__brand"
-                logoClassName="meridian-footer__logo"
-              />
+              <div className="meridian-footer__brand gw-footer-brand">
+                <GoodWorkFooterBrand
+                  surface="dark"
+                  part="logo"
+                  logoClassName="meridian-footer__logo"
+                />
+              </div>
 
               <div className="meridian-footer__meta">
                 <div className="meridian-footer__cell">
-                  <p className="meridian-footer__label">Local time</p>
                   <p className="meridian-footer__value">{localTime}</p>
                 </div>
               </div>
 
               {social.length ? (
                 <div className="meridian-footer__socials meridian-footer__cell">
-                  <p className="meridian-footer__label">Social</p>
                   <SocialLinks links={social} className="meridian-footer__social-list" iconSize={16} />
                 </div>
               ) : null}
