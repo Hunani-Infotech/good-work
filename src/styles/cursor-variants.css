@@ -1,4 +1,13 @@
 /* ─── Unique cursor types per page (Isak = classic dot+ring in isak.css) ─── */
+/*
+ * Stack above SiteLoader (200000) + loader-curtain-reveal (200001) so the
+ * mouse effect stays visible during reload / page boot on every template.
+ */
+:root {
+  --cursor-z-beam: 200010;
+  --cursor-z-ring: 200011;
+  --cursor-z-core: 200012;
+}
 
 .custom-cursor {
   pointer-events: none;
@@ -22,7 +31,7 @@ body[data-cursor-type] * {
 
 /* ══ CLASSIC — Isak only ══ */
 .cursor-classic-dot {
-  z-index: 100001;
+  z-index: var(--cursor-z-core);
   width: 8px;
   height: 8px;
   margin-left: -4px;
@@ -38,7 +47,7 @@ body[data-cursor-type] * {
 }
 
 .cursor-classic-ring {
-  z-index: 100000;
+  z-index: var(--cursor-z-ring);
   width: 34px;
   height: 34px;
   margin-left: -17px;
@@ -63,7 +72,7 @@ body[data-cursor-type] * {
 
 /* ══ MAGNETIC — Agency (square bracket frame, NOT circle ring) ══ */
 .cursor-magnetic-core {
-  z-index: 100002;
+  z-index: var(--cursor-z-core);
   width: 6px;
   height: 6px;
   margin-left: -3px;
@@ -73,7 +82,7 @@ body[data-cursor-type] * {
 }
 
 .cursor-magnetic-frame {
-  z-index: 100001;
+  z-index: var(--cursor-z-ring);
   width: 38px;
   height: 38px;
   margin-left: -19px;
@@ -119,7 +128,7 @@ body[data-cursor-type] * {
 
 /* ══ GLASS — Tidal Copper (single crystal orb, no ring) ══ */
 .cursor-glass-orb {
-  z-index: 100001;
+  z-index: var(--cursor-z-core);
   position: fixed;
   border-radius: 50%;
   transition:
@@ -188,7 +197,7 @@ body[data-cursor-type] * {
 
 /* ══ SPOTLIGHT — Shooote (light beam + pin, no ring) ══ */
 .cursor-spotlight-beam {
-  z-index: 99996;
+  z-index: var(--cursor-z-beam);
   width: 260px;
   height: 260px;
   margin-left: -130px;
@@ -222,7 +231,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 }
 
 .cursor-spotlight-pin {
-  z-index: 100002;
+  z-index: var(--cursor-z-core);
   width: 4px;
   height: 4px;
   margin-left: -2px;
@@ -238,7 +247,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 
 /* ══ MORPH — 404 (organic blob, no dot+ring) ══ */
 .cursor-morph-blob {
-  z-index: 100001;
+  z-index: var(--cursor-z-core);
   width: 28px;
   height: 28px;
   margin-left: -14px;
@@ -267,7 +276,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 
 /* ══ ARROW — Admin ══ */
 .cursor-arrow {
-  z-index: 100001;
+  z-index: var(--cursor-z-core);
   width: 24px;
   height: 24px;
   margin-left: -3px;
@@ -383,7 +392,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 
 /* ══ SPOTLIGHT — Shooote (light beam + pin, no ring) ══ */
 .cursor-spotlight-beam {
-  z-index: 99996;
+  z-index: var(--cursor-z-beam);
   width: 260px;
   height: 260px;
   margin-left: -130px;
@@ -417,7 +426,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 }
 
 .cursor-spotlight-pin {
-  z-index: 100002;
+  z-index: var(--cursor-z-core);
   width: 4px;
   height: 4px;
   margin-left: -2px;
@@ -433,7 +442,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 
 /* ══ MORPH — 404 (organic blob, no dot+ring) ══ */
 .cursor-morph-blob {
-  z-index: 100001;
+  z-index: var(--cursor-z-core);
   width: 28px;
   height: 28px;
   margin-left: -14px;
@@ -462,7 +471,7 @@ body.shooote-template .custom-cursor--shooote.is-hovering .cursor-spotlight-beam
 
 /* ══ ARROW — Admin ══ */
 .cursor-arrow {
-  z-index: 100001;
+  z-index: var(--cursor-z-core);
   width: 24px;
   height: 24px;
   margin-left: -3px;

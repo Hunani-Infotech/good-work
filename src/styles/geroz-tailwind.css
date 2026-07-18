@@ -1618,6 +1618,16 @@ body.geroz-template .gz-back-to-top svg path {
   max-width: min(100%, 22rem);
 }
 
+/* Keep footer clean — no left orange ambient bloom above the rail */
+.gz-footer__backdrop-wash {
+  background:
+    radial-gradient(
+      ellipse 42% 34% at 92% 88%,
+      color-mix(in srgb, var(--color-lawyer) 6%, transparent),
+      transparent 74%
+    ) !important;
+}
+
 .gz-footer-walker {
   --gz-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
   --gz-footer-walker-fade: clamp(1.5rem, 6vw, 4rem);
@@ -1717,7 +1727,6 @@ body.geroz-template .gz-back-to-top svg path {
     var(--gz-footer-walker-accent) 88%,
     transparent 100%
   );
-  box-shadow: 0 0 10px color-mix(in srgb, var(--color-lawyer) 35%, transparent);
 }
 
 @media (max-width: 639px) {

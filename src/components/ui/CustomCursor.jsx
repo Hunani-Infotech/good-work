@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { getCursorVariantConfig } from '../../data/cursorVariants.js';
 import { EntisArrowGraphic } from './EntisArrowGraphic.jsx';
 
@@ -326,7 +327,8 @@ export default function CustomCursor({ variant = 'default' }) {
   const type = cursorConfig.type ?? 'classic';
   const styleVariant = cursorConfig.variantKey ?? variant;
 
-  return (
+  /* Portal to body so the cursor stacks above SiteLoader on every template reload. */
+  return createPortal(
     <div
       ref={rootRef}
       className={`custom-cursor custom-cursor--${type} custom-cursor--${styleVariant}`}
@@ -394,6 +396,7 @@ export default function CustomCursor({ variant = 'default' }) {
           )}
         </div>
       )}
-    </div>
+    </div>,
+    document.body,
   );
 }
