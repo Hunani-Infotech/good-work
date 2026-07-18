@@ -3,19 +3,8 @@ import lottie from 'lottie-web';
 
 const ANSA_FOOTER_SRC = '/documents/ansa-footer.json';
 
-let ansaDataPromise = null;
-
-function prefetchAnsaData(src) {
-  if (!ansaDataPromise) {
-    ansaDataPromise = fetch(src)
-      .then((res) => res.json())
-      .catch(() => null);
-  }
-  return ansaDataPromise;
-}
-
 /**
- * Meridian footer ANSA walker — canvas renderer; original Lottie colors/motion.
+ * Meridian footer ANSA walker — SVG like other templates so feet sit on the rail.
  */
 export default function FooterWalkerLottie({
   className = '',
@@ -31,143 +20,53 @@ export default function FooterWalkerLottie({
     if (!stage || !mount) return undefined;
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let destroyed = false;
-    let playTimer = 0;
+
+    const animation = lottie.loadAnimation({
+      container: mount,
+      renderer: 'svg',
+      loop: !prefersReduced,
+      autoplay: false,
+      path: src,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMax meet',
+        progressiveLoad: true,
+        hideOnTransparent: true,
+      },
+    });
+
+    animRef.current = animation;
+
+    const onReady = () => {
+      if (prefersReduced) {
+        const mid = Math.floor((animation.totalFrames || 0) / 2);
+        animation.goToAndStop(mid, true);
+      }
+    };
+
+    animation.addEventListener('DOMLoaded', onReady);
+
     let observer;
-    let building = null;
-    let warmed = false;
-
-    const idleHandle = window.requestIdleCallback
-      ? window.requestIdleCallback(() => { prefetchAnsaData(src); }, { timeout: 1200 })
-      : window.setTimeout(() => { prefetchAnsaData(src); }, 300);
-
-    const clearPlayTimer = () => {
-      if (playTimer) {
-        window.clearTimeout(playTimer);
-        playTimer = 0;
-      }
-    };
-
-    const buildAnimation = () => {
-      if (destroyed || animRef.current) return Promise.resolve(animRef.current);
-      if (building) return building;
-
-      building = prefetchAnsaData(src).then((data) => {
-        if (destroyed) return null;
-
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-        const animation = lottie.loadAnimation({
-          container: mount,
-          // Canvas paints cheaper than a large SVG tree during Lenis coasting.
-          renderer: 'canvas',
-          loop: !prefersReduced,
-          autoplay: false,
-          ...(data ? { animationData: data } : { path: src }),
-          rendererSettings: {
-            clearCanvas: true,
-            preserveAspectRatio: 'xMidYMax meet',
-            dpr,
-          },
-        });
-
-        animation.setSubframe(false);
-        animRef.current = animation;
-
-        return new Promise((resolve) => {
-          animation.addEventListener('DOMLoaded', () => {
-            if (prefersReduced) {
-              const mid = Math.floor((animation.totalFrames || 0) / 2);
-              animation.goToAndStop(mid, true);
-            } else {
-              animation.goToAndStop(0, true);
-            }
-            warmed = true;
-            resolve(animation);
-          });
-        });
-      });
-
-      return building;
-    };
-
-    const playSettled = () => {
-      clearPlayTimer();
-      playTimer = window.setTimeout(async () => {
-        playTimer = 0;
-        if (destroyed || prefersReduced) return;
-        const animation = await buildAnimation();
-        if (destroyed || !animation) return;
-        requestAnimationFrame(() => {
-          if (!destroyed && animRef.current) animRef.current.play();
-        });
-      }, 320);
-    };
-
-    const pauseAnim = () => {
-      clearPlayTimer();
-      animRef.current?.pause();
-    };
-
-    const warmWhenContactNear = () => {
-      const contact = document.querySelector('#contact');
-      if (!contact || typeof IntersectionObserver === 'undefined') {
-        buildAnimation();
-        return undefined;
-      }
-
-      const warmObserver = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && !warmed) {
-            buildAnimation();
-            warmObserver.disconnect();
-          }
-        },
-        { rootMargin: '20% 0px', threshold: 0.01 },
-      );
-      warmObserver.observe(contact);
-      return warmObserver;
-    };
-
-    const warmObserver = prefersReduced ? null : warmWhenContactNear();
-
-    if (prefersReduced) {
-      buildAnimation();
-      return () => {
-        destroyed = true;
-        clearPlayTimer();
-        if (window.cancelIdleCallback) window.cancelIdleCallback(idleHandle);
-        else window.clearTimeout(idleHandle);
-        warmObserver?.disconnect();
-        animRef.current?.destroy();
-        animRef.current = null;
-      };
-    }
-
-    if (typeof IntersectionObserver !== 'undefined') {
+    if (!prefersReduced && typeof IntersectionObserver !== 'undefined') {
       observer = new IntersectionObserver(
         ([entry]) => {
-          if (!entry.isIntersecting) {
-            pauseAnim();
-            return;
+          if (!animRef.current) return;
+          if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+            animRef.current.play();
+          } else {
+            animRef.current.pause();
           }
-          if (entry.intersectionRatio >= 0.45) playSettled();
-          else pauseAnim();
         },
-        { threshold: [0, 0.25, 0.45, 0.7], rootMargin: '0px 0px -14% 0px' },
+        { threshold: [0, 0.2, 0.5], rootMargin: '0px 0px -8% 0px' },
       );
       observer.observe(stage);
-    } else {
-      playSettled();
+    } else if (!prefersReduced) {
+      animation.play();
     }
 
     return () => {
-      destroyed = true;
-      clearPlayTimer();
       observer?.disconnect();
-      warmObserver?.disconnect();
-      if (window.cancelIdleCallback) window.cancelIdleCallback(idleHandle);
-      else window.clearTimeout(idleHandle);
-      animRef.current?.destroy();
+      animation.removeEventListener('DOMLoaded', onReady);
+      animation.destroy();
       animRef.current = null;
     };
   }, [src]);
@@ -181,8 +80,8 @@ export default function FooterWalkerLottie({
         <div ref={lottieRef} className="meridian-footer-walker__lottie" />
         <span className="meridian-footer-walker__fade meridian-footer-walker__fade--start" />
         <span className="meridian-footer-walker__fade meridian-footer-walker__fade--end" />
+        <div className="meridian-footer-walker__rail" />
       </div>
-      <div className="meridian-footer-walker__rail" />
     </div>
   );
 }

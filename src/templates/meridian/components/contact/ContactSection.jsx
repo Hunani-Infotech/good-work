@@ -94,17 +94,16 @@ export default function ContactSection() {
                 />
               </div>
 
-              <div className="meridian-footer__meta">
-                <div className="meridian-footer__cell">
-                  <p className="meridian-footer__value">{localTime}</p>
-                </div>
+              <div className="meridian-footer__aside">
+                <p className="meridian-footer__value">{localTime}</p>
+                {social.length ? (
+                  <SocialLinks
+                    links={social}
+                    className="meridian-footer__social-list"
+                    iconSize={16}
+                  />
+                ) : null}
               </div>
-
-              {social.length ? (
-                <div className="meridian-footer__socials meridian-footer__cell">
-                  <SocialLinks links={social} className="meridian-footer__social-list" iconSize={16} />
-                </div>
-              ) : null}
             </div>
           </footer>
         </div>

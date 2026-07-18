@@ -231,7 +231,7 @@ export function initCvContactFooterCurve({
     });
 
     panel?.querySelectorAll(
-      '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-footer, .meridian-footer__meta > div',
+      '.meridian-contact__content, .meridian-contact__inner, .meridian-contact__heading-wrap, .meridian-contact__heading, .meridian-contact__heading-arrow, .meridian-footer, .meridian-footer__aside',
     )?.forEach((el) => {
       gsap.set(el, { clearProps: 'transform,opacity,filter,clipPath' });
     });

@@ -692,7 +692,7 @@ function initMeridianContactReveal(prefersReduced) {
   const headingWrap = section.querySelector('.meridian-contact__heading-wrap');
   const headingLineEls = section.querySelectorAll('.meridian-contact__heading-line');
   const arrow = section.querySelector('.meridian-contact__heading-arrow');
-  const footerBlocks = section.querySelectorAll('.meridian-footer__meta > div, .meridian-footer__socials');
+  const footerBlocks = section.querySelectorAll('.meridian-footer__aside');
   const contactEmail = section.querySelector('.meridian-contact__email');
   const footerLogo = section.querySelector('.meridian-footer__logo');
   const footerWalker = section.querySelector('.meridian-footer-walker');
