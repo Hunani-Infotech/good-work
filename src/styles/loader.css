@@ -12,9 +12,18 @@ html body .container-loader.site-loader :where(p, span, div, img) {
 }
 
 .container-loader.site-loader {
-  --loader-purple: var(--brand-purple, #510066);
-  --loader-orange: var(--brand-orange, #f25828);
-  --loader-warm: var(--brand-bg-warm, #faf8f5);
+  /*
+   * Literal GoodWork tokens — do NOT use var(--brand-*), templates remap those
+   * (e.g. Geroz sets --brand-purple to a burnt orange).
+   */
+  --loader-purple: #510066;
+  --loader-orange: #f25828;
+  --loader-warm: #faf8f5;
+  --loader-grey: #96908c;
+  --brand-purple: #510066;
+  --brand-orange: #f25828;
+  --brand-bg-warm: #faf8f5;
+  --brand-grey: #96908c;
 
   /* Above template chrome (e.g. Shooote mobile header is 10080) */
   z-index: 200000;
@@ -117,7 +126,7 @@ html body .container-loader.site-loader :where(p, span, div, img) {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: var(--brand-orange, #f25828);
+  background: #f25828;
   transform: translate(-50%, -50%) scale(0);
   z-index: 200001;
   pointer-events: none;
@@ -125,10 +134,11 @@ html body .container-loader.site-loader :where(p, span, div, img) {
   will-change: transform, opacity;
 }
 
-/* Keep template fixed navs under the shared loader (mobile Shooote, etc.) */
+/* Keep template fixed navs under the shared loader */
 html.is-loader-active body.shooote-template #header.shooote-header,
 html.is-loader-active body.shooote-template .shooote-mobile-nav,
 html.is-loader-active body.meridian-template .meridian-header,
+html.is-loader-active body.geroz-template .geroz-cv-header,
 html.is-loader-active .vcv-widget {
   z-index: 0 !important;
   pointer-events: none !important;

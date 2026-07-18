@@ -1755,8 +1755,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   gap: 0;
   width: 100%;
   margin-top: 0;
-  /* Half-circle overhang under the divider line */
-  padding-bottom: clamp(4.25rem, 8vw, 6.25rem);
+  /* Room for half-circle overhang; walker tucks in just below */
+  padding-bottom: clamp(3.25rem, 6vw, 4.75rem);
 }
 
 /* Same liquid + magnetic treatment as Let's Connect (pill for longer email text) */
@@ -2018,7 +2018,8 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   flex-shrink: 0;
   width: 100%;
   margin-top: 0;
-  padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.25rem, 4vw, 3rem) clamp(1.75rem, 4vw, 2.75rem);
+  /* Tight top — walker pulls up toward the contact divider line */
+  padding: 0 clamp(1.25rem, 4vw, 3rem) clamp(1.75rem, 4vw, 2.75rem);
   border-top: 0;
   background: var(--meridian-dark);
   pointer-events: none;
@@ -2030,14 +2031,16 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
 }
 
 .meridian-footer__walker {
+  /* Close the gap under the contact divider / CTA overhang */
+  margin-top: calc(-1 * clamp(2.75rem, 5.5vw, 4.25rem));
   margin-bottom: clamp(0.65rem, 1.5vw, 1rem);
 }
 
 .meridian-footer-walker {
-  --meridian-footer-walker-height: clamp(3.25rem, 7vw, 4.75rem);
+  --meridian-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
   --meridian-footer-walker-fade: clamp(1.25rem, 5vw, 3.5rem);
   --meridian-footer-walker-fade-bg: var(--meridian-dark);
-  --meridian-footer-walker-rule: rgba(255, 255, 255, 0.16);
+  --meridian-footer-walker-rule: color-mix(in srgb, var(--meridian-accent) 35%, rgba(255, 255, 255, 0.45));
   width: 100%;
   margin: 0;
   display: grid;
@@ -2098,12 +2101,21 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   );
 }
 
+/* Dotted technical rail */
 .meridian-footer-walker__rail {
   width: 100%;
-  height: 1px;
+  height: 2px;
   margin: 0;
-  background-color: var(--meridian-footer-walker-rule);
   transform: translateY(-1px);
+  background-image: radial-gradient(
+    circle,
+    var(--meridian-footer-walker-rule) 1px,
+    transparent 1.15px
+  );
+  background-size: 9px 2px;
+  background-repeat: repeat-x;
+  background-position: center;
+  opacity: 0.9;
 }
 
 .meridian-footer__grid {
@@ -2589,7 +2601,11 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 
   .meridian-contact__copy {
     margin-top: 0;
-    padding-bottom: clamp(2.5rem, 8vw, 3.5rem);
+    padding-bottom: clamp(2rem, 6vw, 2.75rem);
+  }
+
+  .meridian-footer__walker {
+    margin-top: calc(-1 * clamp(1.75rem, 5vw, 2.5rem));
   }
 
   .meridian-contact__email {
@@ -2611,11 +2627,11 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-footer {
-    padding: clamp(1.25rem, 5vw, 1.75rem) clamp(1.25rem, 5vw, 1.75rem) 1.25rem;
+    padding: 0 clamp(1.25rem, 5vw, 1.75rem) 1.25rem;
   }
 
   .meridian-footer-walker {
-    --meridian-footer-walker-height: clamp(2.75rem, 14vw, 3.75rem);
+    --meridian-footer-walker-height: clamp(4.25rem, 22vw, 5.75rem);
     --meridian-footer-walker-fade: 1.25rem;
   }
 

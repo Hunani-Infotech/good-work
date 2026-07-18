@@ -4,7 +4,7 @@ import lottie from 'lottie-web';
 const ANSA_FOOTER_SRC = '/documents/ansa-footer.json';
 
 /**
- * Shooote-only footer rail with ANSA Lottie walking the hairline.
+ * Shooote footer rail with ANSA Lottie (original colors/motion) over a dashed pulsing rule.
  */
 export default function FooterWalkerLottie({
   className = '',

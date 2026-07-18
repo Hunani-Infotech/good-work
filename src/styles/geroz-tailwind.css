@@ -1622,7 +1622,8 @@ body.geroz-template .gz-back-to-top svg path {
   --gz-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
   --gz-footer-walker-fade: clamp(1.5rem, 6vw, 4rem);
   --gz-footer-walker-fade-bg: #000;
-  --gz-footer-walker-rule: color-mix(in srgb, var(--color-lawyer) 28%, #2a2a2a);
+  --gz-footer-walker-rule: color-mix(in srgb, var(--color-lawyer) 22%, #2a2a2a);
+  --gz-footer-walker-accent: color-mix(in srgb, var(--color-lawyer) 72%, #c9a46a);
   width: 100%;
   margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
   display: grid;
@@ -1681,12 +1682,42 @@ body.geroz-template .gz-back-to-top svg path {
   );
 }
 
+/* Double rail: muted base + copper accent hairline */
 .gz-footer-walker__rail {
+  position: relative;
   width: 100%;
-  height: 1px;
+  height: 5px;
   margin: 0;
-  background-color: var(--gz-footer-walker-rule);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+}
+
+.gz-footer-walker__rail-base {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: var(--gz-footer-walker-rule);
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+.gz-footer-walker__rail-accent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gz-footer-walker-accent) 12%,
+    var(--gz-footer-walker-accent) 88%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-lawyer) 35%, transparent);
 }
 
 @media (max-width: 639px) {

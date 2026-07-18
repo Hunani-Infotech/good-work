@@ -4,7 +4,7 @@ import lottie from 'lottie-web';
 const ANSA_FOOTER_SRC = '/documents/ansa-footer.json';
 
 /**
- * Geroz-only footer rail with ANSA Lottie walking the hairline.
+ * Geroz footer rail with ANSA Lottie (original colors/motion) over a double copper rule.
  */
 export default function FooterWalkerLottie({
   className = '',
@@ -81,7 +81,10 @@ export default function FooterWalkerLottie({
         <span className="gz-footer-walker__fade gz-footer-walker__fade--start" />
         <span className="gz-footer-walker__fade gz-footer-walker__fade--end" />
       </div>
-      <div className="gz-footer-walker__rail" />
+      <div className="gz-footer-walker__rail" aria-hidden="true">
+        <span className="gz-footer-walker__rail-base" />
+        <span className="gz-footer-walker__rail-accent" />
+      </div>
     </div>
   );
 }

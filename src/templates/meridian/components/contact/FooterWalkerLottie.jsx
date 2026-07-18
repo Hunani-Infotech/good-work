@@ -15,7 +15,7 @@ function prefetchAnsaData(src) {
 }
 
 /**
- * Meridian footer ANSA walker — canvas renderer for smoother scroll coexistence.
+ * Meridian footer ANSA walker — canvas renderer; original Lottie colors/motion.
  */
 export default function FooterWalkerLottie({
   className = '',
