@@ -1,5 +1,6 @@
-const LOADER_MSGS = ['Loading…', 'Crafting…', 'Polishing…', 'Ready'];
+const LOADER_MSGS = ['warming up…', 'locking in…', 'almost there…', 'you’re in'];
 const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EASE_SPRING = 'cubic-bezier(0.34, 1.45, 0.64, 1)';
 const EASE_CURTAIN = 'cubic-bezier(0.76, 0, 0.24, 1)';
 /** Full cycle length of `goodwork-logo.gif` (125 × 40ms). */
 const LOADER_GIF_MS = 5000;
@@ -68,40 +69,32 @@ export function revealSiteContent() {
   applySiteReady();
 }
 
-function fadeIn(el, duration = 700, transformFrom = 'translateY(10px)') {
+function fadeIn(el, duration, keyframes) {
   if (!el) return Promise.resolve();
   return new Promise((resolve) => {
-    const anim = el.animate([
-      { opacity: 0, transform: transformFrom },
-      { opacity: 1, transform: 'translateY(0) scale(1)' },
-    ], { duration, fill: 'forwards', easing: EASE_OUT });
+    const anim = el.animate(keyframes, {
+      duration,
+      fill: 'forwards',
+      easing: EASE_OUT,
+    });
     anim.onfinish = resolve;
   });
 }
 
-function expandRule(rule, width, duration) {
-  if (!rule) return Promise.resolve();
-  const t0 = performance.now();
-  return new Promise((resolve) => {
-    function tick(now) {
-      const t = Math.min(1, (now - t0) / duration);
-      rule.style.width = `${width * (1 - Math.pow(1 - t, 2))}px`;
-      if (t < 1) requestAnimationFrame(tick);
-      else resolve();
-    }
-    tick(t0);
-  });
-}
-
-function animateCounter(counterEl, statusEl, target, duration, startVal) {
+function animateProgress(fillEl, counterEl, statusEl, duration) {
   const t0 = performance.now();
   return new Promise((resolve) => {
     function tick(now) {
       const t = Math.min(1, (now - t0) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
-      const value = Math.round(startVal + (target - startVal) * eased);
-      counterEl.textContent = String(value);
-      statusEl.textContent = LOADER_MSGS[Math.min(Math.floor((value / 101) * LOADER_MSGS.length), LOADER_MSGS.length - 1)];
+      const value = Math.round(100 * eased);
+      if (fillEl) fillEl.style.width = `${value}%`;
+      if (counterEl) counterEl.textContent = String(value);
+      if (statusEl) {
+        statusEl.textContent = LOADER_MSGS[
+          Math.min(Math.floor((value / 101) * LOADER_MSGS.length), LOADER_MSGS.length - 1)
+        ];
+      }
       if (t < 1) requestAnimationFrame(tick);
       else resolve(value);
     }
@@ -116,8 +109,6 @@ function curtainReveal(anchor, reveal, loader) {
     const centerY = rect.top + rect.height / 2;
     const radius = Math.hypot(window.innerWidth, window.innerHeight);
     const scaleValue = (radius * 2) / 100;
-    const expandDuration = 1200;
-    const fadeDuration = 650;
 
     reveal.style.left = `${centerX}px`;
     reveal.style.top = `${centerY}px`;
@@ -138,7 +129,7 @@ function curtainReveal(anchor, reveal, loader) {
       { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
       { transform: `translate(-50%, -50%) scale(${scaleValue})`, opacity: 1 },
     ], {
-      duration: expandDuration,
+      duration: 1200,
       easing: EASE_CURTAIN,
       fill: 'forwards',
     });
@@ -148,11 +139,10 @@ function curtainReveal(anchor, reveal, loader) {
         { opacity: 1 },
         { opacity: 0 },
       ], {
-        duration: fadeDuration,
+        duration: 650,
         easing: 'ease-out',
         fill: 'forwards',
       });
-
       fadeOut.onfinish = () => {
         hideLoaderEl();
         resolve();
@@ -173,12 +163,14 @@ async function runBrandLoader(loader, isStale) {
   const stage = loader.querySelector('.loader-stage');
   const logoWrap = loader.querySelector('[data-loader-logo-wrap]');
   const tagline = loader.querySelector('[data-loader-tagline]');
-  const ruleBottom = loader.querySelector('.loader-rule--bottom');
+  const progress = loader.querySelector('[data-loader-progress]');
+  const progressFill = loader.querySelector('[data-loader-progress-fill]');
   const dot = loader.querySelector('[data-loader-dot]');
-  const hud = loader.querySelector('.loader-hud');
   const counterEl = loader.querySelector('[data-loader-counter]');
   const statusEl = loader.querySelector('[data-loader-status]');
-  const corners = loader.querySelectorAll('.loader-corner');
+  const orbs = loader.querySelectorAll('[data-loader-orb]');
+  const watermark = loader.querySelector('[data-loader-watermark]');
+  const stamp = loader.querySelector('[data-loader-stamp]');
   const logo = loader.querySelector('[data-loader-logo]');
 
   if (!reveal || !stage || !logoWrap || !dot) {
@@ -186,45 +178,69 @@ async function runBrandLoader(loader, isStale) {
     return;
   }
 
-  const stageW = stage.offsetWidth || 420;
-
-  await sleep(200);
+  await sleep(120);
   if (isStale()) return;
 
-  // Restart so the full 5s logo cycle plays from frame 0 while visible.
+  orbs.forEach((orb, i) => {
+    orb.animate([
+      { opacity: 0, transform: 'scale(0.7)' },
+      { opacity: 1, transform: 'scale(1)' },
+    ], {
+      duration: 900,
+      delay: i * 100,
+      fill: 'forwards',
+      easing: EASE_OUT,
+    });
+  });
+
+  if (watermark) {
+    watermark.animate([
+      { opacity: 0, transform: 'translate(-50%, -45%) rotate(-8deg) scale(1.08)' },
+      { opacity: 1, transform: 'translate(-50%, -50%) rotate(-8deg) scale(1)' },
+    ], { duration: 900, fill: 'forwards', easing: EASE_OUT });
+  }
+
   restartGif(logo);
   const gifStartedAt = performance.now();
 
-  await fadeIn(logoWrap, 750, 'translateY(12px) scale(0.96)');
+  await fadeIn(logoWrap, 850, [
+    { opacity: 0, transform: 'translateY(22px) scale(0.88) rotate(-4deg)' },
+    { opacity: 1, transform: 'translateY(0) scale(1) rotate(0deg)' },
+  ]);
   if (isStale()) return;
 
-  await fadeIn(tagline, 650, 'translateY(8px)');
+  if (stamp) {
+    stamp.animate([
+      { opacity: 0, transform: 'rotate(8deg) scale(0.4)' },
+      { opacity: 1, transform: 'rotate(8deg) scale(1.08)' },
+      { opacity: 1, transform: 'rotate(8deg) scale(1)' },
+    ], { duration: 700, fill: 'forwards', easing: EASE_SPRING });
+  }
+
+  await fadeIn(tagline, 700, [
+    { opacity: 0, transform: 'rotate(-1.5deg) translateY(16px) scale(0.96)' },
+    { opacity: 1, transform: 'rotate(-1.5deg) translateY(0) scale(1)' },
+  ]);
   if (isStale()) return;
 
-  hud.style.opacity = '1';
-  hud.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, fill: 'forwards' });
+  await fadeIn(progress, 480, [
+    { opacity: 0, transform: 'translateY(12px)' },
+    { opacity: 1, transform: 'translateY(0)' },
+  ]);
+  if (isStale()) return;
 
   const elapsedBeforeHud = performance.now() - gifStartedAt;
   const holdMs = Math.max(1800, LOADER_GIF_MS - elapsedBeforeHud);
 
-  await Promise.all([
-    animateCounter(counterEl, statusEl, 100, holdMs, 0),
-    expandRule(ruleBottom, stageW, Math.min(1200, holdMs)),
-    sleep(Math.min(900, holdMs * 0.45)).then(() => {
-      corners.forEach((c) => c.classList.add('is-locked'));
-    }),
-  ]);
+  await animateProgress(progressFill, counterEl, statusEl, holdMs);
 
   const remainingGif = LOADER_GIF_MS - (performance.now() - gifStartedAt);
-  if (remainingGif > 0) {
-    await sleep(remainingGif);
-  }
+  if (remainingGif > 0) await sleep(remainingGif);
 
-  await sleep(280);
+  await sleep(220);
   if (isStale()) return;
 
-  const curtainAnchor = logo || logoWrap;
-  await curtainReveal(curtainAnchor, reveal, loader);
+  await curtainReveal(logo || logoWrap, reveal, loader);
 }
 
 export function bootSiteLoader(options) {
@@ -283,7 +299,7 @@ export function initSiteLoader(options) {
   const staleCheck = () => runId !== loaderRunId || isStale();
 
   loaderSessionPromise = waitForFonts(3000)
-    .then(() => sleep(100))
+    .then(() => sleep(80))
     .then(() => {
       if (staleCheck()) return;
       return runBrandLoader(loader, staleCheck);

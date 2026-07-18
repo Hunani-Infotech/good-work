@@ -1322,11 +1322,15 @@ body.shooote-template .cv-page-screens > * {
 }
 
 .shooote-connect__actions-sep {
-  flex: 0 0 1px;
+  flex: 0 0 auto;
   align-self: center;
-  width: 1px;
-  height: 1.5rem;
-  background: color-mix(in srgb, var(--shooote-connect-chrome) 72%, transparent);
+  margin: 0;
+  color: var(--shooote-connect-eyebrow, rgba(255, 252, 233, 0.55));
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .shooote-connect__cta {
@@ -1405,8 +1409,8 @@ body.shooote-template .cv-page-screens > * {
   min-height: 3rem;
   font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-transform: none;
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--shooote-accent) 55%, transparent);
   text-underline-offset: 0.28em;
@@ -1597,21 +1601,34 @@ body.shooote-template .geroz-char {
 
   .shooote-connect__index {
     grid-column: 1;
+    justify-self: center;
     font-size: clamp(4.5rem, 22vw, 6.5rem);
     line-height: 0.75;
     color: color-mix(in srgb, var(--shooote-cream) 11%, transparent);
     transform: none;
+    text-align: center;
   }
 
   .shooote-connect__main {
     grid-column: 1;
+    align-items: center;
     gap: 1.35rem;
     padding-top: 0;
+    text-align: center;
+  }
+
+  .shooote-connect__heading-wrap {
+    align-items: center;
   }
 
   .shooote-connect__heading {
-    font-size: clamp(2.5rem, 10.5vw, 3.35rem);
     max-width: 12ch;
+    font-size: clamp(2.5rem, 10.5vw, 3.35rem);
+    text-align: center;
+  }
+
+  .shooote-connect__rule {
+    margin-inline: auto;
   }
 
   .shooote-connect__viewfinder {
@@ -1619,17 +1636,51 @@ body.shooote-template .geroz-char {
   }
 
   .shooote-connect__actions {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.95rem;
+    align-items: center;
+    gap: 1.1rem;
+    width: auto;
+    max-width: min(100%, 18rem);
+    margin-inline: auto;
   }
 
   .shooote-connect__actions-sep {
-    display: none;
+    display: block;
+    letter-spacing: 0.2em;
+  }
+
+  .shooote-connect__cta {
+    display: inline-flex;
+    box-sizing: border-box;
+    width: auto;
+    max-width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.55rem;
+    padding: 0.55rem 0.55rem 0.55rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .shooote-connect__cta-arrow {
+    width: 1.65rem;
+    height: 1.65rem;
+    margin-left: 0.15rem;
+  }
+
+  .shooote-connect__cta-arrow-glyph {
+    font-size: 0.8rem;
+    transform: none;
   }
 
   .shooote-connect__email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     min-height: 0;
+    text-align: center;
+    letter-spacing: 0.02em;
   }
 }
 

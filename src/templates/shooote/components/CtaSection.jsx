@@ -59,7 +59,9 @@ export default function CtaSection() {
 
                   {cta.email ? (
                     <>
-                      <span className="shooote-connect__actions-sep" aria-hidden="true" />
+                      <span className="shooote-connect__actions-sep" aria-hidden="true">
+                        or
+                      </span>
                       <a href={cta.mailto} className="shooote-connect__email">
                         {cta.email}
                       </a>
