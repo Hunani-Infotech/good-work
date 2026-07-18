@@ -2,6 +2,10 @@
  * Per-page cursor type + motion config.
  * Types: classic | glass | spotlight | magnetic | arrow | morph
  * Isak uses classic — styled in isak.css only.
+ *
+ * Meridian / Geroz use distinct arrow FX (not shared):
+ * - meridian: editorial corner brackets
+ * - geroz: lagging diamond trail
  */
 const CURSOR_VARIANTS = {
   agency: {
@@ -21,11 +25,18 @@ const CURSOR_VARIANTS = {
     type: 'arrow',
     pointerStyle: 'meridian-custom',
     arrowLerp: 0.35,
+    arrowFx: 'brackets',
+    fxLerp: 0.1,
+    magneticRadius: 72,
+    magneticPull: 0.24,
   },
   geroz: {
     type: 'arrow',
     pointerStyle: 'classic',
     arrowLerp: 0.55,
+    arrowFx: 'diamond-trail',
+    trailCount: 3,
+    trailLerps: [0.22, 0.12, 0.06],
   },
   shooote: {
     type: 'spotlight',

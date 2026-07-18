@@ -117,16 +117,21 @@ export default function CustomCursor({ variant = 'default' }) {
   const followerRef = useRef(null);
   const beamRef = useRef(null);
   const arrowRef = useRef(null);
+  const trailRefs = useRef([]);
   const isIsak = variant === 'isak';
+  const isMeridian = variant === 'meridian';
+  const isGeroz = variant === 'geroz';
 
   useEffect(() => {
     const config = getCursorVariantConfig(variant);
     const type = config.type ?? 'classic';
     const styleVariant = config.variantKey ?? variant;
+    const arrowFx = config.arrowFx;
     const accent = accentRef.current;
     const follower = followerRef.current;
     const beam = beamRef.current;
     const arrow = arrowRef.current;
+    const trailNodes = trailRefs.current.filter(Boolean);
 
     if (!rootRef.current) return undefined;
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
@@ -147,13 +152,16 @@ export default function CustomCursor({ variant = 'default' }) {
     let angle = -45;
     let raf;
 
+    const trailPoints = trailNodes.map(() => ({ x: -200, y: -200 }));
+    const trailLerps = config.trailLerps ?? [0.2, 0.12, 0.06];
+
     let prevTarget = null;
 
     function onMove(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      if (variant === 'meridian') {
+      if (isMeridian) {
         const target = e.target;
         if (target && target !== prevTarget) {
           prevTarget = target;
@@ -192,7 +200,7 @@ export default function CustomCursor({ variant = 'default' }) {
       let targetX = mouseX;
       let targetY = mouseY;
 
-      if (type === 'magnetic') {
+      if (type === 'magnetic' || arrowFx === 'brackets') {
         const magnetic = getMagneticPoint(mouseX, mouseY, config.magneticRadius ?? 80);
         if (magnetic) {
           targetX = lerp(mouseX, magnetic.x, config.magneticPull ?? 0.4);
@@ -203,9 +211,9 @@ export default function CustomCursor({ variant = 'default' }) {
         }
       }
 
-      const lerpSpeed = config.followerLerp ?? config.ringLerp ?? 0.1;
+      const lerpSpeed = config.followerLerp ?? config.fxLerp ?? config.ringLerp ?? 0.1;
 
-      if (type === 'classic' || type === 'magnetic') {
+      if (type === 'classic' || type === 'magnetic' || arrowFx === 'brackets') {
         followerX = lerp(followerX, targetX, lerpSpeed);
         followerY = lerp(followerY, targetY, lerpSpeed);
         setPos(follower, followerX, followerY);
@@ -223,11 +231,24 @@ export default function CustomCursor({ variant = 'default' }) {
         setPos(follower, followerX, followerY);
       }
 
+      if (arrowFx === 'diamond-trail' && trailNodes.length) {
+        let followX = mouseX;
+        let followY = mouseY;
+        trailNodes.forEach((node, i) => {
+          const t = trailLerps[i] ?? 0.1;
+          trailPoints[i].x = lerp(trailPoints[i].x, followX, t);
+          trailPoints[i].y = lerp(trailPoints[i].y, followY, t);
+          setPos(node, trailPoints[i].x, trailPoints[i].y, 45);
+          followX = trailPoints[i].x;
+          followY = trailPoints[i].y;
+        });
+      }
+
       if (type === 'arrow' && config.pointerStyle !== 'classic' && arrow) {
         arrowX = lerp(arrowX, mouseX, config.arrowLerp ?? 0.3);
         arrowY = lerp(arrowY, mouseY, config.arrowLerp ?? 0.3);
 
-        if (variant === 'meridian') {
+        if (isMeridian) {
           setPos(arrow, arrowX, arrowY);
         } else {
           setPos(arrow, arrowX, arrowY, angle);
@@ -252,7 +273,7 @@ export default function CustomCursor({ variant = 'default' }) {
       if (isIsak && matchesIsakConnectHover(target)) {
         rootRef.current?.classList.add('is-hovering-isak-connect');
       }
-      if (variant === 'meridian' && target.closest('.meridian-hero__portrait')) {
+      if (isMeridian && target.closest('.meridian-hero__portrait')) {
         rootRef.current?.classList.add('is-hovering-meridian-portrait');
       }
       if (config.hideDotOnHover) accent?.classList.add('is-hidden');
@@ -274,7 +295,7 @@ export default function CustomCursor({ variant = 'default' }) {
     }
 
     function syncMeridianPortraitHover(target) {
-      if (variant !== 'meridian' || !rootRef.current) return;
+      if (!isMeridian || !rootRef.current) return;
       rootRef.current.classList.toggle(
         'is-hovering-meridian-portrait',
         Boolean(target && target.closest('.meridian-hero__portrait')),
@@ -321,11 +342,12 @@ export default function CustomCursor({ variant = 'default' }) {
       document.removeEventListener('mouseout', onMouseOut);
       cancelAnimationFrame(raf);
     };
-  }, [variant, isIsak]);
+  }, [variant, isIsak, isMeridian, isGeroz]);
 
   const cursorConfig = getCursorVariantConfig(variant);
   const type = cursorConfig.type ?? 'classic';
   const styleVariant = cursorConfig.variantKey ?? variant;
+  const trailCount = cursorConfig.trailCount ?? 3;
 
   /* Portal to body so the cursor stacks above SiteLoader on every template reload. */
   return createPortal(
@@ -364,37 +386,60 @@ export default function CustomCursor({ variant = 'default' }) {
       )}
 
       {type === 'arrow' && (
-        <div ref={arrowRef} className={`cursor-arrow cursor-arrow--${variant}`}>
-          {variant === 'meridian' && (
-            <svg
-              className="cursor-pointer-svg meridian-pointer"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 128 128"
-              width="24"
-              height="24"
-            >
-              <defs>
-                <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow
-                    dx="0"
-                    dy="2"
-                    stdDeviation="3"
-                    floodColor="var(--meridian-cursor-shadow, #ffffff)"
-                    floodOpacity="0.9"
-                  />
-                </filter>
-              </defs>
-              <path
-                filter="url(#shadow)"
-                style={{ fill: 'var(--meridian-cursor-fill, #000000)', transition: 'fill 0.25s ease' }}
-                d="M29 14 C24 14 22 18 22 23 L22 102 C22 109 30 112 35 107 L55 86 C57 84 60 83 63 83 L94 86 C103 87 108 77 101 71 L38 18 C35 15 32 14 29 14 Z"
+        <>
+          {isMeridian && (
+            <div ref={followerRef} className="cursor-meridian-brackets">
+              <span className="cursor-meridian-brackets__corner cursor-meridian-brackets__corner--tl" />
+              <span className="cursor-meridian-brackets__corner cursor-meridian-brackets__corner--tr" />
+              <span className="cursor-meridian-brackets__corner cursor-meridian-brackets__corner--bl" />
+              <span className="cursor-meridian-brackets__corner cursor-meridian-brackets__corner--br" />
+              <span className="cursor-meridian-brackets__crosshair" />
+            </div>
+          )}
+
+          {isGeroz &&
+            Array.from({ length: trailCount }, (_, i) => (
+              <div
+                key={`geroz-trail-${i}`}
+                ref={(el) => {
+                  trailRefs.current[i] = el;
+                }}
+                className={`cursor-geroz-diamond cursor-geroz-diamond--${i}`}
               />
-            </svg>
-          )}
-          {variant === 'geroz' && (
-            <EntisArrowGraphic className="cursor-pointer-svg" />
-          )}
-        </div>
+            ))}
+
+          <div ref={arrowRef} className={`cursor-arrow cursor-arrow--${variant}`}>
+            {isMeridian && (
+              <svg
+                className="cursor-pointer-svg meridian-pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 128 128"
+                width="24"
+                height="24"
+              >
+                <defs>
+                  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow
+                      dx="0"
+                      dy="2"
+                      stdDeviation="3"
+                      floodColor="var(--meridian-cursor-shadow, #ffffff)"
+                      floodOpacity="0.9"
+                    />
+                  </filter>
+                </defs>
+                <path
+                  filter="url(#shadow)"
+                  style={{ fill: 'var(--meridian-cursor-fill, #000000)', transition: 'fill 0.25s ease' }}
+                  d="M29 14 C24 14 22 18 22 23 L22 102 C22 109 30 112 35 107 L55 86 C57 84 60 83 63 83 L94 86 C103 87 108 77 101 71 L38 18 C35 15 32 14 29 14 Z"
+                />
+              </svg>
+            )}
+            {isGeroz && (
+              <EntisArrowGraphic className="cursor-pointer-svg" />
+            )}
+          </div>
+        </>
       )}
     </div>,
     document.body,
