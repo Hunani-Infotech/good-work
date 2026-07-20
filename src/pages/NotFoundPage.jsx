@@ -1,14 +1,11 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CustomCursor from '../components/ui/CustomCursor';
 import { usePageReveal } from '../hooks/usePageReveal';
-import { PORTFOLIO_TEMPLATES } from '../data/portfolioTemplates';
-import GoodWorkWordmark from '../components/ui/GoodWorkWordmark.jsx';
 import '../styles/not-found.css';
 
-const LIVE_TEMPLATES = PORTFOLIO_TEMPLATES.filter((t) => t.href);
-
 export default function NotFoundPage() {
+  const navigate = useNavigate();
   usePageReveal();
 
   useEffect(() => {
@@ -24,12 +21,6 @@ export default function NotFoundPage() {
     <>
       <CustomCursor variant="not-found" />
       <div className="not-found-page__shell">
-        <header className="not-found-page__header">
-          <Link to="/" className="not-found-page__logo" aria-label="Good Work home">
-            <GoodWorkWordmark surface="light" className="not-found-page__logo-img" />
-          </Link>
-        </header>
-
         <main className="not-found-page__main">
           <div className="not-found-page__frame">
             <div className="not-found-page__watermark" aria-hidden="true">
@@ -66,32 +57,19 @@ export default function NotFoundPage() {
               </h1>
 
               <p className="not-found-page__desc">
-                The link may be broken, or the page may have moved. Head back home
-                or jump straight into one of our live CV templates.
+                The link may be broken, or the page may have moved. Go back to where
+                you were.
               </p>
 
               <div className="not-found-page__actions">
-                <Link to="/" className="not-found-page__btn-primary">
-                  Back to home →
-                </Link>
-                <Link to="/#templates" className="not-found-page__btn-ghost">
-                  Browse templates
-                </Link>
+                <button
+                  type="button"
+                  className="not-found-page__btn-primary"
+                  onClick={() => navigate(-1)}
+                >
+                  Go back →
+                </button>
               </div>
-
-              <section className="not-found-page__templates" aria-label="Live templates">
-                <p className="not-found-page__templates-label">Or preview a template</p>
-                <ul className="not-found-page__template-grid">
-                  {LIVE_TEMPLATES.map((template) => (
-                    <li key={template.id}>
-                      <Link to={template.href} className="not-found-page__template-card">
-                        <span className="not-found-page__template-name">{template.title}</span>
-                        <span className="not-found-page__template-meta">{template.eyebrow}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
             </div>
           </div>
         </main>

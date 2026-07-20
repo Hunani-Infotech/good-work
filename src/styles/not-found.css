@@ -19,22 +19,6 @@ html.site-ready .not-found-page__shell {
   flex-direction: column;
 }
 
-.not-found-page__header {
-  padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 4vw, 3.5rem);
-}
-
-.not-found-page__logo {
-  display: inline-block;
-  line-height: 0;
-}
-
-.not-found-page__logo img,
-.not-found-page__logo-img {
-  height: clamp(1.75rem, 3vw, 2rem);
-  width: auto;
-  display: block;
-}
-
 .not-found-page__main {
   flex: 1;
   display: flex;
@@ -142,8 +126,7 @@ html.site-ready .not-found-page__shell {
   margin-top: clamp(1.75rem, 4vw, 2.5rem);
 }
 
-.not-found-page__btn-primary,
-.not-found-page__btn-ghost {
+.not-found-page__btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,90 +138,16 @@ html.site-ready .not-found-page__shell {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
-  transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
-}
-
-.not-found-page__btn-primary {
+  cursor: pointer;
   background: var(--brand-orange, #f25828);
   color: #fff;
   border: 1px solid transparent;
+  transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
 }
 
 .not-found-page__btn-primary:hover {
   background: color-mix(in srgb, var(--brand-orange, #f25828) 85%, white);
   transform: scale(1.03);
-}
-
-.not-found-page__btn-ghost {
-  background: transparent;
-  color: #1a1714;
-  border: 1px solid rgba(26, 23, 20, 0.18);
-}
-
-.not-found-page__btn-ghost:hover {
-  border-color: rgba(26, 23, 20, 0.34);
-  transform: scale(1.03);
-}
-
-.not-found-page__templates {
-  margin-top: clamp(2.5rem, 6vw, 3.5rem);
-  padding-top: clamp(1.75rem, 4vw, 2.25rem);
-  border-top: 1px solid rgba(26, 23, 20, 0.1);
-}
-
-.not-found-page__templates-label {
-  margin: 0 0 1rem;
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(26, 23, 20, 0.45);
-}
-
-.not-found-page__template-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.not-found-page__template-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.2rem;
-  padding: 1rem 1.1rem;
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(26, 23, 20, 0.08);
-  text-align: left;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.not-found-page__template-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(81, 0, 102, 0.18);
-  box-shadow: 0 12px 32px rgba(81, 0, 102, 0.08);
-}
-
-.not-found-page__template-name {
-  font-family: Goga, Arial, sans-serif;
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: #1a1714;
-}
-
-.not-found-page__template-meta {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(26, 23, 20, 0.45);
 }
 
 .not-found-page__footer {
@@ -250,10 +159,6 @@ html.site-ready .not-found-page__shell {
 }
 
 @media (max-width: 720px) {
-  .not-found-page__template-grid {
-    grid-template-columns: 1fr;
-  }
-
   .not-found-page__headline {
     max-width: none;
   }
