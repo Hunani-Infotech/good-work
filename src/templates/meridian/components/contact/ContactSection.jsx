@@ -30,6 +30,16 @@ export default function ContactSection() {
         <div className="meridian-contact__content">
           <div className="meridian-contact__inner">
             <div className="meridian-contact__copy">
+              <div className="meridian-contact__heading-wrap">
+                <h2 className="meridian-contact__heading">
+                  {headingLines.map((line) => (
+                    <span key={line} className="meridian-contact__heading-line">
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+              </div>
+
               {contact.email ? (
                 <a
                   href={contact.emailHref}
@@ -49,15 +59,11 @@ export default function ContactSection() {
                 </a>
               ) : null}
 
-              <div className="meridian-contact__heading-wrap">
-                <h2 className="meridian-contact__heading">
-                  {headingLines.map((line) => (
-                    <span key={line} className="meridian-contact__heading-line">
-                      {line}
-                    </span>
-                  ))}
-                </h2>
-              </div>
+              {contact.email ? (
+                <p className="meridian-contact__or" aria-hidden="true">
+                  or
+                </p>
+              ) : null}
 
               <div className="meridian-contact__divider-row">
                 <div className="meridian-contact__line" aria-hidden="true" />
@@ -97,11 +103,14 @@ export default function ContactSection() {
               <div className="meridian-footer__aside">
                 <p className="meridian-footer__value">{localTime}</p>
                 {social.length ? (
-                  <SocialLinks
-                    links={social}
-                    className="meridian-footer__social-list"
-                    iconSize={16}
-                  />
+                  <>
+                    <span className="meridian-footer__sep" aria-hidden="true" />
+                    <SocialLinks
+                      links={social}
+                      className="meridian-footer__social-list"
+                      iconSize={16}
+                    />
+                  </>
                 ) : null}
               </div>
             </div>
