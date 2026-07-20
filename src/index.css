@@ -3,6 +3,18 @@
 @import './styles/goodwork-footer-brand.css';
 @import './styles/cursor-variants.css';
 @import 'lenis/dist/lenis.css';
+@import 'tailwindcss';
+
+@source './pages/NotFoundPage.jsx';
+
+@theme {
+  --font-goga: Goga, Arial, sans-serif;
+  --font-plex: 'IBM Plex Mono', ui-monospace, monospace;
+  --color-nf-cream: #f4efe6;
+  --color-nf-ink: #1a1714;
+  --color-nf-purple: #510066;
+  --color-nf-orange: #f25828;
+}
 
 /* GoodWork brand theme (overrides Webflow tokens from site.json) */
 :root {
@@ -1024,5 +1036,19 @@
 ::-moz-selection {
   background: var(--theme-orange-100);
   color: #666;
+}
+
+/* ── 404 page ── */
+body.not-found-page {
+  background: var(--color-nf-cream, #f4efe6);
+  color: var(--color-nf-ink, #1a1714);
+}
+
+html:not(.site-ready) .not-found-shell {
+  visibility: hidden;
+}
+
+html.site-ready .not-found-shell {
+  visibility: visible;
 }
 

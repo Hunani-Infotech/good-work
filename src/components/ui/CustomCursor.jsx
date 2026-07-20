@@ -30,7 +30,6 @@ const HOVER_SELECTORS = [
   '.swiper-button-prev',
   '.offcanvas-toggler',
   '.btn-style-2',
-  '.not-found-page__btn-primary',
   '.circle',
   '.circle-icon',
   '.geroz-cv-header__share',
