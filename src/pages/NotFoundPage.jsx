@@ -41,7 +41,7 @@ export default function NotFoundPage() {
   return (
     <>
       <CustomCursor variant="not-found" />
-      <div className="not-found-shell flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col">
         <main className="flex flex-1 items-center justify-center px-[clamp(1.5rem,4vw,3.5rem)] pb-[clamp(3rem,8vw,5rem)] pt-[clamp(2rem,6vw,4rem)]">
           <div className="relative w-full max-w-[52rem] text-center">
             <div

@@ -24,7 +24,7 @@ React + Vite site: GoodWork agency homepage + individual CV landing pages. Run w
 | `/` | `AgencyHomePage` | `useAgencyAnimations` |
 | `/cv/sanjay` | `CvPage` | `useCvAnimations` |
 | `/admin` | `AdminPage` | `usePageReveal` |
-| `/*` | `NotFoundPage` | `usePageReveal` |
+| `/*` | `NotFoundPage` | — |
 
 ---
 

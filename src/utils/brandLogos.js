@@ -13,12 +13,6 @@ export const GOODWORK_LOGO_ON_LIGHT = '/images/goodwork/goodwork-logo-full-colou
 /** Stacked wordmark — white + orange, transparent (dark backgrounds) */
 export const GOODWORK_LOGO_ON_DARK = '/images/goodwork/goodwork-logo-on-dark-stacked.svg';
 
-
-export const BRAND_LOGO_WHITE = {
-  wordmark: GOODWORK_LOGO_ON_DARK,
-  symbol: '/images/goodwork/symbol-on-dark.svg',
-};
-
 /**
  * @param {'light' | 'dark'} surface — background the logo sits on
  */
@@ -28,16 +22,4 @@ export function resolveGoodworkWordmark(surface = 'light') {
 
 export function resolveGoodworkAnimatedLogo() {
   return GOODWORK_ANIMATED_LOGO;
-}
-
-export function resolveBrandLogoSrc(type, assets = {}, surface = 'light') {
-  if (type === 'symbol') {
-    return assets.symbolOnDark || assets.logoWhite || BRAND_LOGO_WHITE.symbol;
-  }
-
-  if (surface === 'dark') {
-    return assets.logoOnDark || assets.logoOrange || GOODWORK_LOGO_ON_DARK;
-  }
-
-  return assets.logoOnLight || assets.logoFullColour || GOODWORK_LOGO_ON_LIGHT;
 }

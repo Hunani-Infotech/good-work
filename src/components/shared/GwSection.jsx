@@ -106,14 +106,3 @@ export default function GwSection({
 
   return null;
 }
-
-export function GwSectionLabel({ children, center = false, className = '' }) {
-  if (!children) return null;
-  return (
-    <span
-      className={`gw-section__label${center ? ' gw-section__label--center' : ''}${className ? ` ${className}` : ''}`}
-    >
-      {children}
-    </span>
-  );
-}
