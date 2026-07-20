@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomCursor from '../components/ui/CustomCursor';
-import { usePageReveal } from '../hooks/usePageReveal';
 
 function WrongTurnAccent() {
   return (
@@ -29,7 +28,6 @@ function WrongTurnAccent() {
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
-  usePageReveal();
 
   useEffect(() => {
     document.title = 'Page not found — Good Work CV';

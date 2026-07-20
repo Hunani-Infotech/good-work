@@ -69,6 +69,16 @@ export function revealSiteContent() {
   applySiteReady();
 }
 
+/** Skip the brand loader (e.g. 404) — hide immediately and mark the session ready. */
+export function bypassSiteLoader() {
+  loaderRunId += 1;
+  loaderSessionPromise = null;
+  hideLoaderEl();
+  loaderSessionComplete = true;
+  siteReadyApplied = false;
+  applySiteReady();
+}
+
 function fadeIn(el, duration, keyframes) {
   if (!el) return Promise.resolve();
   return new Promise((resolve) => {

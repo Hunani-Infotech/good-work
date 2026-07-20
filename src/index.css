@@ -1044,11 +1044,3 @@ body.not-found-page {
   color: var(--color-nf-ink, #1a1714);
 }
 
-html:not(.site-ready) .not-found-shell {
-  visibility: hidden;
-}
-
-html.site-ready .not-found-shell {
-  visibility: visible;
-}
-

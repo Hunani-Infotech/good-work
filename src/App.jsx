@@ -1,6 +1,6 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import SiteLoader from './components/ui/SiteLoader';
-import { useSiteLoader } from './hooks/useSiteLoader';
+import { shouldShowSiteLoader, useSiteLoader } from './hooks/useSiteLoader';
 import AgencyHomePage from './pages/AgencyHomePage';
 import TidalCopperCvPage from './pages/TidalCopperCvPage';
 import IsakCvPage from './pages/IsakCvPage';
@@ -18,11 +18,13 @@ import {
 } from './data/cvTemplatePaths.js';
 
 export default function App() {
+  const { pathname } = useLocation();
   useSiteLoader();
+  const showLoader = shouldShowSiteLoader(pathname);
 
   return (
     <>
-      <SiteLoader />
+      {showLoader ? <SiteLoader /> : null}
       <Routes>
         <Route path="/" element={<AgencyHomePage />} />
         <Route path={TIDAL_COPPER_CV_PATH} element={<TidalCopperCvPage />} />
