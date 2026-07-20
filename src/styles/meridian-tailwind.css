@@ -2630,7 +2630,7 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     width: max-content;
     max-width: 100%;
     margin: 0 auto;
-    font-size: clamp(1.55rem, 6.8vw, 2.25rem);
+    font-size: clamp(2.65rem, 11.5vw, 3.75rem);
     letter-spacing: -0.03em;
     line-height: 1.1;
     white-space: nowrap;
