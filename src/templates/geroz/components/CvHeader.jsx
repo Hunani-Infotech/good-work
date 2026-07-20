@@ -2,11 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ShareButton from '../../../components/ui/ShareButton.jsx';
 import SocialLinks from '../../../components/shared/SocialLinks.jsx';
-import GoodWorkWordmark from '../../../components/ui/GoodWorkWordmark.jsx';
 import ColorPaletteSwitcher from './ColorPaletteSwitcher.jsx';
 import { useContent } from '../../../hooks/geroz/useContent.js';
 import { scrollGerozToHash } from '../../../animations/gerozAnimations.js';
-import { GOODWORK_APP_URL } from '../../../utils/brandLogos.js';
 
 function CloseIcon() {
   return (
@@ -170,14 +168,6 @@ export default function CvHeader() {
             <span />
             <span />
           </button>
-
-          <a
-            href={GOODWORK_APP_URL}
-            className="geroz-cv-header__brand lg:hidden"
-            aria-label="GoodWork — visit app"
-          >
-            <GoodWorkWordmark animated surface="light" className="geroz-cv-header__logo" />
-          </a>
 
           <div className="geroz-cv-header__palette hidden sm:flex">
             <ColorPaletteSwitcher />

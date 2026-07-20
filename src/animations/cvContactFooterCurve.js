@@ -121,13 +121,21 @@ export function initCvContactFooterCurve({
     }
   }
 
-  const endTarget = dividerRow || footer || root;
+  // Mobile: contact block is often taller than the viewport, so divider
+  // "bottom 70%" never arrives and the CTA stays mid-fade (reads gray).
+  // Finish when the section top has moved well into view.
+  const endTarget = isCompactCta ? root : dividerRow || footer || root;
+  const end = isCompactCta
+    ? 'top 45%'
+    : dividerRow
+      ? 'bottom 70%'
+      : 'top bottom';
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: root,
       start: 'top bottom',
       endTrigger: endTarget,
-      end: dividerRow ? 'bottom 70%' : 'top bottom',
+      end,
       scrub: true,
       invalidateOnRefresh: true,
       fastScrollEnd: true,

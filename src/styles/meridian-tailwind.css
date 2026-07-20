@@ -1610,6 +1610,17 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
+/* Mobile: contact banner owns the connect CTA — hide skills duplicate */
+@media (max-width: 767px) {
+  .meridian-capabilities__cta-wrap {
+    display: none;
+  }
+
+  .meridian-capabilities__inner {
+    padding-bottom: clamp(2rem, 6vw, 2.75rem);
+  }
+}
+
 .meridian-capabilities__cta {
   padding: 0;
   border: 0;
@@ -2562,12 +2573,14 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-contact__copy {
+    --meridian-cta-size: clamp(6.75rem, 40vw, 8.25rem);
     margin-top: 0;
-    padding-bottom: clamp(2rem, 6vw, 2.75rem);
+    /* Half-circle overhang under the divider — matches CTA radius */
+    padding-bottom: calc(var(--meridian-cta-size) * 0.55);
   }
 
   .meridian-footer__walker {
-    margin-top: calc(-1 * clamp(1.75rem, 5vw, 2.5rem));
+    margin-top: calc(-1 * clamp(1.5rem, 4.5vw, 2.25rem));
   }
 
   .meridian-contact__email {
@@ -2577,15 +2590,20 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
     display: flex;
     width: 100%;
     justify-content: center;
-    margin: 0 0 1rem;
+    margin: 0 0 clamp(1.25rem, 4vw, 1.75rem);
     transform: none;
   }
 
   .meridian-contact__email-surface {
-    max-width: 100%;
+    min-height: 2.75rem;
+    max-width: min(100%, 20rem);
+    padding: 0.7rem 1.35rem;
     white-space: normal;
     overflow-wrap: anywhere;
     text-align: center;
+    font-size: clamp(0.8125rem, 3.5vw, 0.9375rem);
+    background: var(--meridian-btn-bg, #ffffff);
+    color: var(--meridian-btn-text, #0a0a0a);
   }
 
   .meridian-footer {
@@ -2598,34 +2616,64 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-contact__heading-wrap {
+    width: 100%;
     max-width: 100%;
     margin-bottom: 0;
   }
 
   .meridian-contact__heading {
+    width: 100%;
     max-width: 100%;
-    font-size: clamp(2.15rem, 10.5vw, 3.25rem);
+    font-size: clamp(2.35rem, 11vw, 3.35rem);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    gap: 0.12rem;
+  }
+
+  .meridian-contact__heading-line {
+    width: 100%;
   }
 
   .meridian-contact__divider-row {
     justify-content: center;
     align-items: center;
-    min-height: clamp(7rem, 20vw, 9rem);
+    width: 100%;
+    min-height: var(--meridian-cta-size);
     height: auto;
-    margin: clamp(1.75rem, 6vw, 2.5rem) 0 0;
+    margin: clamp(1.35rem, 5vw, 2rem) 0 0;
+  }
+
+  .meridian-contact__line {
+    background: rgba(255, 255, 255, 0.18);
   }
 
   .meridian-contact__cta {
     left: 50%;
     right: auto;
+    top: 50%;
   }
 
   .meridian-contact__cta-ring {
-    width: clamp(7rem, 20vw, 9rem);
-    height: clamp(7rem, 20vw, 9rem);
-    min-width: 0;
-    min-height: 0;
-    padding: 1.1rem 1.25rem;
+    width: var(--meridian-cta-size);
+    height: var(--meridian-cta-size);
+    min-width: var(--meridian-cta-size);
+    min-height: var(--meridian-cta-size);
+    padding: 0.85rem 1rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--meridian-btn-bg, #ffffff);
+    color: var(--meridian-btn-text, #0a0a0a);
+    font-size: clamp(0.8125rem, 3.4vw, 0.9375rem);
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  .meridian-contact__cta-ring .meridian-magnetic__label {
+    white-space: normal;
+    text-wrap: balance;
+    max-width: 6.5ch;
+    line-height: 1.25;
   }
 
   .meridian-contact__pills {
@@ -2645,32 +2693,40 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
     overflow-wrap: anywhere;
   }
 
+  /* Standard footer row: brand left, time + socials right */
   .meridian-footer__grid {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    padding-top: clamp(1.15rem, 4vw, 1.75rem);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    padding-top: clamp(1.25rem, 4vw, 1.75rem);
   }
 
   body.meridian-template .meridian-footer__brand.gw-footer-brand {
-    width: 100%;
+    width: auto;
+    flex: 0 1 auto;
+    min-width: 0;
   }
 
   body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
-    padding: 7px 11px;
+    padding: 6px 10px;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
   }
 
   .meridian-footer__brand .meridian-footer__logo,
   body.meridian-template .meridian-footer__brand .goodwork-wordmark--animated {
-    height: clamp(1.65rem, 4.8vw, 2rem);
-    max-width: min(7.5rem, 36vw);
+    height: clamp(1.35rem, 4.2vw, 1.75rem);
+    max-width: min(6.75rem, 34vw);
   }
 
   .meridian-footer__aside {
-    width: 100%;
-    justify-content: space-between;
+    width: auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
     margin-left: 0;
   }
 
@@ -2681,7 +2737,7 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
   }
 
   .meridian-footer__value {
-    font-size: clamp(0.875rem, 3.8vw, 0.9375rem);
+    font-size: clamp(0.8125rem, 3.4vw, 0.875rem);
     letter-spacing: 0.03em;
   }
 }
@@ -2693,11 +2749,6 @@ body.meridian-template .meridian-footer__brand.gw-footer-brand {
 
   .meridian-contact__inner {
     padding: 0 clamp(1.25rem, 4vw, 2rem) clamp(0.5rem, 1.5vh, 0.85rem);
-  }
-
-  .meridian-contact__heading {
-    font-size: clamp(2.35rem, 11vw, 3.5rem);
-    gap: 0.5rem;
   }
 }
 
