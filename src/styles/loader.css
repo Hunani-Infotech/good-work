@@ -87,7 +87,7 @@ html body .container-loader.site-loader :where(p, span, div, img) {
   height: min(55vw, 420px);
   left: -12%;
   top: 8%;
-  background: color-mix(in srgb, var(--loader-purple) 22%, transparent);
+  background: color-mix(in srgb, var(--loader-orange) 22%, transparent);
   animation: loader-blob-drift 7s ease-in-out infinite alternate;
 }
 
@@ -189,10 +189,11 @@ html.is-loader-active .vcv-widget {
   filter: drop-shadow(0 16px 28px rgba(81, 0, 102, 0.16));
 }
 
+/* Anchor for curtain reveal — center of the orange O in GOOD (viewBox 443.73×217.3). */
 .site-loader .loader-dot {
   position: absolute;
-  left: 50%;
-  top: 48%;
+  left: 62.5%;
+  top: 24.5%;
   width: 10px;
   height: 10px;
   border-radius: 50%;

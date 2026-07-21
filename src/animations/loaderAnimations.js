@@ -3,7 +3,7 @@ const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const EASE_SPRING = 'cubic-bezier(0.34, 1.45, 0.64, 1)';
 const EASE_CURTAIN = 'cubic-bezier(0.76, 0, 0.24, 1)';
 /** Full cycle length of `goodwork-logo.gif` (125 × 40ms). */
-const LOADER_GIF_MS = 5000;
+const LOADER_GIF_MS = 4400;
 
 let loaderRunId = 0;
 let loaderSessionComplete = false;
@@ -250,7 +250,7 @@ async function runBrandLoader(loader, isStale) {
   await sleep(220);
   if (isStale()) return;
 
-  await curtainReveal(logo || logoWrap, reveal, loader);
+  await curtainReveal(dot, reveal, loader);
 }
 
 export function bootSiteLoader(options) {
