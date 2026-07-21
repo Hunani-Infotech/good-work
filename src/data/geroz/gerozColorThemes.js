@@ -71,12 +71,27 @@ export const GEROZ_COLOR_THEMES = [
     bgWarm: '#ffffff',
     grey: '#9a9090',
   },
+  {
+    id: 'sunshine-glow',
+    name: 'Sunshine Glow',
+    accent: '#FFDD32',
+    secondary: '#E6C200',
+    bgWarm: '#FFF6CC',
+    grey: '#9A8F78',
+  },
 ];
 
-export function getGerozColorTheme(index = 0) {
+/** Default Geroz page palette — Sunshine Glow (ivory → luminous gold). */
+export const DEFAULT_GEROZ_COLOR_THEME_INDEX = GEROZ_COLOR_THEMES.findIndex(
+  (theme) => theme.id === 'sunshine-glow',
+);
+
+export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
+  const fallback =
+    DEFAULT_GEROZ_COLOR_THEME_INDEX >= 0 ? DEFAULT_GEROZ_COLOR_THEME_INDEX : 0;
   const safeIndex =
     Number.isFinite(index) && index >= 0
       ? index % GEROZ_COLOR_THEMES.length
-      : 0;
+      : fallback;
   return GEROZ_COLOR_THEMES[safeIndex];
 }

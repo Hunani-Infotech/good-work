@@ -608,4 +608,16 @@ body.tidal-copper-template {
 
 .tc-site-footer .gw-footer-brand__logo {
   opacity: 1;
+  width: 100%;
+  height: clamp(4.25rem, 8vw, 5.75rem);
+  max-width: min(100%, 28rem);
+  object-fit: contain;
+  object-position: top center;
+}
+
+@media (max-width: 767px) {
+  .tc-site-footer .gw-footer-brand__logo {
+    height: clamp(3.75rem, 14vw, 5rem);
+    max-width: min(100%, 24rem);
+  }
 }

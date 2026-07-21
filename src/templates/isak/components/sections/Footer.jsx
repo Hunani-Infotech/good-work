@@ -13,19 +13,20 @@ export function Footer() {
 
   return (
     <footer id="footer" className="tf-footer isak-footer flat-spacing">
-      <FooterLineLottie />
-
       <div className="foot-inner isak-footer__inner">
         <div className="isak-footer__brand">
-          <a
-            href={GOODWORK_APP_URL}
-            className="f-logo effectFade fadeZoom isak-footer__logo-pill isak-md-logo-badge"
-            aria-label="GoodWork — visit app"
-          >
-            <div className="logo">
-              <GoodWorkWordmark animated className="isak-footer__logo" />
-            </div>
-          </a>
+          <div className="gw-footer-walker-stack isak-footer__walker-stack">
+            <FooterLineLottie />
+            <a
+              href={GOODWORK_APP_URL}
+              className="f-logo effectFade fadeZoom isak-footer__logo-pill isak-md-logo-badge"
+              aria-label="GoodWork — visit app"
+            >
+              <div className="logo">
+                <GoodWorkWordmark animated className="isak-footer__logo" />
+              </div>
+            </a>
+          </div>
 
           <SocialLinks
             links={social}

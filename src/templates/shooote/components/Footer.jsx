@@ -10,16 +10,17 @@ export default function Footer() {
   return (
     <footer className="wpo-site-footer shooote-site-footer">
       <div className="container shooote-site-footer__inner">
-        <FooterWalkerLottie className="shooote-footer-walker" />
-
         <div className="shooote-site-footer__row">
-          <a
-            href={GOODWORK_APP_URL}
-            className="shooote-site-footer__logo-link shooote-md-logo-badge"
-            aria-label="GoodWork — visit app"
-          >
-            <GoodWorkWordmark animated className="shooote-site-footer__logo" />
-          </a>
+          <div className="gw-footer-walker-stack">
+            <FooterWalkerLottie className="shooote-footer-walker" />
+            <a
+              href={GOODWORK_APP_URL}
+              className="shooote-site-footer__logo-link shooote-md-logo-badge"
+              aria-label="GoodWork — visit app"
+            >
+              <GoodWorkWordmark animated className="shooote-site-footer__logo" />
+            </a>
+          </div>
 
           <SocialLinks
             links={social}

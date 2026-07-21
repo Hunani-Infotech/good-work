@@ -814,10 +814,11 @@ body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:focus-visib
 }
 
 html.geroz-template {
-  --brand-orange: #f25828;
-  --brand-purple: #c94a1f;
-  --brand-bg-warm: #faf8f5;
-  --brand-grey: #96908c;
+  /* Default: Sunshine Glow (Geroz page only) */
+  --brand-orange: #ffdd32;
+  --brand-purple: #e6c200;
+  --brand-bg-warm: #fff6cc;
+  --brand-grey: #9a8f78;
   --color-lawyer: var(--brand-orange);
 }
 
@@ -1614,8 +1615,18 @@ body.geroz-template .gz-back-to-top svg path {
 }
 
 .gz-footer__logo {
-  height: clamp(3.25rem, 8vw, 4.75rem);
-  max-width: min(100%, 22rem);
+  width: 100%;
+  height: clamp(4.25rem, 8vw, 5.75rem);
+  max-width: min(100%, 28rem);
+  object-fit: contain;
+  object-position: top center;
+}
+
+@media (max-width: 767px) {
+  .gz-footer__logo {
+    height: clamp(3.75rem, 14vw, 5rem);
+    max-width: min(100%, 24rem);
+  }
 }
 
 /* Keep footer clean — no left orange ambient bloom above the rail */
@@ -1729,12 +1740,16 @@ body.geroz-template .gz-back-to-top svg path {
   );
 }
 
-@media (max-width: 639px) {
+@media (max-width: 767px) {
   .gz-footer-walker {
     --gz-footer-walker-height: clamp(4.25rem, 22vw, 5.75rem);
     --gz-footer-walker-fade: 1.25rem;
     margin-bottom: 1.75rem;
   }
+}
+
+.gz-footer__inner .gw-footer-walker-stack .gz-footer-walker {
+  margin-bottom: clamp(0.5rem, 1.5vw, 0.85rem);
 }
 
 .geroz-header__logo {

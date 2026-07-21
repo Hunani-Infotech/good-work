@@ -22,14 +22,15 @@ export default function CvFooter() {
 
       <div className="geroz-container-wide relative z-[1]">
         <div className="gz-footer__inner flex flex-col items-center px-4 py-[clamp(2.25rem,4vw,3.25rem)] text-center sm:px-6 lg:px-8">
-          <FooterWalkerLottie className="gz-footer__walker" />
-
-          <GoodWorkFooterBrand
-            surface="dark"
-            part="logo"
-            className="gz-footer__brand"
-            logoClassName="gz-footer__logo"
-          />
+          <div className="gw-footer-walker-stack">
+            <FooterWalkerLottie />
+            <GoodWorkFooterBrand
+              surface="dark"
+              part="logo"
+              className="gz-footer__brand"
+              logoClassName="gz-footer__logo"
+            />
+          </div>
         </div>
       </div>
     </footer>

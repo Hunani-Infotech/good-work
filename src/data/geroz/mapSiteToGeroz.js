@@ -1,5 +1,8 @@
 import { GEROZ_TEMPLATE_IMAGES } from './constants.js';
-import { getGerozColorTheme } from './gerozColorThemes.js';
+import {
+  DEFAULT_GEROZ_COLOR_THEME_INDEX,
+  getGerozColorTheme,
+} from './gerozColorThemes.js';
 import { buildSocialLinks } from '../../utils/socialLinks.js';
 
 function parseExperienceYears(...texts) {
@@ -53,7 +56,9 @@ export function mapSiteToGeroz(site) {
     (_, index) => GEROZ_TEMPLATE_IMAGES.cases[index % GEROZ_TEMPLATE_IMAGES.cases.length],
   );
 
-  const colorTheme = getGerozColorTheme(theme?.colorThemeIndex ?? 0);
+  const colorThemeIndex =
+    theme?.colorThemeIndex ?? DEFAULT_GEROZ_COLOR_THEME_INDEX;
+  const colorTheme = getGerozColorTheme(colorThemeIndex);
 
   return {
     siteMeta: {
@@ -67,7 +72,7 @@ export function mapSiteToGeroz(site) {
       purple: colorTheme.secondary,
       bgWarm: colorTheme.bgWarm,
       grey: colorTheme.grey,
-      colorThemeIndex: theme?.colorThemeIndex ?? 0,
+      colorThemeIndex,
       colorThemeId: colorTheme.id,
       colorThemeName: colorTheme.name,
     },

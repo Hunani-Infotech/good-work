@@ -7,13 +7,17 @@ import {
 } from 'react';
 import { applyGerozThemeCssVars } from '../../../data/geroz/constants.js';
 import {
+  DEFAULT_GEROZ_COLOR_THEME_INDEX,
   GEROZ_COLOR_THEMES,
   getGerozColorTheme,
 } from '../../../data/geroz/gerozColorThemes.js';
 
 const ColorThemeContext = createContext(null);
 
-export function GerozColorThemeProvider({ initialIndex = 0, children }) {
+export function GerozColorThemeProvider({
+  initialIndex = DEFAULT_GEROZ_COLOR_THEME_INDEX,
+  children,
+}) {
   const [colorThemeIndex, setColorThemeIndex] = useState(initialIndex);
   const activeTheme = useMemo(
     () => getGerozColorTheme(colorThemeIndex),

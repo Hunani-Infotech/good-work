@@ -1,4 +1,15 @@
 /* Shared GoodWork footer branding — logo + powered-by + copyright */
+.gw-footer-brand,
+.gw-footer-brand__logo-link {
+  --gw-footer-logo-height: clamp(4.25rem, 8vw, 5.75rem);
+  --gw-footer-logo-max-width: min(100%, 28rem);
+  --gw-footer-logo-height-sm: clamp(3.75rem, 14vw, 5rem);
+  --gw-footer-logo-max-width-sm: min(100%, 24rem);
+  --gw-footer-badge-padding: 10px 18px;
+  --gw-footer-badge-padding-sm: 8px 14px;
+  --gw-footer-badge-radius: 12px;
+}
+
 .gw-footer-brand {
   display: flex;
   flex-direction: column;
@@ -10,14 +21,14 @@
 /* Malaysia Digital animated logo — white badge (Isak uses its own footer pill) */
 .gw-footer-brand__logo-link {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   text-decoration: none;
   line-height: 0;
   background: #fff;
   border: none;
-  border-radius: 10px;
-  padding: 6px 12px;
+  border-radius: var(--gw-footer-badge-radius);
+  padding: var(--gw-footer-badge-padding);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
   transition:
     transform 0.2s ease,
@@ -29,17 +40,17 @@
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
 }
 
-.goodwork-wordmark--animated,
+/* Footer animated logos only — match Isak size + top-align GIF in occupied area */
 .gw-footer-brand__logo.goodwork-wordmark--animated {
   display: block;
-  width: auto;
-  height: clamp(3rem, 5.5vw, 4rem);
-  max-width: min(100%, 20rem);
+  width: 100%;
+  height: var(--gw-footer-logo-height);
+  max-width: var(--gw-footer-logo-max-width);
   border: none;
   filter: none;
   opacity: 1;
   object-fit: contain;
-  object-position: center;
+  object-position: top center;
 }
 
 .gw-footer-brand__logo {
@@ -63,4 +74,46 @@
   display: block;
   margin-top: 0.2rem;
   opacity: 0.72;
+}
+
+@media (max-width: 767px) {
+  .gw-footer-brand__logo-link {
+    padding: var(--gw-footer-badge-padding-sm);
+  }
+
+  .gw-footer-brand__logo.goodwork-wordmark--animated {
+    height: var(--gw-footer-logo-height-sm);
+    max-width: var(--gw-footer-logo-max-width-sm);
+  }
+}
+
+/* Walker + logo stack — walk path matches logo badge width, sits above logo */
+.gw-footer-walker-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.gw-footer-walker-stack > .footer-walker,
+.gw-footer-walker-stack > .shooote-footer-walker,
+.gw-footer-walker-stack > .gz-footer-walker,
+.gw-footer-walker-stack > .isak-footer-walker,
+.gw-footer-walker-stack > .meridian-footer-walker,
+.gw-footer-walker-stack > [class*='footer-walker'] {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  align-self: stretch;
+}
+
+/* Logo badge defines stack width; walker stretches to match */
+.gw-footer-walker-stack > .gw-footer-brand__logo-link,
+.gw-footer-walker-stack > a[class*='logo'] {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+  box-sizing: border-box;
 }

@@ -89,15 +89,16 @@ export default function ContactSection() {
           </div>
 
           <footer className="meridian-footer">
-            <FooterWalkerLottie className="meridian-footer__walker" />
-
             <div className="meridian-footer__grid">
               <div className="meridian-footer__brand gw-footer-brand">
-                <GoodWorkFooterBrand
-                  surface="dark"
-                  part="logo"
-                  logoClassName="meridian-footer__logo"
-                />
+                <div className="gw-footer-walker-stack meridian-footer__walker-stack">
+                  <FooterWalkerLottie className="meridian-footer__walker" />
+                  <GoodWorkFooterBrand
+                    surface="dark"
+                    part="logo"
+                    logoClassName="meridian-footer__logo"
+                  />
+                </div>
               </div>
 
               <div className="meridian-footer__aside">

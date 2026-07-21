@@ -6,6 +6,7 @@ import {
   clearGerozImageCssVars,
   clearGerozThemeCssVars,
 } from '../data/geroz/constants.js';
+import { DEFAULT_GEROZ_COLOR_THEME_INDEX } from '../data/geroz/gerozColorThemes.js';
 import { useContent } from '../hooks/geroz/useContent.js';
 import { usePageAnimations } from '../hooks/geroz/usePageAnimations.js';
 import { GerozColorThemeProvider } from '../templates/geroz/context/ColorThemeContext.jsx';
@@ -64,7 +65,9 @@ export default function GerozCvPage() {
   const { theme: initialTheme } = useContent();
 
   return (
-    <GerozColorThemeProvider initialIndex={initialTheme.colorThemeIndex ?? 0}>
+    <GerozColorThemeProvider
+      initialIndex={initialTheme.colorThemeIndex ?? DEFAULT_GEROZ_COLOR_THEME_INDEX}
+    >
       <GerozCvPageContent />
     </GerozColorThemeProvider>
   );
