@@ -1248,7 +1248,7 @@ html.isak-template .isak-footer__walker-stack {
 
 html.isak-template .isak-footer__walker-stack .isak-footer-walker {
   width: 100%;
-  margin: 0 0 clamp(0.5rem, 1.5vw, 0.85rem);
+  margin: 0 0 var(--gw-footer-walker-to-logo-gap, clamp(0.5rem, 1.5vw, 0.85rem));
 }
 
 html.isak-template .isak-footer__actions {
@@ -1258,7 +1258,9 @@ html.isak-template .isak-footer__actions {
   flex: 1;
   min-width: 0;
   /* Optically center with the logo badge (not the walker above it) */
-  margin-bottom: calc((clamp(4.25rem, 8vw, 5.75rem) + 1.25rem - 2.75rem) / 2);
+  margin-bottom: calc(
+    (var(--gw-footer-logo-height, 4.25rem) + 1.25rem - 2.75rem) / 2
+  );
 }
 
 /*
@@ -1267,8 +1269,8 @@ html.isak-template .isak-footer__actions {
  * Aspect ~1206×465 from the ANSA Lottie, cropped to a walk band.
  */
 html.isak-template .isak-footer-walker {
-  --isak-walker-height: clamp(5.5rem, 14vw, 8.75rem);
-  --isak-walker-fade: clamp(1.5rem, 6vw, 4rem);
+  --isak-walker-height: var(--gw-footer-walker-height, clamp(5.5rem, 14vw, 8.75rem));
+  --isak-walker-fade: var(--gw-footer-walker-fade, clamp(1.5rem, 6vw, 4rem));
   --isak-walker-rule: var(--black-6);
   width: 100%;
   margin: clamp(1rem, 2.5vw, 1.5rem) 0 clamp(2rem, 4vw, 3rem);
@@ -1361,8 +1363,8 @@ html.isak-template .isak-footer-walker__rail {
 
 @media (max-width: 767px) {
   html.isak-template .isak-footer-walker {
-    --isak-walker-height: clamp(4.25rem, 22vw, 5.75rem);
-    --isak-walker-fade: 1.25rem;
+    --isak-walker-height: var(--gw-footer-walker-height-sm, clamp(4.25rem, 22vw, 5.75rem));
+    --isak-walker-fade: var(--gw-footer-walker-fade-sm, 1.25rem);
     margin: 1rem 0 1.75rem;
   }
 }
@@ -1372,8 +1374,8 @@ html.isak-template body.dark-mode .tf-footer .f-logo.isak-footer__logo-pill {
   width: auto !important;
   height: auto !important;
   min-width: 0;
-  padding: 10px 18px !important;
-  border-radius: 12px !important;
+  padding: var(--gw-footer-badge-padding, 10px 18px) !important;
+  border-radius: var(--gw-footer-badge-radius, 12px) !important;
   background: #fff !important;
   border: none !important;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14) !important;
@@ -1412,8 +1414,8 @@ html.isak-template .isak-sidebar__logo {
 
 html.isak-template .isak-footer__logo {
   width: 100%;
-  height: clamp(4.25rem, 8vw, 5.75rem);
-  max-width: min(100%, 28rem);
+  height: var(--gw-footer-logo-height, clamp(4.25rem, 8vw, 5.75rem));
+  max-width: var(--gw-footer-logo-max-width, min(100%, 28rem));
   display: block;
   object-fit: contain;
   object-position: top center;
@@ -1506,7 +1508,7 @@ html.isak-template .isak-footer__social-link:focus-visible {
   html.isak-template .tf-footer .isak-footer__logo-pill {
     width: auto !important;
     height: auto !important;
-    padding: 8px 14px !important;
+    padding: var(--gw-footer-badge-padding-sm, 8px 14px) !important;
   }
 
   html.isak-template .tf-footer .isak-footer__logo-pill .logo {
@@ -1515,8 +1517,8 @@ html.isak-template .isak-footer__social-link:focus-visible {
   }
 
   html.isak-template .isak-footer__logo {
-    height: clamp(3.75rem, 14vw, 5rem) !important;
-    max-width: min(100%, 24rem);
+    height: var(--gw-footer-logo-height-sm, clamp(3.75rem, 14vw, 5rem)) !important;
+    max-width: var(--gw-footer-logo-max-width-sm, min(100%, 24rem));
   }
 
   html.isak-template .isak-footer__actions {

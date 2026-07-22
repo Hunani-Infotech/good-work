@@ -819,13 +819,13 @@ body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:focus-visib
 }
 
 html.geroz-template {
-  /* Default: Neon Yellow (Geroz page only) */
-  --brand-orange: #f0ff00;
-  --brand-purple: #c8e600;
-  --brand-bg-warm: #fffae5;
-  --brand-grey: #8f8a70;
-  --brand-on-accent: #141200;
-  --brand-accent-text: #6b7300;
+  /* Default: Sunshine Glow (Geroz page only) */
+  --brand-orange: #ffdd32;
+  --brand-purple: #e6c200;
+  --brand-bg-warm: #fff6cc;
+  --brand-grey: #9a8f78;
+  --brand-on-accent: #1a1600;
+  --brand-accent-text: #8a7400;
   --color-lawyer: var(--brand-orange);
 }
 
@@ -1631,16 +1631,16 @@ body.geroz-template .gz-back-to-top svg path {
 
 .gz-footer__logo {
   width: 100%;
-  height: clamp(4.25rem, 8vw, 5.75rem);
-  max-width: min(100%, 28rem);
+  height: var(--gw-footer-logo-height, clamp(4.25rem, 8vw, 5.75rem));
+  max-width: var(--gw-footer-logo-max-width, min(100%, 28rem));
   object-fit: contain;
   object-position: top center;
 }
 
 @media (max-width: 767px) {
   .gz-footer__logo {
-    height: clamp(3.75rem, 14vw, 5rem);
-    max-width: min(100%, 24rem);
+    height: var(--gw-footer-logo-height-sm, clamp(3.75rem, 14vw, 5rem));
+    max-width: var(--gw-footer-logo-max-width-sm, min(100%, 24rem));
   }
 }
 
@@ -1655,8 +1655,8 @@ body.geroz-template .gz-back-to-top svg path {
 }
 
 .gz-footer-walker {
-  --gz-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
-  --gz-footer-walker-fade: clamp(1.5rem, 6vw, 4rem);
+  --gz-footer-walker-height: var(--gw-footer-walker-height, clamp(5.5rem, 14vw, 8.75rem));
+  --gz-footer-walker-fade: var(--gw-footer-walker-fade, clamp(1.5rem, 6vw, 4rem));
   --gz-footer-walker-fade-bg: #000;
   --gz-footer-walker-rule: color-mix(in srgb, var(--color-lawyer) 22%, #2a2a2a);
   --gz-footer-walker-accent: color-mix(in srgb, var(--color-lawyer) 72%, #c9a46a);
@@ -1757,14 +1757,14 @@ body.geroz-template .gz-back-to-top svg path {
 
 @media (max-width: 767px) {
   .gz-footer-walker {
-    --gz-footer-walker-height: clamp(4.25rem, 22vw, 5.75rem);
-    --gz-footer-walker-fade: 1.25rem;
+    --gz-footer-walker-height: var(--gw-footer-walker-height-sm, clamp(4.25rem, 22vw, 5.75rem));
+    --gz-footer-walker-fade: var(--gw-footer-walker-fade-sm, 1.25rem);
     margin-bottom: 1.75rem;
   }
 }
 
 .gz-footer__inner .gw-footer-walker-stack .gz-footer-walker {
-  margin-bottom: clamp(0.5rem, 1.5vw, 0.85rem);
+  margin-bottom: var(--gw-footer-walker-to-logo-gap, clamp(0.5rem, 1.5vw, 0.85rem));
 }
 
 .geroz-header__logo {

@@ -1,6 +1,7 @@
-/* Shared GoodWork footer branding — logo + powered-by + copyright */
+/* Shared GoodWork footer branding — logo + ANSA walker sizing tokens */
 .gw-footer-brand,
-.gw-footer-brand__logo-link {
+.gw-footer-brand__logo-link,
+.gw-footer-walker-stack {
   --gw-footer-logo-height: clamp(4.25rem, 8vw, 5.75rem);
   --gw-footer-logo-max-width: min(100%, 28rem);
   --gw-footer-logo-height-sm: clamp(3.75rem, 14vw, 5rem);
@@ -8,6 +9,11 @@
   --gw-footer-badge-padding: 10px 18px;
   --gw-footer-badge-padding-sm: 8px 14px;
   --gw-footer-badge-radius: 12px;
+  --gw-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
+  --gw-footer-walker-height-sm: clamp(4.25rem, 22vw, 5.75rem);
+  --gw-footer-walker-fade: clamp(1.5rem, 6vw, 4rem);
+  --gw-footer-walker-fade-sm: 1.25rem;
+  --gw-footer-walker-to-logo-gap: clamp(0.5rem, 1.5vw, 0.85rem);
 }
 
 .gw-footer-brand {
@@ -18,7 +24,7 @@
   gap: 0.75rem;
 }
 
-/* Malaysia Digital animated logo — white badge (Isak uses its own footer pill) */
+/* Malaysia Digital animated logo — white badge */
 .gw-footer-brand__logo-link {
   display: inline-flex;
   align-items: flex-start;
@@ -40,7 +46,7 @@
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
 }
 
-/* Footer animated logos only — match Isak size + top-align GIF in occupied area */
+/* Footer animated logos — shared size across all CV templates */
 .gw-footer-brand__logo.goodwork-wordmark--animated {
   display: block;
   width: 100%;
@@ -85,9 +91,20 @@
     height: var(--gw-footer-logo-height-sm);
     max-width: var(--gw-footer-logo-max-width-sm);
   }
+
+  .gw-footer-walker-stack {
+    --gw-footer-walker-height: var(--gw-footer-walker-height-sm);
+    --gw-footer-walker-fade: var(--gw-footer-walker-fade-sm);
+    --gw-footer-logo-height: var(--gw-footer-logo-height-sm);
+    --gw-footer-logo-max-width: var(--gw-footer-logo-max-width-sm);
+    --gw-footer-badge-padding: var(--gw-footer-badge-padding-sm);
+  }
 }
 
-/* Walker + logo stack — walk path matches logo badge width, sits above logo */
+/*
+ * Walker + logo stack — walk path matches logo badge width.
+ * Logo badge defines stack width; walker stretches to 100%.
+ */
 .gw-footer-walker-stack {
   display: flex;
   flex-direction: column;
@@ -105,15 +122,46 @@
 .gw-footer-walker-stack > [class*='footer-walker'] {
   width: 100%;
   max-width: none;
+  margin: 0 0 var(--gw-footer-walker-to-logo-gap);
   margin-inline: 0;
   align-self: stretch;
 }
 
 /* Logo badge defines stack width; walker stretches to match */
 .gw-footer-walker-stack > .gw-footer-brand__logo-link,
-.gw-footer-walker-stack > a[class*='logo'] {
+.gw-footer-walker-stack > a[class*='logo'],
+.gw-footer-walker-stack > a[class*='logo-pill'],
+.gw-footer-walker-stack > a.f-logo {
   flex: 0 0 auto;
   width: auto;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+/*
+ * Unified animated logo size for every template badge inside the stack
+ * (covers shared brand link + Isak/Shooote custom pills).
+ */
+.gw-footer-walker-stack .goodwork-wordmark--animated,
+.gw-footer-walker-stack .gw-footer-brand__logo.goodwork-wordmark--animated,
+.gw-footer-walker-stack .isak-footer__logo,
+.gw-footer-walker-stack .gz-footer__logo,
+.gw-footer-walker-stack .meridian-footer__logo,
+.gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--animated {
+  display: block;
+  width: 100%;
+  height: var(--gw-footer-logo-height);
+  max-width: var(--gw-footer-logo-max-width);
+  object-fit: contain;
+  object-position: top center;
+}
+
+/* Unified badge chrome for custom footer logo links inside the stack */
+.gw-footer-walker-stack > .gw-footer-brand__logo-link,
+.gw-footer-walker-stack > a.isak-footer__logo-pill,
+.gw-footer-walker-stack > a.isak-md-logo-badge,
+.gw-footer-walker-stack > a.shooote-md-logo-badge,
+.gw-footer-walker-stack > a.shooote-site-footer__logo-link {
+  padding: var(--gw-footer-badge-padding);
+  border-radius: var(--gw-footer-badge-radius);
 }
