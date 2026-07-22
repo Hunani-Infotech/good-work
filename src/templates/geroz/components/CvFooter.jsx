@@ -4,7 +4,7 @@ import FooterWalkerLottie from './FooterWalkerLottie.jsx';
 
 export default function CvFooter() {
   return (
-    <footer className="gz-footer relative overflow-hidden bg-black text-stone-300">
+    <footer className="gz-footer relative overflow-x-clip overflow-y-visible bg-black text-stone-300">
       <div
         className="gz-footer__bg pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
         style={{ backgroundImage: 'var(--geroz-img-footer-bg)' }}

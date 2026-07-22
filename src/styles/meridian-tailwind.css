@@ -2185,7 +2185,7 @@ body.meridian-template .meridian-footer__brand .goodwork-wordmark--animated {
   display: block;
   width: 100%;
   height: var(--gw-footer-logo-height, clamp(4.25rem, 8vw, 5.75rem));
-  max-width: var(--gw-footer-logo-max-width, min(100%, 28rem));
+  max-width: var(--gw-footer-logo-max-width, min(100%, 22rem));
   object-fit: contain;
   object-position: top center;
 }
@@ -2802,7 +2802,7 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
   .meridian-footer__brand .meridian-footer__logo,
   body.meridian-template .meridian-footer__brand .goodwork-wordmark--animated {
     height: var(--gw-footer-logo-height-sm, clamp(3.75rem, 14vw, 5rem));
-    max-width: var(--gw-footer-logo-max-width-sm, min(100%, 24rem));
+    max-width: var(--gw-footer-logo-max-width-sm, min(100%, 18rem));
   }
 
   .meridian-footer__aside {

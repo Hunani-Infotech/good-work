@@ -28,7 +28,8 @@ export default function FooterWalkerLottie({
       autoplay: false,
       path: src,
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMax meet',
+        // Align to logo badge left edge — ANSA enters from the start of the box
+        preserveAspectRatio: 'xMidYMax slice',
         progressiveLoad: true,
         hideOnTransparent: true,
       },

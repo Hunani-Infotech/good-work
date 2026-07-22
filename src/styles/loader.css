@@ -75,7 +75,7 @@ html body .container-loader.site-loader :where(p, span, div, img) {
 
 .site-loader .loader-blob {
   position: absolute;
-  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  border-radius: 50%;
   filter: blur(8px);
   opacity: 0;
   mix-blend-mode: multiply;
@@ -83,19 +83,19 @@ html body .container-loader.site-loader :where(p, span, div, img) {
 }
 
 .site-loader .loader-blob--purple {
-  width: min(55vw, 420px);
-  height: min(55vw, 420px);
-  left: -12%;
-  top: 8%;
-  background: color-mix(in srgb, var(--loader-orange) 22%, transparent);
+  width: min(42vw, 340px);
+  height: min(42vw, 340px);
+  left: max(1.25rem, 3vw);
+  top: 10%;
+  background: color-mix(in srgb, var(--loader-purple) 42%, transparent);
   animation: loader-blob-drift 7s ease-in-out infinite alternate;
 }
 
 .site-loader .loader-blob--orange {
-  width: min(48vw, 360px);
-  height: min(48vw, 360px);
-  right: -10%;
-  bottom: 6%;
+  width: min(38vw, 300px);
+  height: min(38vw, 300px);
+  right: max(1.25rem, 3vw);
+  bottom: 8%;
   background: color-mix(in srgb, var(--loader-orange) 26%, transparent);
   animation: loader-blob-drift 6s ease-in-out infinite alternate-reverse;
 }
@@ -166,7 +166,6 @@ html.is-loader-active .vcv-widget {
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 16px 28px rgba(81, 0, 102, 0.16));
 }
 
 /* Anchor for curtain reveal — center of the orange O in GOOD (viewBox 443.73×217.3). */

@@ -5,9 +5,9 @@
 .gw-footer-brand__logo-link,
 .gw-footer-walker-stack {
   --gw-footer-logo-height: clamp(4.25rem, 8vw, 5.75rem);
-  --gw-footer-logo-max-width: min(100%, 28rem);
+  --gw-footer-logo-max-width: min(100%, 22rem);
   --gw-footer-logo-height-sm: clamp(3.75rem, 14vw, 5rem);
-  --gw-footer-logo-max-width-sm: min(100%, 24rem);
+  --gw-footer-logo-max-width-sm: min(100%, 18rem);
   --gw-footer-badge-padding: 10px 18px;
   --gw-footer-badge-padding-sm: 8px 14px;
   --gw-footer-badge-radius: 12px;
@@ -92,6 +92,9 @@
  * - Full badge width → centered left-to-right jump path
  * - Stage height proportional to logo
  * - Stage bottom tucks behind the logo top (hide / land on the box)
+ *
+ * Specificity is intentionally high (`html body …`) so Isak / Geroz /
+ * Shooote / Meridian template rules cannot undo the shared path.
  */
 .gw-footer-walker-stack {
   position: relative;
@@ -105,104 +108,126 @@
   padding-top: calc(
     var(--gw-footer-walker-height) - var(--gw-footer-walker-overlap)
   );
-}
-
-.gw-footer-walker-stack > .footer-walker,
-.gw-footer-walker-stack > .shooote-footer-walker,
-.gw-footer-walker-stack > .gz-footer-walker,
-.gw-footer-walker-stack > .isak-footer-walker,
-.gw-footer-walker-stack > .meridian-footer-walker,
-.gw-footer-walker-stack > [class*='footer-walker'] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  max-width: none;
-  height: var(--gw-footer-walker-height);
-  margin: 0 !important;
-  z-index: 0;
-  display: block;
-  pointer-events: none;
-  user-select: none;
   overflow: visible;
 }
 
-.gw-footer-walker-stack [class*='footer-walker__rail'],
-.gw-footer-walker-stack .footer-walker__rail,
-.gw-footer-walker-stack .isak-footer-walker__rail,
-.gw-footer-walker-stack .gz-footer-walker__rail,
-.gw-footer-walker-stack .gz-footer-walker__rail-base,
-.gw-footer-walker-stack .gz-footer-walker__rail-accent,
-.gw-footer-walker-stack .meridian-footer-walker__rail,
-.gw-footer-walker-stack [class*='footer-walker__fade'] {
+html body .gw-footer-walker-stack > .footer-walker,
+html body .gw-footer-walker-stack > .shooote-footer-walker,
+html body .gw-footer-walker-stack > .gz-footer-walker,
+html body .gw-footer-walker-stack > .isak-footer-walker,
+html body .gw-footer-walker-stack > .meridian-footer-walker,
+html body .gw-footer-walker-stack > [class*='footer-walker'] {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: var(--gw-footer-walker-height) !important;
+  margin: 0 !important;
+  z-index: 0;
+  display: block !important;
+  grid-template-rows: none !important;
+  gap: 0 !important;
+  pointer-events: none;
+  user-select: none;
+  overflow: visible !important;
+}
+
+html body .gw-footer-walker-stack [class*='footer-walker__rail'],
+html body .gw-footer-walker-stack .footer-walker__rail,
+html body .gw-footer-walker-stack .isak-footer-walker__rail,
+html body .gw-footer-walker-stack .gz-footer-walker__rail,
+html body .gw-footer-walker-stack .gz-footer-walker__rail-base,
+html body .gw-footer-walker-stack .gz-footer-walker__rail-accent,
+html body .gw-footer-walker-stack .meridian-footer-walker__rail,
+html body .gw-footer-walker-stack [class*='footer-walker__fade'] {
   display: none !important;
 }
 
-.gw-footer-walker-stack [class*='footer-walker__stage'],
-.gw-footer-walker-stack .footer-walker__stage,
-.gw-footer-walker-stack .isak-footer-walker__stage,
-.gw-footer-walker-stack .gz-footer-walker__stage,
-.gw-footer-walker-stack .meridian-footer-walker__stage {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+html body .gw-footer-walker-stack [class*='footer-walker__stage'],
+html body .gw-footer-walker-stack .footer-walker__stage,
+html body .gw-footer-walker-stack .isak-footer-walker__stage,
+html body .gw-footer-walker-stack .gz-footer-walker__stage,
+html body .gw-footer-walker-stack .meridian-footer-walker__stage {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  /* Let ANSA’s body peek past the badge edges (was hard-clipping) */
   overflow: visible !important;
   isolation: isolate;
 }
 
-.gw-footer-walker-stack [class*='footer-walker__lottie'],
-.gw-footer-walker-stack .footer-walker__lottie,
-.gw-footer-walker-stack .isak-footer-walker__lottie,
-.gw-footer-walker-stack .gz-footer-walker__lottie,
-.gw-footer-walker-stack .meridian-footer-walker__lottie {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+/*
+ * Comp is 1206×465 but ANSA only walks ~140–1060.
+ * Widen the Lottie so the walk band spans most of the logo, then center it
+ * with a little side inset so the character isn’t cut at the badge edges.
+ */
+html body .gw-footer-walker-stack [class*='footer-walker__lottie'],
+html body .gw-footer-walker-stack .footer-walker__lottie,
+html body .gw-footer-walker-stack .isak-footer-walker__lottie,
+html body .gw-footer-walker-stack .gz-footer-walker__lottie,
+html body .gw-footer-walker-stack .meridian-footer-walker__lottie {
+  --ansa-comp-w: 1206;
+  --ansa-path-start: 140;
+  --ansa-path-end: 1060;
+  --ansa-path-span: 920;
+  /* Cover ~86% of the logo width so start/end keep a small margin */
+  --ansa-cover: 0.86;
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: auto !important;
+  inset: unset !important;
+  width: calc(100% * var(--ansa-comp-w) / var(--ansa-path-span) * var(--ansa-cover)) !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  height: 100% !important;
   line-height: 0;
+  z-index: 1;
 }
 
-/* Feet on the logo top edge; jump stays centered across the badge width */
-.gw-footer-walker-stack [class*='footer-walker__lottie'] svg,
-.gw-footer-walker-stack .footer-walker__lottie svg,
-.gw-footer-walker-stack .isak-footer-walker__lottie svg,
-.gw-footer-walker-stack .gz-footer-walker__lottie svg,
-.gw-footer-walker-stack .meridian-footer-walker__lottie svg {
+html body .gw-footer-walker-stack [class*='footer-walker__lottie'] svg,
+html body .gw-footer-walker-stack .footer-walker__lottie svg,
+html body .gw-footer-walker-stack .isak-footer-walker__lottie svg,
+html body .gw-footer-walker-stack .gz-footer-walker__lottie svg,
+html body .gw-footer-walker-stack .meridian-footer-walker__lottie svg {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* Logo sits above walker so ANSA reads as coming from behind */
-.gw-footer-walker-stack > .gw-footer-brand__logo-link,
-.gw-footer-walker-stack > a[class*='logo'],
-.gw-footer-walker-stack > a[class*='logo-pill'],
-.gw-footer-walker-stack > a.f-logo,
-.gw-footer-walker-stack > a.isak-footer__logo-pill,
-.gw-footer-walker-stack > a.isak-md-logo-badge,
-.gw-footer-walker-stack > a.shooote-md-logo-badge,
-.gw-footer-walker-stack > a.shooote-site-footer__logo-link {
+html body .gw-footer-walker-stack > .gw-footer-brand__logo-link,
+html body .gw-footer-walker-stack > a[class*='logo'],
+html body .gw-footer-walker-stack > a[class*='logo-pill'],
+html body .gw-footer-walker-stack > a.f-logo,
+html body .gw-footer-walker-stack > a.isak-footer__logo-pill,
+html body .gw-footer-walker-stack > a.isak-md-logo-badge,
+html body .gw-footer-walker-stack > a.shooote-md-logo-badge,
+html body .gw-footer-walker-stack > a.shooote-site-footer__logo-link,
+html body .gw-footer-walker-stack > a.gz-footer__brand {
   position: relative;
   z-index: 2;
   padding: var(--gw-footer-badge-padding);
   border-radius: var(--gw-footer-badge-radius);
 }
 
-.gw-footer-walker-stack .goodwork-wordmark--animated,
-.gw-footer-walker-stack .gw-footer-brand__logo.goodwork-wordmark--animated,
-.gw-footer-walker-stack .isak-footer__logo,
-.gw-footer-walker-stack .gz-footer__logo,
-.gw-footer-walker-stack .meridian-footer__logo,
-.gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--animated {
+html body .gw-footer-walker-stack .goodwork-wordmark--animated,
+html body .gw-footer-walker-stack .gw-footer-brand__logo.goodwork-wordmark--animated,
+html body .gw-footer-walker-stack .isak-footer__logo,
+html body .gw-footer-walker-stack .gz-footer__logo,
+html body .gw-footer-walker-stack .meridian-footer__logo,
+html body .gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--animated {
   display: block;
   width: 100%;
-  height: var(--gw-footer-logo-height);
-  max-width: var(--gw-footer-logo-max-width);
+  height: var(--gw-footer-logo-height) !important;
+  max-width: var(--gw-footer-logo-max-width) !important;
   object-fit: contain;
   object-position: top center;
 }

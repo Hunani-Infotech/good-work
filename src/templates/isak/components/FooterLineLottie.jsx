@@ -29,8 +29,8 @@ export default function FooterLineLottie({
       autoplay: false,
       path: src,
       rendererSettings: {
-        // Feet sit on the rail — align to bottom of the stage
-        preserveAspectRatio: 'xMidYMax meet',
+        // Center on the logo; slice fills width; YMax keeps feet on the badge
+        preserveAspectRatio: 'xMidYMax slice',
         progressiveLoad: true,
         hideOnTransparent: true,
       },

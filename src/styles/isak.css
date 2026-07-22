@@ -1411,7 +1411,7 @@ html.isak-template .isak-sidebar__logo {
 html.isak-template .isak-footer__logo {
   width: 100%;
   height: var(--gw-footer-logo-height, clamp(4.25rem, 8vw, 5.75rem));
-  max-width: var(--gw-footer-logo-max-width, min(100%, 28rem));
+  max-width: var(--gw-footer-logo-max-width, min(100%, 22rem));
   display: block;
   object-fit: contain;
   object-position: top center;
@@ -1514,7 +1514,7 @@ html.isak-template .isak-footer__social-link:focus-visible {
 
   html.isak-template .isak-footer__logo {
     height: var(--gw-footer-logo-height-sm, clamp(3.75rem, 14vw, 5rem)) !important;
-    max-width: var(--gw-footer-logo-max-width-sm, min(100%, 24rem));
+    max-width: var(--gw-footer-logo-max-width-sm, min(100%, 18rem));
   }
 
   html.isak-template .isak-footer__actions {
