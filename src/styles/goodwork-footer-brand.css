@@ -11,17 +11,15 @@
   --gw-footer-badge-padding: 10px 18px;
   --gw-footer-badge-padding-sm: 8px 14px;
   --gw-footer-badge-radius: 12px;
-  /* Restore earlier ANSA stage size */
-  --gw-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
-  --gw-footer-walker-height-sm: clamp(4.25rem, 22vw, 5.75rem);
   --gw-footer-walker-fade: clamp(1.5rem, 6vw, 4rem);
   --gw-footer-walker-fade-sm: 1.25rem;
-  /* How far ANSA peeks above the logo top edge */
-  --gw-footer-walker-peek: clamp(3.5rem, 9vw, 5.5rem);
-  /* How far ANSA overlaps down behind the logo */
-  --gw-footer-walker-overlap: clamp(1.5rem, 3.5vw, 2.25rem);
-  /* Small breathing room between ANSA feet and the logo top edge */
-  --gw-footer-walker-bottom-gap: clamp(0.65rem, 1.6vw, 0.95rem);
+  /*
+   * ANSA stage scales with the white logo badge.
+   * Tighter peek above the box; more of the stage tucks behind the logo.
+   */
+  --gw-footer-walker-height: calc(var(--gw-footer-logo-height) * 1.15);
+  --gw-footer-walker-height-sm: calc(var(--gw-footer-logo-height-sm) * 1.1);
+  --gw-footer-walker-overlap: clamp(1.25rem, 3vw, 1.85rem);
 }
 
 /* ---- Brand block ---- */
@@ -89,7 +87,12 @@
   opacity: 0.72;
 }
 
-/* ---- Walker + logo stack: ANSA emerges from behind logo top-left ---- */
+/*
+ * Walker + logo stack
+ * - Full badge width → centered left-to-right jump path
+ * - Stage height proportional to logo
+ * - Stage bottom tucks behind the logo top (hide / land on the box)
+ */
 .gw-footer-walker-stack {
   position: relative;
   display: flex;
@@ -98,9 +101,9 @@
   width: fit-content;
   max-width: 100%;
   margin-inline: auto;
-  /* Full animation height + a little space before the logo */
+  /* Only the portion above the badge; overlap sits behind the logo */
   padding-top: calc(
-    var(--gw-footer-walker-height) + var(--gw-footer-walker-bottom-gap, 0.75rem)
+    var(--gw-footer-walker-height) - var(--gw-footer-walker-overlap)
   );
 }
 
@@ -113,10 +116,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  /* Match logo badge width like earlier */
   width: 100%;
   max-width: none;
-  /* Full earlier stage height so ANSA is not cropped */
   height: var(--gw-footer-walker-height);
   margin: 0 !important;
   z-index: 0;
@@ -132,7 +133,8 @@
 .gw-footer-walker-stack .gz-footer-walker__rail,
 .gw-footer-walker-stack .gz-footer-walker__rail-base,
 .gw-footer-walker-stack .gz-footer-walker__rail-accent,
-.gw-footer-walker-stack .meridian-footer-walker__rail {
+.gw-footer-walker-stack .meridian-footer-walker__rail,
+.gw-footer-walker-stack [class*='footer-walker__fade'] {
   display: none !important;
 }
 
@@ -165,6 +167,7 @@
   line-height: 0;
 }
 
+/* Feet on the logo top edge; jump stays centered across the badge width */
 .gw-footer-walker-stack [class*='footer-walker__lottie'] svg,
 .gw-footer-walker-stack .footer-walker__lottie svg,
 .gw-footer-walker-stack .isak-footer-walker__lottie svg,
@@ -220,8 +223,6 @@
     --gw-footer-logo-height: var(--gw-footer-logo-height-sm);
     --gw-footer-logo-max-width: var(--gw-footer-logo-max-width-sm);
     --gw-footer-badge-padding: var(--gw-footer-badge-padding-sm);
-    --gw-footer-walker-peek: clamp(2.75rem, 18vw, 4.25rem);
-    --gw-footer-walker-overlap: clamp(1.25rem, 4vw, 1.85rem);
-    --gw-footer-walker-bottom-gap: clamp(0.55rem, 2vw, 0.85rem);
+    --gw-footer-walker-overlap: clamp(1.1rem, 4vw, 1.6rem);
   }
 }
