@@ -56,7 +56,7 @@ export default function HeroSection4() {
                       {hero.subtitle}
                     </p>
                     <span
-                      className="gz-hero__subtitle-rule gz-hero__subtitle-rule--mirror hidden h-px shrink-0 max-lg:block max-lg:w-[clamp(1.75rem,10vw,2.75rem)]"
+                      className="gz-hero__subtitle-rule gz-hero__subtitle-rule--mirror block h-px w-[clamp(2rem,4vw,3rem)] shrink-0 max-lg:w-[clamp(1.75rem,10vw,2.75rem)]"
                       aria-hidden="true"
                     />
                   </div>

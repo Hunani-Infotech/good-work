@@ -31,6 +31,8 @@ export function GerozColorThemeProvider({
       purple: activeTheme.secondary,
       bgWarm: activeTheme.bgWarm,
       grey: activeTheme.grey,
+      onAccent: activeTheme.onAccent,
+      accentText: activeTheme.accentText,
       colorThemeIndex,
       colorThemeId: activeTheme.id,
       colorThemeName: activeTheme.name,

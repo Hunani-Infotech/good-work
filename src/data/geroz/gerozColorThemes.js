@@ -2,9 +2,11 @@
  * Good Work CV colour palettes — matched to reference frames in
  * "Good Work/Frame 1.png" … "Frame 8.png".
  *
- * `accent` → --brand-orange (primary highlight)
+ * `accent` → --brand-orange (primary highlight / fills)
  * `secondary` → --brand-purple (overlay / gradient pair)
  * `bgWarm` → page & hero cream/light background
+ * `onAccent` → text/icons on accent fills (white on dark accents, dark on yellow)
+ * `accentText` → accent used as text on light backgrounds (readable contrast)
  */
 export const GEROZ_COLOR_THEMES = [
   {
@@ -38,6 +40,8 @@ export const GEROZ_COLOR_THEMES = [
     secondary: '#6b8bb8',
     bgWarm: '#f9f7f2',
     grey: '#8a96a8',
+    onAccent: '#1a1f2a',
+    accentText: '#5a7199',
   },
   {
     id: 'teal',
@@ -78,12 +82,24 @@ export const GEROZ_COLOR_THEMES = [
     secondary: '#E6C200',
     bgWarm: '#FFF6CC',
     grey: '#9A8F78',
+    onAccent: '#1a1600',
+    accentText: '#8A7400',
+  },
+  {
+    id: 'neon-yellow',
+    name: 'Neon Yellow',
+    accent: '#F0FF00',
+    secondary: '#C8E600',
+    bgWarm: '#FFFAE5',
+    grey: '#8F8A70',
+    onAccent: '#141200',
+    accentText: '#6B7300',
   },
 ];
 
-/** Default Geroz page palette — Sunshine Glow (ivory → luminous gold). */
+/** Default Geroz page palette — Neon Yellow. */
 export const DEFAULT_GEROZ_COLOR_THEME_INDEX = GEROZ_COLOR_THEMES.findIndex(
-  (theme) => theme.id === 'sunshine-glow',
+  (theme) => theme.id === 'neon-yellow',
 );
 
 export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
@@ -93,5 +109,10 @@ export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
     Number.isFinite(index) && index >= 0
       ? index % GEROZ_COLOR_THEMES.length
       : fallback;
-  return GEROZ_COLOR_THEMES[safeIndex];
+  const theme = GEROZ_COLOR_THEMES[safeIndex];
+  return {
+    ...theme,
+    onAccent: theme.onAccent ?? '#ffffff',
+    accentText: theme.accentText ?? theme.accent,
+  };
 }

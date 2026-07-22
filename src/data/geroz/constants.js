@@ -68,7 +68,7 @@ export function applyGerozThemeCssVars(
   theme = {},
   root = document.documentElement,
 ) {
-  const { purple, orange, bgWarm, grey, accent } = theme;
+  const { purple, orange, bgWarm, grey, accent, onAccent, accentText } = theme;
   const accentColor = orange ?? accent;
 
   getGerozThemeTargets(root).forEach((el) => {
@@ -79,6 +79,8 @@ export function applyGerozThemeCssVars(
     }
     if (bgWarm) el.style.setProperty('--brand-bg-warm', bgWarm);
     if (grey) el.style.setProperty('--brand-grey', grey);
+    if (onAccent) el.style.setProperty('--brand-on-accent', onAccent);
+    if (accentText) el.style.setProperty('--brand-accent-text', accentText);
   });
 }
 
@@ -89,6 +91,8 @@ export function clearGerozThemeCssVars(root = document.documentElement) {
     '--brand-bg-warm',
     '--brand-grey',
     '--color-lawyer',
+    '--brand-on-accent',
+    '--brand-accent-text',
   ];
 
   getGerozThemeTargets(root).forEach((el) => {

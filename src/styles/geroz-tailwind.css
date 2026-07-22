@@ -119,7 +119,7 @@
 
   99% {
     transform: translate3d(0, 0, 0) scale(1.2);
-    color: var(--brand-orange, #f25828);
+    color: var(--brand-accent-text, var(--brand-orange, #f25828));
   }
 
   100% {
@@ -245,10 +245,15 @@
 
   .geroz-theme-btn--accent {
     background-color: var(--brand-orange, #f25828);
+    color: var(--brand-on-accent, #fff);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.12),
       0 0 0 1px color-mix(in srgb, var(--brand-orange, #f25828) 42%, transparent),
       0 0 20px color-mix(in srgb, var(--brand-orange, #f25828) 22%, transparent);
+  }
+
+  .geroz-theme-btn--accent .geroz-theme-btn__label {
+    color: var(--brand-on-accent, #fff);
   }
 
   .geroz-theme-btn--accent::after {
@@ -422,7 +427,7 @@
   .geroz-cv-header__social-link:focus-visible {
     border-color: color-mix(in srgb, var(--color-lawyer) 55%, transparent);
     background: var(--color-lawyer);
-    color: #fff;
+    color: var(--brand-on-accent, #fff);
     transform: translateY(-2px) scale(1.06);
   }
 
@@ -458,7 +463,7 @@
   .geroz-cv-header__drawer-social-link:focus-visible {
     border-color: color-mix(in srgb, var(--color-lawyer) 55%, transparent);
     background: var(--color-lawyer);
-    color: #fff;
+    color: var(--brand-on-accent, #fff);
     transform: translateY(-2px);
   }
 
@@ -814,11 +819,13 @@ body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:focus-visib
 }
 
 html.geroz-template {
-  /* Default: Sunshine Glow (Geroz page only) */
-  --brand-orange: #ffdd32;
-  --brand-purple: #e6c200;
-  --brand-bg-warm: #fff6cc;
-  --brand-grey: #9a8f78;
+  /* Default: Neon Yellow (Geroz page only) */
+  --brand-orange: #f0ff00;
+  --brand-purple: #c8e600;
+  --brand-bg-warm: #fffae5;
+  --brand-grey: #8f8a70;
+  --brand-on-accent: #141200;
+  --brand-accent-text: #6b7300;
   --color-lawyer: var(--brand-orange);
 }
 
@@ -858,7 +865,7 @@ body.geroz-template {
 
 /* Back to top — palette accent by default; white on accent-coloured section bands */
 body.geroz-template .gz-back-to-top {
-  color: var(--brand-orange, #f25828);
+  color: var(--brand-accent-text, var(--brand-orange, #f25828));
   background: transparent;
 }
 
@@ -867,7 +874,7 @@ body.geroz-template .gz-back-to-top:hover {
 }
 
 body.geroz-template .gz-back-to-top.gz-back-to-top--on-accent {
-  color: #fff;
+  color: var(--brand-on-accent, #fff);
 }
 
 body.geroz-template .gz-back-to-top.gz-back-to-top--on-accent:hover {
@@ -1023,14 +1030,22 @@ body.geroz-template .gz-back-to-top svg path {
   background-color: var(--brand-bg-warm, #faf8f5);
   --gz-hero-text: #000;
   --gz-hero-text-deep: #000;
-  --gz-hero-text-muted: color-mix(in srgb, var(--brand-orange, #f25828) 72%, #000);
-  --gz-hero-text-gold: var(--brand-orange, #f25828);
-  --gz-hero-text-gold-light: color-mix(in srgb, var(--brand-orange, #f25828) 72%, white);
+  --gz-hero-text-muted: color-mix(
+    in srgb,
+    var(--brand-accent-text, var(--brand-orange, #f25828)) 72%,
+    #000
+  );
+  --gz-hero-text-gold: var(--brand-accent-text, var(--brand-orange, #f25828));
+  --gz-hero-text-gold-light: color-mix(
+    in srgb,
+    var(--brand-accent-text, var(--brand-orange, #f25828)) 72%,
+    white
+  );
 }
 
 .gz-hero__firstname,
 .gz-hero__firstname .gz-hero__char {
-  color: var(--brand-orange, #f25828);
+  color: var(--brand-accent-text, var(--brand-orange, #f25828));
 }
 
 .gz-hero__firstname,
@@ -1399,7 +1414,7 @@ body.geroz-template .gz-back-to-top svg path {
 }
 
 .gz-hero__firstname .gz-hero__char {
-  color: var(--brand-orange, #f25828);
+  color: var(--brand-accent-text, var(--brand-orange, #f25828));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1420,7 +1435,7 @@ body.geroz-template .gz-back-to-top svg path {
   }
 
   .gz-hero__firstname .gz-hero__char {
-    color: var(--brand-orange, #f25828);
+    color: var(--brand-accent-text, var(--brand-orange, #f25828));
   }
 }
 
@@ -1441,57 +1456,57 @@ body.geroz-template .gz-back-to-top svg path {
 
 .gz-expertise .gz-expertise__statement,
 .gz-expertise .gz-expertise__author-name {
-  color: #fff;
+  color: var(--brand-on-accent, #fff);
 }
 
 .gz-expertise .gz-expertise__author-role {
-  color: color-mix(in srgb, #fff 78%, var(--brand-orange, #f25828));
+  color: color-mix(in srgb, var(--brand-on-accent, #fff) 78%, var(--brand-orange, #f25828));
 }
 
 .gz-expertise .gz-expertise__author-line {
   background: linear-gradient(
     180deg,
-    #fff,
-    color-mix(in srgb, #fff 25%, transparent)
+    var(--brand-on-accent, #fff),
+    color-mix(in srgb, var(--brand-on-accent, #fff) 25%, transparent)
   ) !important;
 }
 
 .gz-expertise .gz-expertise__eyebrow span:last-child {
-  color: color-mix(in srgb, #fff 82%, var(--brand-orange, #f25828));
+  color: color-mix(in srgb, var(--brand-on-accent, #fff) 82%, var(--brand-orange, #f25828));
 }
 
 .gz-expertise .gz-expertise__eyebrow > div {
-  border-color: color-mix(in srgb, #fff 28%, transparent);
-  background: color-mix(in srgb, #fff 12%, transparent);
+  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 28%, transparent);
+  background: color-mix(in srgb, var(--brand-on-accent, #fff) 12%, transparent);
 }
 
 .gz-expertise .gz-portrait__corner {
-  border-color: color-mix(in srgb, #fff 46%, transparent) !important;
+  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 46%, transparent) !important;
 }
 
 .gz-expertise .gz-portrait__ring {
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #fff 24%, transparent),
-    0 0 0 1px color-mix(in srgb, #fff 34%, transparent),
-    0 0 0 5px color-mix(in srgb, #fff 10%, transparent),
-    0 0 0 6px color-mix(in srgb, #fff 18%, transparent) !important;
+    inset 0 1px 0 color-mix(in srgb, var(--brand-on-accent, #fff) 24%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--brand-on-accent, #fff) 34%, transparent),
+    0 0 0 5px color-mix(in srgb, var(--brand-on-accent, #fff) 10%, transparent),
+    0 0 0 6px color-mix(in srgb, var(--brand-on-accent, #fff) 18%, transparent) !important;
 }
 
 .gz-expertise .gz-portrait__frame {
   box-shadow:
-    0 0 0 1px color-mix(in srgb, #fff 30%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--brand-on-accent, #fff) 30%, transparent),
     0 1.5rem 3rem -1.25rem rgba(0, 0, 0, 0.34),
     0 2.5rem 5.5rem -2rem rgba(0, 0, 0, 0.24) !important;
 }
 
 .gz-expertise .gz-portrait__frame::before {
-  border-color: color-mix(in srgb, #fff 18%, transparent) !important;
+  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 18%, transparent) !important;
 }
 
 .gz-expertise .gz-portrait__halo {
   background: radial-gradient(
     ellipse 82% 72% at 50% 36%,
-    color-mix(in srgb, #fff 14%, transparent) 0%,
+    color-mix(in srgb, var(--brand-on-accent, #fff) 14%, transparent) 0%,
     transparent 72%
   ) !important;
 }
@@ -1531,33 +1546,33 @@ body.geroz-template .gz-back-to-top svg path {
 .gz-capabilities--imaged .gz-capabilities__description,
 .gz-capabilities--imaged .gz-capabilities__number,
 .gz-capabilities--imaged .gz-capabilities__text {
-  color: #fff;
+  color: var(--brand-on-accent, #fff);
 }
 
 .gz-capabilities--imaged .gz-capabilities__eyebrow span:last-child {
-  color: color-mix(in srgb, #fff 82%, var(--brand-orange, #f25828));
+  color: color-mix(in srgb, var(--brand-on-accent, #fff) 82%, var(--brand-orange, #f25828));
 }
 
 .gz-capabilities--imaged .gz-capabilities__eyebrow > div {
-  border-color: color-mix(in srgb, #fff 28%, transparent);
-  background: color-mix(in srgb, #fff 12%, transparent);
+  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 28%, transparent);
+  background: color-mix(in srgb, var(--brand-on-accent, #fff) 12%, transparent);
 }
 
 .gz-capabilities--imaged .gz-capabilities__divider {
-  background-color: color-mix(in srgb, #fff 24%, transparent) !important;
+  background-color: color-mix(in srgb, var(--brand-on-accent, #fff) 24%, transparent) !important;
 }
 
 .gz-capabilities--imaged .gz-capabilities__hover-bg {
-  background-color: color-mix(in srgb, #fff 14%, var(--brand-orange, #f25828));
+  background-color: color-mix(in srgb, var(--brand-on-accent, #fff) 14%, var(--brand-orange, #f25828));
 }
 
 .gz-capabilities--imaged .gz-capabilities__item.is-hovered .gz-capabilities__number,
 .gz-capabilities--imaged .gz-capabilities__item.is-hovered .gz-capabilities__text {
-  color: #fff;
+  color: var(--brand-on-accent, #fff);
 }
 
 .gz-capabilities--imaged .gz-capabilities__item.is-hovered .gz-capabilities__divider {
-  background-color: color-mix(in srgb, #fff 42%, transparent) !important;
+  background-color: color-mix(in srgb, var(--brand-on-accent, #fff) 42%, transparent) !important;
 }
 
 /* About + footer accents */
@@ -1780,7 +1795,7 @@ body.geroz-template .gz-back-to-top svg path {
 .gz-footer__social-link:focus-visible {
   border-color: transparent;
   background: var(--color-lawyer);
-  color: #fff;
+  color: var(--brand-on-accent, #fff);
   transform: translateY(-2px);
 }
 
