@@ -14,7 +14,7 @@ export function Footer() {
   return (
     <footer id="footer" className="tf-footer isak-footer flat-spacing">
       <div className="foot-inner isak-footer__inner">
-        <div className="isak-footer__brand">
+        <div className="isak-footer__main">
           <div className="gw-footer-walker-stack isak-footer__walker-stack">
             <FooterLineLottie />
             <a
@@ -28,23 +28,25 @@ export function Footer() {
             </a>
           </div>
 
-          <SocialLinks
-            links={social}
-            className="isak-footer__social"
-            linkClassName="isak-footer__social-link"
-            iconSize={15}
-          />
-        </div>
+          <div className="isak-footer__actions">
+            <SocialLinks
+              links={social}
+              className="isak-footer__social"
+              linkClassName="isak-footer__social-link"
+              iconSize={15}
+            />
 
-        {footer.email ? (
-          <div className="foot-bottom isak-footer__meta">
-            <p className="text-nocopy text-black-56 effectFade fadeUp no-div isak-footer__copy">
-              <a href={mailto} className="link text-black-72">
-                {footer.email}
-              </a>
-            </p>
+            {footer.email ? (
+              <div className="foot-bottom isak-footer__meta">
+                <p className="text-nocopy text-black-56 effectFade fadeUp no-div isak-footer__copy">
+                  <a href={mailto} className="link text-black-72">
+                    {footer.email}
+                  </a>
+                </p>
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        </div>
       </div>
     </footer>
   );

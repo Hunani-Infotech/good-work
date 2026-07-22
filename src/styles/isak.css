@@ -1222,14 +1222,43 @@ html.isak-template .isak-cta__circle:focus-visible .isak-cta__circle-core .icon 
   }
 }
 
-/* Isak footer — native two-column layout: brand left, meta right */
+/* Isak footer — logo + social + email share one baseline */
 html.isak-template .tf-footer.isak-footer {
   position: relative;
 }
 
 html.isak-template .tf-footer .isak-footer__inner {
-  align-items: center;
+  align-items: stretch;
   margin-top: 0;
+}
+
+html.isak-template .isak-footer__main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  width: 100%;
+  min-width: 0;
+}
+
+html.isak-template .isak-footer__walker-stack {
+  margin-inline: 0;
+  flex-shrink: 0;
+}
+
+html.isak-template .isak-footer__walker-stack .isak-footer-walker {
+  width: 100%;
+  margin: 0 0 clamp(0.5rem, 1.5vw, 0.85rem);
+}
+
+html.isak-template .isak-footer__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+  flex: 1;
+  min-width: 0;
+  /* Optically center with the logo badge (not the walker above it) */
+  margin-bottom: calc((clamp(4.25rem, 8vw, 5.75rem) + 1.25rem - 2.75rem) / 2);
 }
 
 /*
@@ -1338,22 +1367,6 @@ html.isak-template .isak-footer-walker__rail {
   }
 }
 
-html.isak-template .isak-footer__walker-stack {
-  margin-inline: 0;
-}
-
-html.isak-template .isak-footer__walker-stack .isak-footer-walker {
-  width: 100%;
-  margin: 0 0 clamp(0.5rem, 1.5vw, 0.85rem);
-}
-
-html.isak-template .isak-footer__brand {
-  display: flex;
-  align-items: flex-end;
-  gap: 1.15rem;
-  flex-shrink: 0;
-}
-
 html.isak-template .tf-footer .isak-footer__logo-pill,
 html.isak-template body.dark-mode .tf-footer .f-logo.isak-footer__logo-pill {
   width: auto !important;
@@ -1412,14 +1425,21 @@ html.isak-template .tf-footer .isak-footer__meta {
   justify-content: flex-end;
   flex: 1;
   min-width: 0;
-  margin-left: auto;
+  margin: 0 0 0 auto;
+  padding: 0;
 }
 
 html.isak-template .isak-footer__copy {
   margin: 0;
   text-align: right;
   font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
-  line-height: 1.55;
+  line-height: 1.2;
+}
+
+html.isak-template .isak-footer__copy .link {
+  display: inline-block;
+  line-height: 1.2;
+  vertical-align: middle;
 }
 
 html.isak-template .isak-footer__social {
@@ -1429,6 +1449,13 @@ html.isak-template .isak-footer__social {
   margin: 0;
   padding: 0;
   list-style: none;
+  flex-shrink: 0;
+}
+
+html.isak-template .isak-footer__social > li {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
 }
 
 html.isak-template .isak-footer__social-link {
@@ -1470,8 +1497,9 @@ html.isak-template .isak-footer__social-link:focus-visible {
     gap: 1.25rem;
   }
 
-  html.isak-template .isak-footer__brand {
+  html.isak-template .isak-footer__main {
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
   }
 
@@ -1491,9 +1519,17 @@ html.isak-template .isak-footer__social-link:focus-visible {
     max-width: min(100%, 24rem);
   }
 
+  html.isak-template .isak-footer__actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0;
+  }
+
   html.isak-template .tf-footer .isak-footer__meta {
     justify-content: center;
-    margin-left: 0;
+    margin: 0;
     width: 100%;
   }
 
