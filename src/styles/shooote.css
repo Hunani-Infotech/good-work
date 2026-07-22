@@ -3023,7 +3023,11 @@ body.shooote-template .shooote-site-footer__social-link {
 
 body.shooote-template .gw-footer-walker-stack .footer-walker,
 body.shooote-template .gw-footer-walker-stack .shooote-footer-walker {
-  margin-bottom: var(--gw-footer-walker-to-logo-gap, clamp(0.5rem, 1.5vw, 0.85rem));
+  margin-bottom: calc(var(--gw-footer-walker-overlap, 1.65rem) * -1);
+}
+
+body.shooote-template .gw-footer-walker-stack .footer-walker__rail {
+  display: none;
 }
 
 .shooote-site-footer__logo:not(.goodwork-wordmark--animated) {

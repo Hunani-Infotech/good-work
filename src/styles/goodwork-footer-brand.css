@@ -1,4 +1,6 @@
-/* Shared GoodWork footer branding — logo + ANSA walker sizing tokens */
+/* Shared GoodWork footer branding — logo + ANSA walker */
+
+/* ---- Design tokens ---- */
 .gw-footer-brand,
 .gw-footer-brand__logo-link,
 .gw-footer-walker-stack {
@@ -9,13 +11,20 @@
   --gw-footer-badge-padding: 10px 18px;
   --gw-footer-badge-padding-sm: 8px 14px;
   --gw-footer-badge-radius: 12px;
+  /* Restore earlier ANSA stage size */
   --gw-footer-walker-height: clamp(5.5rem, 14vw, 8.75rem);
   --gw-footer-walker-height-sm: clamp(4.25rem, 22vw, 5.75rem);
   --gw-footer-walker-fade: clamp(1.5rem, 6vw, 4rem);
   --gw-footer-walker-fade-sm: 1.25rem;
-  --gw-footer-walker-to-logo-gap: clamp(0.5rem, 1.5vw, 0.85rem);
+  /* How far ANSA peeks above the logo top edge */
+  --gw-footer-walker-peek: clamp(3.5rem, 9vw, 5.5rem);
+  /* How far ANSA overlaps down behind the logo */
+  --gw-footer-walker-overlap: clamp(1.5rem, 3.5vw, 2.25rem);
+  /* Small breathing room between ANSA feet and the logo top edge */
+  --gw-footer-walker-bottom-gap: clamp(0.65rem, 1.6vw, 0.95rem);
 }
 
+/* ---- Brand block ---- */
 .gw-footer-brand {
   display: flex;
   flex-direction: column;
@@ -24,7 +33,6 @@
   gap: 0.75rem;
 }
 
-/* Malaysia Digital animated logo — white badge */
 .gw-footer-brand__logo-link {
   display: inline-flex;
   align-items: flex-start;
@@ -46,7 +54,6 @@
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
 }
 
-/* Footer animated logos — shared size across all CV templates */
 .gw-footer-brand__logo.goodwork-wordmark--animated {
   display: block;
   width: 100%;
@@ -82,6 +89,121 @@
   opacity: 0.72;
 }
 
+/* ---- Walker + logo stack: ANSA emerges from behind logo top-left ---- */
+.gw-footer-walker-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  /* Full animation height + a little space before the logo */
+  padding-top: calc(
+    var(--gw-footer-walker-height) + var(--gw-footer-walker-bottom-gap, 0.75rem)
+  );
+}
+
+.gw-footer-walker-stack > .footer-walker,
+.gw-footer-walker-stack > .shooote-footer-walker,
+.gw-footer-walker-stack > .gz-footer-walker,
+.gw-footer-walker-stack > .isak-footer-walker,
+.gw-footer-walker-stack > .meridian-footer-walker,
+.gw-footer-walker-stack > [class*='footer-walker'] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Match logo badge width like earlier */
+  width: 100%;
+  max-width: none;
+  /* Full earlier stage height so ANSA is not cropped */
+  height: var(--gw-footer-walker-height);
+  margin: 0 !important;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.gw-footer-walker-stack [class*='footer-walker__rail'],
+.gw-footer-walker-stack .footer-walker__rail,
+.gw-footer-walker-stack .isak-footer-walker__rail,
+.gw-footer-walker-stack .gz-footer-walker__rail,
+.gw-footer-walker-stack .gz-footer-walker__rail-base,
+.gw-footer-walker-stack .gz-footer-walker__rail-accent,
+.gw-footer-walker-stack .meridian-footer-walker__rail {
+  display: none !important;
+}
+
+.gw-footer-walker-stack [class*='footer-walker__stage'],
+.gw-footer-walker-stack .footer-walker__stage,
+.gw-footer-walker-stack .isak-footer-walker__stage,
+.gw-footer-walker-stack .gz-footer-walker__stage,
+.gw-footer-walker-stack .meridian-footer-walker__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+.gw-footer-walker-stack [class*='footer-walker__lottie'],
+.gw-footer-walker-stack .footer-walker__lottie,
+.gw-footer-walker-stack .isak-footer-walker__lottie,
+.gw-footer-walker-stack .gz-footer-walker__lottie,
+.gw-footer-walker-stack .meridian-footer-walker__lottie {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+}
+
+.gw-footer-walker-stack [class*='footer-walker__lottie'] svg,
+.gw-footer-walker-stack .footer-walker__lottie svg,
+.gw-footer-walker-stack .isak-footer-walker__lottie svg,
+.gw-footer-walker-stack .gz-footer-walker__lottie svg,
+.gw-footer-walker-stack .meridian-footer-walker__lottie svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Logo sits above walker so ANSA reads as coming from behind */
+.gw-footer-walker-stack > .gw-footer-brand__logo-link,
+.gw-footer-walker-stack > a[class*='logo'],
+.gw-footer-walker-stack > a[class*='logo-pill'],
+.gw-footer-walker-stack > a.f-logo,
+.gw-footer-walker-stack > a.isak-footer__logo-pill,
+.gw-footer-walker-stack > a.isak-md-logo-badge,
+.gw-footer-walker-stack > a.shooote-md-logo-badge,
+.gw-footer-walker-stack > a.shooote-site-footer__logo-link {
+  position: relative;
+  z-index: 2;
+  padding: var(--gw-footer-badge-padding);
+  border-radius: var(--gw-footer-badge-radius);
+}
+
+.gw-footer-walker-stack .goodwork-wordmark--animated,
+.gw-footer-walker-stack .gw-footer-brand__logo.goodwork-wordmark--animated,
+.gw-footer-walker-stack .isak-footer__logo,
+.gw-footer-walker-stack .gz-footer__logo,
+.gw-footer-walker-stack .meridian-footer__logo,
+.gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--animated {
+  display: block;
+  width: 100%;
+  height: var(--gw-footer-logo-height);
+  max-width: var(--gw-footer-logo-max-width);
+  object-fit: contain;
+  object-position: top center;
+}
+
 @media (max-width: 767px) {
   .gw-footer-brand__logo-link {
     padding: var(--gw-footer-badge-padding-sm);
@@ -98,70 +220,8 @@
     --gw-footer-logo-height: var(--gw-footer-logo-height-sm);
     --gw-footer-logo-max-width: var(--gw-footer-logo-max-width-sm);
     --gw-footer-badge-padding: var(--gw-footer-badge-padding-sm);
+    --gw-footer-walker-peek: clamp(2.75rem, 18vw, 4.25rem);
+    --gw-footer-walker-overlap: clamp(1.25rem, 4vw, 1.85rem);
+    --gw-footer-walker-bottom-gap: clamp(0.55rem, 2vw, 0.85rem);
   }
-}
-
-/*
- * Walker + logo stack — walk path matches logo badge width.
- * Logo badge defines stack width; walker stretches to 100%.
- */
-.gw-footer-walker-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: fit-content;
-  max-width: 100%;
-  margin-inline: auto;
-}
-
-.gw-footer-walker-stack > .footer-walker,
-.gw-footer-walker-stack > .shooote-footer-walker,
-.gw-footer-walker-stack > .gz-footer-walker,
-.gw-footer-walker-stack > .isak-footer-walker,
-.gw-footer-walker-stack > .meridian-footer-walker,
-.gw-footer-walker-stack > [class*='footer-walker'] {
-  width: 100%;
-  max-width: none;
-  margin: 0 0 var(--gw-footer-walker-to-logo-gap);
-  margin-inline: 0;
-  align-self: stretch;
-}
-
-/* Logo badge defines stack width; walker stretches to match */
-.gw-footer-walker-stack > .gw-footer-brand__logo-link,
-.gw-footer-walker-stack > a[class*='logo'],
-.gw-footer-walker-stack > a[class*='logo-pill'],
-.gw-footer-walker-stack > a.f-logo {
-  flex: 0 0 auto;
-  width: auto;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/*
- * Unified animated logo size for every template badge inside the stack
- * (covers shared brand link + Isak/Shooote custom pills).
- */
-.gw-footer-walker-stack .goodwork-wordmark--animated,
-.gw-footer-walker-stack .gw-footer-brand__logo.goodwork-wordmark--animated,
-.gw-footer-walker-stack .isak-footer__logo,
-.gw-footer-walker-stack .gz-footer__logo,
-.gw-footer-walker-stack .meridian-footer__logo,
-.gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--animated {
-  display: block;
-  width: 100%;
-  height: var(--gw-footer-logo-height);
-  max-width: var(--gw-footer-logo-max-width);
-  object-fit: contain;
-  object-position: top center;
-}
-
-/* Unified badge chrome for custom footer logo links inside the stack */
-.gw-footer-walker-stack > .gw-footer-brand__logo-link,
-.gw-footer-walker-stack > a.isak-footer__logo-pill,
-.gw-footer-walker-stack > a.isak-md-logo-badge,
-.gw-footer-walker-stack > a.shooote-md-logo-badge,
-.gw-footer-walker-stack > a.shooote-site-footer__logo-link {
-  padding: var(--gw-footer-badge-padding);
-  border-radius: var(--gw-footer-badge-radius);
 }

@@ -154,26 +154,6 @@ html.is-loader-active .vcv-widget {
   text-align: center;
 }
 
-.site-loader .loader-stamp {
-  position: absolute;
-  top: -1.1rem;
-  right: 0.2rem;
-  z-index: 6;
-  padding: 0.35rem 0.7rem;
-  border: 2px solid var(--loader-orange);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--loader-orange);
-  font-family: Goga, Arial, sans-serif;
-  font-weight: 600;
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transform: rotate(8deg) scale(0.6);
-  opacity: 0;
-  box-shadow: 3px 3px 0 var(--loader-purple);
-}
-
 .site-loader .loader-logo-wrap {
   position: relative;
   width: min(100%, 300px);
@@ -332,11 +312,6 @@ html.is-loader-active .vcv-widget {
 
   .site-loader .loader-watermark {
     font-size: clamp(4.5rem, 28vw, 8rem);
-  }
-
-  .site-loader .loader-stamp {
-    top: -0.85rem;
-    right: -0.1rem;
   }
 }
 

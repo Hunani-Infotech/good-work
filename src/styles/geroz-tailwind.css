@@ -1764,7 +1764,11 @@ body.geroz-template .gz-back-to-top svg path {
 }
 
 .gz-footer__inner .gw-footer-walker-stack .gz-footer-walker {
-  margin-bottom: var(--gw-footer-walker-to-logo-gap, clamp(0.5rem, 1.5vw, 0.85rem));
+  margin-bottom: calc(var(--gw-footer-walker-overlap, 1.65rem) * -1);
+}
+
+.gz-footer__inner .gw-footer-walker-stack .gz-footer-walker__rail {
+  display: none;
 }
 
 .geroz-header__logo {

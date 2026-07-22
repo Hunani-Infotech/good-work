@@ -13,10 +13,6 @@ export default function SiteLoader() {
         </div>
 
         <div className="loader-stage">
-          <div className="loader-stamp" data-loader-stamp aria-hidden="true">
-            drop in
-          </div>
-
           <div className="loader-logo-wrap" data-loader-logo-wrap>
             <img
               className="loader-logo"

@@ -1,6 +1,5 @@
 const LOADER_MSGS = ['warming up…', 'locking in…', 'almost there…', 'you’re in'];
 const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const EASE_SPRING = 'cubic-bezier(0.34, 1.45, 0.64, 1)';
 const EASE_CURTAIN = 'cubic-bezier(0.76, 0, 0.24, 1)';
 /** Full cycle length of `goodwork-logo.gif` (125 × 40ms). */
 const LOADER_GIF_MS = 4400;
@@ -180,7 +179,6 @@ async function runBrandLoader(loader, isStale) {
   const statusEl = loader.querySelector('[data-loader-status]');
   const orbs = loader.querySelectorAll('[data-loader-orb]');
   const watermark = loader.querySelector('[data-loader-watermark]');
-  const stamp = loader.querySelector('[data-loader-stamp]');
   const logo = loader.querySelector('[data-loader-logo]');
 
   if (!reveal || !stage || !logoWrap || !dot) {
@@ -218,14 +216,6 @@ async function runBrandLoader(loader, isStale) {
     { opacity: 1, transform: 'translateY(0) scale(1) rotate(0deg)' },
   ]);
   if (isStale()) return;
-
-  if (stamp) {
-    stamp.animate([
-      { opacity: 0, transform: 'rotate(8deg) scale(0.4)' },
-      { opacity: 1, transform: 'rotate(8deg) scale(1.08)' },
-      { opacity: 1, transform: 'rotate(8deg) scale(1)' },
-    ], { duration: 700, fill: 'forwards', easing: EASE_SPRING });
-  }
 
   await fadeIn(tagline, 700, [
     { opacity: 0, transform: 'rotate(-1.5deg) translateY(16px) scale(0.96)' },

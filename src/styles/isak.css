@@ -1248,7 +1248,7 @@ html.isak-template .isak-footer__walker-stack {
 
 html.isak-template .isak-footer__walker-stack .isak-footer-walker {
   width: 100%;
-  margin: 0 0 var(--gw-footer-walker-to-logo-gap, clamp(0.5rem, 1.5vw, 0.85rem));
+  margin: 0 0 calc(var(--gw-footer-walker-overlap, 1.65rem) * -1);
 }
 
 html.isak-template .isak-footer__actions {
@@ -1354,11 +1354,7 @@ html.isak-template body.dark-mode .isak-footer-walker__fade--end {
 }
 
 html.isak-template .isak-footer-walker__rail {
-  width: 100%;
-  height: 1px;
-  margin: 0;
-  background-color: var(--isak-walker-rule);
-  transform: translateY(-1px);
+  display: none;
 }
 
 @media (max-width: 767px) {
