@@ -39,6 +39,14 @@ function ensureSiteDefaults(site) {
   if (!clone.home.cta && defaultSite.home?.cta) {
     clone.home.cta = structuredClone(defaultSite.home.cta);
   }
+  // Keep Geroz default palette in sync with shipped site.json (Neon Yellow).
+  if (defaultSite.site?.theme?.colorThemeIndex != null) {
+    if (!clone.site) clone.site = {};
+    clone.site.theme = {
+      ...(clone.site.theme || {}),
+      colorThemeIndex: defaultSite.site.theme.colorThemeIndex,
+    };
+  }
   return clone;
 }
 

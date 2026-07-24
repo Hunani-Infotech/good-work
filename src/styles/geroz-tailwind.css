@@ -819,26 +819,26 @@ body.geroz-template .geroz-cv-header__actions button.geroz-share-btn:focus-visib
 }
 
 html.geroz-template {
-  /* Default: Sunshine Glow (Geroz page only) */
-  --brand-orange: #ffdd32;
-  --brand-purple: #e6c200;
-  --brand-bg-warm: #ffdd32; /* sharp hero */
-  --brand-soft-bg: #fff6cc; /* soft section 2 */
-  --brand-grey: #9a8f78;
-  --brand-on-accent: #1a1600;
-  --brand-accent-text: #8a7400;
+  /* Default: Neon Yellow (Geroz page only) */
+  --brand-orange: #f0ff00;
+  --brand-purple: #c8e600;
+  --brand-bg-warm: #f0ff00; /* sharp hero */
+  --brand-soft-bg: #ffffff; /* soft section 2 / CTA */
+  --brand-grey: #6b6b5c;
+  --brand-on-accent: #171717;
+  --brand-accent-text: #171717;
   --color-lawyer: var(--brand-orange);
 }
 
 /* Lock section surfaces after theme vars (beats stale/cached rules) */
 html.geroz-template #top.gz-hero {
-  /* Sharp = accent (the neon currently stuck on section 2) */
-  background-color: var(--brand-orange, #ffdd32) !important;
+  /* Sharp = accent */
+  background-color: var(--brand-orange, #f0ff00) !important;
 }
 
 html.geroz-template #expertise.gz-expertise {
-  /* Soft cream / light field */
-  background-color: var(--brand-soft-bg, #fff6cc) !important;
+  /* Soft field */
+  background-color: var(--brand-soft-bg, #ffffff) !important;
 }
 
 html.geroz-template,

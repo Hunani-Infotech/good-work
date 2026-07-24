@@ -112,9 +112,9 @@ export const GEROZ_COLOR_THEMES = [
   },
 ];
 
-/** Default Geroz page palette — Sunshine Glow. */
+/** Default Geroz page palette — Neon Yellow. */
 export const DEFAULT_GEROZ_COLOR_THEME_INDEX = GEROZ_COLOR_THEMES.findIndex(
-  (theme) => theme.id === 'sunshine-glow',
+  (theme) => theme.id === 'neon-yellow',
 );
 
 export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
