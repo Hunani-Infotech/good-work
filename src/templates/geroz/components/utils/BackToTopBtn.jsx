@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getLenis, subscribeScroll } from '../../../../animations/scrollRuntime.js';
 
-const ACCENT_SURFACE_SELECTOR = '.gz-expertise, .gz-capabilities--imaged';
+const ACCENT_SURFACE_SELECTOR = '.gz-capabilities--imaged';
 
 function isOverAccentSurface(button) {
   if (!button) return false;

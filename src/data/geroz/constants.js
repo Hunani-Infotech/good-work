@@ -68,8 +68,13 @@ export function applyGerozThemeCssVars(
   theme = {},
   root = document.documentElement,
 ) {
-  const { purple, orange, bgWarm, grey, accent, onAccent, accentText } = theme;
+  const { purple, orange, bgWarm, softBg, grey, accent, onAccent, accentText } =
+    theme;
   const accentColor = orange ?? accent;
+  // Sharp hero field — prefer dedicated bgWarm, else accent
+  const sharpBg = bgWarm || accentColor;
+  // Soft section-2 / page field — never fall back to accent
+  const softPageBg = softBg || '#ffffff';
 
   getGerozThemeTargets(root).forEach((el) => {
     if (purple) el.style.setProperty('--brand-purple', purple);
@@ -77,7 +82,8 @@ export function applyGerozThemeCssVars(
       el.style.setProperty('--brand-orange', accentColor);
       el.style.setProperty('--color-lawyer', accentColor);
     }
-    if (bgWarm) el.style.setProperty('--brand-bg-warm', bgWarm);
+    if (sharpBg) el.style.setProperty('--brand-bg-warm', sharpBg);
+    el.style.setProperty('--brand-soft-bg', softPageBg);
     if (grey) el.style.setProperty('--brand-grey', grey);
     if (onAccent) el.style.setProperty('--brand-on-accent', onAccent);
     if (accentText) el.style.setProperty('--brand-accent-text', accentText);
@@ -89,6 +95,7 @@ export function clearGerozThemeCssVars(root = document.documentElement) {
     '--brand-purple',
     '--brand-orange',
     '--brand-bg-warm',
+    '--brand-soft-bg',
     '--brand-grey',
     '--color-lawyer',
     '--brand-on-accent',

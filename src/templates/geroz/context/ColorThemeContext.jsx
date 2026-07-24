@@ -30,6 +30,7 @@ export function GerozColorThemeProvider({
       orange: activeTheme.accent,
       purple: activeTheme.secondary,
       bgWarm: activeTheme.bgWarm,
+      softBg: activeTheme.softBg,
       grey: activeTheme.grey,
       onAccent: activeTheme.onAccent,
       accentText: activeTheme.accentText,

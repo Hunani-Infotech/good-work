@@ -2,9 +2,14 @@
  * Good Work CV colour palettes — matched to reference frames in
  * "Good Work/Frame 1.png" … "Frame 8.png".
  *
+ * Within a palette, `accent` and `bgWarm` should match (or be the same sharp
+ * family) so sections don't look like mixed palettes. `softBg` is the only
+ * soft companion.
+ *
  * `accent` → --brand-orange (primary highlight / fills)
  * `secondary` → --brand-purple (overlay / gradient pair)
- * `bgWarm` → page & hero cream/light background
+ * `bgWarm` → --brand-bg-warm (SHARP hero field — same sharp family as accent)
+ * `softBg` → --brand-soft-bg (SOFT inner pages / expertise — only soft field)
  * `onAccent` → text/icons on accent fills (white on dark accents, dark on yellow)
  * `accentText` → accent used as text on light backgrounds (readable contrast)
  */
@@ -14,7 +19,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Good Work Orange',
     accent: '#f25828',
     secondary: '#c94a1f',
-    bgWarm: '#faf8f5',
+    bgWarm: '#f25828',
+    softBg: '#faf8f5',
     grey: '#96908c',
   },
   {
@@ -22,7 +28,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Sky Blue',
     accent: '#2b7de9',
     secondary: '#1557b0',
-    bgWarm: '#e8f4ff',
+    bgWarm: '#2b7de9',
+    softBg: '#e8f4ff',
     grey: '#6b8fa8',
   },
   {
@@ -30,7 +37,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Sage Green',
     accent: '#7a9482',
     secondary: '#5d7a75',
-    bgWarm: '#f2f7f2',
+    bgWarm: '#7a9482',
+    softBg: '#f2f7f2',
     grey: '#7a8f82',
   },
   {
@@ -38,7 +46,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Periwinkle',
     accent: '#8da9d4',
     secondary: '#6b8bb8',
-    bgWarm: '#f9f7f2',
+    bgWarm: '#8da9d4',
+    softBg: '#f9f7f2',
     grey: '#8a96a8',
     onAccent: '#1a1f2a',
     accentText: '#5a7199',
@@ -48,7 +57,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Deep Teal',
     accent: '#003030',
     secondary: '#004848',
-    bgWarm: '#f5f5f5',
+    bgWarm: '#003030',
+    softBg: '#f5f5f5',
     grey: '#6b7a7a',
   },
   {
@@ -56,7 +66,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Muted Olive',
     accent: '#8b845b',
     secondary: '#6f6848',
-    bgWarm: '#f5f2e8',
+    bgWarm: '#8b845b',
+    softBg: '#f5f2e8',
     grey: '#8a8778',
   },
   {
@@ -64,7 +75,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Muted Plum',
     accent: '#5d4e6d',
     secondary: '#4a3858',
-    bgWarm: '#f7f3ee',
+    bgWarm: '#5d4e6d',
+    softBg: '#f7f3ee',
     grey: '#8a8290',
   },
   {
@@ -72,7 +84,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Coral',
     accent: '#ff5f6d',
     secondary: '#e84a58',
-    bgWarm: '#ffffff',
+    bgWarm: '#ff5f6d',
+    softBg: '#ffffff',
     grey: '#9a9090',
   },
   {
@@ -80,7 +93,8 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Sunshine Glow',
     accent: '#FFDD32',
     secondary: '#E6C200',
-    bgWarm: '#FFF6CC',
+    bgWarm: '#FFDD32',
+    softBg: '#FFF6CC',
     grey: '#9A8F78',
     onAccent: '#1a1600',
     accentText: '#8A7400',
@@ -90,10 +104,11 @@ export const GEROZ_COLOR_THEMES = [
     name: 'Neon Yellow',
     accent: '#F0FF00',
     secondary: '#C8E600',
-    bgWarm: '#FFFAE5',
-    grey: '#8F8A70',
-    onAccent: '#141200',
-    accentText: '#6B7300',
+    bgWarm: '#F0FF00',
+    softBg: '#FFFFFF',
+    grey: '#6B6B5C',
+    onAccent: '#171717',
+    accentText: '#171717',
   },
 ];
 
@@ -112,6 +127,7 @@ export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
   const theme = GEROZ_COLOR_THEMES[safeIndex];
   return {
     ...theme,
+    softBg: theme.softBg ?? '#ffffff',
     onAccent: theme.onAccent ?? '#ffffff',
     accentText: theme.accentText ?? theme.accent,
   };

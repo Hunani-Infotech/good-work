@@ -12,10 +12,14 @@ export default function VideoSection() {
   const portraitSrc = video?.poster?.trim() || expert?.image || '';
 
   return (
-    <section id="expertise" className="gz-expertise relative overflow-hidden">
+    <section
+      id="expertise"
+      className="gz-expertise relative overflow-hidden"
+      style={{ backgroundColor: 'var(--brand-soft-bg, #fff6cc)' }}
+    >
       <div className="gz-expertise__panel relative pt-[clamp(4rem,7vw,6rem)] pb-[clamp(2rem,3.5vw,3rem)]">
         <LuxuryBackdrop
-          variant="dark"
+          variant="cream"
           washClass="gz-expertise__backdrop-wash"
           noiseClass="gz-expertise__backdrop-noise"
         />

@@ -822,11 +822,23 @@ html.geroz-template {
   /* Default: Sunshine Glow (Geroz page only) */
   --brand-orange: #ffdd32;
   --brand-purple: #e6c200;
-  --brand-bg-warm: #fff6cc;
+  --brand-bg-warm: #ffdd32; /* sharp hero */
+  --brand-soft-bg: #fff6cc; /* soft section 2 */
   --brand-grey: #9a8f78;
   --brand-on-accent: #1a1600;
   --brand-accent-text: #8a7400;
   --color-lawyer: var(--brand-orange);
+}
+
+/* Lock section surfaces after theme vars (beats stale/cached rules) */
+html.geroz-template #top.gz-hero {
+  /* Sharp = accent (the neon currently stuck on section 2) */
+  background-color: var(--brand-orange, #ffdd32) !important;
+}
+
+html.geroz-template #expertise.gz-expertise {
+  /* Soft cream / light field */
+  background-color: var(--brand-soft-bg, #fff6cc) !important;
 }
 
 html.geroz-template,
@@ -847,8 +859,8 @@ html.geroz-template.lenis-smooth {
 
 body.geroz-template {
   font-family: var(--font-sans);
-  background-color: var(--brand-bg-warm, #faf8f5);
-  color: #000;
+  background-color: var(--brand-soft-bg, var(--brand-bg-warm, #fff6cc));
+  color: #171717;
   transition: background-color 0.45s ease;
 }
 
@@ -863,7 +875,7 @@ body.geroz-template {
     background 0.45s ease;
 }
 
-/* Back to top — palette accent by default; white on accent-coloured section bands */
+/* Back to top — palette accent by default; on-accent when over imaged capabilities band */
 body.geroz-template .gz-back-to-top {
   color: var(--brand-accent-text, var(--brand-orange, #f25828));
   background: transparent;
@@ -1026,26 +1038,29 @@ body.geroz-template .gz-back-to-top svg path {
   contain: layout style;
 }
 
+/* Hero = sharp accent; expertise = soft cream (forced so vars can't invert) */
+html.geroz-template .gz-hero,
+.geroz-cv-main .gz-hero,
 .gz-hero {
-  background-color: var(--brand-bg-warm, #faf8f5);
-  --gz-hero-text: #000;
-  --gz-hero-text-deep: #000;
+  background-color: var(--brand-orange, #ffdd32) !important;
+  --gz-hero-text: var(--brand-on-accent, #171717);
+  --gz-hero-text-deep: var(--brand-on-accent, #171717);
   --gz-hero-text-muted: color-mix(
     in srgb,
-    var(--brand-accent-text, var(--brand-orange, #f25828)) 72%,
-    #000
+    var(--brand-on-accent, #1a1600) 68%,
+    #171717
   );
-  --gz-hero-text-gold: var(--brand-accent-text, var(--brand-orange, #f25828));
+  --gz-hero-text-gold: var(--brand-on-accent, #1a1600);
   --gz-hero-text-gold-light: color-mix(
     in srgb,
-    var(--brand-accent-text, var(--brand-orange, #f25828)) 72%,
-    white
+    var(--brand-on-accent, #1a1600) 55%,
+    var(--brand-orange, #ffdd32)
   );
 }
 
 .gz-hero__firstname,
 .gz-hero__firstname .gz-hero__char {
-  color: var(--brand-accent-text, var(--brand-orange, #f25828));
+  color: var(--brand-on-accent, #171717);
 }
 
 .gz-hero__firstname,
@@ -1210,7 +1225,7 @@ body.geroz-template .gz-back-to-top svg path {
   z-index: 1;
   background: linear-gradient(
     to top,
-    color-mix(in srgb, #fff 94%, transparent) 10%,
+    color-mix(in srgb, var(--brand-orange, #ffdd32) 94%, transparent) 10%,
     transparent 100%
   );
   pointer-events: none;
@@ -1227,19 +1242,19 @@ body.geroz-template .gz-back-to-top svg path {
   filter: contrast(1.03) saturate(0.92) brightness(1.02);
 }
 
-/* Full-bleed shifting gradient — GoodWork cream + orange palette */
+/* Full-bleed shifting gradient — sharp accent field */
 .gz-hero__gradients {
   position: absolute;
   inset: 0;
   z-index: 0;
   background: linear-gradient(
     -45deg,
-    #ffffff,
-    var(--brand-bg-warm, #faf8f5),
-    color-mix(in srgb, var(--brand-orange, #f25828) 18%, white),
-    color-mix(in srgb, var(--brand-orange, #f25828) 42%, white),
-    color-mix(in srgb, var(--brand-orange, #f25828) 28%, var(--brand-bg-warm, #faf8f5)),
-    #ffffff
+    var(--brand-orange, #ffdd32),
+    color-mix(in srgb, var(--brand-orange, #ffdd32) 88%, var(--brand-purple, #e6c200)),
+    var(--brand-orange, #ffdd32),
+    color-mix(in srgb, var(--brand-orange, #ffdd32) 82%, #fff),
+    var(--brand-orange, #ffdd32),
+    var(--brand-orange, #ffdd32)
   );
   background-size: 400% 400%;
   background-position: 0% 50%;
@@ -1248,16 +1263,15 @@ body.geroz-template .gz-back-to-top svg path {
   transition: background 0.45s ease;
 }
 
-/* Light wash on copy column only — keeps name readable */
+/* Soft depth wash — keep accent dominant (no cream wash) */
 .gz-hero__gradients::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.58) 0%,
-    rgba(255, 255, 255, 0.22) 34%,
-    transparent 50%
+    color-mix(in srgb, var(--brand-orange, #ffdd32) 92%, transparent) 0%,
+    transparent 42%
   );
   pointer-events: none;
 }
@@ -1281,14 +1295,14 @@ body.geroz-template .gz-back-to-top svg path {
     background:
       linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.78) 0%,
-        rgba(255, 255, 255, 0.35) 36%,
-        rgba(255, 255, 255, 0.08) 58%,
+        color-mix(in srgb, var(--brand-orange, #ffdd32) 92%, transparent) 0%,
+        color-mix(in srgb, var(--brand-orange, #ffdd32) 55%, transparent) 36%,
+        color-mix(in srgb, var(--brand-orange, #ffdd32) 12%, transparent) 58%,
         transparent 72%
       ),
       radial-gradient(
         ellipse 90% 70% at 50% 88%,
-        color-mix(in srgb, var(--gz-hero-text-gold) 18%, transparent) 0%,
+        color-mix(in srgb, var(--gz-hero-text-gold) 14%, transparent) 0%,
         transparent 68%
       );
   }
@@ -1414,7 +1428,7 @@ body.geroz-template .gz-back-to-top svg path {
 }
 
 .gz-hero__firstname .gz-hero__char {
-  color: var(--brand-accent-text, var(--brand-orange, #f25828));
+  color: var(--brand-on-accent, #171717);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1435,7 +1449,7 @@ body.geroz-template .gz-back-to-top svg path {
   }
 
   .gz-hero__firstname .gz-hero__char {
-    color: var(--brand-accent-text, var(--brand-orange, #f25828));
+    color: var(--brand-on-accent, #171717);
   }
 }
 
@@ -1445,9 +1459,11 @@ body.geroz-template .gz-back-to-top svg path {
   }
 }
 
-/* Expertise — GoodWork orange band */
+/* Expertise — soft band (section 2). Never use accent/orange here. */
+html.geroz-template .gz-expertise,
+.geroz-cv-main .gz-expertise,
 .gz-expertise {
-  background-color: var(--brand-orange, #f25828);
+  background-color: var(--brand-soft-bg, #fff6cc) !important;
 }
 
 .gz-expertise__panel {
@@ -1456,57 +1472,57 @@ body.geroz-template .gz-back-to-top svg path {
 
 .gz-expertise .gz-expertise__statement,
 .gz-expertise .gz-expertise__author-name {
-  color: var(--brand-on-accent, #fff);
+  color: #171717;
 }
 
 .gz-expertise .gz-expertise__author-role {
-  color: color-mix(in srgb, var(--brand-on-accent, #fff) 78%, var(--brand-orange, #f25828));
+  color: var(--brand-accent-text, #8a7400);
 }
 
 .gz-expertise .gz-expertise__author-line {
   background: linear-gradient(
     180deg,
-    var(--brand-on-accent, #fff),
-    color-mix(in srgb, var(--brand-on-accent, #fff) 25%, transparent)
+    #171717,
+    color-mix(in srgb, #171717 25%, transparent)
   ) !important;
 }
 
 .gz-expertise .gz-expertise__eyebrow span:last-child {
-  color: color-mix(in srgb, var(--brand-on-accent, #fff) 82%, var(--brand-orange, #f25828));
+  color: var(--brand-accent-text, #8a7400);
 }
 
 .gz-expertise .gz-expertise__eyebrow > div {
-  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 28%, transparent);
-  background: color-mix(in srgb, var(--brand-on-accent, #fff) 12%, transparent);
+  border-color: color-mix(in srgb, #171717 22%, transparent);
+  background: color-mix(in srgb, #171717 6%, transparent);
 }
 
 .gz-expertise .gz-portrait__corner {
-  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 46%, transparent) !important;
+  border-color: color-mix(in srgb, #171717 42%, transparent) !important;
 }
 
 .gz-expertise .gz-portrait__ring {
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--brand-on-accent, #fff) 24%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--brand-on-accent, #fff) 34%, transparent),
-    0 0 0 5px color-mix(in srgb, var(--brand-on-accent, #fff) 10%, transparent),
-    0 0 0 6px color-mix(in srgb, var(--brand-on-accent, #fff) 18%, transparent) !important;
+    inset 0 1px 0 color-mix(in srgb, #fff 40%, transparent),
+    0 0 0 1px color-mix(in srgb, #171717 28%, transparent),
+    0 0 0 5px var(--brand-soft-bg, #fff6cc),
+    0 0 0 6px color-mix(in srgb, #171717 14%, transparent) !important;
 }
 
 .gz-expertise .gz-portrait__frame {
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--brand-on-accent, #fff) 30%, transparent),
-    0 1.5rem 3rem -1.25rem rgba(0, 0, 0, 0.34),
-    0 2.5rem 5.5rem -2rem rgba(0, 0, 0, 0.24) !important;
+    0 0 0 1px color-mix(in srgb, #171717 24%, transparent),
+    0 1.5rem 3rem -1.25rem rgba(28, 25, 23, 0.18),
+    0 2.5rem 5.5rem -2rem rgba(28, 25, 23, 0.12) !important;
 }
 
 .gz-expertise .gz-portrait__frame::before {
-  border-color: color-mix(in srgb, var(--brand-on-accent, #fff) 18%, transparent) !important;
+  border-color: color-mix(in srgb, #171717 14%, transparent) !important;
 }
 
 .gz-expertise .gz-portrait__halo {
   background: radial-gradient(
     ellipse 82% 72% at 50% 36%,
-    color-mix(in srgb, var(--brand-on-accent, #fff) 14%, transparent) 0%,
+    color-mix(in srgb, #171717 10%, transparent) 0%,
     transparent 72%
   ) !important;
 }
@@ -1514,7 +1530,7 @@ body.geroz-template .gz-back-to-top svg path {
 .gz-expertise .gz-portrait__fade {
   background: linear-gradient(
     to top,
-    color-mix(in srgb, var(--brand-orange) 90%, #000) 12%,
+    color-mix(in srgb, var(--brand-soft-bg, #fff6cc) 94%, transparent) 12%,
     transparent 100%
   ) !important;
 }
@@ -1577,7 +1593,7 @@ body.geroz-template .gz-back-to-top svg path {
 
 /* About + footer accents */
 .gz-about {
-  background-color: var(--brand-bg-warm, #faf8f5);
+  background-color: var(--brand-soft-bg, var(--brand-bg-warm, #fff6cc));
 }
 
 /* About — scroll text reveal (hidden until scroll highlights word-by-word) */
@@ -1806,7 +1822,7 @@ body.geroz-template .gz-back-to-top svg path {
 /* ── CV connect CTA ── */
 .gz-cta {
   border-top: 3px solid var(--color-lawyer);
-  background: color-mix(in srgb, var(--brand-bg-warm, #faf8f5) 92%, #fff);
+  background: var(--brand-orange, #ffdd32);
 }
 
 .gz-cta__container {
@@ -2048,7 +2064,7 @@ body.geroz-template .gz-back-to-top svg path {
   padding: 0.7rem 1.25rem;
   border: 1px solid color-mix(in srgb, #1c1917 12%, transparent);
   border-radius: 9999px;
-  background: color-mix(in srgb, #fff 92%, var(--brand-bg-warm, #faf8f5));
+  background: color-mix(in srgb, #fff 92%, var(--brand-orange, #ffdd32));
   font-family: var(--font-sans);
   font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
   font-weight: 600;

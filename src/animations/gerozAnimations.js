@@ -101,10 +101,20 @@ function getHeroNameRevealEnd(firstNameEl, lastNameEl) {
   return lastEnd + 0.12;
 }
 
+function readHeroNameColors() {
+  const styles = getComputedStyle(document.documentElement);
+  const base =
+    styles.getPropertyValue('--brand-on-accent').trim() || '#171717';
+  const flash =
+    styles.getPropertyValue('--brand-accent-text').trim() || '#8a7400';
+  return { base, flash };
+}
+
 function playHeroNameSideSlide(nameEl, startDelay = 0) {
   const chars = nameEl?.querySelectorAll('.gz-hero__char');
   if (!chars?.length) return startDelay;
 
+  const { base, flash } = readHeroNameColors();
   const charDelay = 0.05;
   const stepDuration = 0.5;
 
@@ -112,7 +122,7 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
     opacity: 0,
     x: -300,
     scale: 0,
-    color: '#3d2a1c',
+    color: base,
     force3D: true,
     transformOrigin: '50% 50%',
   });
@@ -134,13 +144,13 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
       .to(char, {
         x: 0,
         scale: 1.2,
-        color: '#c9a06c',
+        color: flash,
         duration: stepDuration * 0.19,
         ease: 'power2.inOut',
       })
       .to(char, {
         scale: 1,
-        color: '#3d2a1c',
+        color: base,
         duration: stepDuration * 0.21,
         ease: 'power2.out',
       });
@@ -153,7 +163,8 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
 function resetHeroNameChars(nameEl) {
   const chars = nameEl?.querySelectorAll('.gz-hero__char');
   if (!chars?.length) return;
-  gsap.set(chars, { opacity: 1, x: 0, scale: 1, color: '#3d2a1c', clearProps: 'transform' });
+  const { base } = readHeroNameColors();
+  gsap.set(chars, { opacity: 1, x: 0, scale: 1, color: base, clearProps: 'transform' });
 }
 
 /* ── Hero: side-slide name chars + portrait curtain ── */

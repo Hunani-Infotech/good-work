@@ -11,6 +11,7 @@ export default function HeroSection4() {
     <section
       id="top"
       className="gz-hero relative box-border flex min-h-svh flex-col overflow-hidden pt-[var(--geroz-header-height)] pb-[clamp(2rem,4vw,3.5rem)] max-lg:min-h-0 max-lg:pb-[clamp(2.5rem,8vw,4rem)]"
+      style={{ backgroundColor: 'var(--brand-orange, #ffdd32)' }}
     >
       <div className="gz-hero__gradients pointer-events-none absolute inset-0 z-0" aria-hidden="true" />
 

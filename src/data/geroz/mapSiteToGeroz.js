@@ -71,6 +71,7 @@ export function mapSiteToGeroz(site) {
       orange: colorTheme.accent,
       purple: colorTheme.secondary,
       bgWarm: colorTheme.bgWarm,
+      softBg: colorTheme.softBg,
       grey: colorTheme.grey,
       onAccent: colorTheme.onAccent,
       accentText: colorTheme.accentText,

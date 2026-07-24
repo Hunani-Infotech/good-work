@@ -34,7 +34,7 @@ export default function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className={`gz-capabilities relative isolate overflow-hidden ${hasImage ? 'gz-capabilities--imaged' : 'bg-[var(--brand-bg-warm,#faf8f5)]'}`}
+      className={`gz-capabilities relative isolate overflow-hidden ${hasImage ? 'gz-capabilities--imaged' : 'bg-[var(--brand-soft-bg,#fff6cc)]'}`}
     >
       {hasImage ? (
         <>
