@@ -1822,7 +1822,7 @@ html.geroz-template .gz-expertise,
 /* ── CV connect CTA ── */
 .gz-cta {
   border-top: 3px solid var(--color-lawyer);
-  background: var(--brand-orange, #ffdd32);
+  background: var(--brand-soft-bg, #fff6cc);
 }
 
 .gz-cta__container {
@@ -2062,9 +2062,9 @@ html.geroz-template .gz-expertise,
   width: 100%;
   min-height: 3.15rem;
   padding: 0.7rem 1.25rem;
-  border: 1px solid color-mix(in srgb, #1c1917 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-lawyer) 28%, transparent);
   border-radius: 9999px;
-  background: color-mix(in srgb, #fff 92%, var(--brand-orange, #ffdd32));
+  background: color-mix(in srgb, #fff 88%, var(--brand-soft-bg, #fff6cc));
   font-family: var(--font-sans);
   font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
   font-weight: 600;
