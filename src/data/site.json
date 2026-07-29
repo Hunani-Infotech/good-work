@@ -4,11 +4,15 @@
       "firstName": "Sanjay"
     },
     "theme": {
-      "colorThemeIndex": 9,
-      "purple": "#510066",
-      "orange": "#f25828",
-      "bgWarm": "#faf8f5",
-      "grey": "#96908c"
+      "colorThemeIndex": 0,
+      "purple": "#C6FF00",
+      "orange": "#FFE500",
+      "bgWarm": "#FFE500",
+      "softBg": "#FFFFFF",
+      "shape": "#3355FF",
+      "grey": "#6B6B5C",
+      "onAccent": "#171717",
+      "accentText": "#171717"
     },
     "meta": {
       "homeTitle": "Sanjay | Project Lead Developer — GoodWork",

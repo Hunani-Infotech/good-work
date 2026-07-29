@@ -47,7 +47,6 @@ const HOVER_SELECTORS = [
   '.meridian-menu-btn',
   '.meridian-share-btn',
   '.meridian-menu__link',
-  '.meridian-capabilities__cta',
   '.meridian-contact__cta',
   '.meridian-contact__email',
   '.meridian-contact__pill',

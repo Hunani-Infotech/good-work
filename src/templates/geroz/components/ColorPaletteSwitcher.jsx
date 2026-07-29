@@ -19,8 +19,9 @@ export default function ColorPaletteSwitcher({ className = '' }) {
             type="button"
             className={`geroz-palette__swatch${index === colorThemeIndex ? ' is-active' : ''}`}
             style={{
-              '--swatch-accent': palette.accent,
-              '--swatch-bg': palette.bgWarm,
+              '--swatch-base': palette.accent,
+              '--swatch-glow': palette.secondary,
+              '--swatch-shape': palette.shape ?? palette.secondary,
             }}
             onClick={() => setColorThemeIndex(index)}
             aria-label={`${palette.name} theme`}

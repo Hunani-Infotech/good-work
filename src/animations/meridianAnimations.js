@@ -585,10 +585,10 @@ function initMeridianCapabilities(prefersReduced) {
   const eyebrow = section.querySelector('.meridian-capabilities__eyebrow');
   const grid = section.querySelector('.meridian-capabilities__grid');
   const cards = section.querySelectorAll('.meridian-capabilities__card');
-  const cta = section.querySelector('.meridian-capabilities__cta');
+  const nav = section.querySelector('.meridian-capabilities__nav');
 
   if (prefersReduced) {
-    setReducedState([eyebrow, ...cards, cta]);
+    setReducedState([eyebrow, ...cards, nav]);
     return;
   }
 
@@ -610,77 +610,45 @@ function initMeridianCapabilities(prefersReduced) {
   }
 
   if (grid && cards.length) {
-    gsap.set(cards, { opacity: 0, y: 36, force3D: true });
+    gsap.set(cards, { opacity: 0, scale: 0.94, force3D: true });
 
     const gridTl = gsap.timeline({
       scrollTrigger: meridianScroll(grid, 'top 84%'),
     });
 
     cards.forEach((card, index) => {
-      const indexEl = card.querySelector('.meridian-capabilities__index');
       const textEl = card.querySelector('.meridian-capabilities__text');
-      const inner = textEl ? wrapLineMask(textEl) : null;
       const offset = index * 0.08;
 
       gridTl.to(card, {
         opacity: 1,
-        y: 0,
+        scale: 1,
         duration: 0.8,
         ease: GEROZ_EASE,
+        clearProps: 'transform',
       }, offset);
 
-      if (indexEl) {
-        gsap.set(indexEl, { opacity: 0, y: 8 });
-        gridTl.to(indexEl, {
+      if (textEl) {
+        gsap.set(textEl, { opacity: 0, y: 12 });
+        gridTl.to(textEl, {
           opacity: 1,
-          y: 0,
-          duration: 0.55,
-          ease: GEROZ_EASE,
-        }, offset + 0.08);
-      }
-
-      if (inner) {
-        gsap.set(inner, { y: '108%' });
-        gridTl.to(inner, {
           y: 0,
           duration: 0.82,
           ease: GEROZ_EASE_IO,
+          clearProps: 'transform,opacity',
         }, offset + 0.12);
       }
     });
-
-    // Soft scrub here used to keep catching up while scrolling into the footer.
-    if (window.innerWidth >= 720) {
-      cards.forEach((card, i) => {
-        const isTopRow = i < 4;
-        gsap.fromTo(card,
-          { x: isTopRow ? 80 : -80 },
-          {
-            x: isTopRow ? -80 : 80,
-            ease: 'none',
-            force3D: true,
-            scrollTrigger: {
-              trigger: section,
-              start: 'top bottom',
-              end: 'bottom center',
-              scrub: true,
-              fastScrollEnd: true,
-            },
-          },
-        );
-      });
-    }
   }
 
-  if (cta) {
-    const ctaMotion = cta.querySelector('[data-magnetic-inner]') || cta;
-    gsap.set(cta, { clearProps: 'clipPath' });
-    gsap.fromTo(ctaMotion, { opacity: 0, y: 16 }, {
+  if (nav) {
+    gsap.fromTo(nav, { opacity: 0, y: 18 }, {
       opacity: 1,
       y: 0,
-      duration: 0.95,
+      duration: 0.8,
       ease: GEROZ_EASE_IO,
-      scrollTrigger: meridianScroll(cta, 'top 92%'),
+      clearProps: 'transform',
+      scrollTrigger: meridianScroll(nav, 'top 96%'),
     });
   }
 }
@@ -874,7 +842,7 @@ function initMeridianScrollAnimations(prefersReduced) {
   ScrollTrigger.config({ limitCallbacks: true });
 
   document.querySelectorAll(
-    '.meridian-magnetic, .meridian-contact__pill, .meridian-capabilities__cta, .meridian-contact__cta',
+    '.meridian-magnetic, .meridian-contact__pill, .meridian-contact__cta',
   ).forEach((el) => {
     gsap.set(el, { clearProps: 'clipPath' });
   });

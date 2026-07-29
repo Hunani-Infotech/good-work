@@ -11,13 +11,27 @@ export default function HeroSection4() {
     <section
       id="top"
       className="gz-hero relative box-border flex min-h-svh flex-col overflow-hidden pt-[var(--geroz-header-height)] pb-[clamp(2rem,4vw,3.5rem)] max-lg:min-h-0 max-lg:pb-[clamp(2.5rem,8vw,4rem)]"
-      style={{ backgroundColor: 'var(--brand-orange, #ffdd32)' }}
     >
-      <div className="gz-hero__gradients pointer-events-none absolute inset-0 z-0" aria-hidden="true" />
+      {/*
+        Matches hero-bg-palette-variants.html:
+        only --base / --glow / --shape change per palette.
+        preserveAspectRatio="xMaxYMax slice" keeps the curve bottom-right
+        without distortion at every viewport width.
+      */}
+      <div className="gz-hero__bg pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <svg
+          className="gz-hero__shapes"
+          viewBox="0 0 1000 787"
+          preserveAspectRatio="xMaxYMax slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M 1000,787 L 1000,495.8 C 992.5,498.3 969.5,505.9 955.0,510.8 C 940.5,515.6 927.2,519.8 913.0,524.9 C 898.8,530.0 884.2,533.1 870.0,541.5 C 855.8,549.9 842.0,561.7 828.0,575.3 C 814.0,588.9 800.0,604.0 786.0,623.3 C 772.0,642.6 758.2,675.0 744.0,691.0 C 729.8,707.0 715.2,709.9 701.0,719.3 C 686.8,728.8 673.0,737.3 659.0,747.6 C 645.0,758.0 624.0,774.9 617.0,781.5 C 610.0,788.0 617.0,786.1 617.0,787.0 Z" />
+        </svg>
+      </div>
 
       <div className="relative z-[1] mx-auto flex w-full max-w-[1920px] min-h-[calc(100svh-var(--geroz-header-height))] flex-col px-4 sm:px-6 lg:px-12 max-lg:min-h-0">
         <div className="relative z-[1] flex flex-1 flex-col justify-center px-[clamp(1.25rem,5vw,4.5rem)] max-lg:min-h-0 max-lg:justify-start max-lg:px-5 max-lg:pt-[clamp(1.75rem,5vw,2.75rem)] min-h-[calc(100svh-var(--geroz-header-height)-clamp(2rem,4vw,3.5rem))] max-lg:min-h-0">
-          <div className="gz-hero__layout mx-auto grid w-full max-w-[88rem] grid-cols-[minmax(0,1fr)_minmax(14rem,28rem)] items-center gap-x-[clamp(2rem,6vw,5.5rem)] max-xl:grid-cols-[minmax(0,1fr)_minmax(12rem,22rem)] max-xl:gap-x-[clamp(1.5rem,4vw,3rem)] max-lg:flex max-lg:max-w-full max-lg:flex-col max-lg:items-center max-lg:gap-[clamp(2.25rem,7vw,3.25rem)] max-lg:text-center">
+          <div className="gz-hero__layout mx-auto grid w-full max-w-[88rem] grid-cols-[minmax(0,1fr)_minmax(16rem,32rem)] items-center gap-x-[clamp(2rem,6vw,5.5rem)] max-xl:grid-cols-[minmax(0,1fr)_minmax(14rem,26rem)] max-xl:gap-x-[clamp(1.5rem,4vw,3rem)] max-lg:flex max-lg:max-w-full max-lg:flex-col max-lg:items-center max-lg:gap-[clamp(2.25rem,7vw,3.25rem)] max-lg:text-center">
             <div
               className="gz-hero__copy col-start-1 row-start-1 py-[clamp(1rem,3vw,2.5rem)] max-lg:w-full max-lg:max-w-[24rem] max-lg:mx-auto max-lg:py-0"
               style={{
@@ -65,7 +79,7 @@ export default function HeroSection4() {
               </div>
             </div>
 
-            <div className="gz-hero__portrait relative z-[2] col-start-2 row-start-1 w-full max-w-[clamp(16rem,26vw,26rem)] justify-self-end self-center max-xl:max-w-[clamp(14rem,24vw,22rem)] max-lg:order-3 max-lg:mx-auto max-lg:mt-0 max-lg:w-full max-lg:max-w-[min(20rem,88vw)]">
+            <div className="gz-hero__portrait relative z-[2] col-start-2 row-start-1 w-full max-w-[clamp(18rem,30vw,30rem)] justify-self-end self-center max-xl:max-w-[clamp(16rem,28vw,26rem)] max-lg:order-3 max-lg:mx-auto max-lg:mt-0 max-lg:w-full max-lg:max-w-[min(24rem,90vw)]">
               <PortraitFrame
                 src={hero.profilePhoto}
                 alt={hero.portraitAlt}

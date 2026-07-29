@@ -29,6 +29,8 @@ export function GerozColorThemeProvider({
       accent: activeTheme.accent,
       orange: activeTheme.accent,
       purple: activeTheme.secondary,
+      shape: activeTheme.shape,
+      onShape: activeTheme.onShape,
       bgWarm: activeTheme.bgWarm,
       softBg: activeTheme.softBg,
       grey: activeTheme.grey,

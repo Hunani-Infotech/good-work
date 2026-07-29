@@ -74,26 +74,21 @@ export default function PortraitFrame({
 
   return (
     <div
-      className={`gz-portrait gz-portrait--${size} relative mx-auto w-full max-w-[min(100%,28rem)] ${className}`.trim()}
+      className={`gz-portrait gz-portrait--${size} relative mx-auto w-full ${isHero ? 'max-w-[min(100%,32rem)]' : 'max-w-[min(100%,28rem)]'} ${className}`.trim()}
     >
-      <span className="gz-portrait__halo" aria-hidden="true" />
+      {!isHero ? <span className="gz-portrait__halo" aria-hidden="true" /> : null}
 
-      {isHero ? (
-        <>
-          <span className="gz-portrait__mat gz-portrait__mat--outer" aria-hidden="true" />
-          <span className="gz-portrait__mat gz-portrait__mat--inner" aria-hidden="true" />
-        </>
-      ) : null}
+      {!isHero
+        ? CORNER_POSITIONS.map((position) => (
+            <span
+              key={position}
+              className={`gz-portrait__corner gz-portrait__corner--${position}`}
+              aria-hidden="true"
+            />
+          ))
+        : null}
 
-      {CORNER_POSITIONS.map((position) => (
-        <span
-          key={position}
-          className={`gz-portrait__corner gz-portrait__corner--${position}`}
-          aria-hidden="true"
-        />
-      ))}
-
-      <span className="gz-portrait__ring" aria-hidden="true" />
+      {!isHero ? <span className="gz-portrait__ring" aria-hidden="true" /> : null}
 
       <div className="gz-portrait__frame">
         <PortraitMedia
@@ -106,7 +101,7 @@ export default function PortraitFrame({
           loading={loading}
           videoSrc={videoSrc}
         />
-        <span className="gz-portrait__fade" aria-hidden="true" />
+        {!isHero ? <span className="gz-portrait__fade" aria-hidden="true" /> : null}
       </div>
     </div>
   );

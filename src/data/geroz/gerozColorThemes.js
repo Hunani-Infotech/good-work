@@ -1,114 +1,95 @@
 /**
- * Good Work CV colour palettes — matched to reference frames in
- * "Good Work/Frame 1.png" … "Frame 8.png".
+ * Good Work CV colour palettes — hero background variants from
+ * hero-bg-palette-variants.html.
  *
- * Within a palette, `accent` and `bgWarm` should match (or be the same sharp
- * family) so sections don't look like mixed palettes. `softBg` is the only
- * soft companion.
+ * Every palette uses exactly 3 hero shades (no shade omitted):
+ *   `accent` / `bgWarm` → --brand-orange / --brand-bg-warm  (--base)
+ *   `secondary`         → --brand-purple                   (--glow)
+ *   `shape`             → --brand-hero-shape               (--shape)
+ *   `onShape`           → --brand-on-shape (text/icons on shape fills)
  *
- * `accent` → --brand-orange (primary highlight / fills)
- * `secondary` → --brand-purple (overlay / gradient pair)
- * `bgWarm` → --brand-bg-warm (SHARP hero field — same sharp family as accent)
- * `softBg` → --brand-soft-bg (SOFT inner pages / expertise — only soft field)
- * `onAccent` → text/icons on accent fills (white on dark accents, dark on yellow)
- * `accentText` → accent used as text on light backgrounds (readable contrast)
+ * `softBg` is the soft companion for expertise / CTA / about.
+ * `onAccent` → text/icons on accent fills
+ * `accentText` → accent used as text on light backgrounds
  */
 export const GEROZ_COLOR_THEMES = [
   {
-    id: 'orange',
-    name: 'Good Work Orange',
-    accent: '#f25828',
-    secondary: '#c94a1f',
-    bgWarm: '#f25828',
-    softBg: '#faf8f5',
-    grey: '#96908c',
-  },
-  {
-    id: 'sky-blue',
-    name: 'Sky Blue',
-    accent: '#2b7de9',
-    secondary: '#1557b0',
-    bgWarm: '#2b7de9',
-    softBg: '#e8f4ff',
-    grey: '#6b8fa8',
-  },
-  {
-    id: 'sage',
-    name: 'Sage Green',
-    accent: '#7a9482',
-    secondary: '#5d7a75',
-    bgWarm: '#7a9482',
-    softBg: '#f2f7f2',
-    grey: '#7a8f82',
-  },
-  {
-    id: 'periwinkle',
-    name: 'Periwinkle',
-    accent: '#8da9d4',
-    secondary: '#6b8bb8',
-    bgWarm: '#8da9d4',
-    softBg: '#f9f7f2',
-    grey: '#8a96a8',
-    onAccent: '#1a1f2a',
-    accentText: '#5a7199',
-  },
-  {
-    id: 'teal',
-    name: 'Deep Teal',
-    accent: '#003030',
-    secondary: '#004848',
-    bgWarm: '#003030',
-    softBg: '#f5f5f5',
-    grey: '#6b7a7a',
-  },
-  {
-    id: 'olive',
-    name: 'Muted Olive',
-    accent: '#8b845b',
-    secondary: '#6f6848',
-    bgWarm: '#8b845b',
-    softBg: '#f5f2e8',
-    grey: '#8a8778',
-  },
-  {
-    id: 'plum',
-    name: 'Muted Plum',
-    accent: '#5d4e6d',
-    secondary: '#4a3858',
-    bgWarm: '#5d4e6d',
-    softBg: '#f7f3ee',
-    grey: '#8a8290',
-  },
-  {
-    id: 'coral',
-    name: 'Coral',
-    accent: '#ff5f6d',
-    secondary: '#e84a58',
-    bgWarm: '#ff5f6d',
-    softBg: '#ffffff',
-    grey: '#9a9090',
-  },
-  {
-    id: 'sunshine-glow',
-    name: 'Sunshine Glow',
-    accent: '#FFDD32',
-    secondary: '#E6C200',
-    bgWarm: '#FFDD32',
-    softBg: '#FFF6CC',
-    grey: '#9A8F78',
-    onAccent: '#1a1600',
-    accentText: '#8A7400',
-  },
-  {
     id: 'neon-yellow',
     name: 'Neon Yellow',
-    accent: '#F0FF00',
-    secondary: '#C8E600',
-    bgWarm: '#F0FF00',
+    accent: '#FFE500',
+    secondary: '#C6FF00',
+    shape: '#3355FF',
+    bgWarm: '#FFE500',
     softBg: '#FFFFFF',
     grey: '#6B6B5C',
     onAccent: '#171717',
+    onShape: '#FFFFFF',
     accentText: '#171717',
+  },
+  {
+    id: 'sunset-blue',
+    name: 'Sunset Blue',
+    accent: '#EE5C27',
+    secondary: '#FF8A4C',
+    shape: '#2B7DE9',
+    bgWarm: '#EE5C27',
+    softBg: '#FAF8F5',
+    grey: '#96908C',
+    onAccent: '#FFFFFF',
+    onShape: '#FFFFFF',
+    accentText: '#C94A1F',
+  },
+  {
+    id: 'sky-gold',
+    name: 'Sky & Gold',
+    accent: '#2B7DE9',
+    secondary: '#8DA9D4',
+    shape: '#FFDD32',
+    bgWarm: '#2B7DE9',
+    softBg: '#E8F4FF',
+    grey: '#6B8FA8',
+    onAccent: '#FFFFFF',
+    onShape: '#171717',
+    accentText: '#1557B0',
+  },
+  {
+    id: 'deep-teal',
+    name: 'Deep Teal',
+    accent: '#003030',
+    secondary: '#7A9482',
+    shape: '#FF5F6D',
+    bgWarm: '#003030',
+    softBg: '#F5F5F5',
+    grey: '#6B7A7A',
+    onAccent: '#FFFFFF',
+    onShape: '#FFFFFF',
+    accentText: '#003030',
+  },
+  {
+    id: 'earthy-khaki',
+    name: 'Earthy Khaki',
+    accent: '#8B845B',
+    secondary: '#FFDD32',
+    shape: '#5D4E6D',
+    bgWarm: '#8B845B',
+    softBg: '#F5F2E8',
+    grey: '#8A8778',
+    onAccent: '#FFFFFF',
+    onShape: '#FFFFFF',
+    accentText: '#6F6848',
+  },
+  {
+    id: 'plum-coral',
+    name: 'Plum Coral',
+    accent: '#5D4E6D',
+    secondary: '#8DA9D4',
+    shape: '#FF5F6D',
+    bgWarm: '#5D4E6D',
+    softBg: '#F7F3EE',
+    grey: '#8A8290',
+    onAccent: '#FFFFFF',
+    onShape: '#FFFFFF',
+    accentText: '#4A3858',
   },
 ];
 
@@ -130,5 +111,7 @@ export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
     softBg: theme.softBg ?? '#ffffff',
     onAccent: theme.onAccent ?? '#ffffff',
     accentText: theme.accentText ?? theme.accent,
+    shape: theme.shape ?? theme.secondary ?? theme.accent,
+    onShape: theme.onShape ?? '#ffffff',
   };
 }

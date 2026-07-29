@@ -6,10 +6,10 @@ export default function ThemeButton({
 }) {
   const variantClass =
     variant === 'light'
-      ? 'geroz-theme-btn--light bg-white hover:bg-white'
+      ? 'geroz-theme-btn--light'
       : variant === 'dark'
-        ? 'bg-[#333] hover:bg-[#151515]'
-        : 'geroz-theme-btn--accent bg-lawyer hover:bg-[color-mix(in_srgb,var(--color-lawyer)_88%,#000)]';
+        ? 'geroz-theme-btn--dark'
+        : 'geroz-theme-btn--accent';
 
   return (
     <a

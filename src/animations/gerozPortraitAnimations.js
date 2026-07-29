@@ -16,12 +16,15 @@ const EMPTY_LUXURY_LAYERS = {
 export function getPortraitLuxuryLayers(root) {
   if (!root) return { ...EMPTY_LUXURY_LAYERS };
 
+  const isHero = root.classList.contains('gz-portrait--hero');
+
   return {
-    corners: root.querySelectorAll('.gz-portrait__corner'),
-    halo: root.querySelector('.gz-portrait__halo'),
+    // Hero hides corners / halo / fade in CSS — skip them in the timeline.
+    corners: isHero ? [] : root.querySelectorAll('.gz-portrait__corner'),
+    halo: isHero ? null : root.querySelector('.gz-portrait__halo'),
     ring: root.querySelector('.gz-portrait__ring'),
     mats: root.querySelectorAll('.gz-portrait__mat'),
-    fade: root.querySelector('.gz-portrait__fade'),
+    fade: isHero ? null : root.querySelector('.gz-portrait__fade'),
   };
 }
 
@@ -45,10 +48,19 @@ export function resetPortraitLuxuryLayers({ corners, halo, ring, mats, fade, fra
   if (halo) gsap.set(halo, { opacity: 1, scale: 1, clearProps: 'transform' });
   if (ring) gsap.set(ring, { opacity: 1, scale: 1, clearProps: 'transform' });
   mats?.forEach?.((mat) => {
-    gsap.set(mat, { opacity: 1, rotation: 0, clearProps: 'transform' });
+    if (isHeroPortraitMat(mat)) {
+      // CSS owns transform (spine / back plate); never leave a GSAP rotation inline.
+      gsap.set(mat, { opacity: 1, clearProps: 'transform,rotation,scale,x,y' });
+    } else {
+      gsap.set(mat, { opacity: 1, rotation: 0, clearProps: 'transform' });
+    }
   });
   if (fade) gsap.set(fade, { opacity: 1 });
   if (frame) gsap.set(frame, { clipPath: 'inset(0% 0 0 0)', scale: 1, opacity: 1, y: 0 });
+}
+
+function isHeroPortraitMat(mat) {
+  return Boolean(mat?.closest?.('.gz-portrait--hero'));
 }
 
 export function primePortraitLuxuryLayers({ corners, halo, ring, mats, fade }) {
@@ -62,10 +74,14 @@ export function primePortraitLuxuryLayers({ corners, halo, ring, mats, fade }) {
   if (halo) gsap.set(halo, { opacity: 0, scale: 0.92 });
   if (ring) gsap.set(ring, { opacity: 0, scale: 0.97 });
   mats?.forEach?.((mat, index) => {
-    gsap.set(mat, {
-      opacity: 0,
-      rotation: index === 0 ? 8 : -5,
-    });
+    if (isHeroPortraitMat(mat)) {
+      gsap.set(mat, { opacity: 0, clearProps: 'transform,rotation' });
+    } else {
+      gsap.set(mat, {
+        opacity: 0,
+        rotation: index === 0 ? 8 : -5,
+      });
+    }
   });
   if (fade) gsap.set(fade, { opacity: 0 });
 }
@@ -78,8 +94,17 @@ export function playPortraitLuxuryLayers(tl, layers, at = 0.28) {
   }
 
   mats?.forEach?.((mat, index) => {
+    if (isHeroPortraitMat(mat)) {
+      tl.to(mat, {
+        opacity: 1,
+        duration: 0.95,
+        ease: GEROZ_EASE,
+      }, at + index * 0.06);
+      return;
+    }
+    const isOuter = mat.classList.contains('gz-portrait__mat--outer');
     tl.to(mat, {
-      opacity: mat.classList.contains('gz-portrait__mat--outer') ? 0.52 : 0.68,
+      opacity: isOuter ? 0.52 : 0.68,
       rotation: index === 0 ? 4 : -2,
       duration: 1.05,
       ease: GEROZ_EASE,

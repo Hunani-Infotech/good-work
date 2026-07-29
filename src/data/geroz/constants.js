@@ -68,13 +68,26 @@ export function applyGerozThemeCssVars(
   theme = {},
   root = document.documentElement,
 ) {
-  const { purple, orange, bgWarm, softBg, grey, accent, onAccent, accentText } =
-    theme;
+  const {
+    purple,
+    orange,
+    bgWarm,
+    softBg,
+    grey,
+    accent,
+    onAccent,
+    accentText,
+    shape,
+    onShape,
+  } = theme;
   const accentColor = orange ?? accent;
-  // Sharp hero field — prefer dedicated bgWarm, else accent
+  // Sharp hero field — prefer dedicated bgWarm, else accent (--base)
   const sharpBg = bgWarm || accentColor;
   // Soft section-2 / page field — never fall back to accent
   const softPageBg = softBg || '#ffffff';
+  // Hero curve shape fill (--shape)
+  const shapeColor = shape || purple || accentColor;
+  const onShapeColor = onShape || '#ffffff';
 
   getGerozThemeTargets(root).forEach((el) => {
     if (purple) el.style.setProperty('--brand-purple', purple);
@@ -87,6 +100,13 @@ export function applyGerozThemeCssVars(
     if (grey) el.style.setProperty('--brand-grey', grey);
     if (onAccent) el.style.setProperty('--brand-on-accent', onAccent);
     if (accentText) el.style.setProperty('--brand-accent-text', accentText);
+    if (shapeColor) el.style.setProperty('--brand-hero-shape', shapeColor);
+    el.style.setProperty('--brand-on-shape', onShapeColor);
+
+    /* Hero reference aliases — every palette swaps only these three */
+    if (accentColor) el.style.setProperty('--base', accentColor);
+    if (purple) el.style.setProperty('--glow', purple);
+    if (shapeColor) el.style.setProperty('--shape', shapeColor);
   });
 }
 
@@ -100,6 +120,11 @@ export function clearGerozThemeCssVars(root = document.documentElement) {
     '--color-lawyer',
     '--brand-on-accent',
     '--brand-accent-text',
+    '--brand-hero-shape',
+    '--brand-on-shape',
+    '--base',
+    '--glow',
+    '--shape',
   ];
 
   getGerozThemeTargets(root).forEach((el) => {

@@ -57,7 +57,7 @@ export default function VideoSection() {
                 {expertise.ctaLabel && expertise.ctaHref ? (
                   <ThemeButton
                     href={expertise.ctaHref}
-                    variant="light"
+                    variant="accent"
                     className="gz-expertise__cta mt-[clamp(1.5rem,2.8vw,2rem)] self-start"
                   >
                     {expertise.ctaLabel}
