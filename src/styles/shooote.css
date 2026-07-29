@@ -2879,7 +2879,7 @@ body.shooote-template .shooote-site-footer .footer-walker__stage {
   position: relative;
   width: 100%;
   height: var(--footer-walker-height);
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
 }
 

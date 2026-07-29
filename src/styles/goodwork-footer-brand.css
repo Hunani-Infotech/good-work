@@ -15,12 +15,12 @@
   --gw-footer-walker-fade-sm: 1.25rem;
   /*
    * ANSA stage scales with the white logo badge.
-   * Tighter peek above the box; more of the stage tucks behind the logo.
+   * Overlap only tucks the feet behind the top edge — keep the body visible.
+   * Mobile uses a smaller overlap (shorter stage hides more of ANSA per rem).
    */
-  --gw-footer-walker-height: calc(var(--gw-footer-logo-height) * 1.15);
-  --gw-footer-walker-height-sm: calc(var(--gw-footer-logo-height-sm) * 1.1);
-  /* Higher overlap = less gap above the logo (keep ANSA fully visible) */
-  --gw-footer-walker-overlap: clamp(1.85rem, 4.5vw, 2.55rem);
+  --gw-footer-walker-height: calc(var(--gw-footer-logo-height) * 1.58);
+  --gw-footer-walker-height-sm: calc(var(--gw-footer-logo-height-sm) * 1.7);
+  --gw-footer-walker-overlap: clamp(2.45rem, 5.5vw, 3.25rem);
 }
 
 /* ---- Brand block ---- */
@@ -249,6 +249,7 @@ html body .gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--
     --gw-footer-logo-height: var(--gw-footer-logo-height-sm);
     --gw-footer-logo-max-width: var(--gw-footer-logo-max-width-sm);
     --gw-footer-badge-padding: var(--gw-footer-badge-padding-sm);
-    --gw-footer-walker-overlap: clamp(1.55rem, 5vw, 2.15rem);
+    /* Foot tuck — taller stage allows a bit more overlap without burying ANSA */
+    --gw-footer-walker-overlap: clamp(1.8rem, 5.5vw, 2.4rem);
   }
 }

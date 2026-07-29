@@ -1289,7 +1289,7 @@ html.isak-template .isak-footer-walker__stage {
   position: relative;
   width: 100%;
   height: var(--isak-walker-height);
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
 }
 

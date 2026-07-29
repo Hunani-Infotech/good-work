@@ -29,8 +29,8 @@ export default function FooterLineLottie({
       autoplay: false,
       path: src,
       rendererSettings: {
-        // Center on the logo; slice fills width; YMax keeps feet on the badge
-        preserveAspectRatio: 'xMidYMax slice',
+        // meet keeps full ANSA visible; YMax keeps feet on the badge
+        preserveAspectRatio: 'xMidYMax meet',
         progressiveLoad: true,
         hideOnTransparent: true,
       },

@@ -573,18 +573,18 @@
   .geroz-cv-header__drawer {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 320;
     display: flex;
     width: min(20rem, 88vw);
     height: 100dvh;
     flex-direction: column;
     padding: clamp(1.25rem, 4vw, 1.75rem);
-    border-left: 1px solid color-mix(in srgb, var(--color-lawyer) 28%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--color-lawyer) 28%, transparent);
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 247, 242, 0.96) 100%);
-    box-shadow: -24px 0 60px -32px rgba(28, 25, 23, 0.35);
-    transform: translateX(104%);
+    box-shadow: 24px 0 60px -32px rgba(28, 25, 23, 0.35);
+    transform: translateX(-104%);
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -710,24 +710,27 @@
     flex-shrink: 0;
     gap: 0.28rem;
     border-radius: 0.65rem;
-    border: 1px solid color-mix(in srgb, var(--brand-orange, #f25828) 32%, #e7e5e4);
-    background: color-mix(in srgb, var(--brand-bg-warm, #faf8f5) 94%, white);
+    border: 1px solid color-mix(in srgb, var(--brand-on-accent, #171717) 22%, transparent);
+    background: #fff;
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.88) inset,
-      0 8px 18px -14px rgba(242, 88, 40, 0.28);
+      0 1px 0 rgba(255, 255, 255, 0.95) inset,
+      0 8px 18px -12px rgba(23, 23, 23, 0.28);
   }
 
   body.geroz-template .geroz-cv-header__menu-btn:hover,
   body.geroz-template .geroz-cv-header__menu-btn:focus-visible {
-    border-color: color-mix(in srgb, var(--brand-orange, #f25828) 55%, transparent);
-    background: color-mix(in srgb, var(--brand-orange, #f25828) 10%, var(--brand-bg-warm, #faf8f5));
+    border-color: var(--shape, var(--brand-hero-shape, #3355ff));
+    background: #fff;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.95) inset,
+      0 10px 20px -12px color-mix(in srgb, var(--shape, #3355ff) 45%, transparent);
   }
 
   body.geroz-template .geroz-cv-header__menu-btn span {
     width: 0.92rem;
     height: 1.5px;
     border-radius: 1px;
-    background: var(--brand-orange, #f25828);
+    background: var(--brand-on-accent, #171717);
   }
 
   body.geroz-template .geroz-cv-header__brand {
@@ -1772,7 +1775,7 @@ html.geroz-template .gz-expertise,
   position: relative;
   width: 100%;
   height: var(--gz-footer-walker-height);
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
 }
 
