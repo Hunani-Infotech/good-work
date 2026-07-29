@@ -19,7 +19,8 @@
    */
   --gw-footer-walker-height: calc(var(--gw-footer-logo-height) * 1.15);
   --gw-footer-walker-height-sm: calc(var(--gw-footer-logo-height-sm) * 1.1);
-  --gw-footer-walker-overlap: clamp(1.25rem, 3vw, 1.85rem);
+  /* Higher overlap = less gap above the logo (keep ANSA fully visible) */
+  --gw-footer-walker-overlap: clamp(1.85rem, 4.5vw, 2.55rem);
 }
 
 /* ---- Brand block ---- */
@@ -248,6 +249,6 @@ html body .gw-footer-walker-stack .shooote-site-footer__logo.goodwork-wordmark--
     --gw-footer-logo-height: var(--gw-footer-logo-height-sm);
     --gw-footer-logo-max-width: var(--gw-footer-logo-max-width-sm);
     --gw-footer-badge-padding: var(--gw-footer-badge-padding-sm);
-    --gw-footer-walker-overlap: clamp(1.1rem, 4vw, 1.6rem);
+    --gw-footer-walker-overlap: clamp(1.55rem, 5vw, 2.15rem);
   }
 }
