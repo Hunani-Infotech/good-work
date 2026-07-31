@@ -105,13 +105,13 @@ export function mapSiteToMeridian(site) {
       fullName: displayName,
       nameLine1,
       nameLine2,
-      profilePhoto: hero?.profilePhoto ?? '/images/profiles/sanjay.png',
+      profilePhoto: hero?.profilePhoto ?? '/images/profiles/ahmad.jpg',
       portraitAlt: displayName,
       subtitle,
       roleLines,
       rotatingLines: rotatingLines.length ? rotatingLines : [firstName],
       marqueeText,
-      portraitObjectPosition: hero?.portraitObjectPosition ?? 'center 20%',
+      portraitObjectPosition: hero?.portraitObjectPosition ?? 'center 10%',
     },
     nav: {
       links: [
@@ -143,7 +143,7 @@ export function mapSiteToMeridian(site) {
     about: {
       image: narrative?.backgroundImage ?? '/images/landing/image1.png',
       imageAlt: `${displayName} — professional narrative`,
-      imageObjectPosition: 'center 30%',
+      imageObjectPosition: 'center 14%',
       video: {
         src: hero?.videoCv?.src ?? '',
         poster: hero?.videoCv?.poster ?? narrative?.backgroundImage ?? '/images/landing/image1.png',
@@ -168,7 +168,7 @@ export function mapSiteToMeridian(site) {
     contact: {
       heading: "Let's work together",
       headingLines: ["Let's work", 'together.'],
-      profilePhoto: hero?.profilePhoto ?? '/images/profiles/sanjay.png',
+      profilePhoto: hero?.profilePhoto ?? '/images/profiles/ahmad.jpg',
       ctaLabel,
       email: contact?.email ?? '',
       emailHref: mailto,

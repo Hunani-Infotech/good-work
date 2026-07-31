@@ -3,12 +3,12 @@
  * Update paths here when final template art is ready.
  */
 export const GEROZ_TEMPLATE_IMAGES = {
-  hero: '/images/profiles/sanjay.png',
+  hero: '/images/profiles/aina.jpg',
   heroBg: '/images/landing/image1.png',
   video: '/videos/video-cv-poster.jpg',
   logoBlack: '/images/goodwork/goodwork-logo-full-colour.png',
   logoWhite: '/images/goodwork/logo-white.svg',
-  expert: '/images/profiles/sanjay.png',
+  expert: '/images/profiles/aina.jpg',
   footerBg: '/images/landing/imag2.png',
   footerBgAlt: '/images/landing/image1.png',
   ctaShape: '/images/goodwork/goodwork-logo-on-dark.png',

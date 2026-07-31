@@ -1,4 +1,9 @@
 import { CV_TEMPLATE_PATHS } from './cvTemplatePaths.js';
+import { TEMPLATE_DEMO_PEOPLE, demoDisplayName } from './templateDemoPeople.js';
+
+const shoooteDemo = TEMPLATE_DEMO_PEOPLE.shooote;
+const gerozDemo = TEMPLATE_DEMO_PEOPLE.geroz;
+const meridianDemo = TEMPLATE_DEMO_PEOPLE.meridian;
 
 export const PORTFOLIO_TEMPLATES = [
   {
@@ -34,8 +39,9 @@ export const PORTFOLIO_TEMPLATES = [
     desc: 'Bold split-name hero typography with expertise video, narrative story, and capabilities grid. Built for visual creatives and photographers.',
     cta: 'Preview template',
     href: CV_TEMPLATE_PATHS.shooote,
-    heroImg: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&h=900&fit=crop&auto=format&q=80',
-    thumbImg: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&h=250&fit=crop&auto=format&q=80',
+    heroImg: shoooteDemo.coverImg,
+    thumbImg: shoooteDemo.thumbImg,
+    personName: demoDisplayName(shoooteDemo),
     titleColor: '#2b2e33',
     eyebrowColor: 'rgba(44, 46, 51, 0.52)',
     titleMutedColor: 'rgba(44, 46, 51, 0.78)',
@@ -47,8 +53,9 @@ export const PORTFOLIO_TEMPLATES = [
     desc: 'The Geroz home-4 lawyer layout — hero, about, video, cases, expert, and CTA. Uses GoodWork placeholder images from site content.',
     cta: 'Preview template',
     href: CV_TEMPLATE_PATHS.geroz,
-    heroImg: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=900&fit=crop&auto=format&q=80',
-    thumbImg: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=250&fit=crop&auto=format&q=80',
+    heroImg: gerozDemo.coverImg,
+    thumbImg: gerozDemo.thumbImg,
+    personName: demoDisplayName(gerozDemo),
     titleColor: '#c8a96e',
     eyebrowColor: 'rgba(255, 255, 255, 0.52)',
     titleMutedColor: 'rgba(255, 255, 255, 0.78)',
@@ -60,8 +67,9 @@ export const PORTFOLIO_TEMPLATES = [
     desc: 'Minimal cinematic CV — multilingual greeting hero, capabilities & skills, about narrative, and contact.',
     cta: 'Preview template',
     href: CV_TEMPLATE_PATHS.meridian,
-    heroImg: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=900&fit=crop&auto=format&q=80',
-    thumbImg: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop&auto=format&q=80',
+    heroImg: meridianDemo.coverImg,
+    thumbImg: meridianDemo.thumbImg,
+    personName: demoDisplayName(meridianDemo),
     titleColor: '#ffffff',
     eyebrowColor: 'rgba(255, 255, 255, 0.52)',
     titleMutedColor: 'rgba(255, 255, 255, 0.78)',

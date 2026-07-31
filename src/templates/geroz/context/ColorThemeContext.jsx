@@ -50,6 +50,11 @@ export function GerozColorThemeProvider({
   useLayoutEffect(() => {
     applyGerozThemeCssVars(theme);
     document.documentElement.dataset.gerozTheme = activeTheme.id;
+
+    // Drop GSAP inline colors so hero name / role follow --brand-on-accent.
+    document.querySelectorAll('.gz-hero__char').forEach((el) => {
+      el.style.removeProperty('color');
+    });
   }, [theme, activeTheme.id]);
 
   const setColorThemeIndex = (index) => {

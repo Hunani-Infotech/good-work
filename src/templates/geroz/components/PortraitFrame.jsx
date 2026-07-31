@@ -76,6 +76,13 @@ export default function PortraitFrame({
     <div
       className={`gz-portrait gz-portrait--${size} relative mx-auto w-full ${isHero ? 'max-w-[min(100%,32rem)]' : 'max-w-[min(100%,28rem)]'} ${className}`.trim()}
     >
+      {isHero ? (
+        <div className="gz-portrait__shine" aria-hidden="true">
+          <div className="gz-portrait__shine-beam gz-portrait__shine-beam--glow" />
+          <div className="gz-portrait__shine-beam" />
+        </div>
+      ) : null}
+
       {!isHero ? <span className="gz-portrait__halo" aria-hidden="true" /> : null}
 
       {!isHero
@@ -90,19 +97,36 @@ export default function PortraitFrame({
 
       {!isHero ? <span className="gz-portrait__ring" aria-hidden="true" /> : null}
 
-      <div className="gz-portrait__frame">
-        <PortraitMedia
-          hasVideo={hasVideo}
-          imageSrc={imageSrc}
-          imgClassName={imgClassName}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={loading}
-          videoSrc={videoSrc}
-        />
-        {!isHero ? <span className="gz-portrait__fade" aria-hidden="true" /> : null}
-      </div>
+      {isHero ? (
+        <div className="gz-portrait__mount">
+          <div className="gz-portrait__frame">
+            <PortraitMedia
+              hasVideo={hasVideo}
+              imageSrc={imageSrc}
+              imgClassName={imgClassName}
+              alt={alt}
+              width={width}
+              height={height}
+              loading={loading}
+              videoSrc={videoSrc}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="gz-portrait__frame">
+          <PortraitMedia
+            hasVideo={hasVideo}
+            imageSrc={imageSrc}
+            imgClassName={imgClassName}
+            alt={alt}
+            width={width}
+            height={height}
+            loading={loading}
+            videoSrc={videoSrc}
+          />
+          <span className="gz-portrait__fade" aria-hidden="true" />
+        </div>
+      )}
     </div>
   );
 }

@@ -100,6 +100,17 @@
   }
 }
 
+/* Meteor-beam shine for hero portrait rim (shine-border-04) */
+@keyframes gz-portrait-shine-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 @keyframes gz-hero-side-slide {
   0% {
     opacity: 0;
@@ -1114,10 +1125,11 @@ html.geroz-template .gz-hero,
 
   --gz-hero-text: var(--brand-on-accent, #171717);
   --gz-hero-text-deep: var(--brand-on-accent, #171717);
+  /* Mute toward the hero field — never hardcode #171717 (breaks white onAccent palettes) */
   --gz-hero-text-muted: color-mix(
     in srgb,
-    var(--brand-on-accent, #171717) 68%,
-    #171717
+    var(--brand-on-accent, #171717) 78%,
+    var(--base, var(--brand-orange, #ffe500))
   );
   --gz-hero-text-gold: var(--brand-on-accent, #171717);
   --gz-hero-text-gold-light: color-mix(
@@ -1146,10 +1158,12 @@ html.geroz-template .gz-hero,
 
 .gz-hero__lastname {
   color: var(--gz-hero-text-deep);
+  transition: color 0.45s ease;
 }
 
 .gz-hero__subtitle {
   color: var(--gz-hero-text-muted);
+  transition: color 0.45s ease;
 }
 
 .gz-hero__accent-line {
@@ -1302,32 +1316,28 @@ html.geroz-template .gz-hero,
   pointer-events: none;
 }
 
-.gz-portrait__img--hero {
-  display: block;
-  width: 100%;
-  aspect-ratio: 734 / 991;
-  height: auto;
-  max-height: clamp(24rem, 50vw, 44rem);
-  object-fit: cover;
-  object-position: center 12%;
-  filter: contrast(1.03) saturate(0.92) brightness(1.02);
-}
-
 /*
- * Hero portrait — classic print mount.
- * Thick white mat (heavier bottom), thin ink rim, soft lift. No decorative overlays.
+ * Hero portrait — slim gallery frame + meteor-beam shine (shine-border-04).
+ * Dark track + rotating conic rim; flush photo cover (no Polaroid mat).
  */
 .gz-portrait--hero {
   --gz-hero-frame-ink: var(--gz-hero-text-gold, #171717);
-  padding: clamp(0.7rem, 1.3vw, 1.05rem) clamp(0.7rem, 1.3vw, 1.05rem)
-    clamp(1.35rem, 2.4vw, 1.85rem);
-  background: #fff;
+  --gz-portrait-shine-duration: 4.5s;
+  --gz-portrait-shine-width: 3px;
+  --gz-portrait-radius: 0.75rem;
+  --gz-portrait-shine-track: color-mix(in srgb, var(--shape, #3355ff) 18%, #0a0a0a);
+  --gz-portrait-shine-color: var(--shape, var(--brand-hero-shape, #3355ff));
+  --gz-portrait-shine-bright: color-mix(in srgb, var(--gz-portrait-shine-color) 45%, #fff);
+  --gz-portrait-shine-tip: #fff;
+  position: relative;
+  padding: var(--gz-portrait-shine-width) !important;
+  border-radius: var(--gz-portrait-radius);
+  background: var(--gz-portrait-shine-track);
   isolation: isolate;
+  overflow: hidden;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--gz-hero-frame-ink) 55%, transparent),
-    0 0 0 2px #fff,
-    0 1.5rem 2.75rem -1rem rgba(23, 23, 23, 0.26),
-    0 0.5rem 1.1rem -0.4rem rgba(23, 23, 23, 0.12);
+    0 18px 40px -20px rgba(0, 0, 0, 0.32),
+    0 6px 16px -10px rgba(0, 0, 0, 0.18);
 }
 
 .gz-portrait--hero::after {
@@ -1342,17 +1352,109 @@ html.geroz-template .gz-hero,
   display: none !important;
 }
 
+/* Rotating conic beam — visible only in the dark track rim */
+.gz-portrait__shine {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.gz-portrait__shine-beam {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: center center;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 78%,
+    color-mix(in srgb, var(--gz-portrait-shine-color) 0%, transparent) 82%,
+    color-mix(in srgb, var(--gz-portrait-shine-color) 45%, transparent) 88%,
+    var(--gz-portrait-shine-color) 92%,
+    var(--gz-portrait-shine-bright) 95%,
+    var(--gz-portrait-shine-tip) 97.5%,
+    transparent 100%
+  );
+  animation: gz-portrait-shine-spin var(--gz-portrait-shine-duration, 4.5s) linear infinite;
+  will-change: transform;
+}
+
+.gz-portrait__shine-beam--glow {
+  width: 205%;
+  height: 205%;
+  filter: blur(5px);
+  opacity: 0.65;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 84%,
+    color-mix(in srgb, var(--gz-portrait-shine-color) 55%, transparent) 90%,
+    var(--gz-portrait-shine-bright) 95%,
+    var(--gz-portrait-shine-tip) 98%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-portrait__shine-beam {
+    animation: none;
+  }
+
+  .gz-portrait__shine-beam:not(.gz-portrait__shine-beam--glow) {
+    background: conic-gradient(
+      from 45deg,
+      transparent 0%,
+      transparent 82%,
+      color-mix(in srgb, var(--gz-portrait-shine-color) 70%, transparent) 90%,
+      var(--gz-portrait-shine-tip) 96%,
+      transparent 100%
+    );
+  }
+
+  .gz-portrait__shine-beam--glow {
+    opacity: 0.4;
+  }
+}
+
+/* Flush photo cover — no Polaroid mat, no ink hairlines fighting the rim */
+.gz-portrait__mount {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: calc(var(--gz-portrait-radius, 0.75rem) - var(--gz-portrait-shine-width, 3px));
+  background: #0a0a0a;
+  overflow: hidden;
+  box-shadow: none;
+}
+
 .gz-portrait--hero .gz-portrait__frame {
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--gz-hero-frame-ink) 14%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-radius: inherit;
+  overflow: hidden;
+  background: #0a0a0a;
+  box-shadow: none;
 }
 
 .gz-portrait--hero .gz-portrait__frame::before {
-  inset: 0;
-  border: 1px solid color-mix(in srgb, #fff 55%, transparent);
-  mix-blend-mode: soft-light;
-  opacity: 0.9;
+  content: none;
+}
+
+.gz-portrait__img--hero {
+  display: block;
+  width: 100%;
+  aspect-ratio: 734 / 991;
+  height: auto;
+  max-height: clamp(24rem, 50vw, 44rem);
+  object-fit: cover;
+  object-position: center 4%;
+  border-radius: inherit;
+  filter: contrast(1.03) saturate(0.92) brightness(1.02);
 }
 
 /*
@@ -1445,8 +1547,8 @@ html.geroz-template .gz-hero,
 
   .gz-hero__subtitle {
     text-wrap: balance;
-    color: var(--gz-hero-text-deep);
-    opacity: 0.88;
+    color: var(--gz-hero-text-muted);
+    opacity: 0.92;
     font-weight: 600;
     letter-spacing: 0.24em !important;
   }
@@ -1468,16 +1570,20 @@ html.geroz-template .gz-hero,
   }
 
   .gz-portrait--hero {
-    padding: 0.6rem 0.6rem 1.15rem;
+    padding: var(--gz-portrait-shine-width, 3px) !important;
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--gz-hero-frame-ink, #171717) 55%, transparent),
-      0 0 0 2px #fff,
-      0 1rem 2rem -0.85rem rgba(23, 23, 23, 0.22);
+      0 14px 32px -18px rgba(0, 0, 0, 0.3),
+      0 4px 12px -8px rgba(0, 0, 0, 0.16);
+  }
+
+  .gz-portrait__mount {
+    padding: 0;
+    box-shadow: none;
   }
 
   .gz-portrait__img--hero {
     max-height: none;
-    object-position: center 16%;
+    object-position: center 6%;
   }
 }
 

@@ -297,6 +297,7 @@ export function initPortfolioTemplatePicker({
     el.innerHTML = `
       <div class="template-picker__eyebrow">${p.eyebrow}</div>
       <div class="template-picker__title-text">${p.title}</div>
+      ${p.personName ? `<div class="template-picker__person">${p.personName}</div>` : ''}
     `;
     canvas.appendChild(el);
     return el;
@@ -309,7 +310,7 @@ export function initPortfolioTemplatePicker({
     el.innerHTML = `
       <div class="template-picker__hero-card">
         <div class="template-picker__hero-fill"></div>
-        <img class="template-picker__hero-img" src="${p.heroImg}" alt="${p.title} portfolio template preview" loading="eager" decoding="async"/>
+        <img class="template-picker__hero-img" src="${p.heroImg}" alt="${p.personName ? `${p.personName} — ${p.title}` : p.title} portfolio template preview" loading="eager" decoding="async"/>
       </div>
     `;
     const card = el.querySelector('.template-picker__hero-card');

@@ -153,6 +153,8 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
         color: base,
         duration: stepDuration * 0.21,
         ease: 'power2.out',
+        // Hand color back to CSS vars so palette switches update the name.
+        onComplete: () => gsap.set(char, { clearProps: 'color' }),
       });
   });
 
@@ -163,8 +165,7 @@ function playHeroNameSideSlide(nameEl, startDelay = 0) {
 function resetHeroNameChars(nameEl) {
   const chars = nameEl?.querySelectorAll('.gz-hero__char');
   if (!chars?.length) return;
-  const { base } = readHeroNameColors();
-  gsap.set(chars, { opacity: 1, x: 0, scale: 1, color: base, clearProps: 'transform' });
+  gsap.set(chars, { opacity: 1, x: 0, scale: 1, clearProps: 'transform,color' });
 }
 
 /* ── Hero: side-slide name chars + portrait curtain ── */

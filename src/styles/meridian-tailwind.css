@@ -1095,7 +1095,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center 10%;
   filter: saturate(0.84) contrast(1.08) brightness(1.03);
 }
 
@@ -1335,7 +1335,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   width: 100%;
   height: 122%;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center 12%;
   transform: translate3d(0, -8%, 0);
   will-change: transform;
 }
@@ -2705,7 +2705,7 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     height: 100%;
     min-height: 100svh;
     min-height: 100dvh;
-    object-position: center 18%;
+    object-position: center 8%;
     filter: saturate(0.88) contrast(1.05) brightness(0.98);
   }
 
