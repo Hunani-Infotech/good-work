@@ -98,6 +98,8 @@ export const DEFAULT_GEROZ_COLOR_THEME_INDEX = GEROZ_COLOR_THEMES.findIndex(
   (theme) => theme.id === 'neon-yellow',
 );
 
+export const GEROZ_PALETTE_STORAGE_KEY = 'geroz-palette-index';
+
 export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
   const fallback =
     DEFAULT_GEROZ_COLOR_THEME_INDEX >= 0 ? DEFAULT_GEROZ_COLOR_THEME_INDEX : 0;
@@ -114,4 +116,28 @@ export function getGerozColorTheme(index = DEFAULT_GEROZ_COLOR_THEME_INDEX) {
     shape: theme.shape ?? theme.secondary ?? theme.accent,
     onShape: theme.onShape ?? '#ffffff',
   };
+}
+
+export function readStoredGerozColorThemeIndex(
+  fallback = DEFAULT_GEROZ_COLOR_THEME_INDEX,
+) {
+  const safeFallback =
+    Number.isFinite(fallback) && fallback >= 0
+      ? fallback % GEROZ_COLOR_THEMES.length
+      : DEFAULT_GEROZ_COLOR_THEME_INDEX >= 0
+        ? DEFAULT_GEROZ_COLOR_THEME_INDEX
+        : 0;
+
+  if (typeof window === 'undefined') return safeFallback;
+
+  try {
+    const raw = window.localStorage.getItem(GEROZ_PALETTE_STORAGE_KEY);
+    if (raw == null) return safeFallback;
+    const index = parseInt(raw, 10);
+    return Number.isFinite(index)
+      ? index % GEROZ_COLOR_THEMES.length
+      : safeFallback;
+  } catch {
+    return safeFallback;
+  }
 }

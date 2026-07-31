@@ -9,7 +9,9 @@ import { applyGerozThemeCssVars } from '../../../data/geroz/constants.js';
 import {
   DEFAULT_GEROZ_COLOR_THEME_INDEX,
   GEROZ_COLOR_THEMES,
+  GEROZ_PALETTE_STORAGE_KEY,
   getGerozColorTheme,
+  readStoredGerozColorThemeIndex,
 } from '../../../data/geroz/gerozColorThemes.js';
 
 const ColorThemeContext = createContext(null);
@@ -18,7 +20,9 @@ export function GerozColorThemeProvider({
   initialIndex = DEFAULT_GEROZ_COLOR_THEME_INDEX,
   children,
 }) {
-  const [colorThemeIndex, setColorThemeIndex] = useState(initialIndex);
+  const [colorThemeIndex, setColorThemeIndexState] = useState(() =>
+    readStoredGerozColorThemeIndex(initialIndex),
+  );
   const activeTheme = useMemo(
     () => getGerozColorTheme(colorThemeIndex),
     [colorThemeIndex],
@@ -47,6 +51,21 @@ export function GerozColorThemeProvider({
     applyGerozThemeCssVars(theme);
     document.documentElement.dataset.gerozTheme = activeTheme.id;
   }, [theme, activeTheme.id]);
+
+  const setColorThemeIndex = (index) => {
+    const safeIndex =
+      Number.isFinite(index) && index >= 0
+        ? index % GEROZ_COLOR_THEMES.length
+        : DEFAULT_GEROZ_COLOR_THEME_INDEX >= 0
+          ? DEFAULT_GEROZ_COLOR_THEME_INDEX
+          : 0;
+    setColorThemeIndexState(safeIndex);
+    try {
+      window.localStorage.setItem(GEROZ_PALETTE_STORAGE_KEY, String(safeIndex));
+    } catch {
+      /* ignore quota / private mode */
+    }
+  };
 
   const value = useMemo(
     () => ({
