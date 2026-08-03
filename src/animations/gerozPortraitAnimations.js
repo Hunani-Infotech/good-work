@@ -130,11 +130,14 @@ export function playPortraitLuxuryLayers(tl, layers, at = 0.28) {
   }
 }
 
+/** Settled zoom so Aina’s face fills the hero frame like Sanjay’s headshot. */
+const HERO_PORTRAIT_SCALE = 1.32;
+
 export function primeHeroPortraitEntrance(portraitWrap, luxury, frame, img) {
   if (portraitWrap) gsap.set(portraitWrap, { opacity: 0, x: 36 });
   primePortraitLuxuryLayers(luxury);
   if (frame) gsap.set(frame, { opacity: 0, y: 24, clipPath: 'inset(0 100% 0 0)' });
-  if (img) gsap.set(img, { scale: 1.07 });
+  if (img) gsap.set(img, { scale: HERO_PORTRAIT_SCALE + 0.08 });
 }
 
 export function playHeroPortraitEntrance(tl, portraitWrap, luxury, frame, img) {
@@ -152,7 +155,7 @@ export function playHeroPortraitEntrance(tl, portraitWrap, luxury, frame, img) {
     }, 0.34);
   }
   if (img) {
-    tl.to(img, { scale: 1, duration: 1.45, ease: GEROZ_EASE_IO }, 0.4);
+    tl.to(img, { scale: HERO_PORTRAIT_SCALE, duration: 1.45, ease: GEROZ_EASE_IO }, 0.4);
   }
 }
 

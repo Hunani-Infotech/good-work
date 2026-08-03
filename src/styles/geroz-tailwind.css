@@ -1322,8 +1322,8 @@ html.geroz-template .gz-hero,
  */
 .gz-portrait--hero {
   --gz-hero-frame-ink: var(--gz-hero-text-gold, #171717);
-  --gz-portrait-shine-duration: 4.5s;
-  --gz-portrait-shine-width: 3px;
+  --gz-portrait-shine-duration: 8s;
+  --gz-portrait-shine-width: 6px;
   --gz-portrait-radius: 0.75rem;
   --gz-portrait-shine-track: color-mix(in srgb, var(--shape, #3355ff) 18%, #0a0a0a);
   --gz-portrait-shine-color: var(--shape, var(--brand-hero-shape, #3355ff));
@@ -1380,7 +1380,7 @@ html.geroz-template .gz-hero,
     var(--gz-portrait-shine-tip) 97.5%,
     transparent 100%
   );
-  animation: gz-portrait-shine-spin var(--gz-portrait-shine-duration, 4.5s) linear infinite;
+  animation: gz-portrait-shine-spin var(--gz-portrait-shine-duration, 8s) linear infinite;
   will-change: transform;
 }
 
@@ -1428,7 +1428,7 @@ html.geroz-template .gz-hero,
   width: 100%;
   height: 100%;
   padding: 0;
-  border-radius: calc(var(--gz-portrait-radius, 0.75rem) - var(--gz-portrait-shine-width, 3px));
+  border-radius: calc(var(--gz-portrait-radius, 0.75rem) - var(--gz-portrait-shine-width, 6px));
   background: #0a0a0a;
   overflow: hidden;
   box-shadow: none;
@@ -1452,7 +1452,10 @@ html.geroz-template .gz-hero,
   height: auto;
   max-height: clamp(24rem, 50vw, 44rem);
   object-fit: cover;
-  object-position: center 4%;
+  /* Face crop — zoom + center like Sanjay’s tighter headshot */
+  object-position: center 90%;
+  transform: scale(1.32);
+  transform-origin: center center;
   border-radius: inherit;
   filter: contrast(1.03) saturate(0.92) brightness(1.02);
 }
@@ -1570,7 +1573,7 @@ html.geroz-template .gz-hero,
   }
 
   .gz-portrait--hero {
-    padding: var(--gz-portrait-shine-width, 3px) !important;
+    padding: var(--gz-portrait-shine-width, 6px) !important;
     box-shadow:
       0 14px 32px -18px rgba(0, 0, 0, 0.3),
       0 4px 12px -8px rgba(0, 0, 0, 0.16);
@@ -1583,7 +1586,7 @@ html.geroz-template .gz-hero,
 
   .gz-portrait__img--hero {
     max-height: none;
-    object-position: center 6%;
+    object-position: center 92%;
   }
 }
 

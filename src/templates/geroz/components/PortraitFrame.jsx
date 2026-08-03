@@ -1,5 +1,5 @@
 const EXPERTISE_IMG_CLASS =
-  'gz-portrait__img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-top contrast-[1.02] saturate-[0.94]';
+  'gz-portrait__img block h-[clamp(16rem,34vw,34rem)] w-full object-cover object-[center_90%] contrast-[1.02] saturate-[0.94]';
 
 const HERO_IMG_CLASS = 'gz-portrait__img gz-portrait__img--hero';
 
