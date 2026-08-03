@@ -7,6 +7,7 @@ import IsakCvPage from './pages/IsakCvPage';
 import ShoooteCvPage from './pages/ShoooteCvPage';
 import GerozCvPage from './pages/GerozCvPage';
 import MeridianCvPage from './pages/MeridianCvPage';
+import Meridian2CvPage from './pages/Meridian2CvPage';
 import AdminPage from './pages/AdminPage';
 import NotFoundPage from './pages/NotFoundPage';
 import {
@@ -15,6 +16,7 @@ import {
   SHOOOTE_CV_PATH,
   TIDAL_COPPER_CV_PATH,
   MERIDIAN_CV_PATH,
+  MERIDIAN2_CV_PATH,
 } from './data/cvTemplatePaths.js';
 
 export default function App() {
@@ -37,6 +39,8 @@ export default function App() {
         <Route path={`${GEROZ_CV_PATH}/*`} element={<Navigate to={GEROZ_CV_PATH} replace />} />
         <Route path={MERIDIAN_CV_PATH} element={<MeridianCvPage />} />
         <Route path={`${MERIDIAN_CV_PATH}/*`} element={<Navigate to={MERIDIAN_CV_PATH} replace />} />
+        <Route path={MERIDIAN2_CV_PATH} element={<Meridian2CvPage />} />
+        <Route path={`${MERIDIAN2_CV_PATH}/*`} element={<Navigate to={MERIDIAN2_CV_PATH} replace />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

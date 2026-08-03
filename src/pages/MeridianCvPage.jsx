@@ -41,9 +41,9 @@ function MeridianCvPageContent() {
   );
 }
 
-export default function MeridianCvPage() {
+export default function MeridianCvPage({ desktopHeroOnMobile = false }) {
   return (
-    <MeridianColorThemeProvider>
+    <MeridianColorThemeProvider desktopHeroOnMobile={desktopHeroOnMobile}>
       <MeridianCvPageContent />
     </MeridianColorThemeProvider>
   );

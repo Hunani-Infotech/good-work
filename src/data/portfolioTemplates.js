@@ -74,6 +74,20 @@ export const PORTFOLIO_TEMPLATES = [
     eyebrowColor: 'rgba(255, 255, 255, 0.52)',
     titleMutedColor: 'rgba(255, 255, 255, 0.78)',
   },
+  {
+    id: 'meridian2',
+    eyebrow: 'Template 06 — Meridian 2',
+    title: 'Meridian 2',
+    desc: 'Meridian with the desktop circular hero kept on mobile — same editorial layout at every breakpoint.',
+    cta: 'Preview template',
+    href: CV_TEMPLATE_PATHS.meridian2,
+    heroImg: meridianDemo.coverImg,
+    thumbImg: meridianDemo.thumbImg,
+    personName: demoDisplayName(meridianDemo),
+    titleColor: '#ffffff',
+    eyebrowColor: 'rgba(255, 255, 255, 0.52)',
+    titleMutedColor: 'rgba(255, 255, 255, 0.78)',
+  },
 ];
 
-export const PORTFOLIO_BG_COLORS = ['#3d6b7a', '#0a0a0a', '#f5f6f7', '#ece6de', '#0c1a28'];
+export const PORTFOLIO_BG_COLORS = ['#3d6b7a', '#0a0a0a', '#f5f6f7', '#ece6de', '#0c1a28', '#14243a'];

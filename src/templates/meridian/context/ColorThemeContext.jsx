@@ -16,7 +16,10 @@ import {
 
 const ColorThemeContext = createContext(null);
 
-export function MeridianColorThemeProvider({ children }) {
+export function MeridianColorThemeProvider({
+  children,
+  desktopHeroOnMobile = false,
+}) {
   const [paletteIndex, setPaletteIndex] = useState(
     () => readStoredMeridianPaletteIndex(),
   );
@@ -26,16 +29,24 @@ export function MeridianColorThemeProvider({ children }) {
   );
 
   useLayoutEffect(() => {
-    document.documentElement.classList.add('meridian-template');
-    document.body.classList.add('meridian-template');
+    const root = document.documentElement;
+    const body = document.body;
+    root.classList.add('meridian-template');
+    body.classList.add('meridian-template');
+    if (desktopHeroOnMobile) {
+      root.classList.add('meridian-template--desktop-hero-mobile');
+      body.classList.add('meridian-template--desktop-hero-mobile');
+    }
     applyMeridianPaletteCssVars(activePalette);
 
     return () => {
-      document.documentElement.classList.remove('meridian-template');
-      document.body.classList.remove('meridian-template');
+      root.classList.remove('meridian-template');
+      body.classList.remove('meridian-template');
+      root.classList.remove('meridian-template--desktop-hero-mobile');
+      body.classList.remove('meridian-template--desktop-hero-mobile');
       clearMeridianPaletteCssVars();
     };
-  }, [activePalette]);
+  }, [activePalette, desktopHeroOnMobile]);
 
   const setPaletteIndexPersisted = (index) => {
     const safeIndex = Number.isFinite(index) && index >= 0

@@ -2496,8 +2496,27 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
 
 @media (max-width: 1023px) {
   .meridian-hero {
-    --meridian-hero-portrait-w: clamp(10.5rem, 48vw, 14rem);
+    --meridian-hero-portrait-w: clamp(12rem, 54vw, 16rem);
     --meridian-hero-portrait-fade-start: 70%;
+  }
+
+  /* Meridian 2: larger circular portrait + tighter gap above marquee */
+  html.meridian-template--desktop-hero-mobile .meridian-hero {
+    --meridian-hero-portrait-w: clamp(14rem, 62vw, 18.5rem);
+  }
+
+  html.meridian-template--desktop-hero-mobile .meridian-hero__portrait-wrap {
+    padding-top: calc(var(--meridian-header-height) + clamp(0.25rem, 1vh, 0.75rem));
+    padding-bottom: 0.25rem;
+    align-items: flex-end;
+  }
+
+  html.meridian-template--desktop-hero-mobile .meridian-hero__portrait-stage {
+    margin-top: 0;
+  }
+
+  html.meridian-template--desktop-hero-mobile .meridian-hero__marquee {
+    padding-bottom: clamp(1.75rem, 4.5vh, 3rem);
   }
 
   .meridian-hero__role {
@@ -2531,8 +2550,12 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
 
 @media (max-width: 480px) {
   .meridian-hero {
-    --meridian-hero-portrait-w: min(42vw, 12.5rem);
+    --meridian-hero-portrait-w: min(48vw, 14rem);
     --meridian-hero-portrait-fade-start: 68%;
+  }
+
+  html.meridian-template--desktop-hero-mobile .meridian-hero {
+    --meridian-hero-portrait-w: min(58vw, 16.5rem);
   }
 
   .meridian-hero__marquee-item--inline,
@@ -2542,8 +2565,13 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
 }
 
 @media (max-width: 767px) {
-  .meridian-hero {
+  /* Full-bleed stacked hero — skipped on meridian2 (desktop hero stays) */
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero {
     display: block;
+    background: var(--meridian-hero-bg);
+  }
+
+  .meridian-hero {
     --meridian-hero-text: #ffffff;
     --meridian-marquee-fit-size: clamp(
       2.5rem,
@@ -2551,7 +2579,6 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
       6.5rem
     );
     color: #ffffff;
-    background: var(--meridian-hero-bg);
   }
 
   .meridian-hero__marquee-item {
@@ -2641,11 +2668,6 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     white-space: nowrap;
   }
 
-  /* Corner role backup on mobile when paired marquee is active */
-  .meridian-hero--marquee-paired .meridian-hero__role {
-    display: flex;
-  }
-
   .meridian-header--on-hero .meridian-menu-btn,
   .meridian-header--on-hero .meridian-share-btn {
     border-color: rgba(255, 255, 255, 0.4);
@@ -2660,39 +2682,43 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     color: #ffffff;
   }
 
-  .meridian-hero__spotlight {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__spotlight {
     top: 42%;
     width: 100%;
     height: 70%;
     opacity: 0.65;
   }
 
-  .meridian-hero__vignette {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__vignette {
     background:
       radial-gradient(ellipse 110% 85% at 50% 38%, transparent 18%, rgba(0, 0, 0, 0.38) 100%),
       linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.18) 34%, transparent 58%);
   }
 
-  .meridian-hero__portrait-wrap {
+  /*
+   * Meridian mobile: full-bleed photo with marquee + role over the chest
+   * (face stays clear in the upper portion — no separate purple band).
+   */
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__portrait-wrap {
     position: absolute;
     inset: 0;
     display: block;
     padding: 0;
   }
 
-  .meridian-hero__portrait-stage {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__portrait-stage {
     width: 100%;
     height: 100%;
     min-height: 100%;
     margin: 0;
   }
 
-  .meridian-hero__portrait-halo,
-  .meridian-hero__portrait-ring {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__portrait-halo,
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__portrait-ring {
     display: none;
   }
 
-  .meridian-hero__portrait-shell {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__portrait-shell {
     width: 100%;
     height: 100%;
     min-height: 100svh;
@@ -2702,13 +2728,14 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     mask-image: none;
   }
 
-  .meridian-hero__portrait {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__portrait {
     width: 100%;
     height: 100%;
     min-height: 100svh;
     min-height: 100dvh;
-    /* Last-commit mobile crop — beat inline portraitObjectPosition */
-    object-position: center 92% !important;
+    /* Push subject higher so face sits in the upper band */
+    object-position: center 55% !important;
+    scale: 1.22;
     filter: saturate(0.88) contrast(1.05) brightness(0.98);
   }
 
@@ -2716,40 +2743,47 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     display: none;
   }
 
-  .meridian-hero__marquee {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__marquee {
     display: block;
     position: absolute;
     left: 0;
     right: 0;
-    top: 51%;
+    /* Below the face — lower third of the photo */
+    top: 78%;
+    bottom: auto;
     z-index: 6;
     width: 100%;
     padding: 0 clamp(0.75rem, 3vw, 1.25rem);
-    transform: translateY(-50%);
+    transform: none;
     overflow-x: clip;
     overflow-y: visible;
     min-height: 1.15em;
   }
 
-  .meridian-hero--marquee-single .meridian-hero__marquee {
-    top: 53%;
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero--marquee-single .meridian-hero__marquee,
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero--marquee-paired .meridian-hero__marquee {
+    top: 76%;
+    bottom: auto;
   }
 
-  .meridian-hero--marquee-paired .meridian-hero__marquee {
-    top: 54%;
+  /* Paired marquee already includes the role line */
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero--marquee-paired .meridian-hero__role {
+    display: none;
   }
 
-  .meridian-hero__role {
-    top: auto;
+  /* Non-paired: keep corner role aligned with the lower marquee */
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero:not(.meridian-hero--marquee-paired) .meridian-hero__role {
+    top: 76%;
     right: auto;
-    bottom: clamp(6rem, 18vh, 12rem);
+    bottom: auto;
     left: clamp(1.25rem, 4vw, 1.5rem);
+    transform: none;
     flex-direction: column;
     gap: 0.35rem;
     max-width: 18rem;
   }
 
-  .meridian-hero__role-arrow {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero:not(.meridian-hero--marquee-paired) .meridian-hero__role-arrow {
     display: block;
     font-size: 1.15rem;
     line-height: 1;
@@ -2759,7 +2793,7 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     margin-bottom: 0.2rem;
   }
 
-  .meridian-hero__role-copy {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero:not(.meridian-hero--marquee-paired) .meridian-hero__role-copy {
     font-size: 1.15rem;
     letter-spacing: 0.1em;
     line-height: 1.45;
@@ -2770,16 +2804,16 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     display: none;
   }
 
-  .meridian-hero__scroll-cue {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__scroll-cue {
     display: flex;
-    bottom: clamp(4.75rem, 13vh, 6rem);
+    bottom: clamp(1.25rem, 4vh, 2rem);
     left: 50%;
     z-index: 8;
     transform: translateX(-50%);
     opacity: 0.85;
   }
 
-  .meridian-hero__scroll-line {
+  html:not(.meridian-template--desktop-hero-mobile) .meridian-hero__scroll-line {
     height: clamp(2.25rem, 5.5vh, 3rem);
     opacity: 0.9;
   }

@@ -5,6 +5,7 @@ import {
   GEROZ_CV_PATH,
   ISAK_CV_PATH,
   MERIDIAN_CV_PATH,
+  MERIDIAN2_CV_PATH,
   SHOOOTE_CV_PATH,
   TIDAL_COPPER_CV_PATH,
 } from '../data/cvTemplatePaths.js';
@@ -23,6 +24,8 @@ const SITE_LOADER_ROUTES = [
   { path: `${GEROZ_CV_PATH}/*`, end: false },
   { path: MERIDIAN_CV_PATH, end: true },
   { path: `${MERIDIAN_CV_PATH}/*`, end: false },
+  { path: MERIDIAN2_CV_PATH, end: true },
+  { path: `${MERIDIAN2_CV_PATH}/*`, end: false },
 ];
 
 export function shouldShowSiteLoader(pathname) {
