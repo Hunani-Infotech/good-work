@@ -2500,23 +2500,31 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     --meridian-hero-portrait-fade-start: 70%;
   }
 
-  /* Meridian 2: larger circular portrait + tighter gap above marquee */
+  /* Meridian 2: larger circular portrait, centered between header + marquee */
   html.meridian-template--desktop-hero-mobile .meridian-hero {
-    --meridian-hero-portrait-w: clamp(14rem, 62vw, 18.5rem);
+    --meridian-hero-portrait-w: clamp(15rem, 58vw, 19rem);
   }
 
   html.meridian-template--desktop-hero-mobile .meridian-hero__portrait-wrap {
-    padding-top: calc(var(--meridian-header-height) + clamp(0.25rem, 1vh, 0.75rem));
-    padding-bottom: 0.25rem;
-    align-items: flex-end;
+    /* Room for translucent ring (~16px) without colliding with header / marquee */
+    padding-top: calc(var(--meridian-header-height) + 1.15rem);
+    padding-bottom: 0;
+    align-items: center;
+    justify-content: center;
   }
 
   html.meridian-template--desktop-hero-mobile .meridian-hero__portrait-stage {
+    /* Cap by viewport height so short phones don't overflow */
+    --meridian-hero-portrait-size: min(var(--meridian-hero-portrait-w), 42svh);
+    width: var(--meridian-hero-portrait-size);
+    height: var(--meridian-hero-portrait-size);
     margin-top: 0;
   }
 
   html.meridian-template--desktop-hero-mobile .meridian-hero__marquee {
-    padding-bottom: clamp(1.75rem, 4.5vh, 3rem);
+    /* Sit closer under the circular portrait */
+    margin-top: clamp(-6.5rem, -12vh, -4rem);
+    padding-bottom: clamp(1.1rem, 3vh, 2.25rem);
   }
 
   .meridian-hero__role {
@@ -2555,7 +2563,7 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
   }
 
   html.meridian-template--desktop-hero-mobile .meridian-hero {
-    --meridian-hero-portrait-w: min(58vw, 16.5rem);
+    --meridian-hero-portrait-w: min(64vw, 17.5rem);
   }
 
   .meridian-hero__marquee-item--inline,
