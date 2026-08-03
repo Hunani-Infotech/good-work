@@ -5,8 +5,6 @@ node_modules/
 dist/
 
 # Environment variables (never commit secrets)
-.env
-.env.*
 !.env.example
 
 # Vite
@@ -28,7 +26,6 @@ Desktop.ini
 # Editor / local overrides
 *.local
 .idea/
-.vscode/*
 !.vscode/extensions.json
 
 # Test / coverage
@@ -41,3 +38,7 @@ scripts/mobile-test-output/
 
 # Optional npm artifacts
 *.tgz
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat
