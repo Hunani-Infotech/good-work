@@ -111,7 +111,7 @@ export function mapSiteToMeridian(site) {
       roleLines,
       rotatingLines: rotatingLines.length ? rotatingLines : [firstName],
       marqueeText,
-      portraitObjectPosition: hero?.portraitObjectPosition ?? 'center 90%',
+      portraitObjectPosition: hero?.portraitObjectPosition ?? 'center 96%',
     },
     nav: {
       links: [

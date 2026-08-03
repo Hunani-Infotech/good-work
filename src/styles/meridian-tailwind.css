@@ -1096,7 +1096,7 @@ html.meridian-template.lenis.lenis-smooth body.meridian-menu-open {
   height: 100%;
   object-fit: cover;
   /* Match Geroz face crop — zoom + face slightly above center */
-  object-position: center 90%;
+  object-position: center 96%;
   scale: 1.32;
   filter: saturate(0.84) contrast(1.08) brightness(1.03);
 }
@@ -2707,7 +2707,8 @@ body.meridian-template .meridian-footer__brand .gw-footer-brand__logo-link {
     height: 100%;
     min-height: 100svh;
     min-height: 100dvh;
-    object-position: center 92%;
+    /* Last-commit mobile crop — beat inline portraitObjectPosition */
+    object-position: center 92% !important;
     filter: saturate(0.88) contrast(1.05) brightness(0.98);
   }
 
